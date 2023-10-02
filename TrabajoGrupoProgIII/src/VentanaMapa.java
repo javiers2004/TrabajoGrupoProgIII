@@ -36,10 +36,10 @@ public class VentanaMapa extends JFrame{
         
         //sprites
         sprites = new ImageIcon[4];
-        sprites[0] = new ImageIcon();
-        sprites[1] = new ImageIcon();
-        sprites[2] = new ImageIcon("");
-        sprites[3] = new ImageIcon("");
+        sprites[0] = new ImageIcon("sprites\guard_sword_up");
+        sprites[1] = new ImageIcon("sprites\guard_sword_der");
+        sprites[2] = new ImageIcon("sprites\guard_sword_down");
+        sprites[3] = new ImageIcon("sprites\guard_sword_izk");
         
         cspriteindex = 0;
         spritelbl= new JLabel(sprites[csproteindex]);
