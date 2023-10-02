@@ -1,6 +1,7 @@
-import java.awt.Graphics2D;
+	import java.awt.Graphics2D;
 import java.awt.HeadlessException;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -10,6 +11,10 @@ import javax.swing.JPanel;
 
 public class VentanaMapa extends JFrame{
 	protected JPanel panelfondo;
+	protected JLabel spritelbl;
+	protected ImageICon[] spritesmov;
+	protected int cspriteindex;
+	
 
 	public VentanaMapa(Jugador player){	
 		super();
@@ -27,8 +32,54 @@ public class VentanaMapa extends JFrame{
         labelmapa.setSize(13000,13000);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.add(labelmapa);
+        
+        
+        //sprites
+        sprites = new ImageIcon[4];
+        sprites[0] = new ImageIcon();
+        sprites[1] = new ImageIcon();
+        sprites[2] = new ImageIcon("");
+        sprites[3] = new ImageIcon("");
+        
+        cspriteindex = 0;
+        spritelbl= new JLabel(sprites[csproteindex]);
+        spritelbl.setHorizontalAlignment(JLabel.CENTER);
+        spritelbl.setVerticalAlignment(JLabel.CENTER);
+        
+        this.addKeyListener(new KeyListener() {
+        	public void keyPressed(KeyEvent e) {
+        		keypress(e.getKeyCode());
+        	}
+        });
+        this.setFocusable(true);
+        this.add(spritelbl);
+        
+        
+        
         this.setVisible(true);
+        
+        
+        
+        
 	}
+protected void keypress(int keycode) {
+	switch(keycode{
+		case KeyEvent.VK_W:
+			cspriteindex= 0;
+			break;
+		case KeyEvent.VK_D:
+			cspriteindex= 1;
+			break;
+		case KeyEvent.VK_S:
+			cspriteindex= 2;
+			break;
+		case KeyEvent.VK_A:
+			cspriteindex= 3;
+			break;
+			
+	}
+	spritelbl.setIcon(sprites[cspriteindex]);
 	
+}
 	
 }
