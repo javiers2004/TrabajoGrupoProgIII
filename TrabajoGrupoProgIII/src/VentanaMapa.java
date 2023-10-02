@@ -28,6 +28,9 @@ public class VentanaMapa extends JFrame{
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.add(labelmapa);
         this.setVisible(true);
+		JLabel labeljugador =new  JLabel();
+		//AÑADIR AQUI LO DE LOS SPRITES DEL JUGADOR
+		
 	}
 	
 	
