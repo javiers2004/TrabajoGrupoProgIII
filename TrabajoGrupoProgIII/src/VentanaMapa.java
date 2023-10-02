@@ -1,7 +1,9 @@
-	import java.awt.Graphics2D;
+	import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -9,10 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class VentanaMapa extends JFrame{
+public class VentanaMapa extends JFrame implements KeyListener{
 	protected JPanel panelfondo;
 	protected JLabel spritelbl;
-	protected ImageICon[] spritesmov;
+	protected ImageIcon[] spritesmov;
 	protected int cspriteindex;
 	
 
@@ -35,14 +37,14 @@ public class VentanaMapa extends JFrame{
         
         
         //sprites
-        sprites = new ImageIcon[4];
-        sprites[0] = new ImageIcon("sprites\guard_sword_up");
-        sprites[1] = new ImageIcon("sprites\guard_sword_der");
-        sprites[2] = new ImageIcon("sprites\guard_sword_down");
-        sprites[3] = new ImageIcon("sprites\guard_sword_izk");
+        spritesmov = new ImageIcon[4];
+        spritesmov[0] = new ImageIcon("TrabajoGrupoProgIII/TrabajoGrupoProgIII/sprites/guard_sword_up.png");
+        spritesmov[1] = new ImageIcon("TrabajoGrupoProgIII/TrabajoGrupoProgIII/sprites/guard_sword_der.png");
+        spritesmov[2] = new ImageIcon("TrabajoGrupoProgIII/TrabajoGrupoProgIII/sprites/guard_sword_down.png");
+        spritesmov[3] = new ImageIcon("TrabajoGrupoProgIII/TrabajoGrupoProgIII/sprites/guard_sword_izk.png");
         
         cspriteindex = 0;
-        spritelbl= new JLabel(sprites[csproteindex]);
+        spritelbl= new JLabel(spritesmov[cspriteindex]);
         spritelbl.setHorizontalAlignment(JLabel.CENTER);
         spritelbl.setVerticalAlignment(JLabel.CENTER);
         
@@ -50,8 +52,22 @@ public class VentanaMapa extends JFrame{
         	public void keyPressed(KeyEvent e) {
         		keypress(e.getKeyCode());
         	}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
         });
+        
         this.setFocusable(true);
+        this.requestFocusInWindow();
         this.add(spritelbl);
         
         
@@ -63,7 +79,7 @@ public class VentanaMapa extends JFrame{
         
 	}
 protected void keypress(int keycode) {
-	switch(keycode{
+	switch(keycode){
 		case KeyEvent.VK_W:
 			cspriteindex= 0;
 			break;
@@ -78,8 +94,28 @@ protected void keypress(int keycode) {
 			break;
 			
 	}
-	spritelbl.setIcon(sprites[cspriteindex]);
-	
+	repaint();
 }
-	
+	protected void paintComponent(Graphics g) {
+		super.paintComponents(g);
+		Image spriteImage = spritesmov[cspriteindex].getImage();
+		int x = (getWidth()- spriteImage.getWidth(null))/2;
+		int y = (getHeight()- spriteImage.getHeight(null))/2;
+		g.drawImage(spriteImage, x, y,null);
 }
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+}	
