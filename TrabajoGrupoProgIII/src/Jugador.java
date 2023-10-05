@@ -4,6 +4,8 @@ public class Jugador {
 	protected int posy;
 	protected int vidatotal;
 	protected int vidarestante;
+	protected int experiencia;
+	
 	protected int getPosx() {
 		return posx;
 	}
@@ -28,12 +30,20 @@ public class Jugador {
 	protected void setVidarestante(int vidarestante) {
 		this.vidarestante = vidarestante;
 	}
+	
+	protected int getExperiencia() {
+		return experiencia;
+	}
+	protected void setExperiencia(int experiencia) {
+		this.experiencia = experiencia;
+	}
 	public Jugador() {
 		super();
 		this.posx = 0;
 		this.posy = 3000;
 		this.vidatotal = 100;
 		this.vidarestante = 100;
+		this.experiencia = 0;
 	}
 	
 	
