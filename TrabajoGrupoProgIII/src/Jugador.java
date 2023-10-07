@@ -40,7 +40,7 @@ public class Jugador {
 	public Jugador() {
 		super();
 		this.posx = 0;
-		this.posy = 3000;
+		this.posy = 1000;
 		this.vidatotal = 100;
 		this.vidarestante = 100;
 		this.experiencia = 0;

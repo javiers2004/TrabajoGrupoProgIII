@@ -19,6 +19,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected boolean teclas;
 	protected boolean teclad;
 
+	
 	protected boolean isTeclaw() {
 		return teclaw;
 	}
@@ -45,89 +46,80 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	}
 	
 	public VentanaMapa(Jugador player){	
-		
+		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setBounds(0, 0, screenSize.width, screenSize.height);
+	    this.addKeyListener(this);
+	    // Establecer el foco en el JFrame para recibir eventos de teclado
+	    this.setFocusable(true);
+	    this.requestFocusInWindow();
+        
+        ImageIcon icon = new ImageIcon("MAPADEFINITIVO.png");
+        ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(7000,7000,Image.SCALE_SMOOTH));
+        Image i2 = imagen.getImage();
+        BufferedImage imagenparadibujar = new BufferedImage(i2.getHeight(null), i2.getWidth(null), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = imagenparadibujar.createGraphics();
+        g2d.drawImage(i2, player.getPosy(),player.getPosy() , null);
+        g2d.dispose();
+        ImageIcon imagenfinal = new ImageIcon(imagenparadibujar);
+        
+        JLabel panel = new JLabel(imagenfinal);
+        this.add(panel);
+        panel.setBounds(0,0, screenSize.width, screenSize.height);
+        panel.setVisible(true);
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	 
-     public void keyPressedW(KeyEvent e) {
-         if (e.getKeyChar() == 'w' || e.getKeyChar() == 'W') {
-             this.setTeclaw(true);
-         }
-     }
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+        char keyChar = Character.toUpperCase(e.getKeyChar());  // Convertir a mayúsculas
+        // Verificar qué tecla se presionó y establecer la correspondiente variable booleana
+        	if (keyChar == 'W') {
+        		teclaw = true;
+        	} else if (keyChar == 'A') {
+        		teclaa = true;
+        	} else if (keyChar == 'S') {
+        		teclas = true;
+        	} else if (keyChar == 'D') {
+        		teclad = true;
+        	}
+	}
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		 char keyChar = Character.toUpperCase(e.getKeyChar());  // Convertir a mayúsculas
 
-     
-     public void keyReleasedW(KeyEvent e) {
-         if (e.getKeyChar() == 'w' || e.getKeyChar() == 'W') {
-        	 this.setTeclaw(false);
-         }
-     }
-
-	 public void keyPressedA(KeyEvent e) {
-         if (e.getKeyChar() == 'a' || e.getKeyChar() == 'A') {
-             this.setTeclaa(true);
-         }
-     }
-
-     
-     public void keyReleasedA(KeyEvent e) {
-         if (e.getKeyChar() == 'a' || e.getKeyChar() == 'A') {
-        	 this.setTeclaa(false);
-         }
-     }
-	 public void keyPressedS(KeyEvent e) {
-         if (e.getKeyChar() == 's' || e.getKeyChar() == 'S') {
-             this.setTeclas(true);
-         }
-     }
-
-     
-     public void keyReleasedS(KeyEvent e) {
-         if (e.getKeyChar() == 's' || e.getKeyChar() == 'S') {
-        	 this.setTeclas(false);
-         }
-     }
-     
-	 public void keyPressedD(KeyEvent e) {
-         if (e.getKeyChar() == 'd' || e.getKeyChar() == 'D') {
-             this.setTeclad(true);
-         }
-     }
-
-     
-     public void keyReleasedD(KeyEvent e) {
-         if (e.getKeyChar() == 'd' || e.getKeyChar() == 'D') {
-        	 this.setTeclad(false);
-         }
-     }
-     
-}
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-	
+	        // Verificar qué tecla se soltó y establecer la correspondiente variable booleana
+	        if (keyChar == 'W') {
+	            teclaw = false;
+	        } else if (keyChar == 'A') {
+	            teclaa = false;
+	        } else if (keyChar == 'S') {
+	            teclas = false;
+	        } else if (keyChar == 'D') {
+	            teclad = false;
+	        } 
+	}
+	public void actualizarVentana(Jugador player) {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		ImageIcon icon = new ImageIcon("MAPADEFINITIVO.png");
+        ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(7000,7000,Image.SCALE_SMOOTH));
+        Image i2 = imagen.getImage();
+        BufferedImage imagenparadibujar = new BufferedImage(i2.getHeight(null), i2.getWidth(null), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = imagenparadibujar.createGraphics();
+        g2d.drawImage(i2, player.getPosy(),player.getPosy() , null);
+        g2d.dispose();
+        ImageIcon imagenfinal = new ImageIcon(imagenparadibujar);
+        
+        JLabel panel = new JLabel(imagenfinal);
+        this.add(panel);
+        panel.setBounds(0,0, screenSize.width, screenSize.height);
+        panel.setVisible(true);
+        this.setVisible(true);
+	}
 }
