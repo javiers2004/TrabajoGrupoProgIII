@@ -56,7 +56,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	    this.setFocusable(true);
 	    this.requestFocusInWindow();
         
-        ImageIcon icon = new ImageIcon("MAPADEFINITIVO.png");
+        ImageIcon icon = new ImageIcon("src/MAPADEFINITIVO.png");
         ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(10000,10000,Image.SCALE_SMOOTH));
         Image i2 = imagen.getImage();
         BufferedImage imagenparadibujar = new BufferedImage(i2.getHeight(null), i2.getWidth(null), BufferedImage.TYPE_INT_ARGB);

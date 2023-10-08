@@ -15,7 +15,7 @@ public class Main {
 		Thread hiloteclas = new Thread() {
 			public void run() {
 				try {
-					File imageFile = new File("MAPABLANCO.png");
+					File imageFile = new File("src/MAPABLANCO.png");
 					BufferedImage mapacolisiones = ImageIO.read(imageFile);
 		            Dimension dimension = ven1.getSize();
 		            int width = dimension.width;
