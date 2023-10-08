@@ -39,8 +39,8 @@ public class Jugador {
 	}
 	public Jugador() {
 		super();
-		this.posx = 0;
-		this.posy = 1000;
+		this.posx = 3500;
+		this.posy = 550;
 		this.vidatotal = 100;
 		this.vidarestante = 100;
 		this.experiencia = 0;

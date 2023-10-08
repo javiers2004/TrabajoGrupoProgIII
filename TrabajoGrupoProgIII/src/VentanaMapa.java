@@ -18,6 +18,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected boolean teclaa;
 	protected boolean teclas;
 	protected boolean teclad;
+	public JLabel map;
 
 	
 	protected boolean isTeclaw() {
@@ -56,18 +57,18 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	    this.requestFocusInWindow();
         
         ImageIcon icon = new ImageIcon("MAPADEFINITIVO.png");
-        ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(7000,7000,Image.SCALE_SMOOTH));
+        ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(10000,10000,Image.SCALE_SMOOTH));
         Image i2 = imagen.getImage();
         BufferedImage imagenparadibujar = new BufferedImage(i2.getHeight(null), i2.getWidth(null), BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = imagenparadibujar.createGraphics();
-        g2d.drawImage(i2, player.getPosy(),player.getPosy() , null);
+        g2d.drawImage(i2, 0, 0, null);
         g2d.dispose();
         ImageIcon imagenfinal = new ImageIcon(imagenparadibujar);
         
-        JLabel panel = new JLabel(imagenfinal);
-        this.add(panel);
-        panel.setBounds(0,0, screenSize.width, screenSize.height);
-        panel.setVisible(true);
+        map = new JLabel(imagenfinal);
+        this.add(map);
+        map.setBounds(-player.getPosx(), -player.getPosy(), 10000, 10000);
+        map.setVisible(true);
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -106,20 +107,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	        } 
 	}
 	public void actualizarVentana(Jugador player) {
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		ImageIcon icon = new ImageIcon("MAPADEFINITIVO.png");
-        ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(7000,7000,Image.SCALE_SMOOTH));
-        Image i2 = imagen.getImage();
-        BufferedImage imagenparadibujar = new BufferedImage(i2.getHeight(null), i2.getWidth(null), BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = imagenparadibujar.createGraphics();
-        g2d.drawImage(i2, player.getPosy(),player.getPosy() , null);
-        g2d.dispose();
-        ImageIcon imagenfinal = new ImageIcon(imagenparadibujar);
-        
-        JLabel panel = new JLabel(imagenfinal);
-        this.add(panel);
-        panel.setBounds(0,0, screenSize.width, screenSize.height);
-        panel.setVisible(true);
-        this.setVisible(true);
+		map.setLocation(-player.getPosx(), -player.getPosy());
+		map.setVisible(true);
+
 	}
 }
