@@ -118,6 +118,7 @@ public class Main {
 
 		hiloteclas.start();
 		//hilomovimiento.start();
+		VentanaInicio v1 = new VentanaInicio();
 
 	}
 }
