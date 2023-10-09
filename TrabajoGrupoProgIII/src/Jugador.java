@@ -1,3 +1,5 @@
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 public class Jugador {
 	protected int posx;
@@ -39,8 +41,11 @@ public class Jugador {
 	}
 	public Jugador() {
 		super();
-		this.posx = 3500;
-		this.posy = 550;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+		this.posx = (int)(1968 + screenWidth/1.5);
+		this.posy = (int)(2019 + screenHeight/1.5);
 		this.vidatotal = 100;
 		this.vidarestante = 100;
 		this.experiencia = 0;

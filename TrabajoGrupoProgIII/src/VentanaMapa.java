@@ -1,4 +1,6 @@
-	import java.awt.Dimension;
+	import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.HeadlessException;
@@ -11,6 +13,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 public class VentanaMapa extends JFrame implements KeyListener{
@@ -19,6 +22,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected boolean teclas;
 	protected boolean teclad;
 	public JLabel map;
+	private Color backgroundColor = Color.GREEN;
 
 	
 	protected boolean isTeclaw() {
@@ -55,9 +59,15 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	    // Establecer el foco en el JFrame para recibir eventos de teclado
 	    this.setFocusable(true);
 	    this.requestFocusInWindow();
-        
+	    JPanel panelfondo = new JPanel();
+	    panelfondo.setBounds(2000, 2000, -400, -400);
+        panelfondo.setBackground(new Color(173, 216, 230));  // Color azul claro (RGB)
+        this.add(panelfondo);
+        JLayeredPane layeredPane = new JLayeredPane();
+        this.add(layeredPane, BorderLayout.CENTER);
+        layeredPane.add(panelfondo, JLayeredPane.DEFAULT_LAYER);
         ImageIcon icon = new ImageIcon("src/MAPADEFINITIVO.png");
-        ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(10000,10000,Image.SCALE_SMOOTH));
+        ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(12288,12288,Image.SCALE_SMOOTH));
         Image i2 = imagen.getImage();
         BufferedImage imagenparadibujar = new BufferedImage(i2.getHeight(null), i2.getWidth(null), BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = imagenparadibujar.createGraphics();
@@ -67,7 +77,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
         
         map = new JLabel(imagenfinal);
         this.add(map);
-        map.setBounds(-player.getPosx(), -player.getPosy(), 10000, 10000);
+        map.setBounds(-player.getPosx(), -player.getPosy(), 12288, 12288);
         map.setVisible(true);
 	}
 	@Override
@@ -109,6 +119,21 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public void actualizarVentana(Jugador player) {
 		map.setLocation(-player.getPosx(), -player.getPosy());
 		map.setVisible(true);
+		
 
 	}
+	public void paint(Graphics g) {
+        // Llama al método paint de la superclase para mantener el comportamiento estándar de JFrame
+        super.paint(g);
+
+        Graphics2D g2d = (Graphics2D) g;
+
+        // Obtiene el tamaño del JFrame
+        int width = getWidth();
+        int height = getHeight();
+
+        // Rellena el fondo con el color deseado
+        g2d.setColor(backgroundColor);
+        g2d.fillRect(0, 0, width, height);
+    }
 }

@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -16,50 +17,74 @@ public class Main {
 			public void run() {
 				try {
 					File imageFile = new File("src/MAPABLANCO.png");
+			        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			        int screenWidth = screenSize.width;
+			        int screenHeight = screenSize.height;
 					BufferedImage mapacolisiones = ImageIO.read(imageFile);
 		            Dimension dimension = ven1.getSize();
 		            int width = dimension.width;
 		            int height = dimension.height;
 					while(true) {
 						if (ven1.isTeclaw() == true) {	
-							//Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()  , jug1.getPosy() +  - 10));
-							//int red = color.getRed();
-							//int green = color.getGreen();
-							//int blue = color.getBlue();
-							//if (red > 00 && green > 00 && blue > 00 ) {
-								jug1.setPosy(jug1.getPosy() - 2);
+							Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 + screenWidth/6  , jug1.getPosy()/3 +  - 3/3 + screenHeight/6));
+							int red = color.getRed();
+							int green = color.getGreen();
+							int blue = color.getBlue();
+							if (red > 200 && green > 200 && blue > 200 ) {
+								jug1.setPosy(jug1.getPosy() - 3);
 								ven1.actualizarVentana(jug1);
-							//}	
+							}	
+							if (red == 255 && green == 0 && blue == 0) {
+								jug1.setPosy(jug1.getPosy() - 3);
+								ven1.actualizarVentana(jug1);
+								//quitar opacidad
+							}
 						}	
 						if (ven1.isTeclaa() == true) {
-							//Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()- 10, jug1.getPosy()));
-							//int red = color.getRed();
-							//int green = color.getGreen();
-							//int blue = color.getBlue();
-							//if (red > 200 && green > 00 && blue > 00 ) {
-								jug1.setPosx(jug1.getPosx() - 2);
+							Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 - 3/3 + screenWidth/6, jug1.getPosy()/3 + screenHeight/6));
+							int red = color.getRed();
+							int green = color.getGreen();
+							int blue = color.getBlue();
+							if (red > 200 && green > 200 && blue > 200 ) {
+								jug1.setPosx(jug1.getPosx() - 3);
 								ven1.actualizarVentana(jug1);
-							//}
+							}
+							if (red == 255 && green == 0 && blue == 0) {
+								jug1.setPosx(jug1.getPosx() - 3);
+								ven1.actualizarVentana(jug1);
+								//quitar opacidad
+							}
+							
 						}
 						if (ven1.isTeclas() == true) {
-							//Color color = new Color(mapacolisiones.getRGB(jug1.getPosx(), jug1.getPosy()+ 10));
-							//int red = color.getRed();
-							//int green = color.getGreen();
-							//int blue = color.getBlue();
-							//if (red > 200 && green > 00 && blue > 00 ) {
-								jug1.setPosy(jug1.getPosy() + 2);
+							Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 +  screenWidth/6, jug1.getPosy()/3+ 3/3 + screenHeight/6));
+							int red = color.getRed();
+							int green = color.getGreen();
+							int blue = color.getBlue();
+							if (red > 200 && green > 200 && blue > 200 ) {
+								jug1.setPosy(jug1.getPosy() + 3);
 								ven1.actualizarVentana(jug1);
-							//}
+							}
+							if (red == 255 && green == 0 && blue == 0) {
+								jug1.setPosy(jug1.getPosy() + 3);
+								ven1.actualizarVentana(jug1);
+								//quitar opacidad
+							}
 						}
 						if (ven1.isTeclad() == true) {
-							//Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()+ 10, jug1.getPosy()));
-							//int red = color.getRed();
-							//int green = color.getGreen();
-							//int blue = color.getBlue();
-							//if (red > 200 && green > 00 && blue > 00 ) {
-								jug1.setPosx(jug1.getPosx() + 2);
+							Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3+ 3/3 + + screenWidth/6, jug1.getPosy()/3 + screenHeight/6));
+							int red = color.getRed();
+							int green = color.getGreen();
+							int blue = color.getBlue();
+							if (red > 200 && green > 200 && blue > 200 ) {
+								jug1.setPosx(jug1.getPosx() + 3);
 								ven1.actualizarVentana(jug1);
-							//}	
+							}
+							if (red == 255 && green == 0 && blue == 0) {
+								jug1.setPosx(jug1.getPosx() + 3);
+								ven1.actualizarVentana(jug1);
+								//quitar opacidad
+							}
 						}
 						try {
 							Thread.sleep(5);
