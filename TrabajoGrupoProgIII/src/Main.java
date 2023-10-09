@@ -4,6 +4,7 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -16,11 +17,13 @@ public class Main {
 		Thread hiloteclas = new Thread() {
 			public void run() {
 				try {
-					File imageFile = new File("src/MAPABLANCO.png");
+		            //File image = new File("https://raw.githubusercontent.com/javiers2004/TrabajoGrupoProgIII/master/TrabajoGrupoProgIII/src/MAPABLANCO.png");
+		            //BufferedImage imageFile = ImageIO.read(image);
+					//File imageFile = new File("src/MAPABLANCO.png");
 			        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 			        int screenWidth = screenSize.width;
 			        int screenHeight = screenSize.height;
-					BufferedImage mapacolisiones = ImageIO.read(imageFile);
+					BufferedImage mapacolisiones = ImageIO.read(new URL("https://raw.githubusercontent.com/javiers2004/TrabajoGrupoProgIII/master/TrabajoGrupoProgIII/src/MAPABLANCO.png"));
 		            Dimension dimension = ven1.getSize();
 		            int width = dimension.width;
 		            int height = dimension.height;

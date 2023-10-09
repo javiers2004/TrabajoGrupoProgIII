@@ -9,6 +9,8 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -66,19 +68,28 @@ public class VentanaMapa extends JFrame implements KeyListener{
         JLayeredPane layeredPane = new JLayeredPane();
         this.add(layeredPane, BorderLayout.CENTER);
         layeredPane.add(panelfondo, JLayeredPane.DEFAULT_LAYER);
-        ImageIcon icon = new ImageIcon("src/MAPADEFINITIVO.png");
-        ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(12288,12288,Image.SCALE_SMOOTH));
-        Image i2 = imagen.getImage();
-        BufferedImage imagenparadibujar = new BufferedImage(i2.getHeight(null), i2.getWidth(null), BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = imagenparadibujar.createGraphics();
-        g2d.drawImage(i2, 0, 0, null);
-        g2d.dispose();
-        ImageIcon imagenfinal = new ImageIcon(imagenparadibujar);
+        String imageUrl = "https://raw.githubusercontent.com/javiers2004/TrabajoGrupoProgIII/master/TrabajoGrupoProgIII/src/MAPADEFINITIVO.png";
+		try {
+			ImageIcon icon = new ImageIcon(new ImageIcon(new URL(imageUrl)).getImage());
+	        ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(12288,12288,Image.SCALE_SMOOTH));
+	        Image i2 = imagen.getImage();
+	        BufferedImage imagenparadibujar = new BufferedImage(i2.getHeight(null), i2.getWidth(null), BufferedImage.TYPE_INT_ARGB);
+	        Graphics2D g2d = imagenparadibujar.createGraphics();
+	        g2d.drawImage(i2, 0, 0, null);
+	        g2d.dispose();
+	        ImageIcon imagenfinal = new ImageIcon(imagenparadibujar);
+	        map = new JLabel(imagenfinal);
+	        this.add(map);
+	        map.setBounds(-player.getPosx(), -player.getPosy(), 12288, 12288);
+	        map.setVisible(true);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        //ImageIcon icon = new ImageIcon("MAPADEFINITIVO.png");
+
         
-        map = new JLabel(imagenfinal);
-        this.add(map);
-        map.setBounds(-player.getPosx(), -player.getPosy(), 12288, 12288);
-        map.setVisible(true);
+
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
