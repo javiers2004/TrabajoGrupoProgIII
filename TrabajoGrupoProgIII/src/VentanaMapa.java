@@ -19,6 +19,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 public class VentanaMapa extends JFrame implements KeyListener{
+	//ATRIBUTOS
 	protected boolean teclaw;
 	protected boolean teclaa;
 	protected boolean teclas;
@@ -26,7 +27,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public JLabel map;
 	private Color backgroundColor = Color.GREEN;
 
-	
+	//GETTERS Y SETTERS
 	protected boolean isTeclaw() {
 		return teclaw;
 	}
@@ -51,16 +52,21 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected void setTeclad(boolean teclad) {
 		this.teclad = teclad;
 	}
-	
+	//CONSTRUCTOR
 	public VentanaMapa(Jugador player){	
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setBounds(0, 0, screenSize.width, screenSize.height);
 	    this.addKeyListener(this);
+	    
+	    
 	    // Establecer el foco en el JFrame para recibir eventos de teclado
 	    this.setFocusable(true);
 	    this.requestFocusInWindow();
+	    
+	    
+	    //AÑADIR EL png DEL MAPA A LA VENTANA
 	    JPanel panelfondo = new JPanel();
 	    panelfondo.setBounds(2000, 2000, -400, -400);
         panelfondo.setBackground(new Color(173, 216, 230));  // Color azul claro (RGB)
@@ -86,10 +92,6 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        //ImageIcon icon = new ImageIcon("MAPADEFINITIVO.png");
-
-        
-
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -130,21 +132,73 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public void actualizarVentana(Jugador player) {
 		map.setLocation(-player.getPosx(), -player.getPosy());
 		map.setVisible(true);
-		
+		System.out.println(player.getPosy() );
+	}
+	public void sistemamovimiento(Jugador jug1, int screenWidth , int screenHeight, BufferedImage mapacolisiones) {
+		//TECLA W ACTIVADA
+		if (this.isTeclaw() == true) {	
+			Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 + screenWidth/6  , jug1.getPosy()/3 +  - 3/3 + screenHeight/6));
+			int red = color.getRed();
+			int green = color.getGreen();
+			int blue = color.getBlue();
+			if (red > 200 && green > 200 && blue > 200 ) {
+				jug1.setPosy(jug1.getPosy() - 3);
+				this.actualizarVentana(jug1);
+			}	
+			if (red == 255 && green == 0 && blue == 0) {
+				jug1.setPosy(jug1.getPosy() - 3);
+				this.actualizarVentana(jug1);
+				//quitar opacidad
+			}
+		}	
+		//TECLA A ACTIVADA
+		if (this.isTeclaa() == true) {
+			Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 - 3/3 + screenWidth/6, jug1.getPosy()/3 + screenHeight/6));
+			int red = color.getRed();
+			int green = color.getGreen();
+			int blue = color.getBlue();
+			if (red > 200 && green > 200 && blue > 200 ) {
+				jug1.setPosx(jug1.getPosx() - 3);
+				this.actualizarVentana(jug1);
+			}
+			if (red == 255 && green == 0 && blue == 0) {
+				jug1.setPosx(jug1.getPosx() - 3);
+				this.actualizarVentana(jug1);
+				//quitar opacidad
+			}	
+		}
+		//TECLA S ACTIVADA
+		if (this.isTeclas() == true) {
+			Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 +  screenWidth/6, jug1.getPosy()/3+ 3/3 + screenHeight/6));
+			int red = color.getRed();
+			int green = color.getGreen();
+			int blue = color.getBlue();
+			if (red > 200 && green > 200 && blue > 200 ) {
+				jug1.setPosy(jug1.getPosy() + 3);
+				this.actualizarVentana(jug1);
+			}
+			if (red == 255 && green == 0 && blue == 0) {
+				jug1.setPosy(jug1.getPosy() + 3);
+				this.actualizarVentana(jug1);
+				//quitar opacidad
+			}
+		}
+		//TECLA D ACTIVADA
+		if (this.isTeclad() == true) {
+			Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3+ 3/3 + + screenWidth/6, jug1.getPosy()/3 + screenHeight/6));
+			int red = color.getRed();
+			int green = color.getGreen();
+			int blue = color.getBlue();
+			if (red > 200 && green > 200 && blue > 200 ) {
+				jug1.setPosx(jug1.getPosx() + 3);
+				this.actualizarVentana(jug1);
+			}
+			if (red == 255 && green == 0 && blue == 0) {
+				jug1.setPosx(jug1.getPosx() + 3);
+				this.actualizarVentana(jug1);
+				//quitar opacidad
+			}
+		}
 
 	}
-	public void paint(Graphics g) {
-        // Llama al método paint de la superclase para mantener el comportamiento estándar de JFrame
-        super.paint(g);
-
-        Graphics2D g2d = (Graphics2D) g;
-
-        // Obtiene el tamaño del JFrame
-        int width = getWidth();
-        int height = getHeight();
-
-        // Rellena el fondo con el color deseado
-        g2d.setColor(backgroundColor);
-        g2d.fillRect(0, 0, width, height);
-    }
 }
