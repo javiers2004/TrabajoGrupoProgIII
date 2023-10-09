@@ -46,6 +46,8 @@ public class Jugador {
         int screenHeight = screenSize.height;
 		this.posx = (int)(1968 + screenWidth/1.5);
 		this.posy = (int)(2019 + screenHeight/1.5);
+		this.posx = (int)(846);
+		this.posy = (int)(846);
 		this.vidatotal = 100;
 		this.vidarestante = 100;
 		this.experiencia = 0;
