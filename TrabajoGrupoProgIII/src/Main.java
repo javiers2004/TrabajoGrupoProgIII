@@ -12,22 +12,21 @@ import javax.swing.JLabel;
 
 public class Main {
 	public static void main(String[] args) {
+		
+		//CREACIÓN CLASES PRINCIPALES
 		Jugador jug1 = new Jugador();
 		VentanaMapa ven1 = new VentanaMapa(jug1);
+		
+		//HILO QUE REGULA EL MOVIMIENTO DEL MAPA EN FUNCIÓN DE LOS BOOLEANOS
 		Thread hiloteclas = new Thread() {
 			public void run() {
 				try {
-		            //File image = new File("https://raw.githubusercontent.com/javiers2004/TrabajoGrupoProgIII/master/TrabajoGrupoProgIII/src/MAPABLANCO.png");
-		            //BufferedImage imageFile = ImageIO.read(image);
-					//File imageFile = new File("src/MAPABLANCO.png");
 			        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 			        int screenWidth = screenSize.width;
 			        int screenHeight = screenSize.height;
 					BufferedImage mapacolisiones = ImageIO.read(new URL("https://raw.githubusercontent.com/javiers2004/TrabajoGrupoProgIII/master/TrabajoGrupoProgIII/src/MAPABLANCO.png"));
-		            Dimension dimension = ven1.getSize();
-		            int width = dimension.width;
-		            int height = dimension.height;
 					while(true) {
+<<<<<<< HEAD
 						if (ven1.isTeclaw() == true) {	
 							Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 + screenWidth/6  , jug1.getPosy()/3 +  - 3/3 + screenHeight/6));
 							int red = color.getRed();
@@ -94,6 +93,10 @@ public class Main {
 								//quitar opacidad
 							}
 						}
+=======
+						ven1.sistemamovimiento(jug1, screenWidth, screenHeight, mapacolisiones);
+						//PAUSA DE 5 ms
+>>>>>>> branch 'master' of https://github.com/javiers2004/TrabajoGrupoProgIII
 						try {
 							Thread.sleep(5);
 						} catch (InterruptedException e) {
@@ -107,23 +110,14 @@ public class Main {
 	        }
 			}	
 		};
-		Thread hilomovimiento = new Thread() {
-			public void run() {
-				while(true) {
-					ven1.actualizarVentana(jug1);
-				try {
-					Thread.sleep(20);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}	
-				}
-			}
-		};
-
+		
+		//ARRANCA EL HILO
 		hiloteclas.start();
+<<<<<<< HEAD
 		//hilomovimiento.start();
 		VentanaInicio v1 = new VentanaInicio();
+=======
+>>>>>>> branch 'master' of https://github.com/javiers2004/TrabajoGrupoProgIII
 
 	}
 }
