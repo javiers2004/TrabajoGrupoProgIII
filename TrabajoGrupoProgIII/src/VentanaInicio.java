@@ -19,7 +19,6 @@ public class VentanaInicio extends JFrame implements ActionListener {
 		this.setResizable(false);
         //this.setUndecorated(true); // Quitar la barra de título
 
-
         va = this;
         setTitle("");
         setBounds(400,400,600,400);

@@ -42,6 +42,7 @@ public class Main {
 								ven1.actualizarVentana(jug1);
 								//quitar opacidad
 							}
+							
 						}	
 						if (ven1.isTeclaa() == true) {
 							Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 - 3/3 + screenWidth/6, jug1.getPosy()/3 + screenHeight/6));
