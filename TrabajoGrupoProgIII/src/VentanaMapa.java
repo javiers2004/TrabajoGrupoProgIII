@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.HeadlessException;
 import java.awt.Image;
+import java.awt.LayoutManager;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -12,6 +13,8 @@ import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,6 +29,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected boolean teclad;
 	public JLabel map;
 	private Color backgroundColor = Color.GREEN;
+	protected JLabel lblplayer;
 
 	//GETTERS Y SETTERS
 	protected boolean isTeclaw() {
@@ -68,12 +72,21 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	    
 	    //AÑADIR EL png DEL MAPA A LA VENTANA
 	    JPanel panelfondo = new JPanel();
-	    panelfondo.setBounds(2000, 2000, -400, -400);
-        panelfondo.setBackground(new Color(173, 216, 230));  // Color azul claro (RGB)
-        this.add(panelfondo);
-        JLayeredPane layeredPane = new JLayeredPane();
-        this.add(layeredPane, BorderLayout.CENTER);
-        layeredPane.add(panelfondo, JLayeredPane.DEFAULT_LAYER);
+	    panelfondo.setPreferredSize(new Dimension(800,800));
+        panelfondo.setBackground(Color.cyan);  // Color azul claro (RGB) new Color(173, 216, 230)
+
+        panelfondo.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
+
+        JPanel pnlprincipal= new JPanel();
+        pnlprincipal.setSize(800,800);
+        pnlprincipal.setLayout(new BoxLayout(pnlprincipal, BoxLayout.PAGE_AXIS));
+        pnlprincipal.add(Box.createRigidArea(new Dimension(0, 0)));
+        
+        pnlprincipal.add(panelfondo);
+        this.add(pnlprincipal);
+        pnlprincipal.setVisible(true);
+        panelfondo.setVisible(true);
+        
         String imageUrl = "https://raw.githubusercontent.com/javiers2004/TrabajoGrupoProgIII/master/TrabajoGrupoProgIII/src/MAPADEFINITIVO.png";
 		try {
 			ImageIcon icon = new ImageIcon(new ImageIcon(new URL(imageUrl)).getImage());
@@ -85,13 +98,33 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	        g2d.dispose();
 	        ImageIcon imagenfinal = new ImageIcon(imagenparadibujar);
 	        map = new JLabel(imagenfinal);
-	        this.add(map);
+	        panelfondo.add(map);
 	        map.setBounds(-player.getPosx(), -player.getPosy(), 12288, 12288);
 	        map.setVisible(true);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
+	//label del player
+		
+	int x = (screenSize.width)/2;
+	int y = (screenSize.height)/2;
+	int x1 = (screenSize.width)/40;
+	
+	lblplayer = new JLabel();
+	lblplayer.setBackground(Color.red);
+	
+	
+	
+	
+	lblplayer.setBounds(x, y, x1, x1);
+	lblplayer.setOpaque(true);
+	panelfondo.add(Box.createRigidArea(new Dimension(0,(800- 200/2))));
+	panelfondo.add(lblplayer);
+	panelfondo.setComponentZOrder(lblplayer, 0);
+	panelfondo.setComponentZOrder(map, 1);
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
