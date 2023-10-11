@@ -114,7 +114,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	int x1 = (screenSize.width)/40;
 	
 	lblplayer = new JLabel();
-	lblplayer.setBackground(Color.red);
+	lblplayer.setIcon(new ImageIcon(player.getAndar()[1]));
 	
 	
 	

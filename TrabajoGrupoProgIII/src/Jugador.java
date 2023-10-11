@@ -1,5 +1,10 @@
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Jugador {
 	protected int posx;
@@ -7,6 +12,8 @@ public class Jugador {
 	protected int vidatotal;
 	protected int vidarestante;
 	protected int experiencia;
+	protected BufferedImage[] andar;
+	
 	
 	protected int getPosx() {
 		return posx;
@@ -39,6 +46,13 @@ public class Jugador {
 	protected void setExperiencia(int experiencia) {
 		this.experiencia = experiencia;
 	}
+	
+	public BufferedImage[] getAndar() {
+		return andar;
+	}
+	public void setAndar(BufferedImage[] andar) {
+		this.andar = andar;
+	}
 	public Jugador() {
 		super();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -51,6 +65,17 @@ public class Jugador {
 		this.vidatotal = 100;
 		this.vidarestante = 100;
 		this.experiencia = 0;
+		
+		
+		andar = new BufferedImage[4];
+		try {
+			for(int i=0; i<4;i++) {
+				andar[i] = ImageIO.read(new File();
+			}
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	
