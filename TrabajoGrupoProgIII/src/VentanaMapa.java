@@ -111,15 +111,15 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		
 	int x = (screenSize.width)/2;
 	int y = (screenSize.height)/2;
-	int x1 = (screenSize.width)/40;
+	int x1 = (screenSize.width)/20;
 	
 	lblplayer = new JLabel();
 	//lblplayer.setIcon(new ImageIcon(player.getAndar()[1]));
 	
 	
-	String imageURL2 = "https://raw.githubusercontent.com/javiers2004/TrabajoGrupoProgIII/master/TrabajoGrupoProgIII/sprites/guard_sword_der.png";
+	String imageURL2 = "https://raw.githubusercontent.com/javiers2004/TrabajoGrupoProgIII/master/TrabajoGrupoProgIII/sprites/guard_sword_1%20(1).png";
 	try {
-		ImageIcon icon = new ImageIcon(new ImageIcon(new URL(imageUrl)).getImage());
+		ImageIcon icon = new ImageIcon(new ImageIcon(new URL(imageURL2)).getImage());
 		ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(x1,x1,Image.SCALE_SMOOTH));
         Image i2 = imagen.getImage();
         BufferedImage imagenparadibujar = new BufferedImage(i2.getHeight(null), i2.getWidth(null), BufferedImage.TYPE_INT_ARGB);
