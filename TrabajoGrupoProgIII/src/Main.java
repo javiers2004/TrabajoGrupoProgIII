@@ -36,11 +36,13 @@ public class Main {
 							if (red > 200 && green > 200 && blue > 200 ) {
 								jug1.setPosy(jug1.getPosy() - 3);
 								ven1.actualizarVentana(jug1);
+								ven1.lblplayer.setBackground(Color.red);
 							}	
 							if (red == 255 && green == 0 && blue == 0) {
 								jug1.setPosy(jug1.getPosy() - 3);
 								ven1.actualizarVentana(jug1);
 								//quitar opacidad
+								ven1.lblplayer.setBackground(Color.BLACK);
 							}
 							
 							
@@ -56,11 +58,13 @@ public class Main {
 							if (red > 200 && green > 200 && blue > 200 ) {
 								jug1.setPosx(jug1.getPosx() - 3);
 								ven1.actualizarVentana(jug1);
+								ven1.lblplayer.setBackground(Color.red);
 							}
 							if (red == 255 && green == 0 && blue == 0) {
 								jug1.setPosx(jug1.getPosx() - 3);
 								ven1.actualizarVentana(jug1);
 								//quitar opacidad
+								ven1.lblplayer.setBackground(Color.BLACK);
 							}
 							
 						}
@@ -72,11 +76,13 @@ public class Main {
 							if (red > 200 && green > 200 && blue > 200 ) {
 								jug1.setPosy(jug1.getPosy() + 3);
 								ven1.actualizarVentana(jug1);
+								ven1.lblplayer.setBackground(Color.red);
 							}
 							if (red == 255 && green == 0 && blue == 0) {
 								jug1.setPosy(jug1.getPosy() + 3);
 								ven1.actualizarVentana(jug1);
 								//quitar opacidad
+								ven1.lblplayer.setBackground(Color.BLACK);
 							}
 						}
 						if (ven1.isTeclad() == true) {
@@ -87,11 +93,13 @@ public class Main {
 							if (red > 200 && green > 200 && blue > 200 ) {
 								jug1.setPosx(jug1.getPosx() + 3);
 								ven1.actualizarVentana(jug1);
+								ven1.lblplayer.setBackground(Color.red);
 							}
 							if (red == 255 && green == 0 && blue == 0) {
 								jug1.setPosx(jug1.getPosx() + 3);
 								ven1.actualizarVentana(jug1);
 								//quitar opacidad
+								ven1.lblplayer.setBackground(Color.BLACK);
 							}
 						}
 						try {
