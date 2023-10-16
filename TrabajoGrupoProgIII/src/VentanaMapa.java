@@ -136,7 +136,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	
 	
 	lblplayer.setBounds(x, y, x1, x1);
-	lblplayer.setOpaque(true);
+	lblplayer.setOpaque(false);
 	panelfondo.add(Box.createRigidArea(new Dimension(0,(800- 200/2))));
 	panelfondo.add(lblplayer);
 	panelfondo.setComponentZOrder(lblplayer, 0);
