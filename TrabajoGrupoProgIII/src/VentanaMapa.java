@@ -119,28 +119,20 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	
 	String imageURL2 = "https://raw.githubusercontent.com/javiers2004/TrabajoGrupoProgIII/master/TrabajoGrupoProgIII/sprites/guard_sword_der.png";
 	try {
-		ImageIcon icon = new ImageIcon(new ImageIcon(new URL(imageURL2)).getImage());
-		ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(12288,12288,Image.SCALE_SMOOTH));
+		ImageIcon icon = new ImageIcon(new ImageIcon(new URL(imageUrl)).getImage());
+		ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(x1,x1,Image.SCALE_SMOOTH));
         Image i2 = imagen.getImage();
         BufferedImage imagenparadibujar = new BufferedImage(i2.getHeight(null), i2.getWidth(null), BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = imagenparadibujar.createGraphics();
         g2d.drawImage(i2, 0, 0, null);
         g2d.dispose();
         ImageIcon imagenfinal = new ImageIcon(imagenparadibujar);
-        
+   
 		lblplayer.setIcon(imagenfinal);
 	}catch (MalformedURLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	
-	
-	
-	
-	
-
-	
-	
 	
 	
 	lblplayer.setBounds(x, y, x1, x1);
