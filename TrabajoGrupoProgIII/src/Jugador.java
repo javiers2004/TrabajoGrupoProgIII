@@ -68,13 +68,7 @@ public class Jugador {
 		
 		
 		andar = new BufferedImage[4];
-		try {
-			for(int i=0; i<4;i++) {
-				andar[i] = ImageIO.read(new File();
-			}
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
+		
 		
 	}
 	
