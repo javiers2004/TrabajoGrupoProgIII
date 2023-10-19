@@ -177,8 +177,6 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	lblplayer.setBounds(x, y, x1, y1);
 	panelfondo.setComponentZOrder(lblplayer, 0);
 	panelfondo.setComponentZOrder(map, 1);
-	
-	
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {

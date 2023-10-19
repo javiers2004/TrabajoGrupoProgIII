@@ -12,14 +12,13 @@ public class VentanaInicio extends JFrame implements ActionListener {
     private JButton botonPlay, boton4, botonEstads, botonNombre;
     private JLabel lblTitulo;
     private JFrame va;
-   
+    
     public VentanaInicio(JFrame ven1) {
         super();
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
         //this.setUndecorated(true); // Quitar la barra de título
-
         va = this;
         setTitle("");
         setBounds(400,400,600,400);
@@ -110,8 +109,26 @@ public class VentanaInicio extends JFrame implements ActionListener {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ven1.setVisible(true);
+			ven1.setVisible(true);		
 			setVisible(false);
+			ven1.repaint();
+			ven1.revalidate();
+			Thread hilorobot = new Thread() {
+				public void run() {
+			        try {
+			            Robot robot = new Robot();
+
+			            // Presionar la tecla "w"
+			            robot.keyPress(KeyEvent.VK_W);
+			            Thread.sleep(20);
+			            // Liberar la tecla "w"
+			            robot.keyRelease(KeyEvent.VK_W);
+			        } catch (Exception e) {
+			            e.printStackTrace();
+			        }
+				}
+			};
+			hilorobot.start();
 		}
 	});
       
