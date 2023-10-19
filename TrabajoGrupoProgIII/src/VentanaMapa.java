@@ -9,6 +9,8 @@ import java.awt.LayoutManager;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -30,10 +32,38 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public JLabel map;
 	private Color backgroundColor = Color.GREEN;
 	protected JLabel lblplayer;
+	protected JFrame veninicio;
+	
 
 	//GETTERS Y SETTERS
+	
+	
 	protected boolean isTeclaw() {
 		return teclaw;
+	}
+	protected JLabel getMap() {
+		return map;
+	}
+	protected void setMap(JLabel map) {
+		this.map = map;
+	}
+	protected Color getBackgroundColor() {
+		return backgroundColor;
+	}
+	protected void setBackgroundColor(Color backgroundColor) {
+		this.backgroundColor = backgroundColor;
+	}
+	protected JLabel getLblplayer() {
+		return lblplayer;
+	}
+	protected void setLblplayer(JLabel lblplayer) {
+		this.lblplayer = lblplayer;
+	}
+	protected JFrame getVeninicio() {
+		return veninicio;
+	}
+	protected void setVeninicio(JFrame veninicio) {
+		this.veninicio = veninicio;
 	}
 	protected void setTeclaw(boolean teclaw) {
 		this.teclaw = teclaw;
@@ -58,8 +88,13 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	}
 	//CONSTRUCTOR
 	public VentanaMapa(Jugador player){	
-		this.setVisible(true);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+            	getVeninicio().setVisible(true);
+            	
+            }
+        });
+		this.setVisible(false);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setBounds(0, 0, screenSize.width, screenSize.height);
 	    this.addKeyListener(this);
@@ -108,11 +143,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		
 		
 	//label del player
-		
-	int x = (screenSize.width)/2;
-	int y = (screenSize.height)/2;
 	int x1 = (screenSize.width)/20;
-	
+	int y1 = (screenSize.height)/12;
+	int x = (screenSize.width )/2 - x1;
+	int y = (screenSize.height)/2 - y1;
+
 	lblplayer = new JLabel();
 	//lblplayer.setIcon(new ImageIcon(player.getAndar()[1]));
 	
@@ -120,11 +155,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	String imageURL2 = "https://raw.githubusercontent.com/javiers2004/TrabajoGrupoProgIII/master/TrabajoGrupoProgIII/sprites/guard_sword_1%20(1).png";
 	try {
 		ImageIcon icon = new ImageIcon(new ImageIcon(new URL(imageURL2)).getImage());
-		ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(x1,x1,Image.SCALE_SMOOTH));
+		ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(x1,y1,Image.SCALE_SMOOTH));
         Image i2 = imagen.getImage();
-        BufferedImage imagenparadibujar = new BufferedImage(i2.getHeight(null), i2.getWidth(null), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage imagenparadibujar = new BufferedImage(i2.getWidth(null),i2.getHeight(null)+ 1000,  BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = imagenparadibujar.createGraphics();
-        g2d.drawImage(i2, 0, 0, null);
+        g2d.drawImage(i2, 0, y, null);
         g2d.dispose();
         ImageIcon imagenfinal = new ImageIcon(imagenparadibujar);
    
@@ -135,12 +170,15 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	}
 	
 	
-	lblplayer.setBounds(x, y, x1, x1);
+	
 	lblplayer.setOpaque(false);
 	panelfondo.add(Box.createRigidArea(new Dimension(0,(800- 200/2))));
 	panelfondo.add(lblplayer);
+	lblplayer.setBounds(x, y, x1, y1);
 	panelfondo.setComponentZOrder(lblplayer, 0);
 	panelfondo.setComponentZOrder(map, 1);
+	
+	
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {

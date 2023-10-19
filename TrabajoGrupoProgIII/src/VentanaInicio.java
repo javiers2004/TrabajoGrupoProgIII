@@ -13,9 +13,10 @@ public class VentanaInicio extends JFrame implements ActionListener {
     private JLabel lblTitulo;
     private JFrame va;
    
-    public VentanaInicio() {
+    public VentanaInicio(JFrame ven1) {
         super();
         this.setExtendedState(MAXIMIZED_BOTH);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
         //this.setUndecorated(true); // Quitar la barra de título
 
@@ -102,6 +103,15 @@ public class VentanaInicio extends JFrame implements ActionListener {
             if (nombre != null) {
                 JOptionPane.showMessageDialog(null, "Hola, " + nombre + "!");
             }
+		}
+	});
+    
+ botonPlay.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ven1.setVisible(true);
+			setVisible(false);
 		}
 	});
       

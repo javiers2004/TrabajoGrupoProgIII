@@ -14,6 +14,8 @@ public class Main {
 	public static void main(String[] args) {
 		Jugador jug1 = new Jugador();
 		VentanaMapa ven1 = new VentanaMapa(jug1);
+		VentanaInicio v1 = new VentanaInicio(ven1);
+		ven1.setVeninicio(v1);
 		Thread hiloteclas = new Thread() {
 			public void run() {
 				try {
@@ -37,12 +39,14 @@ public class Main {
 								jug1.setPosy(jug1.getPosy() - 3);
 								ven1.actualizarVentana(jug1);
 								ven1.lblplayer.setBackground(Color.red);
+								ven1.lblplayer.setOpaque(false);
 							}	
 							if (red == 255 && green == 0 && blue == 0) {
 								jug1.setPosy(jug1.getPosy() - 3);
 								ven1.actualizarVentana(jug1);
 								//quitar opacidad
 								ven1.lblplayer.setBackground(Color.BLACK);
+								ven1.lblplayer.setOpaque(true);
 							}
 							
 							
@@ -59,12 +63,14 @@ public class Main {
 								jug1.setPosx(jug1.getPosx() - 3);
 								ven1.actualizarVentana(jug1);
 								ven1.lblplayer.setBackground(Color.red);
+								ven1.lblplayer.setOpaque(false);
 							}
 							if (red == 255 && green == 0 && blue == 0) {
 								jug1.setPosx(jug1.getPosx() - 3);
 								ven1.actualizarVentana(jug1);
 								//quitar opacidad
 								ven1.lblplayer.setBackground(Color.BLACK);
+								ven1.lblplayer.setOpaque(true);
 							}
 							
 						}
@@ -77,12 +83,14 @@ public class Main {
 								jug1.setPosy(jug1.getPosy() + 3);
 								ven1.actualizarVentana(jug1);
 								ven1.lblplayer.setBackground(Color.red);
+								ven1.lblplayer.setOpaque(false);
 							}
 							if (red == 255 && green == 0 && blue == 0) {
 								jug1.setPosy(jug1.getPosy() + 3);
 								ven1.actualizarVentana(jug1);
 								//quitar opacidad
 								ven1.lblplayer.setBackground(Color.BLACK);
+								ven1.lblplayer.setOpaque(true);
 							}
 						}
 						if (ven1.isTeclad() == true) {
@@ -94,12 +102,14 @@ public class Main {
 								jug1.setPosx(jug1.getPosx() + 3);
 								ven1.actualizarVentana(jug1);
 								ven1.lblplayer.setBackground(Color.red);
+								ven1.lblplayer.setOpaque(false);
 							}
 							if (red == 255 && green == 0 && blue == 0) {
 								jug1.setPosx(jug1.getPosx() + 3);
 								ven1.actualizarVentana(jug1);
 								//quitar opacidad
 								ven1.lblplayer.setBackground(Color.BLACK);
+								ven1.lblplayer.setOpaque(true);
 							}
 						}
 						try {
@@ -131,7 +141,7 @@ public class Main {
 
 		hiloteclas.start();
 		//hilomovimiento.start();
-		VentanaInicio v1 = new VentanaInicio();
+		
 
 	}
 }
