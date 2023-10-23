@@ -84,7 +84,7 @@ public class Jugador extends Entity{
 		this.staminarestante = 100;
 		GetPlayerImage();
 		direction = "right";
-		//update();
+		this.keyh = new KeyHandler();
 	}	
 	
 	
