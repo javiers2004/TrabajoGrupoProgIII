@@ -1,4 +1,5 @@
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -6,7 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Jugador {
+public class Jugador extends Entity{
 	protected int posx;
 	protected int posy;
 	protected int vidatotal;
@@ -14,8 +15,15 @@ public class Jugador {
 	protected int experiencia;
 	protected double staminatotal;
 	protected double staminarestante;
-	protected BufferedImage[] andar;
+	protected KeyHandler keyh;
 	
+	
+	public KeyHandler getKeyh() {
+		return keyh;
+	}
+	public void setKeyh(KeyHandler keyh) {
+		this.keyh = keyh;
+	}
 	protected double getStaminatotal() {
 		return staminatotal;
 	}
@@ -60,12 +68,7 @@ public class Jugador {
 		this.experiencia = experiencia;
 	}
 	
-	public BufferedImage[] getAndar() {
-		return andar;
-	}
-	public void setAndar(BufferedImage[] andar) {
-		this.andar = andar;
-	}
+
 	public Jugador() {
 		super();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -76,6 +79,63 @@ public class Jugador {
 		this.experiencia = 0;
 		this.staminatotal = 100;
 		this.staminarestante = 100;
-		andar = new BufferedImage[4];	
+		GetPlayerImage();
+		direction = "down";
+		update();
 	}	
+	public void GetPlayerImage() {
+		try {
+			dcha1= ImageIO.read(getClass().getResourceAsStream("/sprites/guard_sword_1(1).png"));
+			 dcha2 = ImageIO.read(getClass().getResourceAsStream("/sprites/guard_sword_2.png"));
+			 izk1 = ImageIO.read(getClass().getResourceAsStream("/sprites/guard_sword_3.png"));
+			 izk2 = ImageIO.read(getClass().getResourceAsStream("/sprites/guard_sword_4.png"));
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void update() {
+		if(keyh.upPressed == true) {
+			direction ="up";
+		}
+		if(keyh.downPressed == true) {
+			direction ="down";
+		}
+		if(keyh.rightPressed == true) {
+			direction ="right";
+		}
+		if(keyh.leftPressed == true) {
+			direction ="left";
+		}
+		spriteCounter++;
+		if(spriteCounter >12) {
+			if(spriteNum == 1) {
+				spriteNum=2;
+			}else if(spriteNum ==2) {
+				spriteNum = 1;
+			}
+			spriteCounter = 0;
+		}
+	}
+	public void draw (Graphics2D g2) {
+		BufferedImage image = null;
+		switch(direction) {
+		case "right": 
+			if(spriteNum == 1) {
+				image = dcha1;
+			}if(spriteNum ==2) {
+				image = dcha2;
+			}
+			break;
+		case "left":
+			if(spriteNum == 1) {
+				image = izk1;
+			}if(spriteNum ==2) {
+				image = izk2;
+			}
+			
+			break;
+		}
+		g2.drawImage(image, posx, posy, null);
+			
+	}
 }
