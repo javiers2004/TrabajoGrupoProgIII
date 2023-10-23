@@ -12,9 +12,22 @@ public class Jugador {
 	protected int vidatotal;
 	protected int vidarestante;
 	protected int experiencia;
+	protected double staminatotal;
+	protected double staminarestante;
 	protected BufferedImage[] andar;
 	
-	
+	protected double getStaminatotal() {
+		return staminatotal;
+	}
+	protected void setStaminatotal(double staminatotal) {
+		this.staminatotal = staminatotal;
+	}
+	protected double getStaminarestante() {
+		return staminarestante;
+	}
+	protected void setStaminarestante(double staminarestante) {
+		this.staminarestante = staminarestante;
+	}
 	protected int getPosx() {
 		return posx;
 	}
@@ -56,21 +69,13 @@ public class Jugador {
 	public Jugador() {
 		super();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
-		//this.posx = (int)(1968 + screenWidth/1.5);
-		//this.posy = (int)(2019 + screenHeight/1.5);
 		this.posx = (int)(57);
-		this.posy = (int)(411);
+		this.posy = (int)(431);
 		this.vidatotal = 100;
 		this.vidarestante = 100;
 		this.experiencia = 0;
-		
-		
-		andar = new BufferedImage[4];
-		
-		
-	}
-	
-	
+		this.staminatotal = 100;
+		this.staminarestante = 100;
+		andar = new BufferedImage[4];	
+	}	
 }

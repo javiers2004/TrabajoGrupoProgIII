@@ -29,17 +29,23 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected boolean teclaa;
 	protected boolean teclas;
 	protected boolean teclad;
+	protected boolean teclashift;
+	
 	public JLabel map;
 	private Color backgroundColor = Color.GREEN;
 	protected JLabel lblplayer;
 	protected JFrame veninicio;
-	
 
 	//GETTERS Y SETTERS
 	
-	
 	protected boolean isTeclaw() {
 		return teclaw;
+	}
+	protected boolean isTeclashift() {
+		return teclashift;
+	}
+	protected void setTeclashift(boolean teclashift) {
+		this.teclashift = teclashift;
 	}
 	protected JLabel getMap() {
 		return map;
@@ -90,38 +96,29 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public VentanaMapa(Jugador player){	
 		this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-            	getVeninicio().setVisible(true);
-            	
+            	getVeninicio().setVisible(true);  	
             }
         });
 		this.setVisible(false);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setBounds(0, 0, screenSize.width, screenSize.height);
 	    this.addKeyListener(this);
-	    
-	    
 	    // Establecer el foco en el JFrame para recibir eventos de teclado
 	    this.setFocusable(true);
 	    this.requestFocusInWindow();
-	    
-	    
 	    //AÑADIR EL png DEL MAPA A LA VENTANA
 	    JPanel panelfondo = new JPanel();
 	    panelfondo.setPreferredSize(new Dimension(800,800));
-        panelfondo.setBackground(Color.cyan);  // Color azul claro (RGB) new Color(173, 216, 230)
-
+        panelfondo.setBackground(Color.cyan);
         panelfondo.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
-
         JPanel pnlprincipal= new JPanel();
         pnlprincipal.setSize(800,800);
         pnlprincipal.setLayout(new BoxLayout(pnlprincipal, BoxLayout.PAGE_AXIS));
-        pnlprincipal.add(Box.createRigidArea(new Dimension(0, 0)));
-        
+        pnlprincipal.add(Box.createRigidArea(new Dimension(0, 0))); 
         pnlprincipal.add(panelfondo);
         this.add(pnlprincipal);
         pnlprincipal.setVisible(true);
         panelfondo.setVisible(true);
-        
         String imageUrl = "https://raw.githubusercontent.com/javiers2004/TrabajoGrupoProgIII/master/TrabajoGrupoProgIII/src/MAPADEFINITIVO.png";
 		try {
 			ImageIcon icon = new ImageIcon(new ImageIcon(new URL(imageUrl)).getImage());
@@ -140,50 +137,35 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-	//label del player
-	int x1 = (screenSize.width)/20;
-	int y1 = (screenSize.height)/12;
-	int x = (screenSize.width )/2 - x1;
-	int y = (screenSize.height)/2 - y1;
+		//label del player
+		int x1 = (screenSize.width)/20;
+		int y1 = (screenSize.height)/12;
+		int x = (screenSize.width )/2 - x1;
+		int y = (screenSize.height)/2 - y1;
+		lblplayer = new JLabel();
 
-	lblplayer = new JLabel();
-	//lblplayer.setIcon(new ImageIcon(player.getAndar()[1]));
-	
-	
-	String imageURL2 = "https://raw.githubusercontent.com/javiers2004/TrabajoGrupoProgIII/master/TrabajoGrupoProgIII/sprites/guard_sword_1%20(1).png";
-	try {
-		ImageIcon icon = new ImageIcon(new ImageIcon(new URL(imageURL2)).getImage());
-		ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(x1,y1,Image.SCALE_SMOOTH));
-        Image i2 = imagen.getImage();
-        BufferedImage imagenparadibujar = new BufferedImage(i2.getWidth(null),i2.getHeight(null)+ 1000,  BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = imagenparadibujar.createGraphics();
-        g2d.drawImage(i2, 0, y, null);
-        g2d.dispose();
-        ImageIcon imagenfinal = new ImageIcon(imagenparadibujar);
-   
-		lblplayer.setIcon(imagenfinal);
-	}catch (MalformedURLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		String imageURL2 = "https://raw.githubusercontent.com/javiers2004/TrabajoGrupoProgIII/master/TrabajoGrupoProgIII/sprites/guard_sword_1%20(1).png";
+		try {
+			ImageIcon icon = new ImageIcon(new ImageIcon(new URL(imageURL2)).getImage());
+			ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(x1,y1,Image.SCALE_SMOOTH));
+			Image i2 = imagen.getImage();
+			BufferedImage imagenparadibujar = new BufferedImage(i2.getWidth(null),i2.getHeight(null)+ 1000,  BufferedImage.TYPE_INT_ARGB);
+			Graphics2D g2d = imagenparadibujar.createGraphics();
+			g2d.drawImage(i2, 0, y, null);
+			g2d.dispose();
+			ImageIcon imagenfinal = new ImageIcon(imagenparadibujar);
+			lblplayer.setIcon(imagenfinal);
+		}catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		lblplayer.setOpaque(false);
+		panelfondo.add(Box.createRigidArea(new Dimension(0,(800- 200/2))));
+		panelfondo.add(lblplayer);
+		lblplayer.setBounds(x, y, x1, y1);
+		panelfondo.setComponentZOrder(lblplayer, 0);
+		panelfondo.setComponentZOrder(map, 1);
 	}
-	
-	
-	
-	lblplayer.setOpaque(false);
-	panelfondo.add(Box.createRigidArea(new Dimension(0,(800- 200/2))));
-	panelfondo.add(lblplayer);
-	lblplayer.setBounds(x, y, x1, y1);
-	panelfondo.setComponentZOrder(lblplayer, 0);
-	panelfondo.setComponentZOrder(map, 1);
-	}
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
+	//PARA PONER BOOLEANOS A TRUE AL PRESIONAR TECLAS
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
         char keyChar = Character.toUpperCase(e.getKeyChar());  // Convertir a mayúsculas
@@ -196,9 +178,13 @@ public class VentanaMapa extends JFrame implements KeyListener{
         		teclas = true;
         	} else if (keyChar == 'D') {
         		teclad = true;
+        	} 
+        	if(e.isShiftDown()) {
+        		teclashift = true;
         	}
 	}
-	@Override
+
+	//PARA PONER BOOLEANOS A FALSE AL PRESIONAR TECLAS
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		 char keyChar = Character.toUpperCase(e.getKeyChar());  // Convertir a mayúsculas
@@ -213,77 +199,17 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	        } else if (keyChar == 'D') {
 	            teclad = false;
 	        } 
+	        if (!e.isShiftDown()) {
+	        	teclashift = false;
+	        }
 	}
+	//PARA ACTUALIZAR LA VENTANA CUANDO SE LLAMA DESDE EL MAIN
 	public void actualizarVentana(Jugador player) {
 		map.setLocation(-player.getPosx(), -player.getPosy());
 		map.setVisible(true);
-		System.out.println(player.getPosy() );
 	}
-	public void sistemamovimiento(Jugador jug1, int screenWidth , int screenHeight, BufferedImage mapacolisiones) {
-		//TECLA W ACTIVADA
-		if (this.isTeclaw() == true) {	
-			Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 + screenWidth/6  , jug1.getPosy()/3 +  - 3/3 + screenHeight/6));
-			int red = color.getRed();
-			int green = color.getGreen();
-			int blue = color.getBlue();
-			if (red > 200 && green > 200 && blue > 200 ) {
-				jug1.setPosy(jug1.getPosy() - 3);
-				this.actualizarVentana(jug1);
-			}	
-			if (red == 255 && green == 0 && blue == 0) {
-				jug1.setPosy(jug1.getPosy() - 3);
-				this.actualizarVentana(jug1);
-				//quitar opacidad
-			}
-		}	
-		//TECLA A ACTIVADA
-		if (this.isTeclaa() == true) {
-			Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 - 3/3 + screenWidth/6, jug1.getPosy()/3 + screenHeight/6));
-			int red = color.getRed();
-			int green = color.getGreen();
-			int blue = color.getBlue();
-			if (red > 200 && green > 200 && blue > 200 ) {
-				jug1.setPosx(jug1.getPosx() - 3);
-				this.actualizarVentana(jug1);
-			}
-			if (red == 255 && green == 0 && blue == 0) {
-				jug1.setPosx(jug1.getPosx() - 3);
-				this.actualizarVentana(jug1);
-				//quitar opacidad
-			}	
-		}
-		//TECLA S ACTIVADA
-		if (this.isTeclas() == true) {
-			Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 +  screenWidth/6, jug1.getPosy()/3+ 3/3 + screenHeight/6));
-			int red = color.getRed();
-			int green = color.getGreen();
-			int blue = color.getBlue();
-			if (red > 200 && green > 200 && blue > 200 ) {
-				jug1.setPosy(jug1.getPosy() + 3);
-				this.actualizarVentana(jug1);
-			}
-			if (red == 255 && green == 0 && blue == 0) {
-				jug1.setPosy(jug1.getPosy() + 3);
-				this.actualizarVentana(jug1);
-				//quitar opacidad
-			}
-		}
-		//TECLA D ACTIVADA
-		if (this.isTeclad() == true) {
-			Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3+ 3/3 + + screenWidth/6, jug1.getPosy()/3 + screenHeight/6));
-			int red = color.getRed();
-			int green = color.getGreen();
-			int blue = color.getBlue();
-			if (red > 200 && green > 200 && blue > 200 ) {
-				jug1.setPosx(jug1.getPosx() + 3);
-				this.actualizarVentana(jug1);
-			}
-			if (red == 255 && green == 0 && blue == 0) {
-				jug1.setPosx(jug1.getPosx() + 3);
-				this.actualizarVentana(jug1);
-				//quitar opacidad
-			}
-		}
-
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub	
 	}
 }

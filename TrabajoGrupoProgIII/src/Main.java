@@ -19,99 +19,77 @@ public class Main {
 		Thread hiloteclas = new Thread() {
 			public void run() {
 				try {
-		            //File image = new File("https://raw.githubusercontent.com/javiers2004/TrabajoGrupoProgIII/master/TrabajoGrupoProgIII/src/MAPABLANCO.png");
-		            //BufferedImage imageFile = ImageIO.read(image);
-					//File imageFile = new File("src/MAPABLANCO.png");
 			        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 			        int screenWidth = screenSize.width;
 			        int screenHeight = screenSize.height;
 					BufferedImage mapacolisiones = ImageIO.read(new URL("https://raw.githubusercontent.com/javiers2004/TrabajoGrupoProgIII/master/TrabajoGrupoProgIII/src/MAPABLANCO2.png"));
-		            Dimension dimension = ven1.getSize();
-		            int width = dimension.width;
-		            int height = dimension.height;
 					while(true) {
+						int velocidadextra = 0;
+						if(jug1.getStaminarestante() != 0 && ven1.isTeclashift() == true) {
+							velocidadextra = 2;
+							jug1.setStaminarestante(jug1.getStaminarestante() - 1);
+						}
 						if (ven1.isTeclaw() == true) {	
-							Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 + screenWidth/6  , jug1.getPosy()/3 +  - 30/3 + screenHeight/6));
+							Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 + screenWidth/6  , jug1.getPosy()/3 +  - 30/3 - velocidadextra + screenHeight/6));
 							int red = color.getRed();
 							int green = color.getGreen();
 							int blue = color.getBlue();
 							if (red > 200 && green > 200 && blue > 200 ) {
-								jug1.setPosy(jug1.getPosy() - 3);
+								jug1.setPosy(jug1.getPosy() - 3 - velocidadextra);
 								ven1.actualizarVentana(jug1);
-								ven1.lblplayer.setBackground(Color.red);
-								ven1.lblplayer.setOpaque(false);
 							}	
 							if (red == 255 && green == 0 && blue == 0) {
-								jug1.setPosy(jug1.getPosy() - 3);
+								jug1.setPosy(jug1.getPosy() - 3 - velocidadextra);
 								ven1.actualizarVentana(jug1);
-								//quitar opacidad
-								ven1.lblplayer.setBackground(Color.BLACK);
-								ven1.lblplayer.setOpaque(true);
-							}
-							
-							
-							
-							
-							
+							}	
 						}	
 						if (ven1.isTeclaa() == true) {
-							Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 - 42/3 + screenWidth/6, jug1.getPosy()/3 + screenHeight/6));
+							Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 - 42/3 -velocidadextra + screenWidth/6, jug1.getPosy()/3 + screenHeight/6));
 							int red = color.getRed();
 							int green = color.getGreen();
 							int blue = color.getBlue();
 							if (red > 200 && green > 200 && blue > 200 ) {
-								jug1.setPosx(jug1.getPosx() - 3);
+								jug1.setPosx(jug1.getPosx() - 3 - velocidadextra);
 								ven1.actualizarVentana(jug1);
-								ven1.lblplayer.setBackground(Color.red);
-								ven1.lblplayer.setOpaque(false);
 							}
 							if (red == 255 && green == 0 && blue == 0) {
-								jug1.setPosx(jug1.getPosx() - 3);
+								jug1.setPosx(jug1.getPosx() - 3 - velocidadextra);
 								ven1.actualizarVentana(jug1);
-								//quitar opacidad
-								ven1.lblplayer.setBackground(Color.BLACK);
-								ven1.lblplayer.setOpaque(true);
 							}
 							
 						}
 						if (ven1.isTeclas() == true) {
-							Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 +  screenWidth/6 , jug1.getPosy()/3+ 3/3 + screenHeight/6));
+							Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 +  screenWidth/6 , jug1.getPosy()/3+ 3/3 + velocidadextra + screenHeight/6));
 							int red = color.getRed();
 							int green = color.getGreen();
 							int blue = color.getBlue();
 							if (red > 200 && green > 200 && blue > 200 ) {
-								jug1.setPosy(jug1.getPosy() + 3);
+								jug1.setPosy(jug1.getPosy() + 3 + velocidadextra);
 								ven1.actualizarVentana(jug1);
-								ven1.lblplayer.setBackground(Color.red);
-								ven1.lblplayer.setOpaque(false);
 							}
 							if (red == 255 && green == 0 && blue == 0) {
-								jug1.setPosy(jug1.getPosy() + 3);
+								jug1.setPosy(jug1.getPosy() + 3 + velocidadextra);
 								ven1.actualizarVentana(jug1);
-								//quitar opacidad
-								ven1.lblplayer.setBackground(Color.BLACK);
-								ven1.lblplayer.setOpaque(true);
 							}
 						}
 						if (ven1.isTeclad() == true) {
-							Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3+ 3/3 + + screenWidth/6, jug1.getPosy()/3 + screenHeight/6));
+							Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 - 12/3 + velocidadextra + screenWidth/6, jug1.getPosy()/3 + screenHeight/6));
 							int red = color.getRed();
 							int green = color.getGreen();
 							int blue = color.getBlue();
 							if (red > 200 && green > 200 && blue > 200 ) {
-								jug1.setPosx(jug1.getPosx() + 3);
+								jug1.setPosx(jug1.getPosx() + 3 + velocidadextra);
 								ven1.actualizarVentana(jug1);
-								ven1.lblplayer.setBackground(Color.red);
-								ven1.lblplayer.setOpaque(false);
 							}
 							if (red == 255 && green == 0 && blue == 0) {
-								jug1.setPosx(jug1.getPosx() + 3);
+								jug1.setPosx(jug1.getPosx() + 3 + velocidadextra);
 								ven1.actualizarVentana(jug1);
-								//quitar opacidad
-								ven1.lblplayer.setBackground(Color.BLACK);
-								ven1.lblplayer.setOpaque(true);
 							}
 						}
+						if (ven1.isTeclashift() == false && jug1.getStaminarestante()<jug1.getStaminatotal()) {
+							jug1.setStaminarestante(jug1.getStaminarestante() + 0.25);
+						}
+						System.out.print(jug1.getStaminarestante() + "/" + jug1.getStaminatotal());
 						try {
 							Thread.sleep(5);
 						} catch (InterruptedException e) {
@@ -122,26 +100,9 @@ public class Main {
 				}
 	         catch (IOException e) {
 	            e.printStackTrace();
-	        }
+	         }
 			}	
 		};
-		Thread hilomovimiento = new Thread() {
-			public void run() {
-				while(true) {
-					ven1.actualizarVentana(jug1);
-				try {
-					Thread.sleep(20);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}	
-				}
-			}
-		};
-
 		hiloteclas.start();
-		//hilomovimiento.start();
-		
-
 	}
 }

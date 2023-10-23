@@ -116,13 +116,17 @@ public class VentanaInicio extends JFrame implements ActionListener {
 			Thread hilorobot = new Thread() {
 				public void run() {
 			        try {
-			            Robot robot = new Robot();
-
-			            // Presionar la tecla "w"
-			            robot.keyPress(KeyEvent.VK_W);
-			            Thread.sleep(20);
-			            // Liberar la tecla "w"
-			            robot.keyRelease(KeyEvent.VK_W);
+			            Robot robot = new Robot();    
+			            robot.keyPress(KeyEvent.VK_S);
+			            Thread.sleep(100);
+			            robot.keyRelease(KeyEvent.VK_S);
+			            //robot.keyPress(KeyEvent.VK_D);
+			            //Thread.sleep(900);          
+			            //robot.keyRelease(KeyEvent.VK_D);
+			            //Thread.sleep(400);	
+			            //robot.keyPress(KeyEvent.VK_W);
+			            //Thread.sleep(2400);		            
+			           // robot.keyRelease(KeyEvent.VK_W);    
 			        } catch (Exception e) {
 			            e.printStackTrace();
 			        }
