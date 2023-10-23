@@ -1,11 +1,14 @@
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class Jugador extends Entity{
 	protected int posx;
@@ -80,15 +83,19 @@ public class Jugador extends Entity{
 		this.staminatotal = 100;
 		this.staminarestante = 100;
 		GetPlayerImage();
-		direction = "down";
-		update();
+		direction = "right";
+		//update();
 	}	
+	
+	
+	
+
 	public void GetPlayerImage() {
 		try {
-			dcha1= ImageIO.read(getClass().getResourceAsStream("/sprites/guard_sword_1(1).png"));
-			 dcha2 = ImageIO.read(getClass().getResourceAsStream("/sprites/guard_sword_2.png"));
-			 izk1 = ImageIO.read(getClass().getResourceAsStream("/sprites/guard_sword_3.png"));
-			 izk2 = ImageIO.read(getClass().getResourceAsStream("/sprites/guard_sword_4.png"));
+			dcha1= ImageIO.read(getClass().getResourceAsStream("dcha1.png"));
+			dcha2 = ImageIO.read(getClass().getResourceAsStream("dcha2.png"));
+			//izk1 = ImageIO.read(getClass().getResourceAsStream("/sprites/guard_sword_3.png"));
+			//izk2 = ImageIO.read(getClass().getResourceAsStream("/sprites/guard_sword_4.png"));
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -116,7 +123,7 @@ public class Jugador extends Entity{
 			spriteCounter = 0;
 		}
 	}
-	public void draw (Graphics2D g2) {
+	public BufferedImage draw () {
 		BufferedImage image = null;
 		switch(direction) {
 		case "right": 
@@ -135,7 +142,7 @@ public class Jugador extends Entity{
 			
 			break;
 		}
-		g2.drawImage(image, posx, posy, null);
+		return image;
 			
 	}
 }

@@ -1,5 +1,8 @@
 import java.awt.Color;
+
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,6 +25,11 @@ public class Main {
 			        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 			        int screenWidth = screenSize.width;
 			        int screenHeight = screenSize.height;
+			        int x1 = (screenSize.width)/20;
+					int y1 = (screenSize.height)/12;
+					int x = (screenSize.width )/2 - x1;
+					int y = (screenSize.height)/2 - y1;
+					
 					BufferedImage mapacolisiones = ImageIO.read(new URL("https://raw.githubusercontent.com/javiers2004/TrabajoGrupoProgIII/master/TrabajoGrupoProgIII/src/MAPABLANCO2.png"));
 					while(true) {
 						int velocidadextra = 0;
@@ -37,10 +45,13 @@ public class Main {
 							if (red > 200 && green > 200 && blue > 200 ) {
 								jug1.setPosy(jug1.getPosy() - 3 - velocidadextra);
 								ven1.actualizarVentana(jug1);
+							
+								ven1.actualizarLbl(jug1,ven1.getPanelfondo(),x,y );
 							}	
 							if (red == 255 && green == 0 && blue == 0) {
 								jug1.setPosy(jug1.getPosy() - 3 - velocidadextra);
 								ven1.actualizarVentana(jug1);
+								ven1.actualizarLbl(jug1,ven1.getPanelfondo(),x,y );
 							}	
 						}	
 						if (ven1.isTeclaa() == true) {
@@ -51,10 +62,12 @@ public class Main {
 							if (red > 200 && green > 200 && blue > 200 ) {
 								jug1.setPosx(jug1.getPosx() - 3 - velocidadextra);
 								ven1.actualizarVentana(jug1);
+								ven1.actualizarLbl(jug1,ven1.getPanelfondo(),x,y );
 							}
 							if (red == 255 && green == 0 && blue == 0) {
 								jug1.setPosx(jug1.getPosx() - 3 - velocidadextra);
 								ven1.actualizarVentana(jug1);
+								ven1.actualizarLbl(jug1,ven1.getPanelfondo(),x,y );
 							}
 							
 						}
@@ -66,10 +79,12 @@ public class Main {
 							if (red > 200 && green > 200 && blue > 200 ) {
 								jug1.setPosy(jug1.getPosy() + 3 + velocidadextra);
 								ven1.actualizarVentana(jug1);
+								ven1.actualizarLbl(jug1,ven1.getPanelfondo(),x,y );
 							}
 							if (red == 255 && green == 0 && blue == 0) {
 								jug1.setPosy(jug1.getPosy() + 3 + velocidadextra);
 								ven1.actualizarVentana(jug1);
+								ven1.actualizarLbl(jug1,ven1.getPanelfondo(),x,y );
 							}
 						}
 						if (ven1.isTeclad() == true) {
@@ -80,10 +95,12 @@ public class Main {
 							if (red > 200 && green > 200 && blue > 200 ) {
 								jug1.setPosx(jug1.getPosx() + 3 + velocidadextra);
 								ven1.actualizarVentana(jug1);
+								ven1.actualizarLbl(jug1,ven1.getPanelfondo(),x,y );
 							}
 							if (red == 255 && green == 0 && blue == 0) {
 								jug1.setPosx(jug1.getPosx() + 3 + velocidadextra);
 								ven1.actualizarVentana(jug1);
+								ven1.actualizarLbl(jug1,ven1.getPanelfondo(),x,y );
 							}
 						}
 						if (ven1.isTeclashift() == false && jug1.getStaminarestante()<jug1.getStaminatotal()) {
@@ -104,5 +121,7 @@ public class Main {
 			}	
 		};
 		hiloteclas.start();
+		
 	}
+	
 }

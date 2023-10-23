@@ -35,12 +35,23 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	private Color backgroundColor = Color.GREEN;
 	protected JLabel lblplayer;
 	protected JFrame veninicio;
+	public JPanel panelfondo;
 
 	//GETTERS Y SETTERS
+	
 	
 	protected boolean isTeclaw() {
 		return teclaw;
 	}
+	
+	public JPanel getPanelfondo() {
+		return panelfondo;
+	}
+
+	public void setPanelfondo(JPanel panelfondo) {
+		this.panelfondo = panelfondo;
+	}
+
 	protected boolean isTeclashift() {
 		return teclashift;
 	}
@@ -107,7 +118,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	    this.setFocusable(true);
 	    this.requestFocusInWindow();
 	    //AÑADIR EL png DEL MAPA A LA VENTANA
-	    JPanel panelfondo = new JPanel();
+	    panelfondo = new JPanel();
 	    panelfondo.setPreferredSize(new Dimension(800,800));
         panelfondo.setBackground(Color.cyan);
         panelfondo.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
@@ -144,7 +155,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		int y = (screenSize.height)/2 - y1;
 		lblplayer = new JLabel();
 
-		String imageURL2 = "https://raw.githubusercontent.com/javiers2004/TrabajoGrupoProgIII/master/TrabajoGrupoProgIII/sprites/guard_sword_1%20(1).png";
+		/*String imageURL2 = "https://raw.githubusercontent.com/javiers2004/TrabajoGrupoProgIII/master/TrabajoGrupoProgIII/sprites/guard_sword_1%20(1).png";
 		try {
 			ImageIcon icon = new ImageIcon(new ImageIcon(new URL(imageURL2)).getImage());
 			ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(x1,y1,Image.SCALE_SMOOTH));
@@ -157,13 +168,20 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			lblplayer.setIcon(imagenfinal);
 		}catch (MalformedURLException e) {
 			e.printStackTrace();
-		}
+		}*/
+		
 		lblplayer.setOpaque(false);
 		panelfondo.add(Box.createRigidArea(new Dimension(0,(800- 200/2))));
 		panelfondo.add(lblplayer);
 		lblplayer.setBounds(x, y, x1, y1);
 		panelfondo.setComponentZOrder(lblplayer, 0);
 		panelfondo.setComponentZOrder(map, 1);
+	}
+	public void paintComponent(Graphics g) {
+		super.paintComponents(g);
+		Graphics2D g2 = (Graphics2D) g;
+		//player.update();
+		g2.dispose();
 	}
 	//PARA PONER BOOLEANOS A TRUE AL PRESIONAR TECLAS
 	public void keyPressed(KeyEvent e) {
@@ -207,6 +225,14 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public void actualizarVentana(Jugador player) {
 		map.setLocation(-player.getPosx(), -player.getPosy());
 		map.setVisible(true);
+		
+	}
+	public void actualizarLbl(Jugador player,JPanel panelfondo, int x, int y ) {
+
+		BufferedImage playerImage = player.draw();
+		lblplayer.setIcon(new ImageIcon(playerImage));
+		lblplayer.setBounds(x, y, playerImage.getWidth(), playerImage.getHeight());
+		panelfondo.repaint();
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
