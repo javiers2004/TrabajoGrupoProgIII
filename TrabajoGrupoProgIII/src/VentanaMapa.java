@@ -225,7 +225,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public void actualizarVentana(Jugador player) {
 		map.setLocation(-player.getPosx(), -player.getPosy());
 		map.setVisible(true);
-		
+		player.update();
 	}
 	public void actualizarLbl(Jugador player,JPanel panelfondo, int x, int y ) {
 
