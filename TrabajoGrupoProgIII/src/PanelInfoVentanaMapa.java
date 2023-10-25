@@ -51,10 +51,14 @@ public class PanelInfoVentanaMapa extends JPanel{
 
 		barravida.setValue(player.getVidarestante());
 		barrastamina.setValue((int)player.getStaminarestante());
-		System.out.println(player.getStaminarestante());
 		barraexperiencia.setValue(player.getExperiencia());
 		canvida.setText("                                 " + String.valueOf(player.getVidarestante()));
-		canstamina.setText("                        " + String.valueOf(player.getStaminarestante()));
+		if(player.getStaminarestante() == player.getStaminatotal()) {
+			canstamina.setText("             MAX  " + String.valueOf(player.getStaminarestante()));
+		}
+		else {
+			canstamina.setText("                        " + String.valueOf(player.getStaminarestante()));
+		}
 		canexperiencia.setText("                    " + String.valueOf(player.getExperiencia()));
 
 		this.repaint();

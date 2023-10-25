@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 
 public class Main {
 	public static void main(String[] args) {
+		
 		Jugador jug1 = new Jugador();
 		VentanaMapa ven1 = new VentanaMapa(jug1);
 		VentanaInicio v1 = new VentanaInicio(ven1);

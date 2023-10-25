@@ -14,6 +14,7 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -37,11 +38,26 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	private Color backgroundColor = Color.GREEN;
 	protected JLabel lblplayer;
 	protected JFrame veninicio;
-
+	protected ArrayList<ImageIcon> arraymovimiento;
+	protected Jugador player;
+	
 	//GETTERS Y SETTERS
+	
 	
 	protected boolean isTeclaw() {
 		return teclaw;
+	}
+	protected Jugador getPlayer() {
+		return player;
+	}
+	protected void setPlayer(Jugador player) {
+		this.player = player;
+	}
+	protected ArrayList<ImageIcon> getArraymovimiento() {
+		return arraymovimiento;
+	}
+	protected void setArraymovimiento(ArrayList<ImageIcon> arraymovimiento) {
+		this.arraymovimiento = arraymovimiento;
 	}
 	protected boolean isTeclashift() {
 		return teclashift;
@@ -101,6 +117,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
             	getVeninicio().setVisible(true);  	
             }
         });
+		this.player = player;
+		this.setArraymovimiento(player.getDerecha());
 		this.setVisible(false);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setBounds(0, 0, screenSize.width, screenSize.height);
@@ -167,10 +185,23 @@ public class VentanaMapa extends JFrame implements KeyListener{
         		teclaw = true;
         	} else if (keyChar == 'A') {
         		teclaa = true;
+        		if (this.getArraymovimiento() != this.getPlayer().getIzquierda()) {
+        			lblplayer.setLocation(lblplayer.getLocation().x - 40, lblplayer.getLocation().y);
+    				//player.setPosx(player.getPosx() - 0);
+    				//this.actualizarVentana(player);
+        		}
+        		this.setArraymovimiento(this.getPlayer().getIzquierda());
+
         	} else if (keyChar == 'S') {
         		teclas = true;
         	} else if (keyChar == 'D') {
         		teclad = true;
+        		if (this.getArraymovimiento() != this.getPlayer().getDerecha()) {
+        			lblplayer.setLocation(lblplayer.getLocation().x + 40, lblplayer.getLocation().y);
+            		//player.setPosx(player.getPosx() + 15);
+    				//this.actualizarVentana(player);
+        		}
+        		this.setArraymovimiento(this.getPlayer().getDerecha());
         	} 
         	if(e.isShiftDown()) {
         		teclashift = true;
@@ -200,11 +231,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public void actualizarVentana(Jugador player) {
 		map.setLocation(-player.getPosx(), -player.getPosy());
 		map.setVisible(true);
-		if (contadorsprites + 1 > player.getDerecha().size()*10) {
+		if (contadorsprites + 1 > this.getArraymovimiento().size()*10) {
 			contadorsprites = 0;
 		}
-		if(contadorsprites % 5 == 0) {
-			lblplayer.setIcon(player.getDerecha().get(contadorsprites/10));
+		if(contadorsprites % 10 == 0) {
+			lblplayer.setIcon(this.getArraymovimiento().get(contadorsprites/10));
 		}
 		contadorsprites ++;
 		
