@@ -19,7 +19,7 @@ public class Main {
 		VentanaMapa ven1 = new VentanaMapa(jug1);
 		VentanaInicio v1 = new VentanaInicio(ven1);
 		ven1.setVeninicio(v1);
-		
+		//A
 		Thread hiloteclas = new Thread() {
 			public void run() {
 				try {
