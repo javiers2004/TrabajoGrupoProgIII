@@ -31,7 +31,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected boolean teclad;
 	protected boolean teclashift;
 	protected int contadorsprites = 0;
-	
+	protected PanelInfoVentanaMapa veninfo;
 	
 	public JLabel map;
 	private Color backgroundColor = Color.GREEN;
@@ -150,10 +150,13 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		panelfondo.add(lblplayer, JLayeredPane.PALETTE_LAYER);	
 		panelfondo.setComponentZOrder(lblplayer, 0);
 		panelfondo.setComponentZOrder(map, 1);
-		
 		ImageIcon icono = new ImageIcon("dcha1.png");
 		ImageIcon imagen22 = new ImageIcon(icono.getImage().getScaledInstance(1000, 1000, Image.SCALE_SMOOTH));
 		lblplayer.setIcon(imagen22);
+		veninfo = new PanelInfoVentanaMapa(player);
+		veninfo.setLocation(0,0);
+		panelfondo.add(veninfo);
+		panelfondo.setComponentZOrder(veninfo, 1);
 	}
 	//PARA PONER BOOLEANOS A TRUE AL PRESIONAR TECLAS
 	public void keyPressed(KeyEvent e) {
@@ -204,7 +207,12 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			lblplayer.setIcon(player.getDerecha().get(contadorsprites/10));
 		}
 		contadorsprites ++;
+		
+		//System.out.print(player.getStaminarestante() + "/" + player.getStaminatotal());
 
+	}
+	public void actualizarComponentes(Jugador player) {
+		veninfo.actualizarPanelInfo(player);
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
