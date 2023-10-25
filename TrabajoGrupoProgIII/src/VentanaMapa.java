@@ -30,28 +30,19 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected boolean teclas;
 	protected boolean teclad;
 	protected boolean teclashift;
+	protected int contadorsprites = 0;
+	
 	
 	public JLabel map;
 	private Color backgroundColor = Color.GREEN;
 	protected JLabel lblplayer;
 	protected JFrame veninicio;
-	public JPanel panelfondo;
 
 	//GETTERS Y SETTERS
-	
 	
 	protected boolean isTeclaw() {
 		return teclaw;
 	}
-	
-	public JPanel getPanelfondo() {
-		return panelfondo;
-	}
-
-	public void setPanelfondo(JPanel panelfondo) {
-		this.panelfondo = panelfondo;
-	}
-
 	protected boolean isTeclashift() {
 		return teclashift;
 	}
@@ -118,70 +109,51 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	    this.setFocusable(true);
 	    this.requestFocusInWindow();
 	    //AÑADIR EL png DEL MAPA A LA VENTANA
-	    panelfondo = new JPanel();
-	    panelfondo.setPreferredSize(new Dimension(800,800));
+	    JLayeredPane panelfondo = new JLayeredPane();
+	    panelfondo.setPreferredSize(new Dimension(8000,8000));
         panelfondo.setBackground(Color.cyan);
         panelfondo.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
         JPanel pnlprincipal= new JPanel();
-        pnlprincipal.setSize(800,800);
+        pnlprincipal.setSize(8000,8000);
         pnlprincipal.setLayout(new BoxLayout(pnlprincipal, BoxLayout.PAGE_AXIS));
-        pnlprincipal.add(Box.createRigidArea(new Dimension(0, 0))); 
+        //pnlprincipal.add(Box.createRigidArea(new Dimension(0, 0))); 
         pnlprincipal.add(panelfondo);
         this.add(pnlprincipal);
         pnlprincipal.setVisible(true);
         panelfondo.setVisible(true);
-        String imageUrl = "https://raw.githubusercontent.com/javiers2004/TrabajoGrupoProgIII/master/TrabajoGrupoProgIII/src/MAPADEFINITIVO.png";
-		try {
-			ImageIcon icon = new ImageIcon(new ImageIcon(new URL(imageUrl)).getImage());
-	        ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(12288,12288,Image.SCALE_SMOOTH));
-	        Image i2 = imagen.getImage();
-	        BufferedImage imagenparadibujar = new BufferedImage(i2.getHeight(null), i2.getWidth(null), BufferedImage.TYPE_INT_ARGB);
-	        Graphics2D g2d = imagenparadibujar.createGraphics();
-	        g2d.drawImage(i2, 0, 0, null);
-	        g2d.dispose();
-	        ImageIcon imagenfinal = new ImageIcon(imagenparadibujar);
-	        map = new JLabel(imagenfinal);
-	        panelfondo.add(map);
-	        map.setBounds(-player.getPosx(), -player.getPosy(), 12288, 12288);
-	        map.setVisible(true);
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        
+        
+       
+		ImageIcon icon = new ImageIcon("TrabajoGrupoProgIII/src/MAPADEFINITIVO.png");
+		ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(12288,12288,Image.SCALE_SMOOTH));
+		Image i2 = imagen.getImage();
+		BufferedImage imagenparadibujar = new BufferedImage(i2.getHeight(null), i2.getWidth(null), BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2d = imagenparadibujar.createGraphics();
+		g2d.drawImage(i2, 0, 0, null);
+		g2d.dispose();
+		ImageIcon imagenfinal = new ImageIcon(imagenparadibujar);
+		map = new JLabel(imagenfinal);
+		panelfondo.add(map, JLayeredPane.DEFAULT_LAYER);
+		map.setBounds(-player.getPosx(), -player.getPosy(), 12288, 12288);
+		map.setVisible(true);
+		
+		
 		//label del player
 		int x1 = (screenSize.width)/20;
 		int y1 = (screenSize.height)/12;
-		int x = (screenSize.width )/2 - x1;
+		int x = (screenSize.width )/2;
 		int y = (screenSize.height)/2 - y1;
 		lblplayer = new JLabel();
-
-		/*String imageURL2 = "https://raw.githubusercontent.com/javiers2004/TrabajoGrupoProgIII/master/TrabajoGrupoProgIII/sprites/guard_sword_1%20(1).png";
-		try {
-			ImageIcon icon = new ImageIcon(new ImageIcon(new URL(imageURL2)).getImage());
-			ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(x1,y1,Image.SCALE_SMOOTH));
-			Image i2 = imagen.getImage();
-			BufferedImage imagenparadibujar = new BufferedImage(i2.getWidth(null),i2.getHeight(null)+ 1000,  BufferedImage.TYPE_INT_ARGB);
-			Graphics2D g2d = imagenparadibujar.createGraphics();
-			g2d.drawImage(i2, 0, y, null);
-			g2d.dispose();
-			ImageIcon imagenfinal = new ImageIcon(imagenparadibujar);
-			lblplayer.setIcon(imagenfinal);
-		}catch (MalformedURLException e) {
-			e.printStackTrace();
-		}*/
-		
 		lblplayer.setOpaque(false);
-		panelfondo.add(Box.createRigidArea(new Dimension(0,(800- 200/2))));
-		panelfondo.add(lblplayer);
-		lblplayer.setBounds(x, y, x1, y1);
+		//panelfondo.add(Box.createRigidArea(new Dimension(0,0)));
+		lblplayer.setBounds(x-30, y, x1 , y1);
+		panelfondo.add(lblplayer, JLayeredPane.PALETTE_LAYER);	
 		panelfondo.setComponentZOrder(lblplayer, 0);
 		panelfondo.setComponentZOrder(map, 1);
-	}
-	public void paintComponent(Graphics g) {
-		super.paintComponents(g);
-		Graphics2D g2 = (Graphics2D) g;
-		//player.update();
-		g2.dispose();
+		
+		ImageIcon icono = new ImageIcon("dcha1.png");
+		ImageIcon imagen22 = new ImageIcon(icono.getImage().getScaledInstance(1000, 1000, Image.SCALE_SMOOTH));
+		lblplayer.setIcon(imagen22);
 	}
 	//PARA PONER BOOLEANOS A TRUE AL PRESIONAR TECLAS
 	public void keyPressed(KeyEvent e) {
@@ -225,14 +197,14 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public void actualizarVentana(Jugador player) {
 		map.setLocation(-player.getPosx(), -player.getPosy());
 		map.setVisible(true);
-		//player.update();
-	}
-	public void actualizarLbl(Jugador player,JPanel panelfondo, int x, int y ) {
+		if (contadorsprites + 1 > player.getDerecha().size()*10) {
+			contadorsprites = 0;
+		}
+		if(contadorsprites % 5 == 0) {
+			lblplayer.setIcon(player.getDerecha().get(contadorsprites/10));
+		}
+		contadorsprites ++;
 
-		BufferedImage playerImage = player.draw();
-		lblplayer.setIcon(new ImageIcon(playerImage));
-		lblplayer.setBounds(x, y, playerImage.getWidth(), playerImage.getHeight());
-		panelfondo.repaint();
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
