@@ -95,6 +95,9 @@ public class Main {
 					ven1.actualizarComponentes(jug1);
 					if (ven1.isTeclashift() == false && jug1.getStaminarestante()<jug1.getStaminatotal()) {
 						jug1.setStaminarestante(jug1.getStaminarestante() + 0.25);
+						if(jug1.getStaminarestante() > 100) {
+							jug1.setStaminarestante(100);
+						}
 					}
 					
 					try {
