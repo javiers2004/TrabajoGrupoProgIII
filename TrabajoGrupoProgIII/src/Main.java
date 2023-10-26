@@ -43,11 +43,11 @@ public class Main {
 						int blue = color.getBlue();
 						if (red > 200 && green > 200 && blue > 200 ) {
 							jug1.setPosy(jug1.getPosy() - 3 - velocidadextra);
-							ven1.actualizarVentana(jug1);
+							ven1.actualizarVentana(jug1, false);
 						}	
 						if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosy(jug1.getPosy() - 3 - velocidadextra);
-							ven1.actualizarVentana(jug1);
+							ven1.actualizarVentana(jug1, true);
 						}	
 					}	
 					if (ven1.isTeclaa() == true) {
@@ -57,11 +57,11 @@ public class Main {
 						int blue = color.getBlue();
 						if (red > 200 && green > 200 && blue > 200 ) {
 							jug1.setPosx(jug1.getPosx() - 3 - velocidadextra);
-							ven1.actualizarVentana(jug1);
+							ven1.actualizarVentana(jug1, false);
 						}
 						if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosx(jug1.getPosx() - 3 - velocidadextra);
-							ven1.actualizarVentana(jug1);
+							ven1.actualizarVentana(jug1, true);
 						}
 						
 					}
@@ -72,11 +72,11 @@ public class Main {
 						int blue = color.getBlue();
 						if (red > 200 && green > 200 && blue > 200 ) {
 							jug1.setPosy(jug1.getPosy() + 3 + velocidadextra);
-							ven1.actualizarVentana(jug1);
+							ven1.actualizarVentana(jug1, false);
 						}
 						if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosy(jug1.getPosy() + 3 + velocidadextra);
-							ven1.actualizarVentana(jug1);
+							ven1.actualizarVentana(jug1, true);
 						}
 					}
 					if (ven1.isTeclad() == true) {
@@ -86,14 +86,16 @@ public class Main {
 						int blue = color.getBlue();
 						if (red > 200 && green > 200 && blue > 200 ) {
 							jug1.setPosx(jug1.getPosx() + 3 + velocidadextra);
-							ven1.actualizarVentana(jug1);
+							ven1.actualizarVentana(jug1, false);
 						}
 						if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosx(jug1.getPosx() + 3 + velocidadextra);
-							ven1.actualizarVentana(jug1);
+							ven1.actualizarVentana(jug1, true);
 						}
 					}
+					//jug1.setStaminarestante(jug1.getStaminatotal());               PARA EL BONUS DE VELOCIDAD
 					ven1.actualizarComponentes(jug1);
+					
 					if (ven1.isTeclashift() == false && jug1.getStaminarestante()<jug1.getStaminatotal()) {
 						jug1.setStaminarestante(jug1.getStaminarestante() + 0.25);
 						if(jug1.getStaminarestante() > 100) {

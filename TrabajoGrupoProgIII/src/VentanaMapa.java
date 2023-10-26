@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -40,7 +41,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected JFrame veninicio;
 	protected ArrayList<ImageIcon> arraymovimiento;
 	protected Jugador player;
-	
+	protected JLabel labelatravesar;
 	//GETTERS Y SETTERS
 	
 	
@@ -168,13 +169,21 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		panelfondo.add(lblplayer, JLayeredPane.PALETTE_LAYER);	
 		panelfondo.setComponentZOrder(lblplayer, 0);
 		panelfondo.setComponentZOrder(map, 1);
-		ImageIcon icono = new ImageIcon("dcha1.png");
-		ImageIcon imagen22 = new ImageIcon(icono.getImage().getScaledInstance(1000, 1000, Image.SCALE_SMOOTH));
-		lblplayer.setIcon(imagen22);
+		ImageIcon icono2 = new ImageIcon("dcha1.png");
+		ImageIcon imagen2 = new ImageIcon(icono2.getImage().getScaledInstance(1000, 1000, Image.SCALE_SMOOTH));
+		lblplayer.setIcon(imagen2);
 		veninfo = new PanelInfoVentanaMapa(player);
 		veninfo.setLocation(0,0);
 		panelfondo.add(veninfo);
 		panelfondo.setComponentZOrder(veninfo, 1);
+		labelatravesar = new JLabel();
+		ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/imagenatravesar.png");
+		ImageIcon imagen3 = new ImageIcon(icono3.getImage().getScaledInstance(screenSize.width,screenSize.height, Image.SCALE_SMOOTH));
+		labelatravesar.setIcon(imagen3);
+		labelatravesar.setBounds(0, 0, screenSize.width , screenSize.height);
+		panelfondo.add(labelatravesar, JLayeredPane.PALETTE_LAYER);
+		panelfondo.setComponentZOrder(labelatravesar, 0);
+		
 	}
 	//PARA PONER BOOLEANOS A TRUE AL PRESIONAR TECLAS
 	public void keyPressed(KeyEvent e) {
@@ -228,7 +237,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	        }
 	}
 	//PARA ACTUALIZAR LA VENTANA CUANDO SE LLAMA DESDE EL MAIN
-	public void actualizarVentana(Jugador player) {
+	public void actualizarVentana(Jugador player, boolean atravesando) {
 		map.setLocation(-player.getPosx(), -player.getPosy());
 		map.setVisible(true);
 		if (contadorsprites + 1 > this.getArraymovimiento().size()*10) {
@@ -238,9 +247,13 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			lblplayer.setIcon(this.getArraymovimiento().get(contadorsprites/10));
 		}
 		contadorsprites ++;
-		
+		if (atravesando == true) {
+			labelatravesar.setVisible(true);
+		}
 		//System.out.print(player.getStaminarestante() + "/" + player.getStaminatotal());
-
+		else {
+			labelatravesar.setVisible(false);
+		}
 	}
 	public void actualizarComponentes(Jugador player) {
 		veninfo.actualizarPanelInfo(player);
@@ -249,4 +262,5 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub	
 	}
+
 }
