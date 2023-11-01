@@ -246,7 +246,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
         	} else if (keyChar == 'A') {
         		teclaa = true;
         		if (this.getArraymovimiento() != this.getPlayer().getIzquierda()) {
-        			lblplayer.setLocation(lblplayer.getLocation().x - 40, lblplayer.getLocation().y);
+        			//lblplayer.setLocation(lblplayer.getLocation().x - 40, lblplayer.getLocation().y);
     				//player.setPosx(player.getPosx() - 0);
     				//this.actualizarVentana(player);
         		}
@@ -257,7 +257,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
         	} else if (keyChar == 'D') {
         		teclad = true;
         		if (this.getArraymovimiento() != this.getPlayer().getDerecha()) {
-        			lblplayer.setLocation(lblplayer.getLocation().x + 40, lblplayer.getLocation().y);
+        			//lblplayer.setLocation(lblplayer.getLocation().x + 40, lblplayer.getLocation().y);
             		//player.setPosx(player.getPosx() + 15);
     				//this.actualizarVentana(player);
         		}
