@@ -4,9 +4,10 @@ import javax.swing.JFrame;
 
 public class HiloSubidaNivel extends Thread{
 	
-		public HiloSubidaNivel(PanelInfoVentanaMapa veninfo, VentanaMapa ven1) {
+		public HiloSubidaNivel(PanelInfoVentanaMapa veninfo, VentanaMapa ven1, Jugador player) {
 
 			for (int i = 0; i<10;i++) {	
+				veninfo.niveljugador.setText("Nivel: "+ player.getNivel()+ "                                          ¡NUEVO NIVEL!");
 				veninfo.panelnivel.setBackground(Color.YELLOW);
 				veninfo.panelvida.setBackground(Color.YELLOW);
 				veninfo.panelstamina.setBackground(Color.YELLOW);
