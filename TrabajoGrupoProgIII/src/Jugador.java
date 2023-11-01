@@ -19,9 +19,15 @@ public class Jugador {
 	protected double staminarestante;
 	protected ArrayList<ImageIcon> derecha;
 	protected ArrayList<ImageIcon> izquierda;
+	protected int nivel;
 	
 	
-	
+	protected int getNivel() {
+		return nivel;
+	}
+	protected void setNivel(int nivel) {
+		this.nivel = nivel;
+	}
 	protected ArrayList<ImageIcon> getIzquierda() {
 		return izquierda;
 	}
@@ -89,20 +95,21 @@ public class Jugador {
 		this.staminatotal = 100;
 		this.staminarestante = 100;	
 		ArrayList<ImageIcon> derecha = new ArrayList<ImageIcon>();
-		ImageIcon icono = new ImageIcon("TrabajoGrupoProgIII/src/dcha1.png");
+		ImageIcon icono = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/dcha1.png");
 		ImageIcon imagen = new ImageIcon(icono.getImage().getScaledInstance(70,70, Image.SCALE_SMOOTH));
-		ImageIcon icono2 = new ImageIcon("TrabajoGrupoProgIII/src/dcha2.png");
+		ImageIcon icono2 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/dcha2.png");
 		ImageIcon imagen2 = new ImageIcon(icono2.getImage().getScaledInstance(70,70, Image.SCALE_SMOOTH));
 		derecha.add(imagen);
 		derecha.add(imagen2);
 		this.derecha = derecha;
 		ArrayList<ImageIcon> izquierda = new ArrayList<ImageIcon>();
-		ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/izq1.png");
+		ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/izq1.png");
 		ImageIcon imagen3 = new ImageIcon(icono3.getImage().getScaledInstance(70,70, Image.SCALE_SMOOTH));
-		ImageIcon icono4 = new ImageIcon("TrabajoGrupoProgIII/src/izq2.png");
+		ImageIcon icono4 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/izq2.png");
 		ImageIcon imagen4 = new ImageIcon(icono4.getImage().getScaledInstance(70,70, Image.SCALE_SMOOTH));
 		izquierda.add(imagen3);
 		izquierda.add(imagen4);
 		this.izquierda = izquierda;
+		this.nivel = 1;
 	}	
 }

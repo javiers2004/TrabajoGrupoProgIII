@@ -19,9 +19,12 @@ public class PanelInfoVentanaMapa extends JPanel{
 	protected JLabel canvida = new JLabel();
 	protected JLabel canstamina = new JLabel();
 	protected JLabel canexperiencia = new JLabel();
+	protected JPanel panelnivel;
+	protected JLabel niveljugador;
+	
 	
 	public PanelInfoVentanaMapa(Jugador player) {
-		this.setLayout(new GridLayout(3,1));
+		this.setLayout(new GridLayout(4,1));
 		panelvida.setLayout(new BorderLayout());
 		panelstamina.setLayout(new BorderLayout());
 		panelexperiencia.setLayout(new BorderLayout());
@@ -40,11 +43,16 @@ public class PanelInfoVentanaMapa extends JPanel{
 		barravida.setForeground(Color.GREEN);
 		barrastamina = new JProgressBar(0, (int)player.getStaminatotal());
 		barrastamina.setForeground(Color.RED);
-		barraexperiencia = new JProgressBar(0, 1000);
+		barraexperiencia = new JProgressBar(0, 15);
 		barraexperiencia.setForeground(Color.BLUE);
 		panelvida.add(barravida, BorderLayout.EAST);
 		panelstamina.add(barrastamina, BorderLayout.EAST);
 		panelexperiencia.add(barraexperiencia, BorderLayout.EAST);
+		panelnivel = new JPanel();
+		panelnivel.setLayout(new BorderLayout());
+		niveljugador = new JLabel("Nivel: " );
+		panelnivel.add(niveljugador, BorderLayout.WEST);
+		this.add(panelnivel);
 	}
 	
 	public void actualizarPanelInfo(Jugador player) {
@@ -60,6 +68,7 @@ public class PanelInfoVentanaMapa extends JPanel{
 			canstamina.setText("                        " + String.valueOf(player.getStaminarestante()));
 		}
 		canexperiencia.setText("                    " + String.valueOf(player.getExperiencia()));
+		niveljugador.setText("Nivel: " + player.getNivel());
 
 		this.repaint();
 	}

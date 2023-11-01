@@ -1,21 +1,26 @@
 	import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.LayoutManager;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
@@ -34,7 +39,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected boolean teclashift;
 	protected int contadorsprites = 0;
 	protected PanelInfoVentanaMapa veninfo;
-	
+	public JLabel fondo;
 	public JLabel map;
 	private Color backgroundColor = Color.GREEN;
 	protected JLabel lblplayer;
@@ -42,9 +47,25 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected ArrayList<ImageIcon> arraymovimiento;
 	protected Jugador player;
 	protected JLabel labelatravesar;
+	protected JLabel levelup;
 	//GETTERS Y SETTERS
 	
 	
+	
+	protected int aumentoprogresivoexp= 0;
+	
+	protected PanelInfoVentanaMapa getVeninfo() {
+		return veninfo;
+	}
+	protected void setVeninfo(PanelInfoVentanaMapa veninfo) {
+		this.veninfo = veninfo;
+	}
+	protected int getAumentoprogresivoexp() {
+		return aumentoprogresivoexp;
+	}
+	protected void setAumentoprogresivoexp(int aumentoprogresivoexp) {
+		this.aumentoprogresivoexp = aumentoprogresivoexp;
+	}
 	protected boolean isTeclaw() {
 		return teclaw;
 	}
@@ -118,16 +139,17 @@ public class VentanaMapa extends JFrame implements KeyListener{
             	getVeninicio().setVisible(true);  	
             }
         });
+		//POSICIONAR LABEL DEL JUGADOR
 		this.player = player;
 		this.setArraymovimiento(player.getDerecha());
 		this.setVisible(false);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setBounds(0, 0, screenSize.width, screenSize.height);
 	    this.addKeyListener(this);
-	    // Establecer el foco en el JFrame para recibir eventos de teclado
+	    //FOCO EN EL JFRAME PARA RECIBIR LOS EVENTOS DEL TECLADO
 	    this.setFocusable(true);
 	    this.requestFocusInWindow();
-	    //AÑADIR EL png DEL MAPA A LA VENTANA
+	    //AÑADIR EL PANELPRINCIPAL A LA VENTANA
 	    JLayeredPane panelfondo = new JLayeredPane();
 	    panelfondo.setPreferredSize(new Dimension(8000,8000));
         panelfondo.setBackground(Color.cyan);
@@ -141,9 +163,17 @@ public class VentanaMapa extends JFrame implements KeyListener{
         pnlprincipal.setVisible(true);
         panelfondo.setVisible(true);
         
-        
-       
-		ImageIcon icon = new ImageIcon("TrabajoGrupoProgIII/src/MAPADEFINITIVO.png");
+        //PERSONALIZAR EL FONDO
+        ImageIcon iconofondo = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/OIP.jpg");
+		ImageIcon imagenfondo = new ImageIcon(iconofondo.getImage().getScaledInstance(screenSize.width,screenSize.height, Image.SCALE_SMOOTH));
+		fondo = new JLabel();
+		fondo.setIcon(imagenfondo);
+		fondo.setBounds(0, 0, screenSize.width , screenSize.height);
+		panelfondo.add(fondo, JLayeredPane.PALETTE_LAYER);
+		panelfondo.setComponentZOrder(fondo, 0);
+	
+		//AÑADIR EL MAPA PRINCIPAL
+		ImageIcon icon = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPADEFINITIVO.png");
 		ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(12288,12288,Image.SCALE_SMOOTH));
 		Image i2 = imagen.getImage();
 		BufferedImage imagenparadibujar = new BufferedImage(i2.getHeight(null), i2.getWidth(null), BufferedImage.TYPE_INT_ARGB);
@@ -156,8 +186,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		map.setBounds(-player.getPosx(), -player.getPosy(), 12288, 12288);
 		map.setVisible(true);
 		
-		
-		//label del player
+		//AÑADIR LABEL DEL PLAYER, DEL ATRAVESAR, Y LA VENTANA DE INFORMACIÓN
 		int x1 = (screenSize.width)/20;
 		int y1 = (screenSize.height)/12;
 		int x = (screenSize.width )/2;
@@ -175,14 +204,36 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		veninfo = new PanelInfoVentanaMapa(player);
 		veninfo.setLocation(0,0);
 		panelfondo.add(veninfo);
-		panelfondo.setComponentZOrder(veninfo, 1);
+		panelfondo.setComponentZOrder(veninfo, 0);
 		labelatravesar = new JLabel();
-		ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/imagenatravesar.png");
+		ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/imagenatravesar.png");
 		ImageIcon imagen3 = new ImageIcon(icono3.getImage().getScaledInstance(screenSize.width,screenSize.height, Image.SCALE_SMOOTH));
 		labelatravesar.setIcon(imagen3);
 		labelatravesar.setBounds(0, 0, screenSize.width , screenSize.height);
 		panelfondo.add(labelatravesar, JLayeredPane.PALETTE_LAYER);
-		panelfondo.setComponentZOrder(labelatravesar, 0);
+		panelfondo.setComponentZOrder(labelatravesar, 1);
+		ImageIcon icono4 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/levelup.png");
+		ImageIcon imagen4 = new ImageIcon(icono4.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+		levelup = new JLabel();
+		levelup.setIcon(imagen4);
+		levelup.setBounds(300, 0, 100 , 100);
+		panelfondo.add(levelup, JLayeredPane.PALETTE_LAYER);
+		panelfondo.setComponentZOrder(levelup, 1);
+		levelup.setVisible(false);
+		
+	//PERSONALIZAR CURSOR
+		BufferedImage cursorImage;
+		try {
+			cursorImage = ImageIO.read(new File("TrabajoGrupoProgIII/src/Imagenes/sword.png"));
+	        Toolkit toolkit = Toolkit.getDefaultToolkit();
+	        Cursor customCursor = toolkit.createCustomCursor(cursorImage, new Point(0, 0), "CustomCursor");
+			map.setCursor(customCursor);
+			lblplayer.setCursor(customCursor);
+			labelatravesar.setCursor(customCursor);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 	}
 	//PARA PONER BOOLEANOS A TRUE AL PRESIONAR TECLAS
@@ -249,11 +300,27 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		contadorsprites ++;
 		if (atravesando == true) {
 			labelatravesar.setVisible(true);
+			lblplayer.setVisible(false);
 		}
 		//System.out.print(player.getStaminarestante() + "/" + player.getStaminatotal());
 		else {
 			labelatravesar.setVisible(false);
+			lblplayer.setVisible(true);
 		}
+		if(this.getAumentoprogresivoexp() % 100 == 0) {
+			player.setExperiencia(player.getExperiencia()+1);			
+		}
+		this.setAumentoprogresivoexp(this.getAumentoprogresivoexp() + 1);
+		this.player = player;
+		if (player.getExperiencia() > 15) {
+			player.setNivel(player.getNivel() + 1);
+			player.setExperiencia(0);
+			levelup.setVisible(true);
+			HiloSubidaNivel hilosubidanivel = new HiloSubidaNivel(veninfo, this);
+			hilosubidanivel.start();	
+			levelup.setVisible(false);
+		}
+		
 	}
 	public void actualizarComponentes(Jugador player) {
 		veninfo.actualizarPanelInfo(player);
@@ -262,5 +329,6 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub	
 	}
+
 
 }
