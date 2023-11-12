@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -15,9 +17,23 @@ public class Main {
 	public static void main(String[] args) {
 		
 		Jugador jug1 = new Jugador();
-		VentanaMapa ven1 = new VentanaMapa(jug1);
-		VentanaInicio v1 = new VentanaInicio(ven1);
-		ven1.setVeninicio(v1);
+        VentanaMapa ven1 = new VentanaMapa(jug1);
+
+        // Crear una instancia de VentanaAudio
+        VentanaAudio audioPlayer = null;
+        try {
+        	audioPlayer = new VentanaAudio("acoustic-guitar-loop-f-91bpm-132687.wav");
+            audioPlayer.play();
+
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+            System.exit(1);  // Si hay un error, sal del programa.
+        }
+
+        // Crear una instancia de VentanaInicio con las instancias ven1 y audioPlayer.
+        VentanaInicio v1 = new VentanaInicio(ven1, audioPlayer);
+        ven1.setVeninicio(v1);
+
 		Thread hiloteclas = new Thread() {
 			public void run() {
 				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -113,5 +129,9 @@ public class Main {
 			}	
 		};
 		hiloteclas.start();
+		
+		
+
+		
 	}
 }

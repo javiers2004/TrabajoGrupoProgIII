@@ -13,8 +13,14 @@ public class VentanaInicio extends JFrame implements ActionListener {
     private JLabel lblTitulo;
     private JFrame va;
     
-    public VentanaInicio(JFrame ven1) {
-        super();
+    private VentanaAudio player;
+    private VentanaAjustes ventanaAjustes;
+    
+    
+    public VentanaInicio(JFrame ven1, VentanaAudio player) {
+        this.player = player;
+
+        //super();
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
@@ -91,7 +97,7 @@ public class VentanaInicio extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setResizable(true);
         setVisible(true);
-    
+     
     
     /*EVENTOS*/
     botonNombre.addActionListener(new ActionListener() {
@@ -105,7 +111,7 @@ public class VentanaInicio extends JFrame implements ActionListener {
 		}
 	});
     
- botonPlay.addActionListener(new ActionListener() {
+    botonPlay.addActionListener(new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -126,7 +132,7 @@ public class VentanaInicio extends JFrame implements ActionListener {
 			            //Thread.sleep(400);	
 			            //robot.keyPress(KeyEvent.VK_W);
 			            //Thread.sleep(2400);		            
-			           // robot.keyRelease(KeyEvent.VK_W);    
+			            //robot.keyRelease(KeyEvent.VK_W);    
 			        } catch (Exception e) {
 			            e.printStackTrace();
 			        }
@@ -136,9 +142,26 @@ public class VentanaInicio extends JFrame implements ActionListener {
 		}
 	});
       
+    
+    boton4.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (ventanaAjustes == null) {
+                ventanaAjustes = new VentanaAjustes(player);
+            } else {
+                ventanaAjustes.setVisible(true);
+            }
+        }
+    });
+
+
+    
+    
+    
+    
     }
     
-
+    
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
