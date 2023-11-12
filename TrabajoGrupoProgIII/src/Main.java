@@ -19,6 +19,8 @@ public class Main {
 		Jugador jug1 = new Jugador();
         VentanaMapa ven1 = new VentanaMapa(jug1);
 
+        
+        
         // Crear una instancia de VentanaAudio
         VentanaAudio audioPlayer = null;
         try {
