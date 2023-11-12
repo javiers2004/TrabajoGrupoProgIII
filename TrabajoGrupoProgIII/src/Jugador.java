@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+
+
+
 public class Jugador {
 	protected int posx;
 	protected int posy;
@@ -19,9 +22,15 @@ public class Jugador {
 	protected double staminarestante;
 	protected ArrayList<ImageIcon> derecha;
 	protected ArrayList<ImageIcon> izquierda;
+	protected int nivel;
 	
 	
-	
+	protected int getNivel() {
+		return nivel;
+	}
+	protected void setNivel(int nivel) {
+		this.nivel = nivel;
+	}
 	protected ArrayList<ImageIcon> getIzquierda() {
 		return izquierda;
 	}
@@ -89,20 +98,28 @@ public class Jugador {
 		this.staminatotal = 100;
 		this.staminarestante = 100;	
 		ArrayList<ImageIcon> derecha = new ArrayList<ImageIcon>();
-		ImageIcon icono = new ImageIcon("TrabajoGrupoProgIII/src/dcha1.png");
-		ImageIcon imagen = new ImageIcon(icono.getImage().getScaledInstance(70,70, Image.SCALE_SMOOTH));
-		ImageIcon icono2 = new ImageIcon("TrabajoGrupoProgIII/src/dcha2.png");
-		ImageIcon imagen2 = new ImageIcon(icono2.getImage().getScaledInstance(70,70, Image.SCALE_SMOOTH));
+		ImageIcon icono = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/right0.png");
+		ImageIcon imagen = new ImageIcon(icono.getImage().getScaledInstance(30,46, Image.SCALE_SMOOTH));
+		ImageIcon icono2 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/right1.png");
+		ImageIcon imagen2 = new ImageIcon(icono2.getImage().getScaledInstance(30,46, Image.SCALE_SMOOTH));
+		ImageIcon icono5 =new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/right2.png");
+		ImageIcon imagen5 = new ImageIcon(icono5.getImage().getScaledInstance(30,46, Image.SCALE_SMOOTH));
+		derecha.add(imagen5);
 		derecha.add(imagen);
 		derecha.add(imagen2);
 		this.derecha = derecha;
 		ArrayList<ImageIcon> izquierda = new ArrayList<ImageIcon>();
-		ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/izq1.png");
-		ImageIcon imagen3 = new ImageIcon(icono3.getImage().getScaledInstance(70,70, Image.SCALE_SMOOTH));
-		ImageIcon icono4 = new ImageIcon("TrabajoGrupoProgIII/src/izq2.png");
-		ImageIcon imagen4 = new ImageIcon(icono4.getImage().getScaledInstance(70,70, Image.SCALE_SMOOTH));
+		ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/left0.png");
+		ImageIcon imagen3 = new ImageIcon(icono3.getImage().getScaledInstance(30,46, Image.SCALE_SMOOTH));
+		ImageIcon icono4 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/left1.png");
+		ImageIcon imagen4 = new ImageIcon(icono4.getImage().getScaledInstance(30,46, Image.SCALE_SMOOTH));
+		ImageIcon icono6 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/left2.png");
+		ImageIcon imagen6 = new ImageIcon(icono6.getImage().getScaledInstance(30,46, Image.SCALE_SMOOTH));
 		izquierda.add(imagen3);
 		izquierda.add(imagen4);
+		izquierda.add(imagen6);
 		this.izquierda = izquierda;
+		
+		this.nivel = 1;
 	}	
 }

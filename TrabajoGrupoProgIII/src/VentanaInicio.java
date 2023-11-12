@@ -24,6 +24,7 @@ public class VentanaInicio extends JFrame implements ActionListener {
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
+		
         //this.setUndecorated(true); // Quitar la barra de título
         va = this;
         setTitle("");
@@ -97,7 +98,12 @@ public class VentanaInicio extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setResizable(true);
         setVisible(true);
-     
+
+        botonPlay.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        boton4.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        botonEstads.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        botonNombre.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
     
     /*EVENTOS*/
     botonNombre.addActionListener(new ActionListener() {
@@ -110,8 +116,10 @@ public class VentanaInicio extends JFrame implements ActionListener {
             }
 		}
 	});
-    
-    botonPlay.addActionListener(new ActionListener() {
+
+ 
+ botonPlay.addActionListener(new ActionListener() {
+
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
