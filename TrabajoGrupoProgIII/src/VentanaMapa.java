@@ -260,7 +260,6 @@ public class VentanaMapa extends JFrame implements KeyListener{
             public void mouseClicked(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
-                System.out.println("siiiii");
                 if(x > VentanaMapa.this.anchoventana/2) {
                 VentanaMapa.this.setArraymovimiento(player.getAtaqueespadader());
                 } else {
