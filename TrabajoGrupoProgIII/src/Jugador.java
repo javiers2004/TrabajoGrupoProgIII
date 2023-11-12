@@ -22,9 +22,24 @@ public class Jugador {
 	protected double staminarestante;
 	protected ArrayList<ImageIcon> derecha;
 	protected ArrayList<ImageIcon> izquierda;
+	protected ArrayList<ImageIcon> ataqueespadader;
+	protected ArrayList<ImageIcon> ataqueespadaizq;
 	protected int nivel;
 	
 	
+	
+	protected ArrayList<ImageIcon> getAtaqueespadaizq() {
+		return ataqueespadaizq;
+	}
+	protected void setAtaqueespadaizq(ArrayList<ImageIcon> ataqueespadaizq) {
+		this.ataqueespadaizq = ataqueespadaizq;
+	}
+	protected ArrayList<ImageIcon> getAtaqueespadader() {
+		return ataqueespadader;
+	}
+	protected void setAtaqueespadader(ArrayList<ImageIcon> ataqueespada) {
+		this.ataqueespadader = ataqueespada;
+	}
 	protected int getNivel() {
 		return nivel;
 	}
@@ -119,7 +134,22 @@ public class Jugador {
 		izquierda.add(imagen4);
 		izquierda.add(imagen6);
 		this.izquierda = izquierda;
-		
+		ArrayList<ImageIcon> ataqueespadader = new ArrayList<ImageIcon>();		
+		ImageIcon icono7 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/aright1.png");
+		ImageIcon imagen7 = new ImageIcon(icono7.getImage().getScaledInstance(40,46, Image.SCALE_SMOOTH));
+		ImageIcon icono8 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/aright2.png");
+		ImageIcon imagen8 = new ImageIcon(icono8.getImage().getScaledInstance(40,46, Image.SCALE_SMOOTH));
+		ataqueespadader.add(imagen7);
+		ataqueespadader.add(imagen8);
+		this.ataqueespadader = ataqueespadader;	
+		ArrayList<ImageIcon> ataqueespadaizq = new ArrayList<ImageIcon>();		
+		ImageIcon icono9 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/aleft1.png");
+		ImageIcon imagen9 = new ImageIcon(icono9.getImage().getScaledInstance(40,46, Image.SCALE_SMOOTH));
+		ImageIcon icono10 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/aleft2.png");
+		ImageIcon imagen10 = new ImageIcon(icono10.getImage().getScaledInstance(40,46, Image.SCALE_SMOOTH));
+		ataqueespadaizq.add(imagen9);
+		ataqueespadaizq.add(imagen10);
+		this.ataqueespadaizq = ataqueespadaizq;
 		this.nivel = 1;
 	}	
 }

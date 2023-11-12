@@ -11,6 +11,8 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -45,15 +47,31 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected JLabel lblplayer;
 	protected JFrame veninicio;
 	protected ArrayList<ImageIcon> arraymovimiento;
+	protected ArrayList<ImageIcon> arraymovimientoanterior;
 	protected Jugador player;
 	protected JLabel labelatravesar;
 	protected JLabel levelup;
+	protected int anchoventana;
+	protected int altoventana;
+	
 	//GETTERS Y SETTERS
 	
 	
 	
 	protected int aumentoprogresivoexp= 0;
 	
+	protected int getAnchoventana() {
+		return anchoventana;
+	}
+	protected void setAnchoventana(int anchoventana) {
+		this.anchoventana = anchoventana;
+	}
+	protected int getAltoventana() {
+		return altoventana;
+	}
+	protected void setAltoventana(int altoventana) {
+		this.altoventana = altoventana;
+	}
 	protected PanelInfoVentanaMapa getVeninfo() {
 		return veninfo;
 	}
@@ -144,6 +162,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		this.setArraymovimiento(player.getDerecha());
 		this.setVisible(false);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setAnchoventana(screenSize.width);
+		this.setAltoventana(screenSize.height);
 		this.setBounds(0, 0, screenSize.width, screenSize.height);
 	    this.addKeyListener(this);
 	    //FOCO EN EL JFRAME PARA RECIBIR LOS EVENTOS DEL TECLADO
@@ -194,7 +214,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		lblplayer = new JLabel();
 		lblplayer.setOpaque(false);
 		//panelfondo.add(Box.createRigidArea(new Dimension(0,0)));
-		lblplayer.setBounds(x-30, y, x1 , y1);
+		lblplayer.setBounds(x-x1/2, y, x1 , y1);
 		panelfondo.add(lblplayer, JLayeredPane.PALETTE_LAYER);	
 		panelfondo.setComponentZOrder(lblplayer, 0);
 		panelfondo.setComponentZOrder(map, 1);
@@ -235,7 +255,26 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			e1.printStackTrace();
 		}
 		
+		this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
+                System.out.println("siiiii");
+                if(x > VentanaMapa.this.anchoventana/2) {
+                VentanaMapa.this.setArraymovimiento(player.getAtaqueespadader());
+                } else {
+                    VentanaMapa.this.setArraymovimiento(player.getAtaqueespadaizq());
+
+                }
+                Hiloataque hiloat = new Hiloataque(lblplayer, VentanaMapa.this, x);
+                hiloat.start();
+                
+            }
+        });
+		
 	}
+
 	//PARA PONER BOOLEANOS A TRUE AL PRESIONAR TECLAS
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -243,6 +282,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
         // Verificar qué tecla se presionó y establecer la correspondiente variable booleana
         	if (keyChar == 'W') {
         		teclaw = true;
+        		this.arraymovimiento = this.arraymovimientoanterior;
         	} else if (keyChar == 'A') {
         		teclaa = true;
         		if (this.getArraymovimiento() != this.getPlayer().getIzquierda()) {
@@ -251,9 +291,13 @@ public class VentanaMapa extends JFrame implements KeyListener{
     				//this.actualizarVentana(player);
         		}
         		this.setArraymovimiento(this.getPlayer().getIzquierda());
-
+        		this.arraymovimientoanterior = this.getPlayer().getIzquierda();
+        		
+        		
         	} else if (keyChar == 'S') {
         		teclas = true;
+        		this.arraymovimiento = this.arraymovimientoanterior;
+
         	} else if (keyChar == 'D') {
         		teclad = true;
         		if (this.getArraymovimiento() != this.getPlayer().getDerecha()) {
@@ -262,7 +306,13 @@ public class VentanaMapa extends JFrame implements KeyListener{
     				//this.actualizarVentana(player);
         		}
         		this.setArraymovimiento(this.getPlayer().getDerecha());
-        	} 
+        		this.arraymovimientoanterior = this.getPlayer().getDerecha();
+
+        		
+        	}
+    		if(this.getArraymovimiento() != this.getPlayer().getDerecha() || this.getArraymovimiento() != this.getPlayer().getIzquierda()) {
+    			this.setArraymovimiento(arraymovimientoanterior);
+    		}
         	if(e.isShiftDown()) {
         		teclashift = true;
         	}
@@ -287,15 +337,21 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	        	teclashift = false;
 	        }
 	}
+	
+	
+     
 	//PARA ACTUALIZAR LA VENTANA CUANDO SE LLAMA DESDE EL MAIN
 	public void actualizarVentana(Jugador player, boolean atravesando) {
 		map.setLocation(-player.getPosx(), -player.getPosy());
 		map.setVisible(true);
-		if (contadorsprites + 1 > this.getArraymovimiento().size()*10) {
+		if(this.getArraymovimiento() == null) {
+			return;
+		}
+		if (contadorsprites + 1 > this.getArraymovimiento().size()*5) {
 			contadorsprites = 0;
 		}
-		if(contadorsprites % 10 == 0) {
-			lblplayer.setIcon(this.getArraymovimiento().get(contadorsprites/10));
+		if(contadorsprites % 5 == 0) {
+			lblplayer.setIcon(this.getArraymovimiento().get(contadorsprites/5));
 		}
 		contadorsprites ++;
 		if (atravesando == true) {
