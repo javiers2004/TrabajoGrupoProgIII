@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -32,6 +33,7 @@ public class VentanaInicio extends JFrame implements ActionListener {
     private DefaultMutableTreeNode rootNode; // Nodo raíz para el árbol
     private static final String NOMBRES_FILE = "nombres.txt";
     private ArrayList<String> nombres; // Lista para almacenar los nombres
+    private boolean tablaAbierta = false;
 
     
     private VentanaAudio player;
@@ -178,13 +180,33 @@ public class VentanaInicio extends JFrame implements ActionListener {
             
             cargarArbolNombre();
             
-            // Si el nombre se ha configurado, agregarlo como un nodo
-            if (nombreUsuario != null) {
+            //JTree tree = new JTree(rootNode);
+            
+            if (nombreUsuario != null && !nombreUsuario.isEmpty()) {
                 rootNode.add(new DefaultMutableTreeNode(nombreUsuario));
             }
 
-            // Mostrar el árbol en un cuadro de diálogo
-            JOptionPane.showMessageDialog(null, new JScrollPane(new JTree(rootNode)));
+            // Crear el JTree y configurar el MouseListener
+            JTree tree = new JTree(rootNode);
+            tree.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent me) {
+                    if (me.getClickCount() == 2) { // Verificar si es un doble clic
+                        TreePath tp = tree.getPathForLocation(me.getX(), me.getY());
+                        if (tp != null) {
+                            System.out.println("Nodo doble clickeado: " + tp.getLastPathComponent());
+                            mostrarTabla();
+                        }
+                    }
+                }
+            });
+
+            // Crear un JDialog no modal para mostrar el JTree
+            JDialog dialog = new JDialog(VentanaInicio.this, "Estadísticas", false); // 'false' hace que el diálogo sea no modal
+            dialog.add(new JScrollPane(tree));
+            dialog.setSize(300, 400);
+            dialog.setLocationRelativeTo(VentanaInicio.this);
+            dialog.setVisible(true);
 
             // Guardar el árbol con el nombre en el archivo
             guardarArbolNombre();
@@ -237,11 +259,13 @@ public class VentanaInicio extends JFrame implements ActionListener {
             }
         }
     });
+    
+    
 
+    
+    
+    tablaAbierta = false;
 
-    
-    
-    
     
     }
     // Método para cargar el árbol con los nombres desde el archivo
@@ -292,7 +316,31 @@ public class VentanaInicio extends JFrame implements ActionListener {
         }
     }
 
-    
+    private void mostrarTabla() {
+        if (tablaAbierta) {
+            return; // Si la tabla ya está abierta, no hacer nada
+        }
+
+        ModeloTablaPersonas modelo = new ModeloTablaPersonas();
+        JTable table = new JTable(modelo);
+        JFrame frame = new JFrame("Tabla de Datos");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(400, 300);
+        frame.setLocationRelativeTo(null);
+        JScrollPane scrollPane = new JScrollPane(table);
+        frame.add(scrollPane, BorderLayout.CENTER);
+
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                tablaAbierta = false; // Cambiar el indicador cuando la ventana se cierra completamente
+            }
+        });
+        frame.setVisible(true);
+        tablaAbierta = true; // Marcar que la ventana está abierta
+    }
+
+
     
 	@Override
 	public void actionPerformed(ActionEvent e) {
