@@ -46,6 +46,9 @@ public class Main {
 				BufferedImage mapacolisiones = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 				mapacolisiones.createGraphics().drawImage(image, 0, 0, null);
 				while(true) {
+					
+					if(ven1.click == false) {
+					
 					int velocidadextra = 0;
 					if(jug1.getStaminarestante() > 0 && ven1.isTeclashift() == true) {
 						velocidadextra = 3;
@@ -127,7 +130,25 @@ public class Main {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}	
+					}
+					else {
+						if (ven1.isTeclashift() == false && jug1.getStaminarestante()<jug1.getStaminatotal()) {
+							jug1.setStaminarestante(jug1.getStaminarestante() + 0.25);
+							if(jug1.getStaminarestante() > 100) {
+								jug1.setStaminarestante(100);
+							}
+						}
+						
+						try {
+							Thread.sleep(5);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					}
 				}
+				
 			}	
 		};
 		hiloteclas.start();
