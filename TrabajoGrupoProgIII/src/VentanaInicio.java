@@ -39,10 +39,10 @@ public class VentanaInicio extends JFrame implements ActionListener {
     private VentanaAudio player;
     private VentanaAjustes ventanaAjustes;
     
-    
+    private boolean insertado;
     public VentanaInicio(JFrame ven1, VentanaAudio player) {
         this.player = player;
-
+        this.insertado = false;
         //super();
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -171,7 +171,7 @@ public class VentanaInicio extends JFrame implements ActionListener {
                 if (nombreUsuario != null) {
                     JOptionPane.showMessageDialog(null, "Hola, " + nombreUsuario + "!");
                     nombres.add(nombreUsuario); // Agregar el nombre a la lista
-
+                   
                 }
             }
 
@@ -182,8 +182,9 @@ public class VentanaInicio extends JFrame implements ActionListener {
             
             //JTree tree = new JTree(rootNode);
             
-            if (nombreUsuario != null && !nombreUsuario.isEmpty()) {
+            if (nombreUsuario != null && !nombreUsuario.isEmpty() && !insertado) {
                 rootNode.add(new DefaultMutableTreeNode(nombreUsuario));
+                insertado=true;
             }
 
             // Crear el JTree y configurar el MouseListener
