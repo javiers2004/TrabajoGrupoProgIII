@@ -53,7 +53,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected JLabel levelup;
 	protected int anchoventana;
 	protected int altoventana;
-	
+	protected boolean click = false;
 	//GETTERS Y SETTERS
 	
 	
@@ -266,6 +266,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
                     VentanaMapa.this.setArraymovimiento(player.getAtaqueespadaizq());
 
                 }
+                click = true;
                 Hiloataque hiloat = new Hiloataque(lblplayer, VentanaMapa.this, x);
                 hiloat.start();
                 

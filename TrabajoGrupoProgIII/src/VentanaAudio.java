@@ -25,7 +25,6 @@ public class VentanaAudio {
         audioClip.loop(Clip.LOOP_CONTINUOUSLY); // Reproduce el audio en bucle indefinidamente
     }
 
-
     public void stop() {
         audioClip.stop();
     }
