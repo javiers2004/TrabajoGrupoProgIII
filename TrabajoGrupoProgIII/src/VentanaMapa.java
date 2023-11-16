@@ -54,12 +54,20 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected int anchoventana;
 	protected int altoventana;
 	protected boolean click = false;
+    boolean ataquedisponible = true;
+	
 	//GETTERS Y SETTERS
 	
 	
 	
 	protected int aumentoprogresivoexp= 0;
 	
+	protected boolean isAtaquedisponible() {
+		return ataquedisponible;
+	}
+	protected void setAtaquedisponible(boolean ataquedisponible) {
+		this.ataquedisponible = ataquedisponible;
+	}
 	protected int getAnchoventana() {
 		return anchoventana;
 	}
@@ -260,21 +268,19 @@ public class VentanaMapa extends JFrame implements KeyListener{
             public void mouseClicked(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
-                if(x > VentanaMapa.this.anchoventana/2) {
-                VentanaMapa.this.setArraymovimiento(player.getAtaqueespadader());
-                } else {
-                    VentanaMapa.this.setArraymovimiento(player.getAtaqueespadaizq());
-
+                if(ataquedisponible == true) {
+                	click = true;
+                	ataquedisponible = false;
+                	Hiloataque hiloat = new Hiloataque(lblplayer, VentanaMapa.this, x);
+                	hiloat.start();
                 }
-                click = true;
-                Hiloataque hiloat = new Hiloataque(lblplayer, VentanaMapa.this, x);
-                hiloat.start();
-                
             }
         });
 		
 	}
 
+	
+	
 	//PARA PONER BOOLEANOS A TRUE AL PRESIONAR TECLAS
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -344,39 +350,43 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public void actualizarVentana(Jugador player, boolean atravesando) {
 		map.setLocation(-player.getPosx(), -player.getPosy());
 		map.setVisible(true);
-		if(this.getArraymovimiento() == null) {
-			return;
-		}
-		if (contadorsprites + 1 > this.getArraymovimiento().size()*5) {
-			contadorsprites = 0;
-		}
-		if(contadorsprites % 5 == 0) {
-			lblplayer.setIcon(this.getArraymovimiento().get(contadorsprites/5));
-		}
-		contadorsprites ++;
-		if (atravesando == true) {
-			labelatravesar.setVisible(true);
-			lblplayer.setVisible(false);
-		}
-		//System.out.print(player.getStaminarestante() + "/" + player.getStaminatotal());
-		else {
-			labelatravesar.setVisible(false);
-			lblplayer.setVisible(true);
-		}
-		if(this.getAumentoprogresivoexp() % 100 == 0) {
-			player.setExperiencia(player.getExperiencia()+1);			
-		}
-		this.setAumentoprogresivoexp(this.getAumentoprogresivoexp() + 1);
-		this.player = player;
-		if (player.getExperiencia() > 15) {
-			player.setNivel(player.getNivel() + 1);
-			player.setExperiencia(0);
-			levelup.setVisible(true);
-			HiloSubidaNivel hilosubidanivel = new HiloSubidaNivel(veninfo, this, player);
-			hilosubidanivel.start();	
-			levelup.setVisible(false);
-		}
+
+		if(teclaw == true || teclaa == true || teclas == true || teclad == true) {
+			
+			if(this.getArraymovimiento() == null) {
+				return;
+			}
+			if (contadorsprites + 1 > this.getArraymovimiento().size()*5) {
+				contadorsprites = 0;
+			}
+			if(contadorsprites % 5 == 0) {
+				lblplayer.setIcon(this.getArraymovimiento().get(contadorsprites/5));
+			}
+			contadorsprites ++;
+			if (atravesando == true) {
+				labelatravesar.setVisible(true);
+				lblplayer.setVisible(false);
+			}
+			//System.out.print(player.getStaminarestante() + "/" + player.getStaminatotal());
+			else {
+				labelatravesar.setVisible(false);
+				lblplayer.setVisible(true);
+			}
 		
+			if(this.getAumentoprogresivoexp() % 100 == 0) {
+				player.setExperiencia(player.getExperiencia()+1);			
+			}
+			this.setAumentoprogresivoexp(this.getAumentoprogresivoexp() + 1);
+			this.player = player;
+			if (player.getExperiencia() > 15) {
+				player.setNivel(player.getNivel() + 1);
+				player.setExperiencia(0);
+				levelup.setVisible(true);
+				HiloSubidaNivel hilosubidanivel = new HiloSubidaNivel(veninfo, this, player);
+				hilosubidanivel.start();	
+				levelup.setVisible(false);
+			}
+		}
 	}
 	public void actualizarComponentes(Jugador player) {
 		veninfo.actualizarPanelInfo(player);

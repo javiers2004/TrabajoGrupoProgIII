@@ -19,7 +19,6 @@ public class Main {
 		
 		Jugador jug1 = new Jugador();
         VentanaMapa ven1 = new VentanaMapa(jug1);
-
         
         
         // Crear una instancia de VentanaAudio
@@ -121,6 +120,9 @@ public class Main {
 							jug1.setPosx(jug1.getPosx() + 3 + velocidadextra);
 							ven1.actualizarVentana(jug1, true);
 						}
+					}
+					if(ven1.isTeclad() == false && ven1.isTeclaa() == false && ven1.isTeclas() == false && ven1.isTeclaw() == false) {
+						ven1.actualizarVentana(jug1, false);
 					}
 					//jug1.setStaminarestante(jug1.getStaminatotal());               PARA EL BONUS DE VELOCIDAD
 					ven1.actualizarComponentes(jug1);
