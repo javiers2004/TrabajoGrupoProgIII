@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 
 
 public class Jugador {
+	private String nombre;
 	protected int posx;
 	protected int posy;
 	protected int vidatotal;
@@ -28,6 +29,13 @@ public class Jugador {
 	
 	
 	
+	
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 	protected ArrayList<ImageIcon> getAtaqueespadaizq() {
 		return ataqueespadaizq;
 	}
@@ -42,6 +50,9 @@ public class Jugador {
 	}
 	protected int getNivel() {
 		return nivel;
+	}
+	protected String getNivelStr() {
+		return String.valueOf(nivel);
 	}
 	protected void setNivel(int nivel) {
 		this.nivel = nivel;
@@ -151,5 +162,13 @@ public class Jugador {
 		ataqueespadaizq.add(imagen10);
 		this.ataqueespadaizq = ataqueespadaizq;
 		this.nivel = 1;
-	}	
+	}
+	public Jugador(String nombre, String nivel) {
+		super();
+		this.nombre = nombre;
+		this.nivel = Integer.parseInt(nivel);
+	}
+	
+	
+	
 }

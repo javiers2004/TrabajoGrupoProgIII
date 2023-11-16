@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
@@ -35,7 +36,14 @@ public class Main {
         // Crear una instancia de VentanaInicio con las instancias ven1 y audioPlayer.
         VentanaInicio v1 = new VentanaInicio(ven1, audioPlayer);
         ven1.setVeninicio(v1);
+        
+        Connection con = BD.initBD("project.db");
+        BD.crearTablas(con);
+		BD.insertarJugador(con, new Jugador("ale11", "2"));
+		BD.insertarJugador(con, new Jugador("jose56", "89"));
+		BD.closeBD(con);
 
+        
 		Thread hiloteclas = new Thread() {
 			public void run() {
 				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

@@ -33,6 +33,8 @@ public class VentanaInicio extends JFrame implements ActionListener {
     private DefaultMutableTreeNode rootNode; // Nodo raíz para el árbol
     private static final String NOMBRES_FILE = "nombres.txt";
     private ArrayList<String> nombres; // Lista para almacenar los nombres
+    private ArrayList<Jugador> jugadores; // Lista para almacenar los jugadores
+
     private boolean tablaAbierta = false;
 
     
@@ -269,12 +271,12 @@ public class VentanaInicio extends JFrame implements ActionListener {
 
     
     }
-    // Método para cargar el árbol con los nombres desde el archivo
 
- // Método para guardar los nombres en el archivo (solo una vez)
+    
+    
+    
  // Método para cargar los nombres desde el archivo y agregarlos al árbol
- // Método para cargar los nombres desde el archivo y agregarlos al árbol
- // Método para cargar los nombres desde el archivo y agregarlos al árbol
+    
     private void cargarArbolNombre() {
         File archivo = new File(NOMBRES_FILE);
 
@@ -342,6 +344,16 @@ public class VentanaInicio extends JFrame implements ActionListener {
     }
 
 
+    public void crearJugadoresDesdeNombres() {
+        for (String nombre : nombres) {
+            Jugador jugador = new Jugador(); // Crear un objeto Jugador sin nombre
+            jugador.setNombre(nombre); // Establecer el nombre del jugador
+            jugadores.add(jugador); // Añadir el jugador a la lista
+        }
+    }
+    
+    
+    
     
 	@Override
 	public void actionPerformed(ActionEvent e) {
