@@ -49,7 +49,6 @@ public class BD {
 			st.executeUpdate(sql);
 			st.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
