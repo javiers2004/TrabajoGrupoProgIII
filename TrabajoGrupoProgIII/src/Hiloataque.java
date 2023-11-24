@@ -23,6 +23,11 @@ public class Hiloataque extends Thread{
 			Thread.sleep(30);
 			ven.getMap().setLocation(-ven.player.getPosx(), -ven.player.getPosy());
 			ven.getMap().setVisible(true);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
 			if(posx > ven.getAnchoventana()/2) {
 				lblplayer.setIcon(ven.getPlayer().ataqueespadader.get(1));
 				}
@@ -41,7 +46,7 @@ public class Hiloataque extends Thread{
 			ven.arraymovimiento = ven.arraymovimientoanterior;
 			ven.click = false;
 			ven.setAtaquedisponible(true);
-		} catch (InterruptedException e) {
+		} catch(InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

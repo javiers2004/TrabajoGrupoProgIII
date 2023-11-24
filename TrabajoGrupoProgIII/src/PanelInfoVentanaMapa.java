@@ -43,7 +43,7 @@ public class PanelInfoVentanaMapa extends JPanel{
 		barravida.setForeground(Color.GREEN);
 		barrastamina = new JProgressBar(0, (int)player.getStaminatotal());
 		barrastamina.setForeground(Color.RED);
-		barraexperiencia = new JProgressBar(0, 15);
+		barraexperiencia = new JProgressBar(0, 200);
 		barraexperiencia.setForeground(Color.BLUE);
 		panelvida.add(barravida, BorderLayout.EAST);
 		panelstamina.add(barrastamina, BorderLayout.EAST);

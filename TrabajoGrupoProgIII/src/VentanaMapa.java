@@ -55,6 +55,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected int altoventana;
 	protected boolean click = false;
     boolean ataquedisponible = true;
+    protected PanelMinimapa minimapa;
 	
 	//GETTERS Y SETTERS
 	
@@ -233,11 +234,20 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		veninfo.setLocation(0,0);
 		panelfondo.add(veninfo);
 		panelfondo.setComponentZOrder(veninfo, 0);
+		
+		PanelMinimapa minimapa = new PanelMinimapa(imagenfinal);
+		minimapa.setLocation(1225,525);
+		minimapa.setVisible(true);
+		panelfondo.add(minimapa);
+		panelfondo.setComponentZOrder(minimapa, 0);
+		this.minimapa = minimapa;
+		
 		labelatravesar = new JLabel();
 		ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/imagenatravesar.png");
 		ImageIcon imagen3 = new ImageIcon(icono3.getImage().getScaledInstance(screenSize.width,screenSize.height, Image.SCALE_SMOOTH));
 		labelatravesar.setIcon(imagen3);
 		labelatravesar.setBounds(0, 0, screenSize.width , screenSize.height);
+		labelatravesar.setVisible(false);
 		panelfondo.add(labelatravesar, JLayeredPane.PALETTE_LAYER);
 		panelfondo.setComponentZOrder(labelatravesar, 1);
 		ImageIcon icono4 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/levelup.png");
@@ -249,6 +259,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		panelfondo.setComponentZOrder(levelup, 1);
 		levelup.setVisible(false);
 		
+
 	//PERSONALIZAR CURSOR
 		BufferedImage cursorImage;
 		try {
@@ -265,7 +276,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		
 		this.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
                 if(ataquedisponible == true) {
@@ -378,7 +389,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			}
 			this.setAumentoprogresivoexp(this.getAumentoprogresivoexp() + 1);
 			this.player = player;
-			if (player.getExperiencia() > 15) {
+			if (player.getExperiencia() > 200) {
 				player.setNivel(player.getNivel() + 1);
 				player.setExperiencia(0);
 				levelup.setVisible(true);
@@ -387,6 +398,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				levelup.setVisible(false);
 			}
 		}
+		this.minimapa.actualizarPunto(player);
 	}
 	public void actualizarComponentes(Jugador player) {
 		veninfo.actualizarPanelInfo(player);

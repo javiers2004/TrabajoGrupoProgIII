@@ -58,8 +58,8 @@ public class Main {
 					
 					int velocidadextra = 0;
 					if(jug1.getStaminarestante() > 0 && ven1.isTeclashift() == true) {
-						velocidadextra = 3;
-						jug1.setStaminarestante(jug1.getStaminarestante() - 0.8);
+						velocidadextra = 4;
+						jug1.setStaminarestante(jug1.getStaminarestante() - 0.5);
 						if(jug1.getStaminarestante() < 0) {
 							jug1.setStaminarestante(0);
 						}
