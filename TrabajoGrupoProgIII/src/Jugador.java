@@ -117,8 +117,7 @@ public class Jugador {
 		super();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.posx = (int)(57);
-		this.posy = (int)(431);
-		this.posx = (int)(1000);
+		this.posy = (int)(431);		this.posx = (int)(1000);
 		this.posy = (int)(10000);
 		
 		this.vidatotal = 100;

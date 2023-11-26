@@ -35,6 +35,7 @@ public class HiloSubidaNivel extends Thread{
 			veninfo.panelexperiencia.setBackground(Color.WHITE);
 			
 			ven1.getPlayer().setStaminarestante(ven1.getPlayer().getStaminatotal());
+			ven1.getPlayer().setStaminatotal(ven1.getPlayer().getStaminatotal() + 5);
 			ven1.getPlayer().setVidatotal(ven1.getPlayer().getVidatotal() + 5);
 			ven1.getPlayer().setVidarestante(ven1.getPlayer().getVidatotal());
 		

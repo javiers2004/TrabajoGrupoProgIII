@@ -56,6 +56,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected boolean click = false;
     boolean ataquedisponible = true;
     protected PanelMinimapa minimapa;
+    boolean continuar = true;
 	
 	//GETTERS Y SETTERS
 	
@@ -63,6 +64,12 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	
 	protected int aumentoprogresivoexp= 0;
 	
+	protected boolean isContinuar() {
+		return continuar;
+	}
+	protected void setContinuar(boolean continuar) {
+		this.continuar = continuar;
+	}
 	protected boolean isAtaquedisponible() {
 		return ataquedisponible;
 	}
@@ -389,7 +396,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			}
 			this.setAumentoprogresivoexp(this.getAumentoprogresivoexp() + 1);
 			this.player = player;
-			if (player.getExperiencia() > 200) {
+			if (player.getExperiencia() > 15) {
 				player.setNivel(player.getNivel() + 1);
 				player.setExperiencia(0);
 				levelup.setVisible(true);
