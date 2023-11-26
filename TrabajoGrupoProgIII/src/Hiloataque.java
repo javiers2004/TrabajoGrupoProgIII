@@ -40,7 +40,7 @@ public class Hiloataque extends Thread{
 			Thread.sleep(30);
 			ven.getMap().setLocation(-ven.player.getPosx(), -ven.player.getPosy());
 			ven.getMap().setVisible(true);
-			Thread.sleep(30);
+			Thread.sleep(80);
 			ven.getMap().setLocation(-ven.player.getPosx(), -ven.player.getPosy());
 			ven.getMap().setVisible(true);
 			ven.arraymovimiento = ven.arraymovimientoanterior;
@@ -50,7 +50,6 @@ public class Hiloataque extends Thread{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("ha continuado");
 		ven.setContinuar(true);
 
 

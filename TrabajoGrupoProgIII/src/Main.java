@@ -44,7 +44,9 @@ public class Main {
 
         
 		Thread hiloteclas = new Thread() {
+			
 			public void run() {
+			if(ven1.isContinuar() == true) {
 				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 				int screenWidth = screenSize.width;
 				int screenHeight = screenSize.height;
@@ -158,7 +160,7 @@ public class Main {
 						
 					}
 				}	
-				
+			}
 			}	
 		};
 		hiloteclas.start();
