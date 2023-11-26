@@ -47,14 +47,14 @@ public class PanelMinimapa extends JPanel {
     	coords.setText("                                             " + player.posx + ", " + player.getPosy());
     	System.out.println(player.getPosx() + "   "+ player.getPosy());
     	if(player.getPosx() > -457 && player.getPosx() < 2150 && player.getPosy() > 4407 && player.getPosy() < 7144) {
-            this.setBackground(Color.BLUE);//ciudad
+            this.setBackground(Color.CYAN);//ciudad
 
     	}
     	else if(player.getPosx() > 4720 && player.getPosx() < 6119 && player.getPosy()> 4786 && player.getPosy() < 5856) {
     		this.setBackground(Color.WHITE);//castillo
     	}
     	else if(player.getPosx() < 2506 && player.getPosy() < 2731) {
-    		this.setBackground(new Color(30, 65, 21));//bosque
+    		this.setBackground(new Color(43, 95, 75));//bosque
     	}	
     	else if(player.getPosx() < 2870  && player.getPosy() > 9149) {
     		this.setBackground(new Color(200, 174, 96));//arena
