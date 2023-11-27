@@ -51,13 +51,18 @@ public class PanelMinimapa extends JPanel {
 
     public void actualizarPunto(Jugador player) {
     	punto.setLocation((int)(player.getPosx()/(39)+4) , (int)(player.getPosy()/(39))-32 );
-        //System.out.println("Jugador   " + player.getPosx() + "   " + player.getPosy());
+        System.out.println("Jugador   " + player.getPosx() + "   " + player.getPosy());
         //System.out.println("Punto   " + punto.getLocation());
     	coords.setText("                                                                      " + player.posx + ", " + player.getPosy());
     	//System.out.println(player.getPosx() + "   "+ player.getPosy());
     	if(player.getPosx() > -457 && player.getPosx() < 2150 && player.getPosy() > 4407 && player.getPosy() < 7144) {
-            this.setBackground(Color.CYAN);//ciudad
-            zona.setText("                                                                      CIUDAD");
+            this.setBackground(Color.YELLOW);//ciudad
+            zona.setText("                                                                     POBLADO ");
+
+    	}
+       	else if(player.getPosx() > 6894 && player.getPosx() < 8340 && player.getPosy()> 5546 && player.getPosy() < 8090) {
+    		this.setBackground(Color.RED);//montañas del este
+            zona.setText("                                                    MONTAÑAS DEL ESTE");
 
     	}
     	else if(player.getPosx() > 4720 && player.getPosx() < 6119 && player.getPosy()> 4786 && player.getPosy() < 5856) {
@@ -65,21 +70,36 @@ public class PanelMinimapa extends JPanel {
             zona.setText("                                                                    CASTILLO");
 
     	}
+    	else if(player.getPosx() > 3760 && player.getPosx() < 7706 && player.getPosy()> 2891 && player.getPosy() < 6392) {
+    		this.setBackground(Color.CYAN);//rivera
+            zona.setText("                                                                    RIVERA");
+
+    	}
+    	else if(player.getPosx() > 4168 && player.getPosx() < 6740 && player.getPosy()> 9171 && player.getPosy() < 11724) {
+    		this.setBackground(Color.LIGHT_GRAY);//charca de las estatuas
+            zona.setText("                                        CHARCA DE LAS ESTATUAS");
+
+    	}
+    	else if(player.getPosx() > 6196 && player.getPosy()> 10781 ) {
+    		this.setBackground(new Color(200, 174, 96));//cantera
+            zona.setText("                                                                    CANTERA");
+
+    	}
     	else if(player.getPosx() < 2506 && player.getPosy() < 2731) {
-    		this.setBackground(new Color(43, 95, 75));//bosque
+    		this.setBackground(new Color(113, 162, 92));//bosque
             zona.setText("                                                                      BOSQUE");
 
     	}	
     	else if(player.getPosx() < 2870  && player.getPosy() > 9149) {
     		this.setBackground(new Color(200, 174, 96));//arena
-            zona.setText("                                                            ARENA DE BATALLA");
+            zona.setText("                                                      			DESIERTO");
 
     	}
     	else {
     		this.setBackground(new Color(108, 205, 79));//prados
-            zona.setText("                                                                       PRADO");
-
+            zona.setText("                                                                    PRADERAS");
     	}
+    	
     }
 
 }

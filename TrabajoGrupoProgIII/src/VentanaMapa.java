@@ -265,7 +265,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		panelfondo.add(levelup, JLayeredPane.PALETTE_LAYER);
 		panelfondo.setComponentZOrder(levelup, 1);
 		levelup.setVisible(false);
-		
+		lblplayer.setIcon(this.getArraymovimiento().get(1));
 
 	//PERSONALIZAR CURSOR
 		BufferedImage cursorImage;
@@ -396,7 +396,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			}
 			this.setAumentoprogresivoexp(this.getAumentoprogresivoexp() + 1);
 			this.player = player;
-			if (player.getExperiencia() > 15) {
+			if (player.getExperiencia() > 200) {
 				player.setNivel(player.getNivel() + 1);
 				player.setExperiencia(0);
 				levelup.setVisible(true);
