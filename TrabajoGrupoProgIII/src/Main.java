@@ -7,12 +7,16 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 
 public class Main {
 	public static void main(String[] args) {
@@ -46,6 +50,10 @@ public class Main {
 		Thread hiloteclas = new Thread() {
 			
 			public void run() {
+				
+				
+				
+				
 			if(ven1.isContinuar() == true) {
 				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 				int screenWidth = screenSize.width;
@@ -54,8 +62,29 @@ public class Main {
 				Image image = icono2.getImage();
 				BufferedImage mapacolisiones = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 				mapacolisiones.createGraphics().drawImage(image, 0, 0, null);
+				//entidades
+				List<Enemigos> entities = new ArrayList<>();
+				Random r = new Random();
+				for(int i = 0; i <5; i++) {
+					int rx = r.nextInt(screenWidth);
+					int ry = r.nextInt(screenHeight);
+					Enemigos e = new Enemigos(rx, ry);
+					entities.add(e);
+					SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+							ven1.add(e.getLabel());
+							ven1.repaint();
+							ven1.revalidate();
+						}
+					});
+				}
+				
 				while(true) {
 					
+					
+					for (Enemigos e1 : entities) {
+						e1.moveToPlayer(jug1.getPosx(), jug1.getPosy());
+					}
 					if(ven1.click == false) {
 					
 					int velocidadextra = 0;
@@ -138,9 +167,9 @@ public class Main {
 					
 					try {
 						Thread.sleep(5);
-					} catch (InterruptedException e) {
+					} catch (InterruptedException ezz) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						ezz.printStackTrace();
 					}	
 					}
 					else {
@@ -153,9 +182,9 @@ public class Main {
 						
 						try {
 							Thread.sleep(5);
-						} catch (InterruptedException e) {
+						} catch (InterruptedException ez) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
+							ez.printStackTrace();
 						}
 						
 					}
