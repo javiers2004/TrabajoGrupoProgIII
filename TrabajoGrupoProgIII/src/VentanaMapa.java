@@ -11,6 +11,8 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -21,6 +23,9 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 
 import javax.imageio.ImageIO;
 import javax.swing.Box;
@@ -31,6 +36,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class VentanaMapa extends JFrame implements KeyListener{
 	//ATRIBUTOS
@@ -40,6 +46,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected boolean teclad;
 	protected boolean teclashift;
 	protected int contadorsprites = 0;
+	protected int contadorspritesenemigos = 0;
 	protected PanelInfoVentanaMapa veninfo;
 	public JLabel fondo;
 	public JLabel map;
@@ -57,13 +64,80 @@ public class VentanaMapa extends JFrame implements KeyListener{
     boolean ataquedisponible = true;
     protected PanelMinimapa minimapa;
     boolean continuar = true;
-	
+	public JLayeredPane panelfondo;
+	protected List<Enemigos> enemigos;
+	public JPanel pnlprincipal;
+	protected ArrayList<ImageIcon> arraymovimientoenemigos;
+	protected ArrayList<ImageIcon> arraymovimientoanteriorenemigos;
+	protected BufferedImage mapacolisiones;
 	//GETTERS Y SETTERS
 	
 	
 	
 	protected int aumentoprogresivoexp= 0;
 	
+	
+	 
+	public int getContadorsprites() {
+		return contadorsprites;
+	}
+	public void setContadorsprites(int contadorsprites) {
+		this.contadorsprites = contadorsprites;
+	}
+	public JLabel getFondo() {
+		return fondo;
+	}
+	public void setFondo(JLabel fondo) {
+		this.fondo = fondo;
+	}
+	public ArrayList<ImageIcon> getArraymovimientoanterior() {
+		return arraymovimientoanterior;
+	}
+	public void setArraymovimientoanterior(ArrayList<ImageIcon> arraymovimientoanterior) {
+		this.arraymovimientoanterior = arraymovimientoanterior;
+	}
+	public JLabel getLabelatravesar() {
+		return labelatravesar;
+	}
+	public void setLabelatravesar(JLabel labelatravesar) {
+		this.labelatravesar = labelatravesar;
+	}
+	public JLabel getLevelup() {
+		return levelup;
+	}
+	public void setLevelup(JLabel levelup) {
+		this.levelup = levelup;
+	}
+	public boolean isClick() {
+		return click;
+	}
+	public void setClick(boolean click) {
+		this.click = click;
+	}
+	public PanelMinimapa getMinimapa() {
+		return minimapa;
+	}
+	public void setMinimapa(PanelMinimapa minimapa) {
+		this.minimapa = minimapa;
+	}
+	public ArrayList<ImageIcon> getArraymovimientoenemigos() {
+		return arraymovimientoenemigos;
+	}
+	public void setArraymovimientoenemigos(ArrayList<ImageIcon> arraymovimientoenemigos) {
+		this.arraymovimientoenemigos = arraymovimientoenemigos;
+	}
+	public ArrayList<ImageIcon> getArraymovimientoanteriorenemigos() {
+		return arraymovimientoanteriorenemigos;
+	}
+	public void setArraymovimientoanteriorenemigos(ArrayList<ImageIcon> arraymovimientoanteriorenemigos) {
+		this.arraymovimientoanteriorenemigos = arraymovimientoanteriorenemigos;
+	}
+	public JPanel getPnlprincipal() {
+		return pnlprincipal;
+	}
+	public void setPnlprincipal(JPanel pnlprincipal) {
+		this.pnlprincipal = pnlprincipal;
+	}
 	protected boolean isContinuar() {
 		return continuar;
 	}
@@ -166,8 +240,24 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected void setTeclad(boolean teclad) {
 		this.teclad = teclad;
 	}
+	
+	public JLayeredPane getPanelfondo() {
+		return panelfondo;
+	}
+	public void setPanelfondo(JLayeredPane panelfondo) {
+		this.panelfondo = panelfondo;
+	}
+	
+	
+	public List<Enemigos> getEnemigos() {
+		return enemigos;
+	}
+	public void setEnemigos(List<Enemigos> enemigos) {
+		this.enemigos = enemigos;
+	}
 	//CONSTRUCTOR
-	public VentanaMapa(Jugador player){	
+	public VentanaMapa(Jugador player, BufferedImage mapacolisiones){	
+		this.mapacolisiones = mapacolisiones;
 		this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
             	getVeninicio().setVisible(true);  	
@@ -186,11 +276,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	    this.setFocusable(true);
 	    this.requestFocusInWindow();
 	    //AÑADIR EL PANELPRINCIPAL A LA VENTANA
-	    JLayeredPane panelfondo = new JLayeredPane();
+	    panelfondo = new JLayeredPane();
 	    panelfondo.setPreferredSize(new Dimension(8000,8000));
         panelfondo.setBackground(Color.cyan);
         panelfondo.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
-        JPanel pnlprincipal= new JPanel();
+        pnlprincipal= new JPanel();
         pnlprincipal.setSize(8000,8000);
         pnlprincipal.setLayout(new BoxLayout(pnlprincipal, BoxLayout.PAGE_AXIS));
         //pnlprincipal.add(Box.createRigidArea(new Dimension(0, 0))); 
@@ -266,7 +356,26 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		panelfondo.setComponentZOrder(levelup, 1);
 		levelup.setVisible(false);
 		lblplayer.setIcon(this.getArraymovimiento().get(1));
-
+		//ENEMIGOS Y SPRITES
+		enemigos = new ArrayList<>();
+		generarEnemigos();
+		
+		new Timer(500, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				actualizarEnemigos();
+			}
+		}).start();
+		
+		
+		
+		
+		/*JLabel test = new JLabel();
+		test.setBounds(100,100, 57,431);
+		test.setOpaque(true);
+		test.setBackground(Color.red);
+		panelfondo.add(test);
+		panelfondo.setComponentZOrder(test, 1);*/
 	//PERSONALIZAR CURSOR
 		BufferedImage cursorImage;
 		try {
@@ -296,9 +405,50 @@ public class VentanaMapa extends JFrame implements KeyListener{
         });
 		
 	}
+	private boolean areapermitida(int x, int y) {
+		int color = this.mapacolisiones.getRGB(x, y);
+		Color colorp = new Color(color);
+		return colorp.getRed() == 255 && colorp.getGreen() ==0 && colorp.getBlue() ==0;
+	}
 
-	
-	
+	private void generarEnemigos() {
+		Random r = new Random();
+		/*Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int screenWidth = screenSize.width;
+		int screenHeight = screenSize.height;*/
+		for(int i = 0; i<200; i++) {
+			int rx, ry;
+			do {
+				 rx = r.nextInt(4096); 
+				 ry = r.nextInt(4096);
+			}while(!areapermitida(rx, ry));
+			
+			Enemigos e = new Enemigos();
+			e.setX(rx);
+			e.setY(ry);
+			this.setArraymovimientoenemigos(e.getDerecha());
+			enemigos.add(e);
+			this.panelfondo.add(e.getLabel());
+			this.panelfondo.setComponentZOrder(e.getLabel(),1);
+			
+			
+		}
+			
+	}
+	private void actualizarEnemigos() {
+		for(Enemigos e: enemigos) {
+			if(this.getArraymovimientoenemigos() == null) {
+				return;
+			}
+			if (contadorspritesenemigos + 1 > this.getArraymovimientoenemigos().size()*5) {
+				contadorspritesenemigos = 0;
+			}
+			if(contadorspritesenemigos % 5 == 0) {
+				e.getLabel().setIcon(this.getArraymovimientoenemigos().get(contadorspritesenemigos/5));
+			}
+			contadorspritesenemigos ++;
+		}
+	}
 	//PARA PONER BOOLEANOS A TRUE AL PRESIONAR TECLAS
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -368,6 +518,13 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public void actualizarVentana(Jugador player, boolean atravesando) {
 		map.setLocation(-player.getPosx(), -player.getPosy());
 		map.setVisible(true);
+		
+		for(Enemigos e: enemigos) {
+			JLabel lblenemigo = e.getLabel();
+			int nPx = e.getX() + -player.getPosx();
+			int nPy = e.getY() + -player.getPosy();
+			lblenemigo.setLocation(nPx, nPy);
+		}
 
 		if(teclaw == true || teclaa == true || teclas == true || teclad == true) {
 			
@@ -381,6 +538,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				lblplayer.setIcon(this.getArraymovimiento().get(contadorsprites/5));
 			}
 			contadorsprites ++;
+			
+			
 			if (atravesando == true) {
 				labelatravesar.setVisible(true);
 				lblplayer.setVisible(false);

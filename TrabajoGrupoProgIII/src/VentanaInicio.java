@@ -1,6 +1,7 @@
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -42,7 +43,7 @@ public class VentanaInicio extends JFrame implements ActionListener {
     private VentanaAjustes ventanaAjustes;
     
     private boolean insertado;
-    public VentanaInicio(JFrame ven1, VentanaAudio player) {
+    public VentanaInicio(JFrame ven1, VentanaAudio player, BufferedImage mapacolisiones) {
         this.player = player;
         this.insertado = false;
         //super();
@@ -245,6 +246,7 @@ public class VentanaInicio extends JFrame implements ActionListener {
 				}
 			};
 			hilorobot.start();
+			dispose();
 		}
 	});
  
