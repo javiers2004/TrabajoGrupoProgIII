@@ -57,7 +57,7 @@ public class Main {
 				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 				int screenWidth = screenSize.width;
 				int screenHeight = screenSize.height;
-				ImageIcon icono2 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPABLANCO2.png");
+				ImageIcon icono2 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPABLANCO3.png");
 				Image image = icono2.getImage();
 				mapacolisiones.createGraphics().drawImage(image, 0, 0, null);
 				//entidades
@@ -82,7 +82,7 @@ public class Main {
 					for (Enemigos e1 : entities) {
 						e1.moveToPlayer(jug1.getPosx(), jug1.getPosy());
 					}
-					if(ven1.click == false) {
+					if(ven1.click == false && ven1.isContinuar() == true) {
 					
 					int velocidadextra = 0;
 					if(jug1.getStaminarestante() > 0 && ven1.isTeclashift() == true) {

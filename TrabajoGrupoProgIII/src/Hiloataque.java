@@ -1,58 +1,28 @@
 import javax.swing.JLabel;
 
 public class Hiloataque extends Thread{
-	public Hiloataque(JLabel lblplayer, VentanaMapa ven, int posx) {
+	public Hiloataque(JLabel lblplayer, VentanaMapa ven, int posx, int n) {
 		
 		ven.setContinuar(false);
-		try {
-			if(posx > ven.getAnchoventana()/2) {
-				lblplayer.setIcon(ven.getPlayer().ataqueespadader.get(0));
-			}
-			else {
-				lblplayer.setIcon(ven.getPlayer().ataqueespadaizq.get(0));
-			}
-			ven.actualizarVentana(ven.getPlayer(), false);
-			ven.setVisible(true);
-			lblplayer.setVisible(true);
-			Thread.sleep(30);
-			ven.getMap().setLocation(-ven.player.getPosx(), -ven.player.getPosy());
-			ven.getMap().setVisible(true);
-			Thread.sleep(30);
-			ven.getMap().setLocation(-ven.player.getPosx(), -ven.player.getPosy());
-			ven.getMap().setVisible(true);
-			Thread.sleep(30);
-			ven.getMap().setLocation(-ven.player.getPosx(), -ven.player.getPosy());
-			ven.getMap().setVisible(true);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			if(posx > ven.getAnchoventana()/2) {
-				lblplayer.setIcon(ven.getPlayer().ataqueespadader.get(1));
-				}
-			else {
-				lblplayer.setIcon(ven.getPlayer().ataqueespadaizq.get(1));
-			}
-			Thread.sleep(30);
-			ven.getMap().setLocation(-ven.player.getPosx(), -ven.player.getPosy());
-			ven.getMap().setVisible(true);
-			Thread.sleep(30);
-			ven.getMap().setLocation(-ven.player.getPosx(), -ven.player.getPosy());
-			ven.getMap().setVisible(true);
-			Thread.sleep(80);
-			ven.getMap().setLocation(-ven.player.getPosx(), -ven.player.getPosy());
-			ven.getMap().setVisible(true);
-			ven.arraymovimiento = ven.arraymovimientoanterior;
-			ven.click = false;
-			ven.setAtaquedisponible(true);
-		} catch(InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		ven.setContinuar(true);
-
-
 		
+			if(posx > ven.getAnchoventana()/2) {
+				lblplayer.setIcon(ven.getPlayer().ataqueespadader.get(n));
+			}
+			else {
+				lblplayer.setIcon(ven.getPlayer().ataqueespadaizq.get(n));
+			}
+			lblplayer.setVisible(true);
+			ven.setVisible(true);
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (n==1) {
+				ven.click = false;
+				ven.setAtaquedisponible(true);
+				ven.setContinuar(true);
+			}	
 	}
 }
