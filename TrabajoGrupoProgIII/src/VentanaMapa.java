@@ -289,8 +289,16 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 if(ataquedisponible == true) {
                 	click = true;
                 	ataquedisponible = false;
-                	Hiloataque hiloat = new Hiloataque(lblplayer, VentanaMapa.this, x);
+                	Hiloataque hiloat = new Hiloataque(lblplayer, VentanaMapa.this, x,0);
                 	hiloat.start();
+                	try {
+						hiloat.join();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                	Hiloataque hiloat2 = new Hiloataque(lblplayer, VentanaMapa.this, x,1);
+                	hiloat2.start();
                 }
             }
         });
