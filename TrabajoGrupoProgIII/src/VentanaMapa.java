@@ -256,7 +256,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		this.enemigos = enemigos;
 	}
 	//CONSTRUCTOR
-	public VentanaMapa(Jugador player, BufferedImage mapacolisiones){	
+	public VentanaMapa(Jugador player){	
 		this.mapacolisiones = mapacolisiones;
 		this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -429,7 +429,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			do {
 				 rx = r.nextInt(4096); 
 				 ry = r.nextInt(4096);
-			}while(!areapermitida(rx, ry));
+			//}while(!areapermitida(rx, ry));
+			}while(false);
 			
 			Enemigos e = new Enemigos();
 			e.setX(rx);

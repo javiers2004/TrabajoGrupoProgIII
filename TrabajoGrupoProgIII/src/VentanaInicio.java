@@ -43,7 +43,7 @@ public class VentanaInicio extends JFrame implements ActionListener {
     private VentanaAjustes ventanaAjustes;
     
     private boolean insertado;
-    public VentanaInicio(JFrame ven1, VentanaAudio player, BufferedImage mapacolisiones) {
+    public VentanaInicio(JFrame ven1, VentanaAudio player) {
         this.player = player;
         this.insertado = false;
         //super();

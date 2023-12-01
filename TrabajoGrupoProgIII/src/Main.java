@@ -20,11 +20,9 @@ import javax.swing.SwingUtilities;
 
 public class Main {
 	public static void main(String[] args) {
-		ImageIcon icono2 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPABLANCO2.png");
-		Image image = icono2.getImage();
-		BufferedImage mapacolisiones = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+		
 		Jugador jug1 = new Jugador();
-        VentanaMapa ven1 = new VentanaMapa(jug1, mapacolisiones);
+        VentanaMapa ven1 = new VentanaMapa(jug1);
         
         
         // Crear una instancia de VentanaAudio
@@ -39,7 +37,7 @@ public class Main {
         }
 
         // Crear una instancia de VentanaInicio con las instancias ven1 y audioPlayer.
-        VentanaInicio v1 = new VentanaInicio(ven1, audioPlayer, mapacolisiones);
+        VentanaInicio v1 = new VentanaInicio(ven1, audioPlayer);
         ven1.setVeninicio(v1);
         
         Connection con = BD.initBD("project.db");
@@ -57,8 +55,9 @@ public class Main {
 				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 				int screenWidth = screenSize.width;
 				int screenHeight = screenSize.height;
-				ImageIcon icono2 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPABLANCO3.png");
+				ImageIcon icono2 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPABLANCO2.png");
 				Image image = icono2.getImage();
+				BufferedImage mapacolisiones = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 				mapacolisiones.createGraphics().drawImage(image, 0, 0, null);
 				//entidades
 				List<Enemigos> entities = new ArrayList<>();
@@ -82,7 +81,7 @@ public class Main {
 					for (Enemigos e1 : entities) {
 						e1.moveToPlayer(jug1.getPosx(), jug1.getPosy());
 					}
-					if(ven1.click == false && ven1.isContinuar() == true) {
+					if(ven1.click == false) {
 					
 					int velocidadextra = 0;
 					if(jug1.getStaminarestante() > 0 && ven1.isTeclashift() == true) {
