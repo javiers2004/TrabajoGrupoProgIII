@@ -51,7 +51,7 @@ public class PanelMinimapa extends JPanel {
 
     public void actualizarPunto(Jugador player) {
     	punto.setLocation((int)(player.getPosx()/(39)+4) , (int)(player.getPosy()/(39))-32 );
-        System.out.println("Jugador   " + player.getPosx() + "   " + player.getPosy());
+        //System.out.println("Jugador   " + player.getPosx() + "   " + player.getPosy());
         //System.out.println("Punto   " + punto.getLocation());
     	coords.setText("                                                                      " + player.posx + ", " + player.getPosy());
     	//System.out.println(player.getPosx() + "   "+ player.getPosy());

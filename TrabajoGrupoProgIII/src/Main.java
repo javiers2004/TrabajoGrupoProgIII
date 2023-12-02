@@ -55,32 +55,17 @@ public class Main {
 				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 				int screenWidth = screenSize.width;
 				int screenHeight = screenSize.height;
-				ImageIcon icono2 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPABLANCO2.png");
+				ImageIcon icono2 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPABLANCO4.png");
 				Image image = icono2.getImage();
 				BufferedImage mapacolisiones = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 				mapacolisiones.createGraphics().drawImage(image, 0, 0, null);
 				//entidades
-				List<Enemigos> entities = new ArrayList<>();
-				Random r = new Random();
-				for(int i = 0; i <2000; i++) {
-					int rx = r.nextInt(screenWidth);
-					int ry = r.nextInt(screenHeight);
-					//Enemigos e = new Enemigos(rx, ry);
-					//entities.add(e);
-					SwingUtilities.invokeLater(new Runnable() {
-				public void run() {
-							//ven1.getPanelfondo().add(e.getLabel());
-							ven1.repaint();
-							ven1.revalidate();
-						}
-					});
-				}
 				
 				while(true) {
-					
-					for (Enemigos e1 : entities) {
-						e1.moveToPlayer(jug1.getPosx(), jug1.getPosy());
-					}
+//					
+//					for (Enemigos e1 : entities) {
+//						e1.moveToPlayer(jug1.getPosx(), jug1.getPosy());
+//					}
 					if(ven1.click == false) {
 					
 					int velocidadextra = 0;

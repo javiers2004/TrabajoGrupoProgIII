@@ -257,6 +257,10 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	}
 	//CONSTRUCTOR
 	public VentanaMapa(Jugador player){	
+		ImageIcon icono5 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPABLANCO4.png");
+		Image image = icono5.getImage();
+		BufferedImage mapacolisiones = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+		mapacolisiones.createGraphics().drawImage(image, 0, 0, null);
 		this.mapacolisiones = mapacolisiones;
 		this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -416,32 +420,30 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	private boolean areapermitida(int x, int y) {
 		int color = this.mapacolisiones.getRGB(x, y);
 		Color colorp = new Color(color);
-		return colorp.getRed() == 255 && colorp.getGreen() ==0 && colorp.getBlue() ==0;
+		return colorp.getRed() > 240 && colorp.getGreen() > 240 && colorp.getBlue() >240;
 	}
 
 	private void generarEnemigos() {
 		Random r = new Random();
-		/*Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int screenWidth = screenSize.width;
-		int screenHeight = screenSize.height;*/
-		for(int i = 0; i<200; i++) {
+		for(int i = 0; i<1; i++) {
 			int rx, ry;
-			do {
-				 rx = r.nextInt(4096); 
-				 ry = r.nextInt(4096);
-			//}while(!areapermitida(rx, ry));
-			}while(false);
 			
+				 rx = r.nextInt(1000) ; 
+				 ry = r.nextInt(1000) ;
+			while(!areapermitida(rx, ry)) {
+				rx = r.nextInt(1000) ; 
+				ry = r.nextInt(1000) ;
+			}
 			Enemigos e = new Enemigos();
-			e.setX(rx);
-			e.setY(ry);
+			e.setX(3*rx );
+			e.setY(3*ry );
 			this.setArraymovimientoenemigos(e.getDerecha());
 			enemigos.add(e);
 			this.panelfondo.add(e.getLabel());
 			this.panelfondo.setComponentZOrder(e.getLabel(),1);
 			
 			
-		}
+		}	
 			
 	}
 	private void actualizarEnemigos() {
@@ -456,6 +458,9 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				e.getLabel().setIcon(this.getArraymovimientoenemigos().get(contadorspritesenemigos/5));
 			}
 			contadorspritesenemigos ++;
+			System.out.println("Posicion   " + e.getX() + "  "+ e.getY());
+			System.out.println("Distancia   " + e.distancia(player));
+			System.out.println("Jugador" + player.getPosx() + "   " + player.getPosy());
 		}
 	}
 	//PARA PONER BOOLEANOS A TRUE AL PRESIONAR TECLAS
@@ -530,9 +535,15 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		
 		for(Enemigos e: enemigos) {
 			JLabel lblenemigo = e.getLabel();
-			int nPx = e.getX() + -player.getPosx();
-			int nPy = e.getY() + -player.getPosy();
+			int nPx = (int) (e.getX() + -player.getPosx() );
+			int nPy = (int) (e.getY() + -player.getPosy() );
 			lblenemigo.setLocation(nPx, nPy);
+			if (e.distancia(player) > 1000) {
+				lblenemigo.setVisible(false);
+			}
+			else {
+				lblenemigo.setVisible(true);
+			}
 		}
 
 		if(teclaw == true || teclaa == true || teclas == true || teclad == true) {

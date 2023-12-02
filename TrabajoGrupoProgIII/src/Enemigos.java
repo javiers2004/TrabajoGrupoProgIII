@@ -111,5 +111,9 @@ public class Enemigos {
 			this.ataquenemigo = ataquenemigo;
 		}
 		
+		public int distancia(Jugador jug) {
+			return (int) Math.sqrt(Math.pow(jug.getPosx() - this.getX(), 2) + Math.pow(jug.getPosy()- this.getY(), 2)); 
+				
+		}
 		
 }
