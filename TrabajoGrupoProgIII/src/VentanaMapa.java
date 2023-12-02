@@ -425,7 +425,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 
 	private void generarEnemigos() {
 		Random r = new Random();
-		for(int i = 0; i<1; i++) {
+		for(int i = 0; i<100; i++) {
 			int rx, ry;
 			
 				 rx = r.nextInt(1000) ; 
@@ -542,6 +542,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				lblenemigo.setVisible(false);
 			}
 			else {
+				e.moveToPlayer(player);
 				lblenemigo.setVisible(true);
 			}
 		}

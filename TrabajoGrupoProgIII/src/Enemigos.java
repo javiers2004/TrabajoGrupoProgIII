@@ -1,5 +1,7 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -12,7 +14,22 @@ public class Enemigos {
 		protected ArrayList<ImageIcon> derecha;
 		protected ArrayList<ImageIcon> izquierda;
 		protected ArrayList<ImageIcon> ataquenemigo;
+		int anchoventana;
+		int altoventana;
 		
+		
+		protected int getAnchoventana() {
+			return anchoventana;
+		}
+		protected void setAnchoventana(int anchoventana) {
+			this.anchoventana = anchoventana;
+		}
+		protected int getAltoventana() {
+			return altoventana;
+		}
+		protected void setAltoventana(int altoventana) {
+			this.altoventana = altoventana;
+		}
 		public Enemigos() {
 			super();
 			this.x = 0;
@@ -54,19 +71,23 @@ public class Enemigos {
 			ataquenemigo.add(imagen8);
 			this.ataquenemigo = ataquenemigo;	
 			
-			
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			this.setAnchoventana(screenSize.width);
+			this.setAltoventana(screenSize.height);
 			
 			this.derecha = derecha;
 			this.izquierda = izquierda;
 			this.ataquenemigo = ataquenemigo;
 		}
-		public void moveToPlayer(int playerX, int playerY) {
+		public void moveToPlayer(Jugador player) {
 			//mover hacia el jugador cuando entra en x rango
-			if (x < playerX) x++;
-	        if (y < playerY) y++;
-	        if (x > playerX) x--;
-	        if (y > playerY) y--;
-	        label.setLocation(x, y);
+			if (x < player.getPosx()+ anchoventana/2) x++;
+	        if (y < player.getPosx() + altoventana/2) y++;
+	        if (x > player.getPosy() + anchoventana/2) x--;
+	        if (y > player.getPosy() + altoventana/2) y--;
+	        
+	        
+	        
 		}
 		public JLabel getLabel() {
 			return label;
