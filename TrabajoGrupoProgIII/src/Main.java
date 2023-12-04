@@ -181,11 +181,19 @@ public class Main {
 		    @Override
 		    public void keyPressed(KeyEvent e) {
 		        if ((e.getKeyCode() == KeyEvent.VK_T) && ((e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0)) {
-		            // Crear y mostrar la ventana de la tienda
-		            Tienda miTienda = new Tienda(500.0); // Ajusta según tus necesidades
-		            // Añade productos a miTienda si es necesario
-		            VentanaTienda ventanaTienda = new VentanaTienda(miTienda);
+		            
+		            VentanaTienda ventanaTienda = new VentanaTienda();
 		            ventanaTienda.setVisible(true);
+		        }
+		    }
+		});
+		ven1.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyPressed(KeyEvent e) {
+		        if ((e.getKeyCode() == KeyEvent.VK_E) && ((e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0)) {
+		            
+		        	VentanaInventario ventanaInventario = new VentanaInventario();
+		            ventanaInventario.setVisible(true);
 		        }
 		    }
 		});
