@@ -16,8 +16,14 @@ public class Enemigos {
 		protected ArrayList<ImageIcon> ataquenemigo;
 		int anchoventana;
 		int altoventana;
+		boolean vivo = true;
 		
-		
+		protected boolean isVivo() {
+			return vivo;
+		}
+		protected void setVivo(boolean vivo) {
+			this.vivo = vivo;
+		}
 		protected int getAnchoventana() {
 			return anchoventana;
 		}
@@ -142,7 +148,7 @@ public class Enemigos {
 		}
 		
 		public int distancia(Jugador jug) {
-			return (int) Math.sqrt(Math.pow(jug.getPosx() - this.getX(), 2) + Math.pow(jug.getPosy()- this.getY(), 2)); 
+			return (int) Math.sqrt(Math.pow(jug.getPosx() - (this.getX()-768), 2) + Math.pow(jug.getPosy()- (this.getY()-417), 2)); 
 				
 		}
 		

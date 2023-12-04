@@ -438,7 +438,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		    @Override
 		    public void actionPerformed(ActionEvent ae) {
 		        verificarDialogo(243, 440, d1);
-		        System.out.println("entra");// Verifica si el jugador está cerca de (243,440) y muestra el diálogo d1.
+		       // System.out.println("entra");// Verifica si el jugador está cerca de (243,440) y muestra el diálogo d1.
 		        actualizarEnemigos(); // Sigue actualizando la posición de los enemigos.
 		    }
 		}).start();
@@ -477,6 +477,17 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					}
                 	Hiloataque hiloat2 = new Hiloataque(lblplayer, VentanaMapa.this, x,1);
                 	hiloat2.start();
+                	for(Enemigos enem: enemigos) {
+                		if (enem.distancia(player) < 100) {
+                			enem.setHealth(enem.getHealth()-10);
+                			if (enem.getHealth() <= 0) {
+                				//enemigos.remove(enem);
+                				enem.getLabel().setVisible(false);
+                				enem.setVivo(false);
+                			}
+                			System.out.print(enem.getHealth());
+                		}
+                	}
                 }
             }
         });
@@ -504,7 +515,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					dialogo.setSelec(a);
-					System.out.println("opcion" + dialogo.getOpc().get(a));
+					//System.out.println("opcion" + dialogo.getOpc().get(a));
 					panelfondo.remove(lbltxt);
 					panelfondo.remove(lblop);
 					panelfondo.repaint();
@@ -520,7 +531,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		int jx = player.getPosx();
 		int jy = player.getPosy();
 		double dis = Math.sqrt(Math.pow(x- jx, 2)+ Math.pow(y-jy, 2));
-		System.out.println("distancia al punto" + dis);
+		//System.out.println("distancia al punto" + dis);
 		boolean dialogoMostrado;
 		if(dis < ddistdetect) {
 			mostrarDialogo(d);
@@ -532,16 +543,18 @@ public class VentanaMapa extends JFrame implements KeyListener{
 
 	private void mostrarCartel(Jugador player, List<Enemigos> enemigos) {
 		for(Enemigos e : enemigos) {
-			System.out.println(e.distancia(player));
-			if(e.distancia(player) < distdetect){
-				System.out.println("mostrando informacion");
-				lblcartel.setText("\u2665 " + e.getHealth());
-				lblcartel.setLocation(e.getLabel().getX(), e.getLabel().getY() -50);
-				lblcartel.setVisible(true);
-				return;
+			//System.out.println(e.distancia(player));
+			if(e.isVivo() == true) {
+				if(e.distancia(player) < distdetect){
+					//System.out.println("mostrando informacion");
+					lblcartel.setText("\u2665 " + e.getHealth());
+					lblcartel.setLocation(e.getLabel().getX(), e.getLabel().getY() -50);
+					lblcartel.setVisible(true);
+					return;
+				}
 			}
 		}
-		System.out.println("ocultando");
+		//System.out.println("ocultando");
 		lblcartel.setVisible(false);
 	}
 	private boolean areapermitida(int x, int y) {
@@ -555,11 +568,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		for(int i = 0; i<100; i++) {
 			int rx, ry;
 			
-				 rx = r.nextInt(1000) ; 
-				 ry = r.nextInt(1000) ;
+				 rx = r.nextInt(4096) ; 
+				 ry = r.nextInt(4096) ;
 			while(!areapermitida(rx, ry)) {
-				rx = r.nextInt(1000) ; 
-				ry = r.nextInt(1000) ;
+				rx = r.nextInt(4096) ; 
+				ry = r.nextInt(4096) ;
 			}
 			Enemigos e = new Enemigos();
 			e.setX(3*rx );
@@ -665,16 +678,18 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		map.setVisible(true);
 		mostrarCartel(player, enemigos);
 		for(Enemigos e: enemigos) {
-			JLabel lblenemigo = e.getLabel();
-			int nPx = (int) (e.getX() + -player.getPosx() );
-			int nPy = (int) (e.getY() + -player.getPosy() );
-			lblenemigo.setLocation(nPx, nPy);
-			if (e.distancia(player) > 1000) {
-				lblenemigo.setVisible(false);
-			}
-			else {
-				e.moveToPlayer(player);
-				lblenemigo.setVisible(true);
+			if(e.isVivo() == true) {
+				JLabel lblenemigo = e.getLabel();
+				int nPx = (int) (e.getX() + -player.getPosx() );
+				int nPy = (int) (e.getY() + -player.getPosy() );
+				lblenemigo.setLocation(nPx, nPy);
+				if (e.distancia(player) > 1000) {
+					lblenemigo.setVisible(false);
+				}
+				else {
+					e.moveToPlayer(player);
+					lblenemigo.setVisible(true);
+				}
 			}
 		}
 
