@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -46,6 +47,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	//ATRIBUTOS
 	protected JLabel lblcartel;
 	private static final int distdetect = 900;
+	private static final int ddistdetect = 200;
 	protected boolean teclaw;
 	protected boolean teclaa;
 	protected boolean teclas;
@@ -402,13 +404,14 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		panelfondo.add(lblcartel);
 		panelfondo.setComponentZOrder(lblcartel, 1);
 		
-		//generar dialogo
+		//generar dialogom -- LISTADOS TODOS LOS DIALOGOS PARA LA HISTORIA
 		
-		List<String> opciones = new ArrayList<>();
-		opciones.add("hola");
-		opciones.add("adios");
-		Dialogo dialogo = new Dialogo("elige", opciones, -1);
-		mostrarDialogo(dialogo)
+		Dialogo d1= new Dialogo("Te has encontrado con un viejo sabio. ¿Qué quieres preguntarle?", Arrays.asList("Sobre la vida", "Sobre la aventura", "Salir"));
+		Dialogo d2 = new Dialogo("Encuentras un cofre misterioso. ¿Deseas abrirlo?", Arrays.asList("Abrir", "Ignorar"));
+		
+		
+		verificarDialogo(243,440, d1);
+	
 ;
 		//PERSONALIZAR CURSOR
 		BufferedImage cursorImage;
@@ -480,6 +483,16 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			}
 		panelfondo.repaint();
 	}
+	
+	public void verificarDialogo(int x, int y, Dialogo d) {
+		int jx = player.getPosx();
+		int jy = player.getPosy();
+		double dis = Math.sqrt(Math.pow(x- jx, 2)+ Math.pow(y-jy, 2));
+		if(dis < ddistdetect) {
+			mostrarDialogo(d);
+		}
+	}
+
 	private void mostrarCartel(Jugador player, List<Enemigos> enemigos) {
 		for(Enemigos e : enemigos) {
 			System.out.println(e.distancia(player));

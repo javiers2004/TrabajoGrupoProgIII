@@ -7,7 +7,7 @@ private String txt;
 private List<String> opc;
 private int selec;
 
-public Dialogo(String txt, List<String> opc, int selec) {
+public Dialogo(String txt, List<String> opc) {
 	super();
 	this.txt = txt;
 	this.opc = opc;
