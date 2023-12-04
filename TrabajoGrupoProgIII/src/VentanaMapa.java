@@ -2,6 +2,7 @@
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.HeadlessException;
@@ -36,10 +37,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
+
+import Imagenes.Dialogo;
 
 public class VentanaMapa extends JFrame implements KeyListener{
 	//ATRIBUTOS
+	protected JLabel lblcartel;
+	private static final int distdetect = 900;
 	protected boolean teclaw;
 	protected boolean teclaa;
 	protected boolean teclas;
@@ -360,6 +366,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		panelfondo.setComponentZOrder(levelup, 1);
 		levelup.setVisible(false);
 		lblplayer.setIcon(this.getArraymovimiento().get(1));
+		
+		
 		//ENEMIGOS Y SPRITES
 		enemigos = new ArrayList<>();
 		generarEnemigos();
@@ -380,7 +388,29 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		test.setBackground(Color.red);
 		panelfondo.add(test);
 		panelfondo.setComponentZOrder(test, 1);*/
-	//PERSONALIZAR CURSOR
+		
+		
+		//GENERAR CARTELES
+		
+		lblcartel = new JLabel("enemigo", SwingConstants.CENTER);
+		lblcartel.setOpaque(true);
+		lblcartel.setBackground(new Color(0,0,0,128));
+		lblcartel.setForeground(Color.white);
+		lblcartel.setFont(new Font("Arial", Font.BOLD, 20));
+		lblcartel.setBounds(100,100,60,30);
+		lblcartel.setVisible(false);
+		panelfondo.add(lblcartel);
+		panelfondo.setComponentZOrder(lblcartel, 1);
+		
+		//generar dialogo
+		
+		List<String> opciones = new ArrayList<>();
+		opciones.add("hola");
+		opciones.add("adios");
+		Dialogo dialogo = new Dialogo("elige", opciones, -1);
+		mostrarDialogo(dialogo)
+;
+		//PERSONALIZAR CURSOR
 		BufferedImage cursorImage;
 		try {
 			cursorImage = ImageIO.read(new File("TrabajoGrupoProgIII/src/Imagenes/sword.png"));
@@ -416,6 +446,53 @@ public class VentanaMapa extends JFrame implements KeyListener{
             }
         });
 		
+	}
+	
+	
+	//generar DIALOGO
+	
+	public void mostrarDialogo(Dialogo dialogo) {
+		JLabel lbltxt = new JLabel("<html" + dialogo.getTxt() + "</html");
+		lbltxt.setBounds(100, altoventana-100, anchoventana-200, 50);
+		lbltxt.setBackground(Color.white);
+		lbltxt.setOpaque(true);
+		panelfondo.add(lbltxt);
+		
+		int posy = altoventana-50;
+		for(int i = 0; i <dialogo.getOpc().size(); i++) {
+			JLabel lblop = new JLabel(dialogo.getOpc().get(i));
+			lblop.setBounds(100, posy, anchoventana-200, 30);
+			lblop.setBackground(Color.LIGHT_GRAY);
+			lblop.setOpaque(true);
+			final int a = i;
+			lblop.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					dialogo.setSelec(a);
+					System.out.println("opcion" + dialogo.getOpc().get(a));
+					panelfondo.remove(lbltxt);
+					panelfondo.remove(lblop);
+					panelfondo.repaint();
+				}
+			});
+			panelfondo.add(lblop);
+			posy +=35;
+			}
+		panelfondo.repaint();
+	}
+	private void mostrarCartel(Jugador player, List<Enemigos> enemigos) {
+		for(Enemigos e : enemigos) {
+			System.out.println(e.distancia(player));
+			if(e.distancia(player) < distdetect){
+				System.out.println("mostrando informacion");
+				lblcartel.setText("\u2665 " + e.getHealth());
+				lblcartel.setLocation(e.getLabel().getX(), e.getLabel().getY() -50);
+				lblcartel.setVisible(true);
+				return;
+			}
+		}
+		System.out.println("ocultando");
+		lblcartel.setVisible(false);
 	}
 	private boolean areapermitida(int x, int y) {
 		int color = this.mapacolisiones.getRGB(x, y);
@@ -463,6 +540,10 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			System.out.println("Jugador" + player.getPosx() + "   " + player.getPosy());
 		}
 	}
+	
+	
+	
+	
 	//PARA PONER BOOLEANOS A TRUE AL PRESIONAR TECLAS
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -532,7 +613,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public void actualizarVentana(Jugador player, boolean atravesando) {
 		map.setLocation(-player.getPosx(), -player.getPosy());
 		map.setVisible(true);
-		
+		mostrarCartel(player, enemigos);
 		for(Enemigos e: enemigos) {
 			JLabel lblenemigo = e.getLabel();
 			int nPx = (int) (e.getX() + -player.getPosx() );
