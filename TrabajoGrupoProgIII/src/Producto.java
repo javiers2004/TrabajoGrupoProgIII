@@ -20,6 +20,7 @@ public class Producto {
         this.tipo = tipo;
     }
 
+    
     public double getPrecio() {
         return precio;
     }

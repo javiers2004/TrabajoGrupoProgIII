@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -174,6 +176,24 @@ public class Main {
 			}	
 		};
 		hiloteclas.start();
+		
+		ven1.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyPressed(KeyEvent e) {
+		        if ((e.getKeyCode() == KeyEvent.VK_T) && ((e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0)) {
+		            // Crear y mostrar la ventana de la tienda
+		            Tienda miTienda = new Tienda(500.0); // Ajusta según tus necesidades
+		            // Añade productos a miTienda si es necesario
+		            VentanaTienda ventanaTienda = new VentanaTienda(miTienda);
+		            ventanaTienda.setVisible(true);
+		        }
+		    }
+		});
+
+		// Asegúrate de que la ventana puede recibir eventos de teclado
+		ven1.setFocusable(true);
+		ven1.requestFocusInWindow();
+		
 		
 		
 
