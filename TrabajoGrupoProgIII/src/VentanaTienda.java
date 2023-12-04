@@ -136,6 +136,7 @@ public class VentanaTienda extends JFrame {
 
         setLocationRelativeTo(null);
         setVisible(true);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
     
  // Método para crear un ImageIcon a partir de una ruta de archivo y redimensionarlo

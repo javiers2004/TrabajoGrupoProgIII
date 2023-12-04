@@ -187,6 +187,16 @@ public class Main {
 		        }
 		    }
 		});
+		ven1.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyPressed(KeyEvent e) {
+		        if ((e.getKeyCode() == KeyEvent.VK_E) && ((e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0)) {
+		            
+		        	VentanaInventario ventanaInventario = new VentanaInventario();
+		            ventanaInventario.setVisible(true);
+		        }
+		    }
+		});
 
 		// Asegúrate de que la ventana puede recibir eventos de teclado
 		ven1.setFocusable(true);
