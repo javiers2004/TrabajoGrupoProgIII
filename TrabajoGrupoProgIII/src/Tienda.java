@@ -1,5 +1,7 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Tienda {
@@ -32,6 +34,11 @@ public class Tienda {
     }
 
     // Getters y Setters para Tienda
+    public List<Producto> getListaProductos() {
+        return new ArrayList<>(inventario.values());
+    }
+    
+    
     public double getDineroDisponible() {
         return dineroDisponible;
     }
