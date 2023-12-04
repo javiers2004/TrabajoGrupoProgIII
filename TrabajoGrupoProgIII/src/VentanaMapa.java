@@ -679,6 +679,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		mostrarCartel(player, enemigos);
 		for(Enemigos e: enemigos) {
 			if(e.isVivo() == true) {
+				
 				JLabel lblenemigo = e.getLabel();
 				int nPx = (int) (e.getX() + -player.getPosx() );
 				int nPy = (int) (e.getY() + -player.getPosy() );
@@ -690,6 +691,10 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					e.moveToPlayer(player);
 					lblenemigo.setVisible(true);
 				}
+				if(e.distancia( player) < 100) {
+					player.setVidarestante(player.getVidarestante()-1);
+				}
+				
 			}
 		}
 
