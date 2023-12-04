@@ -47,7 +47,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	//ATRIBUTOS
 	protected JLabel lblcartel;
 	private static final int distdetect = 900;
-	private static final int ddistdetect = 200;
+	private static final int ddistdetect = 900;
 	protected boolean teclaw;
 	protected boolean teclaa;
 	protected boolean teclas;
@@ -86,6 +86,30 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	
 	
 	 
+	public JLabel getLblcartel() {
+		return lblcartel;
+	}
+	public void setLblcartel(JLabel lblcartel) {
+		this.lblcartel = lblcartel;
+	}
+	public int getContadorspritesenemigos() {
+		return contadorspritesenemigos;
+	}
+	public void setContadorspritesenemigos(int contadorspritesenemigos) {
+		this.contadorspritesenemigos = contadorspritesenemigos;
+	}
+	public BufferedImage getMapacolisiones() {
+		return mapacolisiones;
+	}
+	public void setMapacolisiones(BufferedImage mapacolisiones) {
+		this.mapacolisiones = mapacolisiones;
+	}
+	public static int getDistdetect() {
+		return distdetect;
+	}
+	public static int getDdistdetect() {
+		return ddistdetect;
+	}
 	public int getContadorsprites() {
 		return contadorsprites;
 	}
@@ -410,7 +434,15 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		Dialogo d2 = new Dialogo("Encuentras un cofre misterioso. ¿Deseas abrirlo?", Arrays.asList("Abrir", "Ignorar"));
 		
 		
-		verificarDialogo(243,440, d1);
+		new Timer(10, new ActionListener() { // Este temporizador se ejecutará cada 100 milisegundos.
+		    @Override
+		    public void actionPerformed(ActionEvent ae) {
+		        verificarDialogo(243, 440, d1);
+		        System.out.println("entra");// Verifica si el jugador está cerca de (243,440) y muestra el diálogo d1.
+		        actualizarEnemigos(); // Sigue actualizando la posición de los enemigos.
+		    }
+		}).start();
+
 	
 ;
 		//PERSONALIZAR CURSOR
@@ -488,8 +520,13 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		int jx = player.getPosx();
 		int jy = player.getPosy();
 		double dis = Math.sqrt(Math.pow(x- jx, 2)+ Math.pow(y-jy, 2));
+		System.out.println("distancia al punto" + dis);
+		boolean dialogoMostrado;
 		if(dis < ddistdetect) {
 			mostrarDialogo(d);
+			dialogoMostrado = true;
+		}else {
+			dialogoMostrado = false;
 		}
 	}
 
