@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -53,6 +54,21 @@ public class BD {
 		}
 	}
 	
+	public static void crearTablaPartida(Connection con) {
+	    String sql = "CREATE TABLE IF NOT EXISTS Partida (" +
+	        "nombre TEXT, " +
+	        "nivel INTEGER" +
+	        ");";
+
+	    try {
+	        Statement st = con.createStatement();
+	        st.executeUpdate(sql);
+	        st.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
 	public static Jugador buscarJugador(Connection con, String nombre) {
 		
 		String sql = String.format("SELECT * FROM Jugador WHERE nom='%s'", nombre);
@@ -88,6 +104,19 @@ public class BD {
 			}
 		}
 	}
+	
+	public static void guardarPartida(Connection con, Jugador jugador) {
+	    String sql = "INSERT INTO Partida (nombre, nivel) VALUES (?, ?)";
+	    try (PreparedStatement pst = con.prepareStatement(sql)) {
+	        pst.setString(1, jugador.getNombre());
+	        pst.setInt(9, jugador.getNivel());
+	        
+	        pst.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+
 }
 
 
