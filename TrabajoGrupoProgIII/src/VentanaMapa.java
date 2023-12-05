@@ -478,7 +478,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 	Hiloataque hiloat2 = new Hiloataque(lblplayer, VentanaMapa.this, x,1);
                 	hiloat2.start();
                 	for(Enemigos enem: enemigos) {
-                		
+                	if(enem.isVivo()) {
                 		
                 		
                 		if(x > anchoventana/2 - anchoventana/10) {	
@@ -507,7 +507,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 			}
                 		}
                 		
-                		
+                	}	
                 		
                 	}
                 }
@@ -609,11 +609,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			if(this.getArraymovimientoenemigos() == null) {
 				return;
 			}
-			if (contadorspritesenemigos + 1 > this.getArraymovimientoenemigos().size()*5) {
+			if (contadorspritesenemigos + 1 > this.getArraymovimientoenemigos().size()*10) {
 				contadorspritesenemigos = 0;
 			}
-			if(contadorspritesenemigos % 5 == 0) {
-				e.getLabel().setIcon(this.getArraymovimientoenemigos().get(contadorspritesenemigos/5));
+			if(contadorspritesenemigos % 10 == 0) {
+				e.getLabel().setIcon(this.getArraymovimientoenemigos().get(contadorspritesenemigos/10));
 			}
 			contadorspritesenemigos ++;
 			System.out.println("Posicion   " + e.getX() + "  "+ e.getY());
@@ -725,11 +725,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			if(this.getArraymovimiento() == null) {
 				return;
 			}
-			if (contadorsprites + 1 > this.getArraymovimiento().size()*5) {
+			if (contadorsprites + 1 > this.getArraymovimiento().size()*10) {
 				contadorsprites = 0;
 			}
-			if(contadorsprites % 5 == 0) {
-				lblplayer.setIcon(this.getArraymovimiento().get(contadorsprites/5));
+			if(contadorsprites % 10 == 0) {
+				lblplayer.setIcon(this.getArraymovimiento().get(contadorsprites/10));
 			}
 			contadorsprites ++;
 			
