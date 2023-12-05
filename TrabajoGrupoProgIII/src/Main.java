@@ -21,10 +21,15 @@ import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 public class Main {
+
+
 	public static void main(String[] args) {
 		
 		Jugador jug1 = new Jugador();
         VentanaMapa ven1 = new VentanaMapa(jug1);
+        
+        Inventario inventario = new Inventario();
+        Productos productos = new Productos();
         
         
         // Crear una instancia de VentanaAudio

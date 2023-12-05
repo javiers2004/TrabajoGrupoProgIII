@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Productos {
-    public ArrayList<Item> productos; // ArrayList público de items
+    protected ArrayList<Item> productos; // ArrayList público de items
     private String rutaArchivo = "Inventario.txt"; // Ruta del archivo para guardar y cargar el inventario
     
 
@@ -10,6 +10,15 @@ public class Productos {
     	productos = new ArrayList<>();
     	productos.add(new ItemAtaqueCorto("Daga Afilada", "img/sword.png", 50, 0.75, 30));
     	productos.add(new ItemAtaqueLargo("Arco", "img/arco.png", 30, 5, 40));
+    }
+    
+    
+    public ArrayList<Item> getInventario() {
+    	return productos;
+    }
+    
+    public void setInventario(ArrayList<Item> productos) {
+    	this.productos = productos;
     }
 
     // Método para guardar la lista de items en un archivo

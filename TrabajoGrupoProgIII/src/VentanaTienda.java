@@ -21,17 +21,12 @@ public class VentanaTienda extends JFrame {
     public int itembuffer;
     private static final int ICON_WIDTH = 32; // Ancho deseado para el ícono
     private static final int ICON_HEIGHT = 32; // Altura deseada para el ícono
-    private Inventario inventario;
-    private Productos productos;
 
     public VentanaTienda() {
         setTitle("Tienda");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-        
-        inventario = new Inventario();
-        productos = new Productos();
 
         // Crear el modelo de la tabla
         DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Ícono", "Nombre", "Precio", "Daño", "Cooldown","Curacion"}, 0) {
@@ -45,7 +40,7 @@ public class VentanaTienda extends JFrame {
                 return column == 0 ? ImageIcon.class : Object.class;
             }
         };
-        for (Item item : productos.productos) {
+        for (Item item : producto.producto) {
             modelo.addRow(new Object[]{createImageIcon(item.getIcono()), item.getNombre(), item.getCoste(), item.getNombre()});
         }
         JTable tabla = new JTable(modelo);
