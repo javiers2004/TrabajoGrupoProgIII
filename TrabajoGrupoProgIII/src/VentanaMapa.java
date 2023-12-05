@@ -478,15 +478,37 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 	Hiloataque hiloat2 = new Hiloataque(lblplayer, VentanaMapa.this, x,1);
                 	hiloat2.start();
                 	for(Enemigos enem: enemigos) {
-                		if (enem.distancia(player) < 100) {
-                			enem.setHealth(enem.getHealth()-10);
-                			if (enem.getHealth() <= 0) {
-                				//enemigos.remove(enem);
-                				enem.getLabel().setVisible(false);
-                				enem.setVivo(false);
+                		
+                		
+                		
+                		if(x > anchoventana/2 - anchoventana/10) {	
+                			if (enem.distancia(player) < 100 && enem.getX() > player.getPosx()) {
+                				enem.setHealth(enem.getHealth()-10);
+                				if (enem.getHealth() <= 0) {
+                					//enemigos.remove(enem);
+                					enem.getLabel().setVisible(false);
+                					enem.setVivo(false);
+                					player.setExperiencia(player.getExperiencia() + 10);
+                				}
+                				System.out.print(enem.getHealth());
                 			}
-                			System.out.print(enem.getHealth());
                 		}
+                		
+                		else {	
+                			if (enem.distancia(player) < 100 && enem.getX() <= player.getPosx()) {
+                				enem.setHealth(enem.getHealth()-10);
+                				if (enem.getHealth() <= 0) {
+                					//enemigos.remove(enem);
+                					enem.getLabel().setVisible(false);
+                					enem.setVivo(false);
+                					player.setExperiencia(player.getExperiencia() + 10);
+                				}
+                				System.out.print(enem.getHealth());
+                			}
+                		}
+                		
+                		
+                		
                 	}
                 }
             }
@@ -541,19 +563,15 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		}
 	}
 
-	private void mostrarCartel(Jugador player, List<Enemigos> enemigos) {
-		for(Enemigos e : enemigos) {
+	private void mostrarCartel(Jugador player, Enemigos enem) {
 			//System.out.println(e.distancia(player));
-			if(e.isVivo() == true) {
-				if(e.distancia(player) < distdetect){
+			if(enem.isVivo() == true) {
 					//System.out.println("mostrando informacion");
-					lblcartel.setText("\u2665 " + e.getHealth());
-					lblcartel.setLocation(e.getLabel().getX(), e.getLabel().getY() -50);
+					lblcartel.setText("\u2665 " + enem.getHealth());
+					lblcartel.setLocation(enem.getLabel().getX(), enem.getLabel().getY() -50);
 					lblcartel.setVisible(true);
-					return;
-				}
+					return;		
 			}
-		}
 		//System.out.println("ocultando");
 		lblcartel.setVisible(false);
 	}
@@ -676,13 +694,12 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public void actualizarVentana(Jugador player, boolean atravesando) {
 		map.setLocation(-player.getPosx(), -player.getPosy());
 		map.setVisible(true);
-		mostrarCartel(player, enemigos);
+		Enemigos emascercano = enemigos.get(0);
 		for(Enemigos e: enemigos) {
 			if(e.isVivo() == true) {
-				
 				JLabel lblenemigo = e.getLabel();
-				int nPx = (int) (e.getX() + -player.getPosx() );
-				int nPy = (int) (e.getY() + -player.getPosy() );
+				int nPx = (int) (e.getX() + -player.getPosx() -anchoventana/20);
+				int nPy = (int) (e.getY() + -player.getPosy() -altoventana/12);
 				lblenemigo.setLocation(nPx, nPy);
 				if (e.distancia(player) > 1000) {
 					lblenemigo.setVisible(false);
@@ -694,9 +711,14 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				if(e.distancia( player) < 100) {
 					player.setVidarestante(player.getVidarestante()-1);
 				}
+				if(e.distancia(player) < emascercano.distancia(player)) {
+					emascercano = e;
+				}
 				
 			}
 		}
+		mostrarCartel(player, emascercano);
+
 
 		if(teclaw == true || teclaa == true || teclas == true || teclad == true) {
 			

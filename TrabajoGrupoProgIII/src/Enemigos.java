@@ -97,8 +97,8 @@ public class Enemigos {
 		public void moveToPlayer(Jugador player) {
 			//mover hacia el jugador cuando entra en x rango
 			if (this.x < player.getPosx()+ anchoventana/2) x++;
-	        if (this.y < player.getPosx() + altoventana/2) y++;
-	        if (this.x > player.getPosy() + anchoventana/2) x--;
+	        if (this.y < player.getPosy() + altoventana/2) y++;
+	        if (this.x > player.getPosx() + anchoventana/2) x--;
 	        if (this.y > player.getPosy() + altoventana/2) y--;
 	        
 	        
