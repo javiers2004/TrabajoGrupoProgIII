@@ -1,41 +1,52 @@
 import java.io.Serializable;
 
 public class ItemAtaqueCorto extends Item implements Serializable {
-    private double daño;
-    private double coste;
+    private int daño;
+    private int coste;
     private double cooldown;
+    private String descripcion;
 
-    public ItemAtaqueCorto(String nombre, String icono, double daño, double coste, double cooldown) {
+    public ItemAtaqueCorto(String nombre, String icono, int daño, int coste, double cooldown, String descripcion) {
         super(nombre, icono);
         this.daño = daño;
         this.coste = coste;
         this.cooldown = cooldown;
+        this.descripcion = descripcion;
     }
     // Getters
-    @Override
+
     public double getDaño() {
         return daño;
     }
-    @Override
+
     public double getCoste() {
         return coste;
     }
-    @Override
+
     public double getCooldown() {
         return cooldown;
     }
+    
+
+    public String getdescripcion() {
+        return descripcion;
+    }
 
     // Setters
-    public void setDaño(double daño) {
+    public void setDaño(int daño) {
         this.daño = daño;
     }
 
-    public void setCoste(double coste) {
+    public void setCoste(int coste) {
         this.coste = coste;
     }
 
     public void setCooldown(double cooldown) {
         this.cooldown = cooldown;
+    }
+    
+    public void setCooldown(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     // toString
@@ -47,6 +58,7 @@ public class ItemAtaqueCorto extends Item implements Serializable {
                ", danio=" + daño +
                ", coste=" + coste +
                ", cooldown=" + cooldown +
+               ", descripcion=" + descripcion +
                '}';
     }
 }
