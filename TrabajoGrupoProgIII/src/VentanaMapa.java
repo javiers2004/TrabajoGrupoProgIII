@@ -58,6 +58,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected PanelInfoVentanaMapa veninfo;
 	public JLabel fondo;
 	public JLabel map;
+	public JLabel mapcueva;
 	private Color backgroundColor = Color.GREEN;
 	protected JLabel lblplayer;
 	protected JFrame veninicio;
@@ -78,6 +79,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected ArrayList<ImageIcon> arraymovimientoenemigos;
 	protected ArrayList<ImageIcon> arraymovimientoanteriorenemigos;
 	protected BufferedImage mapacolisiones;
+	protected ImageIcon imagenfinalcueva;
+	protected ImageIcon imagenfinal;
 	//GETTERS Y SETTERS
 	
 	
@@ -342,8 +345,20 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		Graphics2D g2d = imagenparadibujar.createGraphics();
 		g2d.drawImage(i2, 0, 0, null);
 		g2d.dispose();
-		ImageIcon imagenfinal = new ImageIcon(imagenparadibujar);
+		imagenfinal = new ImageIcon(imagenparadibujar);
 		map = new JLabel(imagenfinal);
+		
+		
+		ImageIcon iconcueva = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPACONCUEVAS.png");
+		ImageIcon imagencueva = new ImageIcon(iconcueva.getImage().getScaledInstance(12288,12288,Image.SCALE_SMOOTH));
+		Image i2cueva = imagencueva.getImage();
+		BufferedImage imagenparadibujarcueva = new BufferedImage(i2cueva.getHeight(null), i2cueva.getWidth(null), BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2dcueva = imagenparadibujarcueva.createGraphics();
+		g2dcueva.drawImage(i2cueva, 0, 0, null);
+		g2dcueva.dispose();
+		imagenfinalcueva = new ImageIcon(imagenparadibujarcueva);
+		
+		
 		panelfondo.add(map, JLayeredPane.DEFAULT_LAYER);
 		map.setBounds(-player.getPosx(), -player.getPosy(), 12288, 12288);
 		map.setVisible(true);
@@ -705,7 +720,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					lblenemigo.setVisible(false);
 				}
 				else {
-					e.moveToPlayer(player);
+					e.moveToPlayer(player, mapacolisiones);
 					lblenemigo.setVisible(true);
 				}
 				if(e.distancia( player) < 100) {
@@ -737,11 +752,15 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			if (atravesando == true) {
 				labelatravesar.setVisible(true);
 				lblplayer.setVisible(false);
+				map.setIcon(imagenfinalcueva);
+				map.setVisible(true);
 			}
 			//System.out.print(player.getStaminarestante() + "/" + player.getStaminatotal());
 			else {
 				labelatravesar.setVisible(false);
 				lblplayer.setVisible(true);
+				map.setIcon(imagenfinal);
+				map.setVisible(true);
 			}
 		
 			if(this.getAumentoprogresivoexp() % 100 == 0) {

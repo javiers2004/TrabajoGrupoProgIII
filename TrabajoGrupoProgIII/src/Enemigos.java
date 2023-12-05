@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -94,15 +95,45 @@ public class Enemigos {
 			this.izquierda = izquierda;
 			this.ataquenemigo = ataquenemigo;
 		}
-		public void moveToPlayer(Jugador player) {
+		public void moveToPlayer(Jugador player, BufferedImage mapacolisiones) {
 			//mover hacia el jugador cuando entra en x rango
-			if (this.x < player.getPosx()+ anchoventana/2) x++;
-	        if (this.y < player.getPosy() + altoventana/2) y++;
-	        if (this.x > player.getPosx() + anchoventana/2) x--;
-	        if (this.y > player.getPosy() + altoventana/2) y--;
-	        
-	        
-	        
+			if (this.x < player.getPosx()+ anchoventana/2) {
+				Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3 - 12/3  , player.getPosy()/3 ));
+				int red = color.getRed();
+				int green = color.getGreen();
+				int blue = color.getBlue();
+				if (red > 200 && green > 200 && blue > 200 ) {
+					x++;
+				}
+			}
+	        if (this.y < player.getPosy() + altoventana/2) {
+				Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3  -10, player.getPosy()/3+ 3/3 ));
+				int red = color.getRed();
+				int green = color.getGreen();
+				int blue = color.getBlue();
+				if (red > 200 && green > 200 && blue > 200 ) {
+					y++;
+				}
+	        }
+	        if (this.x > player.getPosx() + anchoventana/2) {
+				Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3 - 42/3 , player.getPosy()/3 ));
+	        	int red = color.getRed();
+				int green = color.getGreen();
+				int blue = color.getBlue();
+				if (red > 200 && green > 200 && blue > 200 ) {
+					x--;
+				}
+	        }
+	        if (this.y > player.getPosy() + altoventana/2) {
+	        	Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3  , player.getPosy()/3 +  - 30/3));
+	        	int red = color.getRed();
+				int green = color.getGreen();
+				int blue = color.getBlue();
+				if (red > 200 && green > 200 && blue > 200 ) {
+					y--;
+				}
+	        }
+	        	        
 		}
 		public JLabel getLabel() {
 			return label;
