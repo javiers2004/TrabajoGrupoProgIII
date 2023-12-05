@@ -27,6 +27,7 @@ public class VentanaTienda extends JFrame {
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+        
 
         // Crear el modelo de la tabla
         DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Ícono", "Nombre", "Precio", "Daño", "Cooldown","Curacion"}, 0) {
