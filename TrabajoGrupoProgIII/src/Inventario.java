@@ -8,7 +8,14 @@ public class Inventario {
 
     public Inventario() {
         inventario = new ArrayList<>();
-        inventario.add(new ItemAtaqueCorto("Espada Corta", "img/sword.png", 100, 1.5, 50));
+        inventario.add(new ItemAtaqueCorto(
+    			"Espada Corta Básica", 
+    			"img/sword.png", 
+    			50,
+    			500,  
+    			1.5, 
+    			"Esta es una espada corta sencilla, común entre los aprendices y los guerreros principiantes. Con una hoja recta y un mango sin adornos, su diseño es funcional y práctico, ideal para aquellos que están empezando su camino en el arte del combate. Aunque no tiene las características avanzadas de las espadas más exóticas o poderosas, su fiabilidad y facilidad de manejo la hacen perfecta para aprender las habilidades básicas de esgrima y defensa personal. En las leyendas, se dice que algunos de los héroes más grandes comenzaron sus viajes con una espada como esta."
+    			));
     }
     
     public ArrayList<Item> getInventario() {
@@ -18,24 +25,16 @@ public class Inventario {
     public void setInventario(ArrayList<Item> inventario) {
     	this.inventario = inventario;
     }
+    
+    //Metodo para guardar
+    
+    //Metodo para cargar
 
-    // Método para guardar la lista de items en un archivo
-    public void guardarInventario() {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(rutaArchivo))) {
-            out.writeObject(inventario);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+ // Método principal para ejecutar la aplicación
+    public static void main(String[] args) {
+    	Inventario inventario = new Inventario();
+    	for(Item items: inventario.inventario) {
+    		System.out.println(items.toString());
+    	}
     }
-
-    // Método para cargar la lista de items desde un archivo
-    public void cargarInventario() {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(rutaArchivo))) {
-        	inventario = (ArrayList<Item>) in.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Otros métodos para manipular el inventario
 }
