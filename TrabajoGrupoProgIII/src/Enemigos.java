@@ -18,7 +18,9 @@ public class Enemigos {
 		int anchoventana;
 		int altoventana;
 		boolean vivo = true;
-		
+		protected ArrayList<ImageIcon> arrayenuso;
+		int contadorsprite;
+			
 		protected boolean isVivo() {
 			return vivo;
 		}
@@ -37,17 +39,29 @@ public class Enemigos {
 		protected void setAltoventana(int altoventana) {
 			this.altoventana = altoventana;
 		}
+		protected ArrayList<ImageIcon> getArrayenuso() {
+			return arrayenuso;
+		}
+		protected void setArrayenuso(ArrayList<ImageIcon> arrayenuso) {
+			this.arrayenuso = arrayenuso;
+		}
+		
+		
+		protected int getContadorsprite() {
+			return contadorsprite;
+		}
+		protected void setContadorsprite(int contadorsprite) {
+			this.contadorsprite = contadorsprite;
+		}
 		public Enemigos() {
 			super();
-			this.x = 0;
-			this.y = 0;
 			this.health = 100;
 			this.label = new JLabel();
 			this.label.setBounds(x,y,64,50);
 			this.label.setBackground(Color.red);
 			this.label.setOpaque(true);
 			
-			derecha = new ArrayList<ImageIcon>();
+			ArrayList<ImageIcon> derecha = new ArrayList<ImageIcon>();
 			ImageIcon icono = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/slime-move-0.png");
 			ImageIcon imagen = new ImageIcon(icono.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
 			ImageIcon icono2 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/slime-move-1.png");
@@ -58,7 +72,7 @@ public class Enemigos {
 			derecha.add(imagen);
 			derecha.add(imagen2);
 			this.derecha = derecha;
-			 izquierda = new ArrayList<ImageIcon>();
+			ArrayList<ImageIcon> izquierda = new ArrayList<ImageIcon>();
 			ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/left0.png");
 			ImageIcon imagen3 = new ImageIcon(icono3.getImage().getScaledInstance(30,46, Image.SCALE_SMOOTH));
 			ImageIcon icono4 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/left1.png");
@@ -69,7 +83,7 @@ public class Enemigos {
 			izquierda.add(imagen4);
 			izquierda.add(imagen6);
 			this.izquierda = izquierda;
-			ataquenemigo = new ArrayList<ImageIcon>();		
+			ArrayList<ImageIcon> ataquenemigo = new ArrayList<ImageIcon>();		
 			ImageIcon icono7 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/slime-attack-0.png");
 			ImageIcon imagen7 = new ImageIcon(icono7.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
 			ImageIcon icono8 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/slime-attack-1.png");
@@ -86,52 +100,52 @@ public class Enemigos {
 			ataquenemigo.add(imagen7);
 			ataquenemigo.add(imagen8);
 			this.ataquenemigo = ataquenemigo;	
-			
 			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 			this.setAnchoventana(screenSize.width);
 			this.setAltoventana(screenSize.height);
-			
-			this.derecha = derecha;
-			this.izquierda = izquierda;
-			this.ataquenemigo = ataquenemigo;
+			this.getLabel().setIcon(this.getDerecha().get(0));
+			this.setArrayenuso(this.getDerecha());
+			this.getLabel().setOpaque(false);
 		}
 		public void moveToPlayer(Jugador player, BufferedImage mapacolisiones) {
 			//mover hacia el jugador cuando entra en x rango
 			if (this.x < player.getPosx()+ anchoventana/2) {
-				Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3 - 12/3  , player.getPosy()/3 ));
-				int red = color.getRed();
-				int green = color.getGreen();
-				int blue = color.getBlue();
-				if (red > 200 && green > 200 && blue > 200 ) {
+//				Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3 - 12/3  , player.getPosy()/3 ));
+//				int red = color.getRed();
+//				int green = color.getGreen();
+//				int blue = color.getBlue();
+//				if (red > 200 && green > 200 && blue > 200 ) {
+					arrayenuso = derecha;
 					x++;
-				}
+//				}
 			}
 	        if (this.y < player.getPosy() + altoventana/2) {
-				Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3  -10, player.getPosy()/3+ 3/3 ));
-				int red = color.getRed();
-				int green = color.getGreen();
-				int blue = color.getBlue();
-				if (red > 200 && green > 200 && blue > 200 ) {
+//				Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3  -10, player.getPosy()/3+ 3/3 ));
+//				int red = color.getRed();
+//				int green = color.getGreen();
+//				int blue = color.getBlue();
+//				if (red > 200 && green > 200 && blue > 200 ) {
 					y++;
-				}
+//				}
 	        }
 	        if (this.x > player.getPosx() + anchoventana/2) {
-				Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3 - 42/3 , player.getPosy()/3 ));
-	        	int red = color.getRed();
-				int green = color.getGreen();
-				int blue = color.getBlue();
-				if (red > 200 && green > 200 && blue > 200 ) {
+//				Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3 - 42/3 , player.getPosy()/3 ));
+//	        	int red = color.getRed();
+//				int green = color.getGreen();
+//				int blue = color.getBlue();
+//				if (red > 200 && green > 200 && blue > 200 ) {
+	        		arrayenuso = izquierda;
 					x--;
-				}
+//				}
 	        }
 	        if (this.y > player.getPosy() + altoventana/2) {
-	        	Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3  , player.getPosy()/3 +  - 30/3));
-	        	int red = color.getRed();
-				int green = color.getGreen();
-				int blue = color.getBlue();
-				if (red > 200 && green > 200 && blue > 200 ) {
+//	        	Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3  , player.getPosy()/3 +  - 30/3));
+//	        	int red = color.getRed();
+//				int green = color.getGreen();
+//				int blue = color.getBlue();
+//				if (red > 200 && green > 200 && blue > 200 ) {
 					y--;
-				}
+//				}
 	        }
 	        	        
 		}

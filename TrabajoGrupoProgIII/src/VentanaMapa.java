@@ -413,12 +413,12 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		enemigos = new ArrayList<>();
 		generarEnemigos();
 		
-		new Timer(500, new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
-				actualizarEnemigos();
-			}
-		}).start();
+//		new Timer(500, new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent ae) {
+//				actualizarEnemigos();
+//			}
+//		}).start();
 		
 		
 		
@@ -449,14 +449,14 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		Dialogo d2 = new Dialogo("Encuentras un cofre misterioso. ¿Deseas abrirlo?", Arrays.asList("Abrir", "Ignorar"));
 		
 		
-		new Timer(10, new ActionListener() { // Este temporizador se ejecutará cada 100 milisegundos.
-		    @Override
-		    public void actionPerformed(ActionEvent ae) {
-		        verificarDialogo(243, 440, d1);
-		       // System.out.println("entra");// Verifica si el jugador está cerca de (243,440) y muestra el diálogo d1.
-		        actualizarEnemigos(); // Sigue actualizando la posición de los enemigos.
-		    }
-		}).start();
+//		new Timer(10, new ActionListener() { // Este temporizador se ejecutará cada 100 milisegundos.
+//		    @Override
+//		    public void actionPerformed(ActionEvent ae) {
+//		        verificarDialogo(243, 440, d1);
+//		       // System.out.println("entra");// Verifica si el jugador está cerca de (243,440) y muestra el diálogo d1.
+//		        actualizarEnemigos(); // Sigue actualizando la posición de los enemigos.
+//		    }
+//		}).start();
 
 	
 ;
@@ -505,7 +505,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 					enem.setVivo(false);
                 					player.setExperiencia(player.getExperiencia() + 10);
                 				}
-                				System.out.print(enem.getHealth());
+                				//System.out.print(enem.getHealth());
                 			}
                 		}
                 		
@@ -518,7 +518,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 					enem.setVivo(false);
                 					player.setExperiencia(player.getExperiencia() + 10);
                 				}
-                				System.out.print(enem.getHealth());
+                				//System.out.print(enem.getHealth());
                 			}
                 		}
                 		
@@ -599,8 +599,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	private void generarEnemigos() {
 		Random r = new Random();
 		for(int i = 0; i<100; i++) {
-			int rx, ry;
-			
+			int rx, ry;	
 				 rx = r.nextInt(4096) ; 
 				 ry = r.nextInt(4096) ;
 			while(!areapermitida(rx, ry)) {
@@ -610,30 +609,29 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			Enemigos e = new Enemigos();
 			e.setX(3*rx );
 			e.setY(3*ry );
-			this.setArraymovimientoenemigos(e.getDerecha());
 			enemigos.add(e);
 			this.panelfondo.add(e.getLabel());
-			this.panelfondo.setComponentZOrder(e.getLabel(),1);
-			
-			
+			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
 		}	
 			
 	}
 	private void actualizarEnemigos() {
-		for(Enemigos e: enemigos) {
-			if(this.getArraymovimientoenemigos() == null) {
-				return;
+		for(Enemigos e: enemigos) {		
+			if(e.distancia(player) < 1000 && e.isVivo() == true) {
+				//System.out.println(e.getDerecha());
+				
+				if (e.getContadorsprite() + 1> e.getArrayenuso().size()*10) {
+					e.setContadorsprite(0);
+				}
+				if(e.getContadorsprite() % 10 == 0) {
+					e.getLabel().setIcon(e.getArrayenuso().get(e.getContadorsprite()/10));
+					e.getLabel().setVisible(true);
+				}
+				 e.setContadorsprite(e.getContadorsprite()+1);
+//				System.out.println("Posicion   " + e.getX() + "  "+ e.getY());
+//				System.out.println("Distancia   " + e.distancia(player));
+//				System.out.println("Jugador" + player.getPosx() + "   " + player.getPosy());
 			}
-			if (contadorspritesenemigos + 1 > this.getArraymovimientoenemigos().size()*10) {
-				contadorspritesenemigos = 0;
-			}
-			if(contadorspritesenemigos % 10 == 0) {
-				e.getLabel().setIcon(this.getArraymovimientoenemigos().get(contadorspritesenemigos/10));
-			}
-			contadorspritesenemigos ++;
-			System.out.println("Posicion   " + e.getX() + "  "+ e.getY());
-			System.out.println("Distancia   " + e.distancia(player));
-			System.out.println("Jugador" + player.getPosx() + "   " + player.getPosy());
 		}
 	}
 	
@@ -710,6 +708,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		map.setLocation(-player.getPosx(), -player.getPosy());
 		map.setVisible(true);
 		Enemigos emascercano = enemigos.get(0);
+		actualizarEnemigos();
 		for(Enemigos e: enemigos) {
 			if(e.isVivo() == true) {
 				JLabel lblenemigo = e.getLabel();
