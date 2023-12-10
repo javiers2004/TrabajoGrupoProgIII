@@ -716,14 +716,16 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				int nPy = (int) (e.getY() + -player.getPosy() -altoventana/12);
 				lblenemigo.setLocation(nPx, nPy);
 				if (e.distancia(player) > 1000) {
-					lblenemigo.setVisible(false);
+					e.getLabel().setVisible(false);
 				}
 				else {
 					e.moveToPlayer(player, mapacolisiones);
-					lblenemigo.setVisible(true);
+					e.getLabel().setVisible(true);
 				}
-				if(e.distancia( player) < 100) {
+				if(e.distancia( player) < 100 && e.getContadorsprite() == 20) {
 					player.setVidarestante(player.getVidarestante()-1);
+					e.setArrayenuso(e.getAtaquenemigo());
+					
 				}
 				if(e.distancia(player) < emascercano.distancia(player)) {
 					emascercano = e;
@@ -739,11 +741,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			if(this.getArraymovimiento() == null) {
 				return;
 			}
-			if (contadorsprites + 1 > this.getArraymovimiento().size()*10) {
+			if (contadorsprites + 1 > this.getArraymovimiento().size()*25) {
 				contadorsprites = 0;
 			}
-			if(contadorsprites % 10 == 0) {
-				lblplayer.setIcon(this.getArraymovimiento().get(contadorsprites/10));
+			if(contadorsprites % 25 == 0) {
+				lblplayer.setIcon(this.getArraymovimiento().get(contadorsprites/25));
 			}
 			contadorsprites ++;
 			

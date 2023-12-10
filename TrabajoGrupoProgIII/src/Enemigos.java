@@ -14,7 +14,7 @@ public class Enemigos {
 		JLabel label;
 		protected ArrayList<ImageIcon> derecha;
 		protected ArrayList<ImageIcon> izquierda;
-		protected ArrayList<ImageIcon> ataquenemigo;
+		protected ArrayList<ImageIcon> ataquenemigo = new ArrayList<ImageIcon>();
 		int anchoventana;
 		int altoventana;
 		boolean vivo = true;
@@ -53,6 +53,8 @@ public class Enemigos {
 		protected void setContadorsprite(int contadorsprite) {
 			this.contadorsprite = contadorsprite;
 		}
+		
+		
 		public Enemigos() {
 			super();
 			this.health = 100;
@@ -68,9 +70,12 @@ public class Enemigos {
 			ImageIcon imagen2 = new ImageIcon(icono2.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
 			ImageIcon icono5 =new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/slime-move-2.png.");
 			ImageIcon imagen5 = new ImageIcon(icono5.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
+			ImageIcon icono20 =new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/slime-move-3.png.");
+			ImageIcon imagen20 = new ImageIcon(icono20.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
 			derecha.add(imagen5);
 			derecha.add(imagen);
 			derecha.add(imagen2);
+			derecha.add(imagen20);
 			this.derecha = derecha;
 			ArrayList<ImageIcon> izquierda = new ArrayList<ImageIcon>();
 			ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/left0.png");
@@ -82,24 +87,20 @@ public class Enemigos {
 			izquierda.add(imagen3);
 			izquierda.add(imagen4);
 			izquierda.add(imagen6);
-			this.izquierda = izquierda;
-			ArrayList<ImageIcon> ataquenemigo = new ArrayList<ImageIcon>();		
+			this.izquierda = izquierda;	
 			ImageIcon icono7 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/slime-attack-0.png");
 			ImageIcon imagen7 = new ImageIcon(icono7.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
 			ImageIcon icono8 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/slime-attack-1.png");
 			ImageIcon imagen8 = new ImageIcon(icono8.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
-			ImageIcon icono9 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/slime-attack-1.png");
+			ImageIcon icono9 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/slime-attack-2.png");
 			ImageIcon imagen9 = new ImageIcon(icono9.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
 			ataquenemigo.add(imagen9);
-			ImageIcon icono10 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/slime-attack-1.png");
+			ImageIcon icono10 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/slime-attack-3.png");
 			ImageIcon image10 = new ImageIcon(icono10.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
 			ataquenemigo.add(image10);
-			ImageIcon icono11 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/slime-attack-1.png");
-			ImageIcon imagen11 = new ImageIcon(icono11.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
-			ataquenemigo.add(imagen11);
 			ataquenemigo.add(imagen7);
 			ataquenemigo.add(imagen8);
-			this.ataquenemigo = ataquenemigo;	
+	
 			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 			this.setAnchoventana(screenSize.width);
 			this.setAltoventana(screenSize.height);
@@ -109,13 +110,15 @@ public class Enemigos {
 		}
 		public void moveToPlayer(Jugador player, BufferedImage mapacolisiones) {
 			//mover hacia el jugador cuando entra en x rango
-			if (this.x < player.getPosx()+ anchoventana/2) {
+			if (this.x < player.getPosx()+ anchoventana/2 + 50) {
 //				Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3 - 12/3  , player.getPosy()/3 ));
 //				int red = color.getRed();
 //				int green = color.getGreen();
 //				int blue = color.getBlue();
 //				if (red > 200 && green > 200 && blue > 200 ) {
-					arrayenuso = derecha;
+					if(this.distancia(player) > 100) {
+						arrayenuso = derecha;
+					}
 					x++;
 //				}
 			}
@@ -128,13 +131,15 @@ public class Enemigos {
 					y++;
 //				}
 	        }
-	        if (this.x > player.getPosx() + anchoventana/2) {
+	        if (this.x > player.getPosx() + anchoventana/2 + 50) {
 //				Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3 - 42/3 , player.getPosy()/3 ));
 //	        	int red = color.getRed();
 //				int green = color.getGreen();
 //				int blue = color.getBlue();
 //				if (red > 200 && green > 200 && blue > 200 ) {
-	        		arrayenuso = izquierda;
+	        	if(this.distancia(player) > 100) {
+					arrayenuso = derecha;
+				}
 					x--;
 //				}
 	        }
