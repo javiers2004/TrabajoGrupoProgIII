@@ -606,7 +606,22 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				rx = r.nextInt(4096) ; 
 				ry = r.nextInt(4096) ;
 			}
-			Enemigos e = new Enemigos();
+			Slime e = new Slime();
+			e.setX(3*rx );
+			e.setY(3*ry );
+			enemigos.add(e);
+			this.panelfondo.add(e.getLabel());
+			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
+		}	
+		for(int i = 0; i<100; i++) {
+			int rx, ry;	
+				 rx = r.nextInt(4096) ; 
+				 ry = r.nextInt(4096) ;
+			while(!areapermitida(rx, ry)) {
+				rx = r.nextInt(4096) ; 
+				ry = r.nextInt(4096) ;
+			}
+			Bat e = new Bat();
 			e.setX(3*rx );
 			e.setY(3*ry );
 			enemigos.add(e);
@@ -741,11 +756,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			if(this.getArraymovimiento() == null) {
 				return;
 			}
-			if (contadorsprites + 1 > this.getArraymovimiento().size()*25) {
+			if (contadorsprites + 1 > this.getArraymovimiento().size()*10) {
 				contadorsprites = 0;
 			}
-			if(contadorsprites % 25 == 0) {
-				lblplayer.setIcon(this.getArraymovimiento().get(contadorsprites/25));
+			if(contadorsprites % 10 == 0) {
+				lblplayer.setIcon(this.getArraymovimiento().get(contadorsprites/10));
 			}
 			contadorsprites ++;
 			
