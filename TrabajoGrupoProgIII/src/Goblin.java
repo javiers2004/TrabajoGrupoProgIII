@@ -40,11 +40,11 @@ public class Goblin extends Enemigos{
 		izquierda.add(imagen6);
 		this.izquierda = izquierda;	
 		ImageIcon icono7 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/16.png");
-		ImageIcon imagen7 = new ImageIcon(icono7.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
+		ImageIcon imagen7 = new ImageIcon(icono7.getImage().getScaledInstance(70,40, Image.SCALE_SMOOTH));
 		ImageIcon icono8 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/17.png");
-		ImageIcon imagen8 = new ImageIcon(icono8.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
+		ImageIcon imagen8 = new ImageIcon(icono8.getImage().getScaledInstance(70,40, Image.SCALE_SMOOTH));
 		ImageIcon icono9 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/18.png");
-		ImageIcon imagen9 = new ImageIcon(icono9.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
+		ImageIcon imagen9 = new ImageIcon(icono9.getImage().getScaledInstance(70,40, Image.SCALE_SMOOTH));
 		ataquenemigo.add(imagen7);
 		ataquenemigo.add(imagen8);
 		ataquenemigo.add(imagen9);

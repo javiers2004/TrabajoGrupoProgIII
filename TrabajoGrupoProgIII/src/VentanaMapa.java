@@ -598,7 +598,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 
 	private void generarEnemigos() {
 		Random r = new Random();
-		for(int i = 0; i<20; i++) {
+		for(int i = 0; i<10; i++) {
 			int rx, ry;	
 				 rx = r.nextInt(4096) ; 
 				 ry = r.nextInt(4096) ;
@@ -613,7 +613,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			this.panelfondo.add(e.getLabel());
 			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
 		}	
-		for(int i = 0; i<20; i++) {
+		for(int i = 0; i<10; i++) {
 			int rx, ry;	
 				 rx = r.nextInt(4096) ; 
 				 ry = r.nextInt(4096) ;
@@ -628,7 +628,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			this.panelfondo.add(e.getLabel());
 			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
 		}	
-		for(int i = 0; i<20; i++) {
+		for(int i = 0; i<10; i++) {
 			int rx, ry;	
 				 rx = r.nextInt(4096) ; 
 				 ry = r.nextInt(4096) ;
@@ -643,28 +643,58 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			this.panelfondo.add(e.getLabel());
 			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
 		}
-			
+		for(int i = 0; i<100; i++) {
+			int rx, ry;	
+				 rx = r.nextInt(4096) ; 
+				 ry = r.nextInt(4096) ;
+			while(!areapermitida(rx, ry)) {
+				rx = r.nextInt(4096) ; 
+				ry = r.nextInt(4096) ;
+			}
+			Caparazon e = new Caparazon();
+			e.setX(3*rx );
+			e.setY(3*ry );
+			enemigos.add(e);
+			this.panelfondo.add(e.getLabel());
+			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
+		}	
 	}
 	private void actualizarEnemigos() {
 		for(Enemigos e: enemigos) {		
 			if(e.distancia(player) < 1000 ) {
 				//System.out.println(e.getDerecha());
-				
-				if (e.getContadorsprite() + 1> e.getArrayenuso().size()*20) {
-					e.setContadorsprite(0);
+				if(!(e instanceof Caparazon) || e.getHealth() < 300) {
+					if (e.getContadorsprite() + 1> e.getArrayenuso().size()*20) {
+						e.setContadorsprite(0);
+					}
+					if(e.getContadorsprite() % 20 == 0) {
+						e.getLabel().setIcon(e.getArrayenuso().get(e.getContadorsprite()/20));
+						e.getLabel().setVisible(true);
+					}
+					e.setContadorsprite(e.getContadorsprite()+1);
+//					System.out.println("Posicion   " + e.getX() + "  "+ e.getY());
+//					System.out.println("Distancia   " + e.distancia(player));
+//					System.out.println("Jugador" + player.getPosx() + "   " + player.getPosy());
+			
 				}
-				if(e.getContadorsprite() % 20 == 0) {
-					e.getLabel().setIcon(e.getArrayenuso().get(e.getContadorsprite()/20));
-					e.getLabel().setVisible(true);
+			
+				else {
+					Caparazon c = (Caparazon) e;
+					e.setArrayenuso(c.escondido);
+					int valor = (int)(Math.random()*1000);
+					if(valor == 1) {
+						e.getLabel().setIcon(e.getArrayenuso().get(e.getContadorsprite()));
+						e.getLabel().setVisible(true);
+						e.setContadorsprite(e.getContadorsprite() + 1);
+						if(e.getContadorsprite() > e.getMuerte().size()) {
+							e.setContadorsprite(0);
+						}
+					
 				}
-				 e.setContadorsprite(e.getContadorsprite()+1);
-//				System.out.println("Posicion   " + e.getX() + "  "+ e.getY());
-//				System.out.println("Distancia   " + e.distancia(player));
-//				System.out.println("Jugador" + player.getPosx() + "   " + player.getPosy());
+			}
 			}
 		}
 	}
-	
 	
 	
 	
@@ -753,9 +783,10 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					e.getLabel().setVisible(true);
 				}
 				if(e.distancia( player) < 100 && e.getContadorsprite() == 20) {
-					player.setVidarestante(player.getVidarestante()- e.getDaño());
-					e.setArrayenuso(e.getAtaquenemigo());
-					
+					if(!(e instanceof Caparazon) || e.getHealth() < 300) {
+						player.setVidarestante(player.getVidarestante()- e.getDaño());
+						e.setArrayenuso(e.getAtaquenemigo());
+					}
 				}
 				if(e.distancia(player) < emascercano.distancia(player)) {
 					emascercano = e;
