@@ -171,7 +171,6 @@ public class Main {
 						}
 
 					}
-					System.out.println(mov);
 					if(mov == false) {
 						ven1.actualizarVentana(jug1, true);
 					}

@@ -17,7 +17,7 @@ public class Enemigos {
 		protected ArrayList<ImageIcon> ataquenemigo = new ArrayList<ImageIcon>();
 		protected ArrayList<ImageIcon> muerte = new ArrayList<ImageIcon>();
 		int daño;
-		
+		int experiencia;
 		int anchoventana;
 		int altoventana;
 		boolean vivo = true;
@@ -25,6 +25,12 @@ public class Enemigos {
 		int contadorsprite;
 			
 		
+		protected int getExperiencia() {
+			return experiencia;
+		}
+		protected void setExperiencia(int experiencia) {
+			this.experiencia = experiencia;
+		}
 		protected ArrayList<ImageIcon> getMuerte() {
 			return muerte;
 		}

@@ -17,7 +17,7 @@ public class Bat extends Enemigos{
 		this.label.setBackground(Color.red);
 		this.label.setOpaque(true);
 		this.daño = 1;
-		
+		this.experiencia = 5;
 		ArrayList<ImageIcon> derecha = new ArrayList<ImageIcon>();
 		ImageIcon icono = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/batmove1.png");
 		ImageIcon imagen = new ImageIcon(icono.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
@@ -72,7 +72,7 @@ public class Bat extends Enemigos{
 				if(this.distancia(player) > 100) {
 					arrayenuso = derecha;
 				}
-				x = x+2;
+				x = x+100;
 //			}
 		}
         if (this.y < player.getPosy() + altoventana/2) {
@@ -81,7 +81,7 @@ public class Bat extends Enemigos{
 //			int green = color.getGreen();
 //			int blue = color.getBlue();
 //			if (red > 200 && green > 200 && blue > 200 ) {
-				y = y+2;
+				y = y+100;
 //			}
         }
         if (this.x > player.getPosx() + anchoventana/2 + 50) {
@@ -93,7 +93,7 @@ public class Bat extends Enemigos{
         	if(this.distancia(player) > 100) {
 				arrayenuso = derecha;
 			}
-				x = x -2;
+				x = x -100;
 //			}
         }
         if (this.y > player.getPosy() + altoventana/2) {
@@ -102,7 +102,7 @@ public class Bat extends Enemigos{
 //			int green = color.getGreen();
 //			int blue = color.getBlue();
 //			if (red > 200 && green > 200 && blue > 200 ) {
-				y = y-2;
+				y = y-100;
 //			}
         }
         	        

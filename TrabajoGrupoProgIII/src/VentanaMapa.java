@@ -503,7 +503,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 					//enemigos.remove(enem);
                 					enem.setArrayenuso(enem.muerte);
                 					enem.setVivo(false);
-                					player.setExperiencia(player.getExperiencia() + 10);
+                					player.setExperiencia(player.getExperiencia() + enem.getExperiencia());
                 				}
                 				//System.out.print(enem.getHealth());
                 			}
@@ -516,7 +516,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 					//enemigos.remove(enem);
                 					enem.setVivo(false);
                 					enem.setArrayenuso(enem.muerte);
-                					player.setExperiencia(player.getExperiencia() + 10);
+                					player.setExperiencia(player.getExperiencia() + enem.getExperiencia());
                 				}
                 				//System.out.print(enem.getHealth());
                 			}
@@ -598,7 +598,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 
 	private void generarEnemigos() {
 		Random r = new Random();
-		for(int i = 0; i<50; i++) {
+		for(int i = 0; i<20; i++) {
 			int rx, ry;	
 				 rx = r.nextInt(4096) ; 
 				 ry = r.nextInt(4096) ;
@@ -613,7 +613,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			this.panelfondo.add(e.getLabel());
 			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
 		}	
-		for(int i = 0; i<50; i++) {
+		for(int i = 0; i<20; i++) {
 			int rx, ry;	
 				 rx = r.nextInt(4096) ; 
 				 ry = r.nextInt(4096) ;
@@ -628,7 +628,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			this.panelfondo.add(e.getLabel());
 			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
 		}	
-		for(int i = 0; i<50; i++) {
+		for(int i = 0; i<20; i++) {
 			int rx, ry;	
 				 rx = r.nextInt(4096) ; 
 				 ry = r.nextInt(4096) ;

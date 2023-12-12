@@ -17,6 +17,7 @@ public class Slime extends Enemigos{
 		this.label.setBackground(Color.red);
 		this.label.setOpaque(true);
 		this.daño = 2;
+		this.experiencia = 8;
 		ArrayList<ImageIcon> derecha = new ArrayList<ImageIcon>();
 		ImageIcon icono = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/slime-move-0.png");
 		ImageIcon imagen = new ImageIcon(icono.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));

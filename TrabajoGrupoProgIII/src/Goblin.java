@@ -16,7 +16,7 @@ public class Goblin extends Enemigos{
 		this.label.setBackground(Color.red);
 		this.label.setOpaque(true);
 		this.daño = 5;
-		
+		this.experiencia = 12;
 		ArrayList<ImageIcon> derecha = new ArrayList<ImageIcon>();
 		ImageIcon icono = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/20.png");
 		ImageIcon imagen = new ImageIcon(icono.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
@@ -48,9 +48,9 @@ public class Goblin extends Enemigos{
 		ataquenemigo.add(imagen7);
 		ataquenemigo.add(imagen8);
 		ataquenemigo.add(imagen9);
-
+		this.getLabel().setSize(100,100);
 		ImageIcon icono11 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/45.png");
-		ImageIcon image11 = new ImageIcon(icono11.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
+		ImageIcon image11 = new ImageIcon(icono11.getImage().getScaledInstance(60,25, Image.SCALE_SMOOTH));
 		muerte.add(image11);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setAnchoventana(screenSize.width);
