@@ -501,7 +501,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 				enem.setHealth(enem.getHealth()-10);
                 				if (enem.getHealth() <= 0) {
                 					//enemigos.remove(enem);
-                					enem.getLabel().setVisible(false);
+                					enem.setArrayenuso(enem.muerte);
                 					enem.setVivo(false);
                 					player.setExperiencia(player.getExperiencia() + 10);
                 				}
@@ -514,8 +514,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 				enem.setHealth(enem.getHealth()-10);
                 				if (enem.getHealth() <= 0) {
                 					//enemigos.remove(enem);
-                					enem.getLabel().setVisible(false);
                 					enem.setVivo(false);
+                					enem.setArrayenuso(enem.muerte);
                 					player.setExperiencia(player.getExperiencia() + 10);
                 				}
                 				//System.out.print(enem.getHealth());
@@ -598,7 +598,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 
 	private void generarEnemigos() {
 		Random r = new Random();
-		for(int i = 0; i<100; i++) {
+		for(int i = 0; i<50; i++) {
 			int rx, ry;	
 				 rx = r.nextInt(4096) ; 
 				 ry = r.nextInt(4096) ;
@@ -613,7 +613,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			this.panelfondo.add(e.getLabel());
 			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
 		}	
-		for(int i = 0; i<100; i++) {
+		for(int i = 0; i<50; i++) {
 			int rx, ry;	
 				 rx = r.nextInt(4096) ; 
 				 ry = r.nextInt(4096) ;
@@ -628,18 +628,33 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			this.panelfondo.add(e.getLabel());
 			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
 		}	
+		for(int i = 0; i<50; i++) {
+			int rx, ry;	
+				 rx = r.nextInt(4096) ; 
+				 ry = r.nextInt(4096) ;
+			while(!areapermitida(rx, ry)) {
+				rx = r.nextInt(4096) ; 
+				ry = r.nextInt(4096) ;
+			}
+			Goblin e = new Goblin();
+			e.setX(3*rx );
+			e.setY(3*ry );
+			enemigos.add(e);
+			this.panelfondo.add(e.getLabel());
+			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
+		}
 			
 	}
 	private void actualizarEnemigos() {
 		for(Enemigos e: enemigos) {		
-			if(e.distancia(player) < 1000 && e.isVivo() == true) {
+			if(e.distancia(player) < 1000 ) {
 				//System.out.println(e.getDerecha());
 				
-				if (e.getContadorsprite() + 1> e.getArrayenuso().size()*10) {
+				if (e.getContadorsprite() + 1> e.getArrayenuso().size()*20) {
 					e.setContadorsprite(0);
 				}
-				if(e.getContadorsprite() % 10 == 0) {
-					e.getLabel().setIcon(e.getArrayenuso().get(e.getContadorsprite()/10));
+				if(e.getContadorsprite() % 20 == 0) {
+					e.getLabel().setIcon(e.getArrayenuso().get(e.getContadorsprite()/20));
 					e.getLabel().setVisible(true);
 				}
 				 e.setContadorsprite(e.getContadorsprite()+1);
@@ -738,12 +753,25 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					e.getLabel().setVisible(true);
 				}
 				if(e.distancia( player) < 100 && e.getContadorsprite() == 20) {
-					player.setVidarestante(player.getVidarestante()-1);
+					player.setVidarestante(player.getVidarestante()- e.getDaño());
 					e.setArrayenuso(e.getAtaquenemigo());
 					
 				}
 				if(e.distancia(player) < emascercano.distancia(player)) {
 					emascercano = e;
+				}
+				
+			}
+			else {
+				JLabel lblenemigo = e.getLabel();
+				int nPx = (int) (e.getX() + -player.getPosx() -anchoventana/20);
+				int nPy = (int) (e.getY() + -player.getPosy() -altoventana/12);
+				lblenemigo.setLocation(nPx, nPy);
+				if (e.distancia(player) > 1000) {
+					e.getLabel().setVisible(false);
+				}
+				else {
+					//e.getLabel().setVisible(false);
 				}
 				
 			}

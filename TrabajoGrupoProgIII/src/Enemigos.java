@@ -15,12 +15,28 @@ public class Enemigos {
 		protected ArrayList<ImageIcon> derecha;
 		protected ArrayList<ImageIcon> izquierda;
 		protected ArrayList<ImageIcon> ataquenemigo = new ArrayList<ImageIcon>();
+		protected ArrayList<ImageIcon> muerte = new ArrayList<ImageIcon>();
+		int daño;
+		
 		int anchoventana;
 		int altoventana;
 		boolean vivo = true;
 		protected ArrayList<ImageIcon> arrayenuso;
 		int contadorsprite;
 			
+		
+		protected ArrayList<ImageIcon> getMuerte() {
+			return muerte;
+		}
+		protected void setMuerte(ArrayList<ImageIcon> muerte) {
+			this.muerte = muerte;
+		}
+		protected int getDaño() {
+			return daño;
+		}
+		protected void setDaño(int daño) {
+			this.daño = daño;
+		}
 		protected boolean isVivo() {
 			return vivo;
 		}

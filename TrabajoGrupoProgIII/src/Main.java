@@ -105,7 +105,7 @@ public class Main {
 
 						}	
 					}	
-					if (ven1.isTeclaa() == true) {
+					else if (ven1.isTeclaa() == true) {
 						Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 - 42/3 -velocidadextra + screenWidth/6, jug1.getPosy()/3 + screenHeight/6));
 						int red = color.getRed();
 						int green = color.getGreen();
@@ -124,7 +124,7 @@ public class Main {
 						}
 
 					}
-					if (ven1.isTeclas() == true) {
+					else if (ven1.isTeclas() == true) {
 						Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 +  screenWidth/6 -10, jug1.getPosy()/3+ 3/3 + velocidadextra + screenHeight/6));
 						int red = color.getRed();
 						int green = color.getGreen();
@@ -143,7 +143,7 @@ public class Main {
 						}
 
 					}
-					if (ven1.isTeclad() == true) {
+					else if (ven1.isTeclad() == true) {
 						Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 - 12/3 + velocidadextra + screenWidth/6, jug1.getPosy()/3 + screenHeight/6));
 						int red = color.getRed();
 						int green = color.getGreen();
@@ -162,6 +162,7 @@ public class Main {
 						}
 
 					}
+					System.out.println(mov);
 					if(mov == false) {
 						Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 + screenWidth/6 -10, jug1.getPosy()/3 + screenHeight/6));
 						int red = color.getRed();
@@ -172,6 +173,9 @@ public class Main {
 						}
 						else if(red == 255 && green == 0 && blue == 0) {
 							ven1.actualizarVentana(jug1, true);
+						}
+						else {
+							ven1.actualizarVentana(jug1, false);
 						}
 					}
 					

@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -15,6 +16,7 @@ public class Bat extends Enemigos{
 		this.label.setBounds(x,y,64,50);
 		this.label.setBackground(Color.red);
 		this.label.setOpaque(true);
+		this.daño = 1;
 		
 		ArrayList<ImageIcon> derecha = new ArrayList<ImageIcon>();
 		ImageIcon icono = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/batmove1.png");
@@ -48,11 +50,61 @@ public class Bat extends Enemigos{
 		ataquenemigo.add(imagen7);
 		ataquenemigo.add(imagen8);
 
+		ImageIcon icono11 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/batdeath1 (3).png");
+		ImageIcon image11 = new ImageIcon(icono11.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
+		muerte.add(image11);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setAnchoventana(screenSize.width);
 		this.setAltoventana(screenSize.height);
 		this.getLabel().setIcon(this.getDerecha().get(0));
 		this.setArrayenuso(this.getDerecha());
 		this.getLabel().setOpaque(false);
+	}
+	
+	public void moveToPlayer(Jugador player, BufferedImage mapacolisiones) {
+		//mover hacia el jugador cuando entra en x rango
+		if (this.x < player.getPosx()+ anchoventana/2 + 50) {
+//			Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3 - 12/3  , player.getPosy()/3 ));
+//			int red = color.getRed();
+//			int green = color.getGreen();
+//			int blue = color.getBlue();
+//			if (red > 200 && green > 200 && blue > 200 ) {
+				if(this.distancia(player) > 100) {
+					arrayenuso = derecha;
+				}
+				x = x+2;
+//			}
+		}
+        if (this.y < player.getPosy() + altoventana/2) {
+//			Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3  -10, player.getPosy()/3+ 3/3 ));
+//			int red = color.getRed();
+//			int green = color.getGreen();
+//			int blue = color.getBlue();
+//			if (red > 200 && green > 200 && blue > 200 ) {
+				y = y+2;
+//			}
+        }
+        if (this.x > player.getPosx() + anchoventana/2 + 50) {
+//			Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3 - 42/3 , player.getPosy()/3 ));
+//        	int red = color.getRed();
+//			int green = color.getGreen();
+//			int blue = color.getBlue();
+//			if (red > 200 && green > 200 && blue > 200 ) {
+        	if(this.distancia(player) > 100) {
+				arrayenuso = derecha;
+			}
+				x = x -2;
+//			}
+        }
+        if (this.y > player.getPosy() + altoventana/2) {
+//        	Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3  , player.getPosy()/3 +  - 30/3));
+//        	int red = color.getRed();
+//			int green = color.getGreen();
+//			int blue = color.getBlue();
+//			if (red > 200 && green > 200 && blue > 200 ) {
+				y = y-2;
+//			}
+        }
+        	        
 	}
 }
