@@ -98,14 +98,16 @@ public class Main {
 							mov =true;
 
 						}	
-						if (red == 255 && green == 0 && blue == 0) {
+						else if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosy(jug1.getPosy() - 3 - velocidadextra);
 							ven1.actualizarVentana(jug1, true);
-							mov =true;
-
+							mov =false;
 						}	
+						else {
+							mov = true;
+						}
 					}	
-					else if (ven1.isTeclaa() == true) {
+					if (ven1.isTeclaa() == true) {
 						Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 - 42/3 -velocidadextra + screenWidth/6, jug1.getPosy()/3 + screenHeight/6));
 						int red = color.getRed();
 						int green = color.getGreen();
@@ -116,15 +118,17 @@ public class Main {
 							mov =true;
 
 						}
-						if (red == 255 && green == 0 && blue == 0) {
+						else if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosx(jug1.getPosx() - 3 - velocidadextra);
 							ven1.actualizarVentana(jug1, true);
-							mov =true;
+							mov =false;
 
 						}
-
+						else {
+							mov = true;
+						}
 					}
-					else if (ven1.isTeclas() == true) {
+					if (ven1.isTeclas() == true) {
 						Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 +  screenWidth/6 -10, jug1.getPosy()/3+ 3/3 + velocidadextra + screenHeight/6));
 						int red = color.getRed();
 						int green = color.getGreen();
@@ -135,15 +139,17 @@ public class Main {
 							mov =true;
 
 						}
-						if (red == 255 && green == 0 && blue == 0) {
+						else if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosy(jug1.getPosy() + 3 + velocidadextra);
 							ven1.actualizarVentana(jug1, true);
-							mov =true;
+							mov =false;
 
 						}
-
+						else {
+							mov = true;
+						}
 					}
-					else if (ven1.isTeclad() == true) {
+					if (ven1.isTeclad() == true) {
 						Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 - 12/3 + velocidadextra + screenWidth/6, jug1.getPosy()/3 + screenHeight/6));
 						int red = color.getRed();
 						int green = color.getGreen();
@@ -154,30 +160,27 @@ public class Main {
 							mov =true;
 
 						}
-						if (red == 255 && green == 0 && blue == 0) {
+						else if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosx(jug1.getPosx() + 3 + velocidadextra);
 							ven1.actualizarVentana(jug1, true);
-							mov =true;
+							mov =false;
 
+						}
+						else {
+							mov = true;
 						}
 
 					}
 					System.out.println(mov);
 					if(mov == false) {
-						Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 + screenWidth/6 -10, jug1.getPosy()/3 + screenHeight/6));
-						int red = color.getRed();
-						int green = color.getGreen();
-						int blue = color.getBlue();
-						if(red > 200 && green > 200 && blue > 200 ) {
-							ven1.actualizarVentana(jug1, false);
-						}
-						else if(red == 255 && green == 0 && blue == 0) {
-							ven1.actualizarVentana(jug1, true);
-						}
-						else {
-							ven1.actualizarVentana(jug1, false);
-						}
+						ven1.actualizarVentana(jug1, true);
 					}
+					else {
+						ven1.actualizarVentana(jug1, false);
+
+					}
+						
+				
 					
 					
 					//jug1.setStaminarestante(jug1.getStaminatotal());               PARA EL BONUS DE VELOCIDAD
