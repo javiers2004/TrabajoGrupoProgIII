@@ -643,7 +643,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			this.panelfondo.add(e.getLabel());
 			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
 		}
-		for(int i = 0; i<100; i++) {
+		for(int i = 0; i<10; i++) {
 			int rx, ry;	
 				 rx = r.nextInt(4096) ; 
 				 ry = r.nextInt(4096) ;
@@ -652,6 +652,21 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				ry = r.nextInt(4096) ;
 			}
 			Caparazon e = new Caparazon();
+			e.setX(3*rx );
+			e.setY(3*ry );
+			enemigos.add(e);
+			this.panelfondo.add(e.getLabel());
+			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
+		}	
+		for(int i = 0; i<20; i++) {
+			int rx, ry;	
+				 rx = r.nextInt(4096) ; 
+				 ry = r.nextInt(4096) ;
+			while(!areapermitida(rx, ry)) {
+				rx = r.nextInt(4096) ; 
+				ry = r.nextInt(4096) ;
+			}
+			Puercoespin e = new Puercoespin();
 			e.setX(3*rx );
 			e.setY(3*ry );
 			enemigos.add(e);
@@ -783,7 +798,15 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					e.getLabel().setVisible(true);
 				}
 				if(e.distancia( player) < 100 && e.getContadorsprite() == 20) {
-					if(!(e instanceof Caparazon) || e.getHealth() < 300) {
+					if(e instanceof Puercoespin) {
+						player.setVidarestante(player.getVidarestante()- e.getDaño());
+						e.setVivo(false);
+						e.setArrayenuso(e.getMuerte());
+						e.getLabel().setVisible(true);
+					}
+					
+					
+					if((!(e instanceof Caparazon) || e.getHealth() < 300) && !(e instanceof Puercoespin)) {
 						player.setVidarestante(player.getVidarestante()- e.getDaño());
 						e.setArrayenuso(e.getAtaquenemigo());
 					}

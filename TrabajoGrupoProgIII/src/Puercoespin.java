@@ -8,29 +8,29 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class Bat extends Enemigos{
-	public Bat() {
+public class Puercoespin extends Enemigos{
+	public Puercoespin() {
 		super();
-		this.health = 50;
+		this.health = 100;
 		this.label = new JLabel();
 		this.label.setBounds(x,y,64,50);
 		this.label.setBackground(Color.red);
 		this.label.setOpaque(true);
-		this.daño = 1;
-		this.experiencia = 5;
+		this.daño = 10;
+		this.experiencia = 8;
 		ArrayList<ImageIcon> derecha = new ArrayList<ImageIcon>();
-		ImageIcon icono = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/batmove1.png");
+		ImageIcon icono = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/puercoespin/walk1.png");
 		ImageIcon imagen = new ImageIcon(icono.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
-		ImageIcon icono2 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/batmove2.png");
+		ImageIcon icono2 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/puercoespin/walk2.png");
 		ImageIcon imagen2 = new ImageIcon(icono2.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
-		ImageIcon icono5 =new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/batmove3.png.");
+		ImageIcon icono5 =new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/puercoespin/walk3.png");
 		ImageIcon imagen5 = new ImageIcon(icono5.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
-		ImageIcon icono9 =new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/batmove3.png.");
-		ImageIcon imagen9 = new ImageIcon(icono9.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
+		ImageIcon icono20 =new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/puercoespin/walk4.png");
+		ImageIcon imagen20 = new ImageIcon(icono20.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
 		derecha.add(imagen5);
 		derecha.add(imagen);
 		derecha.add(imagen2);
-		derecha.add(imagen9);
+		derecha.add(imagen20);
 		this.derecha = derecha;
 		ArrayList<ImageIcon> izquierda = new ArrayList<ImageIcon>();
 		ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/left0.png");
@@ -43,16 +43,23 @@ public class Bat extends Enemigos{
 		izquierda.add(imagen4);
 		izquierda.add(imagen6);
 		this.izquierda = izquierda;	
-		ImageIcon icono7 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/batatack1.png");
+		ImageIcon icono7 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/puercoespin/ataque1.png");
 		ImageIcon imagen7 = new ImageIcon(icono7.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
-		ImageIcon icono8 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/batatack2.png");
+		ImageIcon icono8 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/puercoespin/ataque2.png");
 		ImageIcon imagen8 = new ImageIcon(icono8.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
+		ImageIcon icono9 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/puercoespin/ataque3.png");
+		ImageIcon imagen9 = new ImageIcon(icono9.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
+		ataquenemigo.add(imagen9);
+		ImageIcon icono10 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/puercoespin/ataque4.png");
+		ImageIcon image10 = new ImageIcon(icono10.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
+		ataquenemigo.add(image10);
 		ataquenemigo.add(imagen7);
 		ataquenemigo.add(imagen8);
-
-		ImageIcon icono11 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/batdeath1 (3).png");
+		ImageIcon icono11 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/puercoespin/muerto.png");
 		ImageIcon image11 = new ImageIcon(icono11.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
+
 		muerte.add(image11);
+		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setAnchoventana(screenSize.width);
 		this.setAltoventana(screenSize.height);
@@ -62,6 +69,12 @@ public class Bat extends Enemigos{
 	}
 	
 	public void moveToPlayer(Jugador player, BufferedImage mapacolisiones) {
+		
+		if(this.distancia(player) < 100 && this.distancia(player) > 90) {
+			this.setContadorsprite(0);
+			this.setArrayenuso(this.getAtaquenemigo());
+		}
+		
 		//mover hacia el jugador cuando entra en x rango
 		if (this.x < player.getPosx()+ anchoventana/2 + 50) {
 //			Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3 - 12/3  , player.getPosy()/3 ));
@@ -72,7 +85,7 @@ public class Bat extends Enemigos{
 				if(this.distancia(player) > 100) {
 					arrayenuso = derecha;
 				}
-				x = x+2;
+				x = x+1;
 //			}
 		}
         if (this.y < player.getPosy() + altoventana/2) {
@@ -81,7 +94,7 @@ public class Bat extends Enemigos{
 //			int green = color.getGreen();
 //			int blue = color.getBlue();
 //			if (red > 200 && green > 200 && blue > 200 ) {
-				y = y+2;
+				y = y+1;
 //			}
         }
         if (this.x > player.getPosx() + anchoventana/2 + 50) {
@@ -93,7 +106,7 @@ public class Bat extends Enemigos{
         	if(this.distancia(player) > 100) {
 				arrayenuso = derecha;
 			}
-				x = x -2;
+				x = x -1;
 //			}
         }
         if (this.y > player.getPosy() + altoventana/2) {
@@ -102,7 +115,7 @@ public class Bat extends Enemigos{
 //			int green = color.getGreen();
 //			int blue = color.getBlue();
 //			if (red > 200 && green > 200 && blue > 200 ) {
-				y = y-2;
+				y = y-1;
 //			}
         }
         	        
