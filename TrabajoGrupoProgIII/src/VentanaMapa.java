@@ -58,6 +58,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected PanelInfoVentanaMapa veninfo;
 	public JLabel fondo;
 	public JLabel map;
+	public JLabel mapcueva;
 	private Color backgroundColor = Color.GREEN;
 	protected JLabel lblplayer;
 	protected JFrame veninicio;
@@ -78,6 +79,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected ArrayList<ImageIcon> arraymovimientoenemigos;
 	protected ArrayList<ImageIcon> arraymovimientoanteriorenemigos;
 	protected BufferedImage mapacolisiones;
+	protected ImageIcon imagenfinalcueva;
+	protected ImageIcon imagenfinal;
 	//GETTERS Y SETTERS
 	
 	
@@ -342,8 +345,20 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		Graphics2D g2d = imagenparadibujar.createGraphics();
 		g2d.drawImage(i2, 0, 0, null);
 		g2d.dispose();
-		ImageIcon imagenfinal = new ImageIcon(imagenparadibujar);
+		imagenfinal = new ImageIcon(imagenparadibujar);
 		map = new JLabel(imagenfinal);
+		
+		
+		ImageIcon iconcueva = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPACONCUEVAS.png");
+		ImageIcon imagencueva = new ImageIcon(iconcueva.getImage().getScaledInstance(12288,12288,Image.SCALE_SMOOTH));
+		Image i2cueva = imagencueva.getImage();
+		BufferedImage imagenparadibujarcueva = new BufferedImage(i2cueva.getHeight(null), i2cueva.getWidth(null), BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2dcueva = imagenparadibujarcueva.createGraphics();
+		g2dcueva.drawImage(i2cueva, 0, 0, null);
+		g2dcueva.dispose();
+		imagenfinalcueva = new ImageIcon(imagenparadibujarcueva);
+		
+		
 		panelfondo.add(map, JLayeredPane.DEFAULT_LAYER);
 		map.setBounds(-player.getPosx(), -player.getPosy(), 12288, 12288);
 		map.setVisible(true);
@@ -398,12 +413,12 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		enemigos = new ArrayList<>();
 		generarEnemigos();
 		
-		new Timer(500, new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
-				actualizarEnemigos();
-			}
-		}).start();
+//		new Timer(500, new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent ae) {
+//				actualizarEnemigos();
+//			}
+//		}).start();
 		
 		
 		
@@ -434,14 +449,14 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		Dialogo d2 = new Dialogo("Encuentras un cofre misterioso. ¿Deseas abrirlo?", Arrays.asList("Abrir", "Ignorar"));
 		
 		
-		new Timer(10, new ActionListener() { // Este temporizador se ejecutará cada 100 milisegundos.
-		    @Override
-		    public void actionPerformed(ActionEvent ae) {
-		        verificarDialogo(243, 440, d1);
-		       // System.out.println("entra");// Verifica si el jugador está cerca de (243,440) y muestra el diálogo d1.
-		        actualizarEnemigos(); // Sigue actualizando la posición de los enemigos.
-		    }
-		}).start();
+//		new Timer(10, new ActionListener() { // Este temporizador se ejecutará cada 100 milisegundos.
+//		    @Override
+//		    public void actionPerformed(ActionEvent ae) {
+//		        verificarDialogo(243, 440, d1);
+//		       // System.out.println("entra");// Verifica si el jugador está cerca de (243,440) y muestra el diálogo d1.
+//		        actualizarEnemigos(); // Sigue actualizando la posición de los enemigos.
+//		    }
+//		}).start();
 
 	
 ;
@@ -478,15 +493,37 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 	Hiloataque hiloat2 = new Hiloataque(lblplayer, VentanaMapa.this, x,1);
                 	hiloat2.start();
                 	for(Enemigos enem: enemigos) {
-                		if (enem.distancia(player) < 100) {
-                			enem.setHealth(enem.getHealth()-10);
-                			if (enem.getHealth() <= 0) {
-                				//enemigos.remove(enem);
-                				enem.getLabel().setVisible(false);
-                				enem.setVivo(false);
+                	if(enem.isVivo()) {
+                		
+                		
+                		if(x > anchoventana/2 - anchoventana/10) {	
+                			if (enem.distancia(player) < 100 && enem.getX() > player.getPosx()) {
+                				enem.setHealth(enem.getHealth()-10);
+                				if (enem.getHealth() <= 0) {
+                					//enemigos.remove(enem);
+                					enem.setArrayenuso(enem.muerte);
+                					enem.setVivo(false);
+                					player.setExperiencia(player.getExperiencia() + enem.getExperiencia());
+                				}
+                				//System.out.print(enem.getHealth());
                 			}
-                			System.out.print(enem.getHealth());
                 		}
+                		
+                		else {	
+                			if (enem.distancia(player) < 100 && enem.getX() <= player.getPosx()) {
+                				enem.setHealth(enem.getHealth()-10);
+                				if (enem.getHealth() <= 0) {
+                					//enemigos.remove(enem);
+                					enem.setVivo(false);
+                					enem.setArrayenuso(enem.muerte);
+                					player.setExperiencia(player.getExperiencia() + enem.getExperiencia());
+                				}
+                				//System.out.print(enem.getHealth());
+                			}
+                		}
+                		
+                	}	
+                		
                 	}
                 }
             }
@@ -541,19 +578,15 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		}
 	}
 
-	private void mostrarCartel(Jugador player, List<Enemigos> enemigos) {
-		for(Enemigos e : enemigos) {
+	private void mostrarCartel(Jugador player, Enemigos enem) {
 			//System.out.println(e.distancia(player));
-			if(e.isVivo() == true) {
-				if(e.distancia(player) < distdetect){
+			if(enem.isVivo() == true) {
 					//System.out.println("mostrando informacion");
-					lblcartel.setText("\u2665 " + e.getHealth());
-					lblcartel.setLocation(e.getLabel().getX(), e.getLabel().getY() -50);
+					lblcartel.setText("\u2665 " + enem.getHealth());
+					lblcartel.setLocation(enem.getLabel().getX(), enem.getLabel().getY() -50);
 					lblcartel.setVisible(true);
-					return;
-				}
+					return;		
 			}
-		}
 		//System.out.println("ocultando");
 		lblcartel.setVisible(false);
 	}
@@ -565,45 +598,118 @@ public class VentanaMapa extends JFrame implements KeyListener{
 
 	private void generarEnemigos() {
 		Random r = new Random();
-		for(int i = 0; i<100; i++) {
-			int rx, ry;
-			
+		for(int i = 0; i<10; i++) {
+			int rx, ry;	
 				 rx = r.nextInt(4096) ; 
 				 ry = r.nextInt(4096) ;
 			while(!areapermitida(rx, ry)) {
 				rx = r.nextInt(4096) ; 
 				ry = r.nextInt(4096) ;
 			}
-			Enemigos e = new Enemigos();
+			Slime e = new Slime();
 			e.setX(3*rx );
 			e.setY(3*ry );
-			this.setArraymovimientoenemigos(e.getDerecha());
 			enemigos.add(e);
 			this.panelfondo.add(e.getLabel());
-			this.panelfondo.setComponentZOrder(e.getLabel(),1);
-			
-			
+			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
 		}	
-			
+		for(int i = 0; i<10; i++) {
+			int rx, ry;	
+				 rx = r.nextInt(4096) ; 
+				 ry = r.nextInt(4096) ;
+			while(!areapermitida(rx, ry)) {
+				rx = r.nextInt(4096) ; 
+				ry = r.nextInt(4096) ;
+			}
+			Bat e = new Bat();
+			e.setX(3*rx );
+			e.setY(3*ry );
+			enemigos.add(e);
+			this.panelfondo.add(e.getLabel());
+			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
+		}	
+		for(int i = 0; i<10; i++) {
+			int rx, ry;	
+				 rx = r.nextInt(4096) ; 
+				 ry = r.nextInt(4096) ;
+			while(!areapermitida(rx, ry)) {
+				rx = r.nextInt(4096) ; 
+				ry = r.nextInt(4096) ;
+			}
+			Goblin e = new Goblin();
+			e.setX(3*rx );
+			e.setY(3*ry );
+			enemigos.add(e);
+			this.panelfondo.add(e.getLabel());
+			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
+		}
+		for(int i = 0; i<10; i++) {
+			int rx, ry;	
+				 rx = r.nextInt(4096) ; 
+				 ry = r.nextInt(4096) ;
+			while(!areapermitida(rx, ry)) {
+				rx = r.nextInt(4096) ; 
+				ry = r.nextInt(4096) ;
+			}
+			Caparazon e = new Caparazon();
+			e.setX(3*rx );
+			e.setY(3*ry );
+			enemigos.add(e);
+			this.panelfondo.add(e.getLabel());
+			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
+		}	
+		for(int i = 0; i<20; i++) {
+			int rx, ry;	
+				 rx = r.nextInt(4096) ; 
+				 ry = r.nextInt(4096) ;
+			while(!areapermitida(rx, ry)) {
+				rx = r.nextInt(4096) ; 
+				ry = r.nextInt(4096) ;
+			}
+			Puercoespin e = new Puercoespin();
+			e.setX(3*rx );
+			e.setY(3*ry );
+			enemigos.add(e);
+			this.panelfondo.add(e.getLabel());
+			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
+		}	
 	}
 	private void actualizarEnemigos() {
-		for(Enemigos e: enemigos) {
-			if(this.getArraymovimientoenemigos() == null) {
-				return;
+		for(Enemigos e: enemigos) {		
+			if(e.distancia(player) < 1000 ) {
+				//System.out.println(e.getDerecha());
+				if(!(e instanceof Caparazon) || e.getHealth() < 300) {
+					if (e.getContadorsprite() + 1> e.getArrayenuso().size()*20) {
+						e.setContadorsprite(0);
+					}
+					if(e.getContadorsprite() % 20 == 0) {
+						e.getLabel().setIcon(e.getArrayenuso().get(e.getContadorsprite()/20));
+						e.getLabel().setVisible(true);
+					}
+					e.setContadorsprite(e.getContadorsprite()+1);
+//					System.out.println("Posicion   " + e.getX() + "  "+ e.getY());
+//					System.out.println("Distancia   " + e.distancia(player));
+//					System.out.println("Jugador" + player.getPosx() + "   " + player.getPosy());
+			
+				}
+			
+				else {
+					Caparazon c = (Caparazon) e;
+					e.setArrayenuso(c.escondido);
+					int valor = (int)(Math.random()*1000);
+					if(valor == 1) {
+						e.getLabel().setIcon(e.getArrayenuso().get(e.getContadorsprite()));
+						e.getLabel().setVisible(true);
+						e.setContadorsprite(e.getContadorsprite() + 1);
+						if(e.getContadorsprite() > e.getMuerte().size()) {
+							e.setContadorsprite(0);
+						}
+					
+				}
 			}
-			if (contadorspritesenemigos + 1 > this.getArraymovimientoenemigos().size()*5) {
-				contadorspritesenemigos = 0;
 			}
-			if(contadorspritesenemigos % 5 == 0) {
-				e.getLabel().setIcon(this.getArraymovimientoenemigos().get(contadorspritesenemigos/5));
-			}
-			contadorspritesenemigos ++;
-			System.out.println("Posicion   " + e.getX() + "  "+ e.getY());
-			System.out.println("Distancia   " + e.distancia(player));
-			System.out.println("Jugador" + player.getPosx() + "   " + player.getPosy());
 		}
 	}
-	
 	
 	
 	
@@ -676,33 +782,73 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public void actualizarVentana(Jugador player, boolean atravesando) {
 		map.setLocation(-player.getPosx(), -player.getPosy());
 		map.setVisible(true);
-		mostrarCartel(player, enemigos);
+		Enemigos emascercano = enemigos.get(0);
+		actualizarEnemigos();
 		for(Enemigos e: enemigos) {
 			if(e.isVivo() == true) {
 				JLabel lblenemigo = e.getLabel();
-				int nPx = (int) (e.getX() + -player.getPosx() );
-				int nPy = (int) (e.getY() + -player.getPosy() );
+				int nPx = (int) (e.getX() + -player.getPosx() -anchoventana/20);
+				int nPy = (int) (e.getY() + -player.getPosy() -altoventana/12);
 				lblenemigo.setLocation(nPx, nPy);
 				if (e.distancia(player) > 1000) {
-					lblenemigo.setVisible(false);
+					e.getLabel().setVisible(false);
 				}
 				else {
-					e.moveToPlayer(player);
-					lblenemigo.setVisible(true);
+					e.moveToPlayer(player, mapacolisiones);
+					e.getLabel().setVisible(true);
 				}
+				if(e.distancia( player) < 100 && e.getContadorsprite() == 20) {
+					if(e instanceof Puercoespin) {
+						player.setVidarestante(player.getVidarestante()- e.getDaño());
+						e.setVivo(false);
+						e.setArrayenuso(e.getMuerte());
+						e.getLabel().setVisible(true);
+					}
+					
+					
+					if((!(e instanceof Caparazon) || e.getHealth() < 300) && !(e instanceof Puercoespin)) {
+						player.setVidarestante(player.getVidarestante()- e.getDaño());
+						e.setArrayenuso(e.getAtaquenemigo());
+					}
+				}
+				if(e.distancia(player) < emascercano.distancia(player)) {
+					emascercano = e;
+				}
+				if(e instanceof Caparazon && e.distancia(player) > 1000) {
+					e.setHealth(300);
+					Caparazon c = (Caparazon) e;
+					c.getLabel().setIcon(c.escondido.get(0));
+					c.setArrayenuso(c.escondido);
+					c.setContadorsprite(0);				}
+				
+			}
+			else {
+				JLabel lblenemigo = e.getLabel();
+				int nPx = (int) (e.getX() + -player.getPosx() -anchoventana/20);
+				int nPy = (int) (e.getY() + -player.getPosy() -altoventana/12);
+				lblenemigo.setLocation(nPx, nPy);
+				if (e.distancia(player) > 1000) {
+					e.getLabel().setVisible(false);
+				}
+				else {
+					//e.getLabel().setVisible(false);
+				}
+				
 			}
 		}
+		mostrarCartel(player, emascercano);
+
 
 		if(teclaw == true || teclaa == true || teclas == true || teclad == true) {
 			
 			if(this.getArraymovimiento() == null) {
 				return;
 			}
-			if (contadorsprites + 1 > this.getArraymovimiento().size()*5) {
+			if (contadorsprites + 1 > this.getArraymovimiento().size()*10) {
 				contadorsprites = 0;
 			}
-			if(contadorsprites % 5 == 0) {
-				lblplayer.setIcon(this.getArraymovimiento().get(contadorsprites/5));
+			if(contadorsprites % 10 == 0) {
+				lblplayer.setIcon(this.getArraymovimiento().get(contadorsprites/10));
 			}
 			contadorsprites ++;
 			
@@ -710,11 +856,15 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			if (atravesando == true) {
 				labelatravesar.setVisible(true);
 				lblplayer.setVisible(false);
+				map.setIcon(imagenfinalcueva);
+				map.setVisible(true);
 			}
 			//System.out.print(player.getStaminarestante() + "/" + player.getStaminatotal());
 			else {
 				labelatravesar.setVisible(false);
 				lblplayer.setVisible(true);
+				map.setIcon(imagenfinal);
+				map.setVisible(true);
 			}
 		
 			if(this.getAumentoprogresivoexp() % 100 == 0) {

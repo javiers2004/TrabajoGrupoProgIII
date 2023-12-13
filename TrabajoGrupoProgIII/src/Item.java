@@ -26,19 +26,6 @@ public class Item implements Serializable {
     public void setIcono(String icono) {
         this.icono = icono;
     }
-    
- // Getters
-    public double getDaño() {
-        return 0;
-    }
-
-    public double getCoste() {
-        return 0;
-    }
-
-    public double getCooldown() {
-        return 0;
-    }
 
     // toString
     @Override

@@ -21,10 +21,18 @@ import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 public class Main {
+	
+	public static Inventario inventario;
+	public static Productos productos;
+
+
 	public static void main(String[] args) {
 		
 		Jugador jug1 = new Jugador();
         VentanaMapa ven1 = new VentanaMapa(jug1);
+        
+        inventario = new Inventario();
+        productos = new Productos();
         
         
         // Crear una instancia de VentanaAudio
@@ -62,7 +70,7 @@ public class Main {
 				BufferedImage mapacolisiones = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 				mapacolisiones.createGraphics().drawImage(image, 0, 0, null);
 				//entidades
-				
+				long startTime = System.currentTimeMillis();
 				while(true) {
 //					
 //					for (Enemigos e1 : entities) {
@@ -78,6 +86,7 @@ public class Main {
 							jug1.setStaminarestante(0);
 						}
 					}
+					boolean mov = false;
 					if (ven1.isTeclaw() == true) {	
 						Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 + screenWidth/6  , jug1.getPosy()/3 +  - 30/3 - velocidadextra + screenHeight/6));
 						int red = color.getRed();
@@ -86,11 +95,17 @@ public class Main {
 						if (red > 200 && green > 200 && blue > 200 ) {
 							jug1.setPosy(jug1.getPosy() - 3 - velocidadextra);
 							ven1.actualizarVentana(jug1, false);
+							mov =true;
+
 						}	
-						if (red == 255 && green == 0 && blue == 0) {
+						else if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosy(jug1.getPosy() - 3 - velocidadextra);
 							ven1.actualizarVentana(jug1, true);
+							mov =false;
 						}	
+						else {
+							mov = true;
+						}
 					}	
 					if (ven1.isTeclaa() == true) {
 						Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 - 42/3 -velocidadextra + screenWidth/6, jug1.getPosy()/3 + screenHeight/6));
@@ -100,25 +115,38 @@ public class Main {
 						if (red > 200 && green > 200 && blue > 200 ) {
 							jug1.setPosx(jug1.getPosx() - 3 - velocidadextra);
 							ven1.actualizarVentana(jug1, false);
+							mov =true;
+
 						}
-						if (red == 255 && green == 0 && blue == 0) {
+						else if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosx(jug1.getPosx() - 3 - velocidadextra);
 							ven1.actualizarVentana(jug1, true);
+							mov =false;
+
 						}
-						
+						else {
+							mov = true;
+						}
 					}
 					if (ven1.isTeclas() == true) {
-						Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 +  screenWidth/6 , jug1.getPosy()/3+ 3/3 + velocidadextra + screenHeight/6));
+						Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 +  screenWidth/6 -10, jug1.getPosy()/3+ 3/3 + velocidadextra + screenHeight/6));
 						int red = color.getRed();
 						int green = color.getGreen();
 						int blue = color.getBlue();
 						if (red > 200 && green > 200 && blue > 200 ) {
 							jug1.setPosy(jug1.getPosy() + 3 + velocidadextra);
 							ven1.actualizarVentana(jug1, false);
+							mov =true;
+
 						}
-						if (red == 255 && green == 0 && blue == 0) {
+						else if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosy(jug1.getPosy() + 3 + velocidadextra);
 							ven1.actualizarVentana(jug1, true);
+							mov =false;
+
+						}
+						else {
+							mov = true;
 						}
 					}
 					if (ven1.isTeclad() == true) {
@@ -129,15 +157,31 @@ public class Main {
 						if (red > 200 && green > 200 && blue > 200 ) {
 							jug1.setPosx(jug1.getPosx() + 3 + velocidadextra);
 							ven1.actualizarVentana(jug1, false);
+							mov =true;
+
 						}
-						if (red == 255 && green == 0 && blue == 0) {
+						else if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosx(jug1.getPosx() + 3 + velocidadextra);
 							ven1.actualizarVentana(jug1, true);
+							mov =false;
+
 						}
+						else {
+							mov = true;
+						}
+
 					}
-					if(ven1.isTeclad() == false && ven1.isTeclaa() == false && ven1.isTeclas() == false && ven1.isTeclaw() == false) {
+					if(mov == false) {
+						ven1.actualizarVentana(jug1, true);
+					}
+					else {
 						ven1.actualizarVentana(jug1, false);
+
 					}
+						
+				
+					
+					
 					//jug1.setStaminarestante(jug1.getStaminatotal());               PARA EL BONUS DE VELOCIDAD
 					ven1.actualizarComponentes(jug1);
 					
@@ -171,6 +215,18 @@ public class Main {
 						}
 						
 					}
+					long elapsedTime = System.currentTimeMillis() - startTime;
+
+				    // Ajusta la velocidad según sea necesario
+				    if (elapsedTime < 10) {
+				        try {
+				            Thread.sleep(10 - elapsedTime);
+				        } catch (InterruptedException e) {
+				            e.printStackTrace();
+				        }
+				    }
+
+				    startTime = System.currentTimeMillis();
 				}	
 			}
 			}	
@@ -181,9 +237,10 @@ public class Main {
 		    @Override
 		    public void keyPressed(KeyEvent e) {
 		        if ((e.getKeyCode() == KeyEvent.VK_T) && ((e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0)) {
-		            
-		            VentanaTienda ventanaTienda = new VentanaTienda();
-		            ventanaTienda.setVisible(true);
+		            if(jug1.getPosx() > 582 && jug1.getPosx()< 1038 && jug1.getPosy() > 5228 && jug1.getPosy() < 5736) {
+		            	VentanaTienda ventanaTienda = new VentanaTienda();
+		            	ventanaTienda.setVisible(true);
+		            }	
 		        }
 		    }
 		});
