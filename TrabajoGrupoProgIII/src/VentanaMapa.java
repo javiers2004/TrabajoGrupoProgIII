@@ -814,6 +814,12 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				if(e.distancia(player) < emascercano.distancia(player)) {
 					emascercano = e;
 				}
+				if(e instanceof Caparazon && e.distancia(player) > 1000) {
+					e.setHealth(300);
+					Caparazon c = (Caparazon) e;
+					c.getLabel().setIcon(c.escondido.get(0));
+					c.setArrayenuso(c.escondido);
+					c.setContadorsprite(0);				}
 				
 			}
 			else {

@@ -44,11 +44,11 @@ public class Puercoespin extends Enemigos{
 		izquierda.add(imagen6);
 		this.izquierda = izquierda;	
 		ImageIcon icono7 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/puercoespin/ataque1.png");
-		ImageIcon imagen7 = new ImageIcon(icono7.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
+		ImageIcon imagen7 = new ImageIcon(icono7.getImage().getScaledInstance(80,60, Image.SCALE_SMOOTH));
 		ImageIcon icono8 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/puercoespin/ataque2.png");
-		ImageIcon imagen8 = new ImageIcon(icono8.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
+		ImageIcon imagen8 = new ImageIcon(icono8.getImage().getScaledInstance(80,60, Image.SCALE_SMOOTH));
 		ImageIcon icono9 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/puercoespin/ataque3.png");
-		ImageIcon imagen9 = new ImageIcon(icono9.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
+		ImageIcon imagen9 = new ImageIcon(icono9.getImage().getScaledInstance(80,60, Image.SCALE_SMOOTH));
 		ataquenemigo.add(imagen9);
 		ImageIcon icono10 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/puercoespin/ataque4.png");
 		ImageIcon image10 = new ImageIcon(icono10.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
