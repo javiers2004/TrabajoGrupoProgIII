@@ -70,7 +70,7 @@ public class Main {
 				BufferedImage mapacolisiones = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 				mapacolisiones.createGraphics().drawImage(image, 0, 0, null);
 				//entidades
-				
+				long startTime = System.currentTimeMillis();
 				while(true) {
 //					
 //					for (Enemigos e1 : entities) {
@@ -215,6 +215,18 @@ public class Main {
 						}
 						
 					}
+					long elapsedTime = System.currentTimeMillis() - startTime;
+
+				    // Ajusta la velocidad según sea necesario
+				    if (elapsedTime < 10) {
+				        try {
+				            Thread.sleep(10 - elapsedTime);
+				        } catch (InterruptedException e) {
+				            e.printStackTrace();
+				        }
+				    }
+
+				    startTime = System.currentTimeMillis();
 				}	
 			}
 			}	

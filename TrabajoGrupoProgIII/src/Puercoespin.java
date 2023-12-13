@@ -77,46 +77,46 @@ public class Puercoespin extends Enemigos{
 		
 		//mover hacia el jugador cuando entra en x rango
 		if (this.x < player.getPosx()+ anchoventana/2 + 50) {
-//			Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3 - 12/3  , player.getPosy()/3 ));
-//			int red = color.getRed();
-//			int green = color.getGreen();
-//			int blue = color.getBlue();
-//			if (red > 200 && green > 200 && blue > 200 ) {
+			Color color = new Color(mapacolisiones.getRGB(this.getX()/3  +1, this.getY()/3 ));
+			int red = color.getRed();
+			int green = color.getGreen();
+			int blue = color.getBlue();
+			if (red > 220 && green > 220 && blue > 220 ) {
 				if(this.distancia(player) > 100) {
 					arrayenuso = derecha;
 				}
-				x = x+1;
-//			}
+				x++;
+			}
 		}
         if (this.y < player.getPosy() + altoventana/2) {
-//			Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3  -10, player.getPosy()/3+ 3/3 ));
-//			int red = color.getRed();
-//			int green = color.getGreen();
-//			int blue = color.getBlue();
-//			if (red > 200 && green > 200 && blue > 200 ) {
-				y = y+1;
-//			}
+			Color color = new Color(mapacolisiones.getRGB(this.getX()/3  , this.getY()/3 + 1));
+			int red = color.getRed();
+			int green = color.getGreen();
+			int blue = color.getBlue();
+			if (red > 220 && green > 220 && blue > 220 ) {
+				y++;
+			}
         }
         if (this.x > player.getPosx() + anchoventana/2 + 50) {
-//			Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3 - 42/3 , player.getPosy()/3 ));
-//        	int red = color.getRed();
-//			int green = color.getGreen();
-//			int blue = color.getBlue();
-//			if (red > 200 && green > 200 && blue > 200 ) {
+			Color color = new Color(mapacolisiones.getRGB(this.getX()/3 -1 , this.getY()/3  ));
+        	int red = color.getRed();
+			int green = color.getGreen();
+			int blue = color.getBlue();
+			if (red > 220 && green > 220 && blue > 220 ) {
         	if(this.distancia(player) > 100) {
 				arrayenuso = derecha;
 			}
-				x = x -1;
-//			}
+				x--;
+			}
         }
         if (this.y > player.getPosy() + altoventana/2) {
-//        	Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3  , player.getPosy()/3 +  - 30/3));
-//        	int red = color.getRed();
-//			int green = color.getGreen();
-//			int blue = color.getBlue();
-//			if (red > 200 && green > 200 && blue > 200 ) {
-				y = y-1;
-//			}
+        	Color color = new Color(mapacolisiones.getRGB(this.getX()/3   , this.getY()/3 ));
+        	int red = color.getRed();
+			int green = color.getGreen();
+			int blue = color.getBlue();
+			if (red > 220 && green > 220 && blue > 220 ) {
+				y--;
+			}
         }
         	        
 	}
