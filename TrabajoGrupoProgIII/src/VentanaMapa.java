@@ -72,7 +72,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected boolean click = false;
     boolean ataquedisponible = true;
     protected PanelMinimapa minimapa;
-    boolean continuar = true;
+    public boolean continuar = true;
 	public JLayeredPane panelfondo;
 	protected List<Enemigos> enemigos;
 	public JPanel pnlprincipal;
@@ -81,6 +81,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected BufferedImage mapacolisiones;
 	protected ImageIcon imagenfinalcueva;
 	protected ImageIcon imagenfinal;
+	protected static float fps;
 	//GETTERS Y SETTERS
 	
 	
@@ -89,6 +90,12 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	
 	
 	 
+	protected float getFps() {
+		return fps;
+	}
+	protected void setFps(float fps) {
+		this.fps = fps;
+	}
 	public JLabel getLblcartel() {
 		return lblcartel;
 	}
@@ -176,7 +183,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected boolean isContinuar() {
 		return continuar;
 	}
-	protected void setContinuar(boolean continuar) {
+	public void setContinuar(boolean continuar) {
 		this.continuar = continuar;
 	}
 	protected boolean isAtaquedisponible() {
@@ -299,7 +306,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		this.mapacolisiones = mapacolisiones;
 		this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-            	getVeninicio().setVisible(true);  	
+            	getVeninicio().setVisible(true);  
+            	VentanaMapa.this.setContinuar(false);
             }
         });
 		//POSICIONAR LABEL DEL JUGADOR
@@ -349,7 +357,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		map = new JLabel(imagenfinal);
 		
 		
-		ImageIcon iconcueva = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPACONCUEVAS.png");
+		ImageIcon iconcueva = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPACONCUEVAS2.png");
 		ImageIcon imagencueva = new ImageIcon(iconcueva.getImage().getScaledInstance(12288,12288,Image.SCALE_SMOOTH));
 		Image i2cueva = imagencueva.getImage();
 		BufferedImage imagenparadibujarcueva = new BufferedImage(i2cueva.getHeight(null), i2cueva.getWidth(null), BufferedImage.TYPE_INT_ARGB);
@@ -504,6 +512,14 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 					enem.setArrayenuso(enem.muerte);
                 					enem.setVivo(false);
                 					player.setExperiencia(player.getExperiencia() + enem.getExperiencia());
+                					if(player.getEstadisticas().containsKey(enem.getClass())) {
+                						player.getEstadisticas().put(enem.getClass(), player.getEstadisticas().get(enem.getClass()) + 1);
+                					}
+                					else {
+                						player.getEstadisticas().put(enem.getClass(), 1);
+
+                					}
+                					System.out.println(player.getEstadisticas());
                 				}
                 				//System.out.print(enem.getHealth());
                 			}
@@ -517,6 +533,14 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 					enem.setVivo(false);
                 					enem.setArrayenuso(enem.muerte);
                 					player.setExperiencia(player.getExperiencia() + enem.getExperiencia());
+                					if(player.getEstadisticas().containsKey(enem.getClass())) {
+                						player.getEstadisticas().put(enem.getClass(), player.getEstadisticas().get(enem.getClass()) + 1);
+                					}
+                					else {
+                						player.getEstadisticas().put(enem.getClass(), 1);
+
+                					}
+                					System.out.println(player.getEstadisticas());
                 				}
                 				//System.out.print(enem.getHealth());
                 			}

@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -26,10 +27,30 @@ public class Jugador {
 	protected ArrayList<ImageIcon> ataqueespadader;
 	protected ArrayList<ImageIcon> ataqueespadaizq;
 	protected int nivel;
+	protected HashMap<Object, Integer> estadisticas = new HashMap<Object, Integer>();
+	protected ArrayList<ImageIcon> arrayenuso;
+	protected int contadorsprites = 0;
 	
 	
 	
-	
+	protected int getContadorsprites() {
+		return contadorsprites;
+	}
+	protected void setContadorsprites(int contadorsprites) {
+		this.contadorsprites = contadorsprites;
+	}
+	protected ArrayList<ImageIcon> getArrayenuso() {
+		return arrayenuso;
+	}
+	protected void setArrayenuso(ArrayList<ImageIcon> arrayenuso) {
+		this.arrayenuso = arrayenuso;
+	}
+	protected HashMap<Object, Integer> getEstadisticas() {
+		return estadisticas;
+	}
+	protected void setEstadisticas(HashMap<Object, Integer> estadisticas) {
+		this.estadisticas = estadisticas;
+	}
 	public String getNombre() {
 		return nombre;
 	}
