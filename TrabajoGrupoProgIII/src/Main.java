@@ -31,8 +31,8 @@ public class Main {
 		Jugador jug1 = new Jugador();
         VentanaMapa ven1 = new VentanaMapa(jug1);
         
-        inventario = new Inventario();
-        productos = new Productos();
+//        inventario = new Inventario();
+//        productos = new Productos();
         
         
         // Crear una instancia de VentanaAudio
