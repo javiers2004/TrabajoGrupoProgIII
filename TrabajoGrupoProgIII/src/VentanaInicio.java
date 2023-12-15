@@ -222,7 +222,9 @@ public class VentanaInicio extends JFrame implements ActionListener {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ven1.setVisible(true);		
+			ven1.setVisible(true);	
+			VentanaMapa v1 = (VentanaMapa) ven1;
+			v1.continuar = true;
 			setVisible(false);
 			ven1.repaint();
 			ven1.revalidate();

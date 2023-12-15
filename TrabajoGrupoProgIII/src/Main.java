@@ -61,7 +61,8 @@ public class Main {
 			
 			public void run() {
 				
-			if(ven1.isContinuar() == true) {
+			
+				
 				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 				int screenWidth = screenSize.width;
 				int screenHeight = screenSize.height;
@@ -72,7 +73,7 @@ public class Main {
 				//entidades
 				long startTime = System.currentTimeMillis();
 				while(true) {
-//					
+					if(ven1.isContinuar() == true) {
 //					for (Enemigos e1 : entities) {
 //						e1.moveToPlayer(jug1.getPosx(), jug1.getPosy());
 //					}
@@ -227,8 +228,8 @@ public class Main {
 				    }
 
 				    startTime = System.currentTimeMillis();
-				}	
-			}
+				}					
+				}
 			}	
 		};
 		hiloteclas.start();

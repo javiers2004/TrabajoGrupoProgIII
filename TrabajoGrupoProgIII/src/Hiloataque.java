@@ -3,7 +3,7 @@ import javax.swing.JLabel;
 public class Hiloataque extends Thread{
 	public Hiloataque(JLabel lblplayer, VentanaMapa ven, int posx, int n) {
 		
-		ven.setContinuar(false);
+//		ven.setContinuar(false);
 		
 			if(posx > ven.getAnchoventana()/2) {
 				lblplayer.setIcon(ven.getPlayer().ataqueespadader.get(n));
@@ -22,7 +22,7 @@ public class Hiloataque extends Thread{
 			if (n==1) {
 				ven.click = false;
 				ven.setAtaquedisponible(true);
-				ven.setContinuar(true);
+//				ven.setContinuar(true);
 			}	
 	}
 }

@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 public class Puercoespin extends Enemigos{
 	public Puercoespin() {
 		super();
-		this.health = 100;
+		this.health = 20;
 		this.label = new JLabel();
 		this.label.setBounds(x,y,64,50);
 		this.label.setBackground(Color.red);
