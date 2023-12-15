@@ -29,6 +29,8 @@ public class Main {
 	public static void main(String[] args) {
 		
 		Jugador jug1 = new Jugador();
+
+		
         VentanaMapa ven1 = new VentanaMapa(jug1);
         
 //        inventario = new Inventario();

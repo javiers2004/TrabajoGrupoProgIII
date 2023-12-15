@@ -52,7 +52,7 @@ public class Jugador {
 		this.estadisticas = estadisticas;
 	}
 	public String getNombre() {
-		return nombre;
+		return VentanaInicio.nombreUsuario;
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;

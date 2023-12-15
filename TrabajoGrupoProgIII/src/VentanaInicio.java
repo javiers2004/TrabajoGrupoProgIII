@@ -30,13 +30,14 @@ public class VentanaInicio extends JFrame implements ActionListener {
     private JLabel lblTitulo;
     private JFrame va;
     
-    private String nombreUsuario; // Variable para almacenar el nombre
+    public static String nombreUsuario;
     private DefaultMutableTreeNode rootNode; // Nodo raíz para el árbol
     private static final String NOMBRES_FILE = "nombres.txt";
     private ArrayList<String> nombres; // Lista para almacenar los nombres
-    private ArrayList<Jugador> jugadores; // Lista para almacenar los jugadores
+    private ArrayList<Jugador> listaJugadores = new ArrayList<>(); // Lista para almacenar los jugadores
 
     private boolean tablaAbierta = false;
+    private boolean botonPlayPresionado = false;
 
     
     private VentanaAudio player;
@@ -164,64 +165,72 @@ public class VentanaInicio extends JFrame implements ActionListener {
     
     
     
-    botonEstads.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // Verificar si el nombre ya se ha configurado
-            if (nombreUsuario == null) {
-                // Si el nombre no se ha configurado, solicitarlo al usuario
-                nombreUsuario = JOptionPane.showInputDialog("Introduce tu nombre:");
-                if (nombreUsuario != null) {
-                    JOptionPane.showMessageDialog(null, "Hola, " + nombreUsuario + "!");
-                    nombres.add(nombreUsuario); // Agregar el nombre a la lista
-                   
-                }
-            }
-
-            // Crear un JTree con la carpeta inicial "estadisticas"
-            rootNode = new DefaultMutableTreeNode("Estadísticas");
-            
-            cargarArbolNombre();
-            
-            //JTree tree = new JTree(rootNode);
-            
-            if (nombreUsuario != null && !nombreUsuario.isEmpty() && !insertado) {
-                rootNode.add(new DefaultMutableTreeNode(nombreUsuario));
-                insertado=true;
-            }
-
-            // Crear el JTree y configurar el MouseListener
-            JTree tree = new JTree(rootNode);
-            tree.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent me) {
-                    if (me.getClickCount() == 2) { // Verificar si es un doble clic
-                        TreePath tp = tree.getPathForLocation(me.getX(), me.getY());
-                        if (tp != null) {
-                            System.out.println("Nodo doble clickeado: " + tp.getLastPathComponent());
-                            mostrarTabla();
-                        }
+        botonEstads.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Verificar si el nombre ya se ha configurado
+                if (nombreUsuario == null) {
+                    // Si el nombre no se ha configurado, solicitarlo al usuario
+                    nombreUsuario = JOptionPane.showInputDialog("Introduce tu nombre:");
+                    if (nombreUsuario != null) {
+                        JOptionPane.showMessageDialog(null, "Hola, " + nombreUsuario + "!");
+                        nombres.add(nombreUsuario); // Agregar el nombre a la lista
                     }
                 }
-            });
 
-            // Crear un JDialog no modal para mostrar el JTree
-            JDialog dialog = new JDialog(VentanaInicio.this, "Estadísticas", false); // 'false' hace que el diálogo sea no modal
-            dialog.add(new JScrollPane(tree));
-            dialog.setSize(300, 400);
-            dialog.setLocationRelativeTo(VentanaInicio.this);
-            dialog.setVisible(true);
+                // Crear el nodo raíz y el nodo "Nombres"
+                DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("Root");
+                DefaultMutableTreeNode nombresNode = new DefaultMutableTreeNode("Nombres");
+                rootNode.add(nombresNode);
 
-            // Guardar el árbol con el nombre en el archivo
-            guardarArbolNombre();
-        }
-    });
+                // Cargar nombres al árbol. Suponemos que este método ya maneja el nodo raíz
+                cargarArbolNombre();
+
+                // Añadir el nodo "Estadísticas" si se ha pulsado el botón "Play"
+                if (botonPlayPresionado && nombreUsuario != null && !nombreUsuario.isEmpty()) {
+                    DefaultMutableTreeNode estadisticasNode = new DefaultMutableTreeNode("Estadísticas");
+                    estadisticasNode.add(new DefaultMutableTreeNode(nombreUsuario));
+                    rootNode.add(estadisticasNode); // Añadir "Estadísticas" al nodo raíz
+                }
+
+                // Crear el JTree y configurar el MouseListener
+                JTree tree = new JTree(rootNode);
+                tree.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent me) {
+                        if (me.getClickCount() == 2) {
+                            TreePath tp = tree.getPathForLocation(me.getX(), me.getY());
+                            if (tp != null) {
+                                System.out.println("Nodo doble clickeado: " + tp.getLastPathComponent());
+                                // Aquí puedes añadir acciones adicionales al hacer doble clic en un nodo
+                            }
+                        }
+                    }
+                });
+
+                // Crear y configurar un JDialog para mostrar el JTree
+                JDialog dialog = new JDialog(VentanaInicio.this, "Nombres y Estadísticas", false); // Diálogo no modal
+                dialog.add(new JScrollPane(tree));
+                dialog.setSize(300, 400);
+                dialog.setLocationRelativeTo(VentanaInicio.this);
+                dialog.setVisible(true);
+
+                // Guardar el árbol con el nombre en el archivo
+                guardarArbolNombre();
+            }
+        });
+
+
+            
+            
+
  
  botonPlay.addActionListener(new ActionListener() {
 
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			botonPlayPresionado = true;
 			ven1.setVisible(true);	
 			VentanaMapa v1 = (VentanaMapa) ven1;
 			v1.continuar = true;
@@ -281,7 +290,14 @@ public class VentanaInicio extends JFrame implements ActionListener {
     
  // Método para cargar los nombres desde el archivo y agregarlos al árbol
     
-    private void cargarArbolNombre() {
+    public String getNombreUsuario() {
+		return nombreUsuario;
+	}
+
+
+
+
+	private void cargarArbolNombre() {
         File archivo = new File(NOMBRES_FILE);
 
         // Verificar si el archivo no existe y crearlo si es necesario
@@ -328,7 +344,7 @@ public class VentanaInicio extends JFrame implements ActionListener {
             return; // Si la tabla ya está abierta, no hacer nada
         }
 
-        ModeloTablaPersonas modelo = new ModeloTablaPersonas();
+        ModeloTablaPersonas modelo = new ModeloTablaPersonas(listaJugadores);
         JTable table = new JTable(modelo);
         JFrame frame = new JFrame("Tabla de Datos");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -352,17 +368,23 @@ public class VentanaInicio extends JFrame implements ActionListener {
         for (String nombre : nombres) {
             Jugador jugador = new Jugador(); // Crear un objeto Jugador sin nombre
             jugador.setNombre(nombre); // Establecer el nombre del jugador
-            jugadores.add(jugador); // Añadir el jugador a la lista
+            listaJugadores.add(jugador); // Añadir el jugador a la lista
         }
     }
-    
-    
-    
-    
+
+
+
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
+    
+    
+    
+    
+
 	
 
   }  

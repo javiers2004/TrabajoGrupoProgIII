@@ -19,7 +19,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -299,8 +301,16 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public void setEnemigos(List<Enemigos> enemigos) {
 		this.enemigos = enemigos;
 	}
+	
+	
+   // private VentanaInicio ventanaInicio;
+
+  
 	//CONSTRUCTOR
-	public VentanaMapa(Jugador player){	
+	public VentanaMapa(Jugador player  ){
+	    this.player = player;
+
+	    
 		ImageIcon icono5 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPABLANCO4.png");
 		Image image = icono5.getImage();
 		BufferedImage mapacolisiones = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
@@ -308,10 +318,49 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		this.mapacolisiones = mapacolisiones;
 		this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-            	getVeninicio().setVisible(true);  
-            	VentanaMapa.this.setContinuar(false);
-            }
+            	
+            		guardarDatosPartida(player.getNombre());
+            		getVeninicio().setVisible(true);  
+            		VentanaMapa.this.setContinuar(false);
+            	
+                    // Manejar el caso en que veninicio sea null
+               }
+
+			private void guardarDatosPartida(String nombreUsuario) {
+				String nombre = player.getNombre();
+				int nivel = player.getNivel();
+				int experiencia = player.getExperiencia();
+				int vidaRestante = player.getVidarestante();
+				int posX = player.getPosx();
+				int posY = player.getPosy();
+
+
+				String nombreArchivo = "partida.txt";
+
+			    try {
+			        FileWriter fileWriter = new FileWriter(nombreArchivo, false); // 'false' para sobrescribir el archivo existente
+			        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+			        bufferedWriter.write("Nombre: " + nombre + "\n");
+			        bufferedWriter.write("Nivel: " + nivel + "\n");
+			        bufferedWriter.write("Experiencia: " + experiencia + "\n");
+			        bufferedWriter.write("Vida Restante: " + vidaRestante + "\n");
+			        bufferedWriter.write("Posición X: " + posX + "\n");
+			        bufferedWriter.write("Posición Y: " + posY + "\n");
+
+			        bufferedWriter.close();
+			    } catch (IOException e) {
+			        e.printStackTrace();
+			    }
+			}
+			
+		
+			
         });
+		
+
+		
+		
 		//POSICIONAR LABEL DEL JUGADOR
 		this.player = player;
 		this.setArraymovimiento(player.getDerecha());
