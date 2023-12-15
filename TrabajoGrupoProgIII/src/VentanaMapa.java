@@ -25,6 +25,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Random;
 
@@ -82,6 +83,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected ImageIcon imagenfinalcueva;
 	protected ImageIcon imagenfinal;
 	protected static float fps;
+	protected Enemigos e;
 	//GETTERS Y SETTERS
 	
 	
@@ -419,7 +421,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		
 		//ENEMIGOS Y SPRITES
 		enemigos = new ArrayList<>();
-		generarEnemigos();
+		generarEnemigos2.start();
 		
 //		new Timer(500, new ActionListener() {
 //			@Override
@@ -620,89 +622,175 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		return colorp.getRed() > 240 && colorp.getGreen() > 240 && colorp.getBlue() >240;
 	}
 
-	private void generarEnemigos() {
-		Random r = new Random();
-		for(int i = 0; i<10; i++) {
-			int rx, ry;	
-				 rx = r.nextInt(4096) ; 
-				 ry = r.nextInt(4096) ;
-			while(!areapermitida(rx, ry)) {
-				rx = r.nextInt(4096) ; 
-				ry = r.nextInt(4096) ;
+//	private void generarEnemigos() {
+//		
+//		Random r = new Random();
+//		for(int i = 0; i<10; i++) {
+//			int rx, ry;	
+//				 rx = r.nextInt(4096) ; 
+//				 ry = r.nextInt(4096) ;
+//			while(!areapermitida(rx, ry)) {
+//				rx = r.nextInt(4096) ; 
+//				ry = r.nextInt(4096) ;
+//			}
+//			Slime e = new Slime();
+//			e.setX(3*rx );
+//			e.setY(3*ry );
+//			enemigos.add(e);
+//			this.panelfondo.add(e.getLabel());
+//			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
+//		}	
+//		for(int i = 0; i<20; i++) {
+//			int rx, ry;	
+//				 rx = r.nextInt(4096) ; 
+//				 ry = r.nextInt(4096) ;
+//			while(!areapermitida(rx, ry)) {
+//				rx = r.nextInt(4096) ; 
+//				ry = r.nextInt(4096) ;
+//			}
+//			Bat e = new Bat();
+//			e.setX(3*rx );
+//			e.setY(3*ry );
+//			enemigos.add(e);
+//			this.panelfondo.add(e.getLabel());
+//			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
+//		}	
+//		for(int i = 0; i<20; i++) {
+//			int rx, ry;	
+//				 rx = r.nextInt(4096) ; 
+//				 ry = r.nextInt(4096) ;
+//			while(!areapermitida(rx, ry)) {
+//				rx = r.nextInt(4096) ; 
+//				ry = r.nextInt(4096) ;
+//			}
+//			Goblin e = new Goblin();
+//			e.setX(3*rx );
+//			e.setY(3*ry );
+//			enemigos.add(e);
+//			this.panelfondo.add(e.getLabel());
+//			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
+//		}
+//		for(int i = 0; i<20; i++) {
+//			int rx, ry;	
+//				 rx = r.nextInt(4096) ; 
+//				 ry = r.nextInt(4096) ;
+//			while(!areapermitida(rx, ry)) {
+//				rx = r.nextInt(4096) ; 
+//				ry = r.nextInt(4096) ;
+//			}
+//			Caparazon e = new Caparazon();
+//			e.setX(3*rx );
+//			e.setY(3*ry );
+//			enemigos.add(e);
+//			this.panelfondo.add(e.getLabel());
+//			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
+//		}	
+//		for(int i = 0; i<20; i++) {
+//			int rx, ry;	
+//				 rx = r.nextInt(4096) ; 
+//				 ry = r.nextInt(4096) ;
+//			while(!areapermitida(rx, ry)) {
+//				rx = r.nextInt(4096) ; 
+//				ry = r.nextInt(4096) ;
+//			}
+//			Puercoespin e = new Puercoespin();
+//			e.setX(3*rx );
+//			e.setY(3*ry );
+//			enemigos.add(e);
+//			this.panelfondo.add(e.getLabel());
+//			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
+//		}	
+//		for(int i = 0; i<20; i++) {
+//			int rx, ry;	
+//				 rx = r.nextInt(4096) ; 
+//				 ry = r.nextInt(4096) ;
+//			while(!areapermitida(rx, ry)) {
+//				rx = r.nextInt(4096) ; 
+//				ry = r.nextInt(4096) ;
+//			}
+//			Pajaro e = new Pajaro();
+//			e.setX(3*rx );
+//			e.setY(3*ry );
+//			enemigos.add(e);
+//			this.panelfondo.add(e.getLabel());
+//			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
+//		}	
+//	}
+	
+	Thread generarEnemigos2 = new Thread() {
+		public void run() {
+		while(true) {
+			int contadorvivos = 0;
+			for(Enemigos e : VentanaMapa.this.enemigos) {
+				if(e.isVivo()) {
+					contadorvivos++;
+				}
 			}
-			Slime e = new Slime();
-			e.setX(3*rx );
-			e.setY(3*ry );
-			enemigos.add(e);
-			this.panelfondo.add(e.getLabel());
-			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
-		}	
-		for(int i = 0; i<10; i++) {
+			if(contadorvivos < 200) {
+			Random r = new Random();
+			int n = (int)(Math.random()*6);
 			int rx, ry;	
-				 rx = r.nextInt(4096) ; 
-				 ry = r.nextInt(4096) ;
-			while(!areapermitida(rx, ry)) {
-				rx = r.nextInt(4096) ; 
-				ry = r.nextInt(4096) ;
-			}
-			Bat e = new Bat();
-			e.setX(3*rx );
-			e.setY(3*ry );
-			enemigos.add(e);
-			this.panelfondo.add(e.getLabel());
-			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
-		}	
-		for(int i = 0; i<10; i++) {
-			int rx, ry;	
-				 rx = r.nextInt(4096) ; 
-				 ry = r.nextInt(4096) ;
-			while(!areapermitida(rx, ry)) {
-				rx = r.nextInt(4096) ; 
-				ry = r.nextInt(4096) ;
-			}
-			Goblin e = new Goblin();
-			e.setX(3*rx );
-			e.setY(3*ry );
-			enemigos.add(e);
-			this.panelfondo.add(e.getLabel());
-			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
+			 rx = r.nextInt(4096) ; 
+			 ry = r.nextInt(4096) ;
+		while(!areapermitida(rx, ry)) {
+			rx = r.nextInt(4096) ; 
+			ry = r.nextInt(4096) ;
 		}
-		for(int i = 0; i<10; i++) {
-			int rx, ry;	
-				 rx = r.nextInt(4096) ; 
-				 ry = r.nextInt(4096) ;
-			while(!areapermitida(rx, ry)) {
-				rx = r.nextInt(4096) ; 
-				ry = r.nextInt(4096) ;
-			}
+		if(n == 0) {
+			Slime e = new Slime();
+			VentanaMapa.this.e = e;
+		}
+		else if(n == 1) {
+			Bat e = new Bat();
+			VentanaMapa.this.e = e;
+		}
+		else if(n == 2) {
+			Goblin e = new Goblin();
+			VentanaMapa.this.e = e;
+		}
+		else if(n == 3) {
 			Caparazon e = new Caparazon();
-			e.setX(3*rx );
-			e.setY(3*ry );
-			enemigos.add(e);
-			this.panelfondo.add(e.getLabel());
-			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
-		}	
-		for(int i = 0; i<20; i++) {
-			int rx, ry;	
-				 rx = r.nextInt(4096) ; 
-				 ry = r.nextInt(4096) ;
-			while(!areapermitida(rx, ry)) {
-				rx = r.nextInt(4096) ; 
-				ry = r.nextInt(4096) ;
-			}
+			VentanaMapa.this.e = e;
+		}
+		else if(n == 4) {
 			Puercoespin e = new Puercoespin();
-			e.setX(3*rx );
-			e.setY(3*ry );
-			enemigos.add(e);
-			this.panelfondo.add(e.getLabel());
-			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
-		}	
-	}
+			VentanaMapa.this.e = e;
+		}
+		else {
+			Pajaro e = new Pajaro();
+			VentanaMapa.this.e = e;
+		}
+		VentanaMapa.this.e.setX(3*rx );
+		VentanaMapa.this.e.setY(3*ry );
+		enemigos.add(VentanaMapa.this.e);
+		VentanaMapa.this.panelfondo.add(VentanaMapa.this.e.getLabel());
+		VentanaMapa.this.panelfondo.setComponentZOrder(VentanaMapa.this.e.getLabel(),1);	
+		
+		
+			}
+		}
+		
+		}
+	};
 	private void actualizarEnemigos() {
 		for(Enemigos e: enemigos) {		
 			if(e.distancia(player) < 1000 ) {
 				//System.out.println(e.getDerecha());
-				if(!(e instanceof Caparazon) || e.getHealth() < 300) {
+				if(e instanceof Slime && e.isVivo() == false) {
+					if (e.getContadorsprite() + 1> e.getArrayenuso().size()*40) {
+						e.setContadorsprite(0);
+					}
+					if(e.getContadorsprite() % 40 == 0) {
+						e.getLabel().setIcon(e.getArrayenuso().get(e.getContadorsprite()/40));
+						e.getLabel().setVisible(true);
+					}
+					e.setContadorsprite(e.getContadorsprite()+1);
+				
+				}
+				
+				
+				
+				else if(!(e instanceof Caparazon) || e.getHealth() < 300) {
 					if (e.getContadorsprite() + 1> e.getArrayenuso().size()*20) {
 						e.setContadorsprite(0);
 					}
@@ -808,6 +896,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		map.setVisible(true);
 		Enemigos emascercano = enemigos.get(0);
 		actualizarEnemigos();
+		try {
 		for(Enemigos e: enemigos) {
 			if(e.isVivo() == true) {
 				JLabel lblenemigo = e.getLabel();
@@ -859,6 +948,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				}
 				
 			}
+			
 		}
 		mostrarCartel(player, emascercano);
 
@@ -906,6 +996,10 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			}
 		}
 		this.minimapa.actualizarPunto(player);
+	}
+	catch(ConcurrentModificationException e) {
+		System.out.println("salta");
+	}
 	}
 	public void actualizarComponentes(Jugador player) {
 		veninfo.actualizarPanelInfo(player);

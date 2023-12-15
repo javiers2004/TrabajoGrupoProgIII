@@ -73,7 +73,6 @@ public class Main {
 				//entidades
 				long startTime = System.currentTimeMillis();
 				while(true) {
-					System.out.println(ven1.isContinuar());
 					if(ven1.isContinuar() == true) {
 //					for (Enemigos e1 : entities) {
 //						e1.moveToPlayer(jug1.getPosx(), jug1.getPosy());
