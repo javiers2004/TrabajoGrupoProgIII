@@ -317,46 +317,37 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		mapacolisiones.createGraphics().drawImage(image, 0, 0, null);
 		this.mapacolisiones = mapacolisiones;
 		this.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-            	
-            		guardarDatosPartida(player.getNombre());
-            		getVeninicio().setVisible(true);  
-            		VentanaMapa.this.setContinuar(false);
-            	
-                    // Manejar el caso en que veninicio sea null
-               }
+		    public void windowClosing(WindowEvent e) {
+		        guardarDatosPartida(player.getNombre());
+		        getVeninicio().setVisible(true);  
+		        VentanaMapa.this.setContinuar(false);
+		    }
 
-			private void guardarDatosPartida(String nombreUsuario) {
-				String nombre = player.getNombre();
-				int nivel = player.getNivel();
-				int experiencia = player.getExperiencia();
-				int vidaRestante = player.getVidarestante();
-				int posX = player.getPosx();
-				int posY = player.getPosy();
+		    private void guardarDatosPartida(String nombreUsuario) {
+		        String nombre = player.getNombre();
+		        int nivel = player.getNivel();
+		        int experiencia = player.getExperiencia();
+		        int vidaRestante = player.getVidarestante();
+		        int posX = player.getPosx();
+		        int posY = player.getPosy();
 
+		        String nombreArchivo = "partida.txt";
 
-				String nombreArchivo = "partida.txt";
+		        try {
+		            FileWriter fileWriter = new FileWriter(nombreArchivo, true); // Cambiado a 'true' para añadir al final del archivo
+		            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-			    try {
-			        FileWriter fileWriter = new FileWriter(nombreArchivo, false); // 'false' para sobrescribir el archivo existente
-			        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+		            // Escribe en el archivo en el formato deseado
+		            String datosPartida = nombre + ";" + nivel + ";" + experiencia + ";" + vidaRestante + ";" + posX + ";" + posY + "\n";
+		            bufferedWriter.write(datosPartida);
 
-			        bufferedWriter.write("Nombre: " + nombre + "\n");
-			        bufferedWriter.write("Nivel: " + nivel + "\n");
-			        bufferedWriter.write("Experiencia: " + experiencia + "\n");
-			        bufferedWriter.write("Vida Restante: " + vidaRestante + "\n");
-			        bufferedWriter.write("Posición X: " + posX + "\n");
-			        bufferedWriter.write("Posición Y: " + posY + "\n");
+		            bufferedWriter.close();
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        }
+		    }
+		});
 
-			        bufferedWriter.close();
-			    } catch (IOException e) {
-			        e.printStackTrace();
-			    }
-			}
-			
-		
-			
-        });
 		
 
 		

@@ -53,9 +53,10 @@ public class Main {
         ven1.setVeninicio(v1);
         
         Connection con = BD.initBD("project.db");
-        BD.crearTablas(con);
-		BD.insertarJugador(con, new Jugador("ale11", "2"));
-		BD.insertarJugador(con, new Jugador("jose56", "89"));
+        BD.crearTablaPartida(con); // Crear la tabla
+        BD.cargarDatosDesdeArchivoYGuardar(con, "partida.txt"); // Luego cargar los datos
+        BD.closeBD(con);
+
 		BD.closeBD(con);
 
         
