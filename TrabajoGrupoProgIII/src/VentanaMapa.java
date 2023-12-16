@@ -620,9 +620,14 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				int rx, ry;	
 				rx = r.nextInt(4096) ; 
 				ry = r.nextInt(4096) ;
+				Enemigos e2 = new Enemigos();
+				e2.setX(rx);
+				e2.setY(ry);
 				while(!areapermitida(rx, ry)) {
 					rx = r.nextInt(4096) ; 
 					ry = r.nextInt(4096) ;
+					e2.setX(rx);
+					e2.setY(ry);
 				}
 				if(n == 0) {
 					Slime e = new Slime();
@@ -653,6 +658,12 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				enemigos.add(VentanaMapa.this.e);
 				VentanaMapa.this.panelfondo.add(VentanaMapa.this.e.getLabel());
 				VentanaMapa.this.panelfondo.setComponentZOrder(VentanaMapa.this.e.getLabel(),1);	
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				}
 			}
 		}
