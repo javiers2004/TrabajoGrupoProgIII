@@ -1,6 +1,8 @@
+import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -12,7 +14,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -24,19 +25,13 @@ public class Main {
 	
 	public static Inventario inventario;
 	public static Productos productos;
-
-
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) {	
 		Jugador jug1 = new Jugador();
-
-		
         VentanaMapa ven1 = new VentanaMapa(jug1);
         
 //        inventario = new Inventario();
 //        productos = new Productos();
-        
-        
+  
         // Crear una instancia de VentanaAudio
         VentanaAudio audioPlayer = null;
         try {
@@ -53,19 +48,14 @@ public class Main {
         ven1.setVeninicio(v1);
         
         Connection con = BD.initBD("project.db");
-        BD.crearTablaPartida(con); // Crear la tabla
-        BD.cargarDatosDesdeArchivoYGuardar(con, "partida.txt"); // Luego cargar los datos
-        BD.closeBD(con);
-
-		BD.closeBD(con);
-
         
-		Thread hiloteclas = new Thread() {
-			
-			public void run() {
-				
-			
-				
+//        BD.crearTablaPartida(con); // Crear la tabla
+//        BD.cargarDatosDesdeArchivoYGuardar(con, "partida.txt"); // Luego cargar los datos
+//        BD.closeBD(con);
+//			BD.closeBD(con);
+  
+		Thread hiloteclas = new Thread() {		
+			public void run() {		
 				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 				int screenWidth = screenSize.width;
 				int screenHeight = screenSize.height;
@@ -76,12 +66,22 @@ public class Main {
 				//entidades
 				long startTime = System.currentTimeMillis();
 				while(true) {
+					if(jug1.getVidarestante() <= 0) {
+						try {
+					         if(v1.isVisible() == false) {
+					        	 Robot robot = new Robot();    
+						         robot.keyPress(KeyEvent.VK_S);
+						         Thread.sleep(100);
+						         robot.keyRelease(KeyEvent.VK_S);
+					         }
+						} catch (InterruptedException | AWTException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+					System.out.println(ven1.isContinuar());
 					if(ven1.isContinuar() == true) {
-//					for (Enemigos e1 : entities) {
-//						e1.moveToPlayer(jug1.getPosx(), jug1.getPosy());
-//					}
-					if(ven1.click == false) {
-					
+					if(ven1.click == false) {	
 					int velocidadextra = 0;
 					if(jug1.getStaminarestante() > 0 && ven1.isTeclashift() == true) {
 						velocidadextra = 4;
@@ -100,7 +100,6 @@ public class Main {
 							jug1.setPosy(jug1.getPosy() - 3 - velocidadextra);
 							ven1.actualizarVentana(jug1, false);
 							mov =true;
-
 						}	
 						else if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosy(jug1.getPosy() - 3 - velocidadextra);
@@ -120,13 +119,11 @@ public class Main {
 							jug1.setPosx(jug1.getPosx() - 3 - velocidadextra);
 							ven1.actualizarVentana(jug1, false);
 							mov =true;
-
 						}
 						else if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosx(jug1.getPosx() - 3 - velocidadextra);
 							ven1.actualizarVentana(jug1, true);
 							mov =false;
-
 						}
 						else {
 							mov = true;
@@ -141,13 +138,11 @@ public class Main {
 							jug1.setPosy(jug1.getPosy() + 3 + velocidadextra);
 							ven1.actualizarVentana(jug1, false);
 							mov =true;
-
 						}
 						else if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosy(jug1.getPosy() + 3 + velocidadextra);
 							ven1.actualizarVentana(jug1, true);
 							mov =false;
-
 						}
 						else {
 							mov = true;
@@ -162,40 +157,29 @@ public class Main {
 							jug1.setPosx(jug1.getPosx() + 3 + velocidadextra);
 							ven1.actualizarVentana(jug1, false);
 							mov =true;
-
 						}
 						else if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosx(jug1.getPosx() + 3 + velocidadextra);
 							ven1.actualizarVentana(jug1, true);
 							mov =false;
-
 						}
 						else {
 							mov = true;
 						}
-
 					}
 					if(mov == false) {
 						ven1.actualizarVentana(jug1, true);
 					}
 					else {
 						ven1.actualizarVentana(jug1, false);
-
 					}
-						
-				
-					
-					
-					//jug1.setStaminarestante(jug1.getStaminatotal());               PARA EL BONUS DE VELOCIDAD
 					ven1.actualizarComponentes(jug1);
-					
 					if (ven1.isTeclashift() == false && jug1.getStaminarestante()<jug1.getStaminatotal()) {
 						jug1.setStaminarestante(jug1.getStaminarestante() + 0.25);
 						if(jug1.getStaminarestante() > 100) {
 							jug1.setStaminarestante(100);
 						}
 					}
-					
 					try {
 						Thread.sleep(5);
 					} catch (InterruptedException ezz) {
@@ -210,14 +194,12 @@ public class Main {
 								jug1.setStaminarestante(100);
 							}
 						}
-						
 						try {
 							Thread.sleep(5);
 						} catch (InterruptedException ez) {
 							// TODO Auto-generated catch block
 							ez.printStackTrace();
-						}
-						
+						}	
 					}
 					long elapsedTime = System.currentTimeMillis() - startTime;
 
@@ -229,7 +211,6 @@ public class Main {
 				            e.printStackTrace();
 				        }
 				    }
-
 				    startTime = System.currentTimeMillis();
 				}					
 				}
@@ -259,7 +240,6 @@ public class Main {
 		    }
 		});
 
-		// Asegúrate de que la ventana puede recibir eventos de teclado
 		ven1.setFocusable(true);
 		ven1.requestFocusInWindow();
 		
