@@ -330,6 +330,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
 
 		    }
 
+		    
+		    //ole
 		    private void guardarDatosPartida(String nombreUsuario) {
 		        String nombre = player.getNombre();
 		        int nivel = player.getNivel();
