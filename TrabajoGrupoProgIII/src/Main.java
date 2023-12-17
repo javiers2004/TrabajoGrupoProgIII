@@ -32,7 +32,6 @@ public class Main {
 		//jug1.actualizarDesdeArchivo("partida.txt", jug1);
 		
         VentanaMapa ven1 = new VentanaMapa(jug1);
-
 //        inventario = new Inventario();
 //        productos = new Productos();
         
@@ -52,12 +51,12 @@ public class Main {
         VentanaInicio v1 = new VentanaInicio(ven1, audioPlayer);
         ven1.setVeninicio(v1);
         
-        Connection con = BD.initBD("project.db");
-        BD.crearTablaPartida(con); // Crear la tabla
-        BD.cargarDatosDesdeArchivoYGuardar(con, "partida.txt"); // Luego cargar los datos
-        BD.closeBD(con);
-
-		BD.closeBD(con);
+//        Connection con = BD.initBD("project.db");
+//        BD.crearTablaPartida(con); // Crear la tabla
+//        BD.cargarDatosDesdeArchivoYGuardar(con, "partida.txt"); // Luego cargar los datos
+//        BD.closeBD(con);
+//
+//		BD.closeBD(con);
 
         
 		Thread hiloteclas = new Thread() {
@@ -76,10 +75,12 @@ public class Main {
 				//entidades
 				long startTime = System.currentTimeMillis();
 				while(true) {
+					System.out.println(ven1.isContinuar());
 					if(ven1.isContinuar() == true) {
 //					for (Enemigos e1 : entities) {
 //						e1.moveToPlayer(jug1.getPosx(), jug1.getPosy());
 //					}
+						//System.out.println(jug1.getVidarestante());
 					if(ven1.click == false) {
 					
 					int velocidadextra = 0;

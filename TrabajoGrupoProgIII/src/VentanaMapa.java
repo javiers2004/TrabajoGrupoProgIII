@@ -19,6 +19,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
@@ -67,7 +72,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected boolean click = false;
     boolean ataquedisponible = true;
     protected PanelMinimapa minimapa;
-    public boolean continuar = true;
+    public boolean continuar = false;
 	public JLayeredPane panelfondo;
 	protected List<Enemigos> enemigos;
 	public JPanel pnlprincipal;
@@ -79,10 +84,17 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected static float fps;
 	protected Enemigos e;
 	protected int aumentoprogresivoexp= 0;
+	protected String nombreplayer;
 	//GETTERS Y SETTERS
 
 	protected float getFps() {
 		return fps;
+	}
+	protected String getNombreplayer() {
+		return nombreplayer;
+	}
+	protected void setNombreplayer(String nombreplayer) {
+		this.nombreplayer = nombreplayer;
 	}
 	protected void setFps(float fps) {
 		this.fps = fps;
@@ -303,90 +315,14 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		this.mapacolisiones = mapacolisiones;
 		this.addWindowListener(new WindowAdapter() {
 		    public void windowClosing(WindowEvent e) {
-
-		        guardarDatosPartida(player.getNombre());
+		        guardarDatosPartida();
 		        getVeninicio().setVisible(true);  
 		        VentanaMapa.this.setContinuar(false);
-		      //  actualizarJugadorDesdeArchivo("partida.txt");
-
 		    }
 
 		    
 		    //ole
-		    private void guardarDatosPartida(String nombreUsuario) {
-		        String nombre = player.getNombre();
-		        int nivel = player.getNivel();
-		        int experiencia = player.getExperiencia();
-		        int vidaRestante = player.getVidarestante();
-		        int posX = player.getPosx();
-		        int posY = player.getPosy();
-
-		        String nombreArchivo = "partida.txt";
-		        File archivo = new File(nombreArchivo);
-		        Map<String, String> datosPartidas = new LinkedHashMap<>();
-		        boolean jugadorEncontrado = false;
-
-		        // Leer el archivo existente y almacenar los datos
-		        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
-		            String linea;
-		            while ((linea = br.readLine()) != null) {
-		                String[] datos = linea.split(";");
-		                if (datos[0].equals(nombreUsuario)) {
-		                    datosPartidas.put(nombreUsuario, nombre + ";" + nivel + ";" + experiencia + ";" + vidaRestante + ";" + posX + ";" + posY);
-		                    jugadorEncontrado = true;
-		                } else {
-		                    datosPartidas.put(datos[0], linea);
-		                }
-		            }
-		        } catch (IOException e) {
-		            e.printStackTrace();
-		        }
-
-		        // Si el jugador no está en el archivo, añadirlo
-		        if (!jugadorEncontrado) {
-		            datosPartidas.put(nombreUsuario, nombre + ";" + nivel + ";" + experiencia + ";" + vidaRestante + ";" + posX + ";" + posY);
-		        }
-
-		        // Reescribir el archivo con los datos actualizados
-		        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo, false))) {
-		            for (String datos : datosPartidas.values()) {
-		                bw.write(datos);
-		                bw.newLine();
-		            }
-		        } catch (IOException e) {
-		            e.printStackTrace();
-		        }
-		    }
 		    
-		    public void actualizarJugadorDesdeArchivo(String rutaArchivo) {
-		        File archivo = new File(rutaArchivo);
-
-		        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
-		            String linea;
-		            while ((linea = br.readLine()) != null) {
-		            	System.out.println("Nombre del jugador a buscar: " + player.getNombre());
-
-		                String[] datos = linea.split(";");
-		                System.out.println("Leyendo línea: " + linea);
-		                System.out.println("Encontrado jugador: " + datos[0]);
-		                System.out.println("Encontrado jugador: " + player.getNombre());
-		                if (datos[0].equals(player.getNombre())) {
-		                    System.out.println("Encontrado jugador: " + player.getNombre());
-
-		                    // Actualizar los datos del jugador
-		                    // Actualizar los datos del jugador usando métodos set
-		                    player.setNivel(Integer.parseInt(datos[1]));
-		                    player.setExperiencia(Integer.parseInt(datos[2]));
-		                    player.setVidarestante(Integer.parseInt(datos[3]));
-		                    player.setPosx(Integer.parseInt(datos[4]));
-		                    player.setPosy(Integer.parseInt(datos[5]));
-		                    break;
-		                }
-		            }
-		        } catch (IOException e) {
-		            e.printStackTrace();
-		        }
-		    }
 		    
 		});
 
@@ -559,8 +495,9 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 	for(Enemigos enem: enemigos) {
                 		if(enem.isVivo()) {    	
                 			//ATAQUE A LA DERECHA
-                			if(x > anchoventana/2 - anchoventana/10) {	
-                				if (enem.distancia(player) < 100 && enem.getX() > player.getPosx()) {
+                			if(x > anchoventana/2) {	
+                				System.out.println(enem.getX() -anchoventana/2);
+                				if (enem.distancia(player) < 100 && enem.getX() > player.getPosx() -400) {
                 					enem.setHealth(enem.getHealth()-10);
                 					if (enem.getHealth() <= 0) {
                 						enem.setArrayenuso(enem.muerte);
@@ -578,7 +515,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 			}    
                 			//ATAQUE A LA IZQUIERDA
                 			else {	
-                				if (enem.distancia(player) < 100 && enem.getX() <= player.getPosx()) {
+                				if (enem.distancia(player) < 100 && enem.getX() - anchoventana/2 <= player.getPosx()) {
                 					enem.setHealth(enem.getHealth()-10);
                 					if (enem.getHealth() <= 0) {
                 						enem.setVivo(false);
@@ -720,7 +657,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				VentanaMapa.this.panelfondo.add(VentanaMapa.this.e.getLabel());
 				VentanaMapa.this.panelfondo.setComponentZOrder(VentanaMapa.this.e.getLabel(),1);	
 				try {
-					Thread.sleep(10);
+					Thread.sleep(500);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -928,6 +865,109 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub	
 	}
+	private void guardarDatosPartida() {
+	    try {
+	        Class.forName("org.sqlite.JDBC");
+	    } catch (ClassNotFoundException e) {
+	        // Manejar la excepción de una manera más específica o utilizar un sistema de registro adecuado
+	        e.printStackTrace();
+	        System.out.println("Error al cargar el controlador JDBC: " + e.getMessage());
+	        return;
+	    }
 
+	    // Utilizar try-with-resources para garantizar el cierre de recursos
+	    try (Connection connection = DriverManager.getConnection("jdbc:sqlite:basededatosdelaspartidas.db")) {
+	        // Verificar si el nombre ya existe en la base de datos
+	        String nombrePlayer = this.getNombreplayer();
+	        boolean estaba = false;
+
+	        try (java.sql.Statement verificarStatement = connection.createStatement();
+	             ResultSet verificarResultSet = verificarStatement.executeQuery("SELECT NOMBRE FROM PARTIDAS WHERE NOMBRE = '" + nombrePlayer + "'")) {
+
+	            estaba = verificarResultSet.next();
+	        }
+
+	        if (!estaba) {
+	            // Si el nombre no existe, realizar una inserción
+	            String insertQuery = "INSERT INTO PARTIDAS VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+	            try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+	                preparedStatement.setString(1, nombrePlayer);
+	                preparedStatement.setInt(2, player.getNivel());
+	                preparedStatement.setInt(3, player.getExperiencia());
+	                preparedStatement.setInt(4, player.getVidarestante());
+	                preparedStatement.setInt(5, player.getPosx());
+	                preparedStatement.setInt(6, player.getPosy());
+	                preparedStatement.setInt(7, player.getVidatotal());
+
+	                preparedStatement.executeUpdate();
+	            }
+	        } else {
+	            // Si el nombre ya existe, realizar una actualización
+	            String updateQuery = "UPDATE PARTIDAS SET NIVEL=?, EXPERIENCIA=?, VIDA=?, POSX=?, POSY=?, VIDATOTAL=? WHERE NOMBRE=?";
+	            try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+	                preparedStatement.setInt(1, player.getNivel());
+	                preparedStatement.setInt(2, player.getExperiencia());
+	                preparedStatement.setInt(3, player.getVidarestante());
+	                preparedStatement.setInt(4, player.getPosx());
+	                preparedStatement.setInt(5, player.getPosy());
+	                preparedStatement.setInt(6, player.getVidatotal());
+
+	                preparedStatement.setString(7, nombrePlayer);
+
+	                preparedStatement.executeUpdate();
+	            }
+	        }
+
+	    } catch (SQLException e) {
+	        // Manejar la excepción de una manera más específica o utilizar un sistema de registro adecuado
+	        e.printStackTrace();
+	        System.out.println("Error en la gestión de la base de datos: " + e.getMessage());
+	    }
+	}
+
+    
+    public void actualizarJugadorDesdeArchivo() {
+    	try {
+			Connection connection = DriverManager.getConnection("jdbc:sqlite:basededatosdelaspartidas.db");			//ESTA URL PUEDE SER TANTO LOCVAL COMO REMOTA
+			java.sql.Statement statement = connection.createStatement();
+			ArrayList<String> nombres = new ArrayList<String>();
+			ResultSet resultSet = statement.executeQuery("SELECT NOMBRE FROM PARTIDAS");
+			while (resultSet.next()) {
+				String nombre = resultSet.getString("NOMBRE");
+	               	nombres.add(nombre);
+	            }	
+			boolean estaba = false;
+			if(nombres.size() > 0) {
+				for(String nombre : nombres) {
+					if(nombre != null) {
+						if(nombre.equals(this.getNombreplayer())) {
+							estaba = true;
+						}
+					}
+				}
+			}
+			if(estaba == true) {
+				ResultSet resultSet2 = statement.executeQuery("SELECT * FROM PARTIDAS WHERE NOMBRE LIKE '" + this.getNombreplayer() + "'");
+				while (resultSet2.next()) {					
+	                player.setNivel(resultSet2.getInt("NIVEL"));
+	                player.setExperiencia(resultSet2.getInt("EXPERIENCIA"));
+	                player.setVidarestante(resultSet2.getInt("VIDA"));
+	                player.setPosx(resultSet2.getInt("POSX"));
+	                player.setPosy(resultSet2.getInt("POSY"));
+	                player.setVidatotal(resultSet2.getInt("VIDATOTAL"));
+	            }
+			}
+			connection.close();
+			
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("ERROR EN LA GESTIÓN DE LA BASE DE DATOS");
+
+		}
+        System.out.println(player.getNivel());
+
+    }
 
 }

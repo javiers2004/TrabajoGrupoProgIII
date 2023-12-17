@@ -230,14 +230,22 @@ public class VentanaInicio extends JFrame implements ActionListener {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			botonPlayPresionado = true;
-			ven1.setVisible(true);	
-			ven1.setExtendedState(JFrame.MAXIMIZED_BOTH);
+			if(nombreUsuario != null) {
 			VentanaMapa v1 = (VentanaMapa) ven1;
+			if(v1.getNombreplayer() == null) {
+				v1.setNombreplayer(nombreUsuario);
+				v1.actualizarJugadorDesdeArchivo();
+			}
 			v1.continuar = true;
+			botonPlayPresionado = true;
+			v1.setVisible(true);	
+			v1.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+			
 			setVisible(false);
 			ven1.repaint();
 			ven1.revalidate();
+			
 			Thread hilorobot = new Thread() {
 				public void run() {
 			        try {
@@ -260,6 +268,7 @@ public class VentanaInicio extends JFrame implements ActionListener {
 			hilorobot.start();
 			dispose();
 		}
+ 		}
 	});
  
  	
