@@ -101,12 +101,13 @@ public class Main {
 							jug1.setPosy(jug1.getPosy() - 3 - velocidadextra);
 							ven1.actualizarVentana(jug1, false);
 							mov =true;
-
+							jug1.setDistance(jug1.getDistance() + 3 + velocidadextra);
 						}	
 						else if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosy(jug1.getPosy() - 3 - velocidadextra);
 							ven1.actualizarVentana(jug1, true);
 							mov =false;
+							jug1.setDistance(jug1.getDistance() + 3 + velocidadextra);
 						}	
 						else {
 							mov = true;
@@ -121,17 +122,18 @@ public class Main {
 							jug1.setPosx(jug1.getPosx() - 3 - velocidadextra);
 							ven1.actualizarVentana(jug1, false);
 							mov =true;
-
+							jug1.setDistance(jug1.getDistance() + 3 + velocidadextra);
 						}
 						else if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosx(jug1.getPosx() - 3 - velocidadextra);
 							ven1.actualizarVentana(jug1, true);
 							mov =false;
-
+							jug1.setDistance(jug1.getDistance() + 3 + velocidadextra);
 						}
 						else {
 							mov = true;
 						}
+						
 					}
 					if (ven1.isTeclas() == true) {
 						Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 +  screenWidth/6 -10, jug1.getPosy()/3+ 3/3 + velocidadextra + screenHeight/6));
@@ -142,13 +144,13 @@ public class Main {
 							jug1.setPosy(jug1.getPosy() + 3 + velocidadextra);
 							ven1.actualizarVentana(jug1, false);
 							mov =true;
-
+							jug1.setDistance(jug1.getDistance() + 3 + velocidadextra);
 						}
 						else if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosy(jug1.getPosy() + 3 + velocidadextra);
 							ven1.actualizarVentana(jug1, true);
 							mov =false;
-
+							jug1.setDistance(jug1.getDistance() + 3 + velocidadextra);
 						}
 						else {
 							mov = true;
@@ -163,13 +165,13 @@ public class Main {
 							jug1.setPosx(jug1.getPosx() + 3 + velocidadextra);
 							ven1.actualizarVentana(jug1, false);
 							mov =true;
-
+							jug1.setDistance(jug1.getDistance() + 3 + velocidadextra);
 						}
 						else if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosx(jug1.getPosx() + 3 + velocidadextra);
 							ven1.actualizarVentana(jug1, true);
 							mov =false;
-
+							jug1.setDistance(jug1.getDistance() + 3 + velocidadextra);
 						}
 						else {
 							mov = true;
@@ -183,7 +185,7 @@ public class Main {
 						ven1.actualizarVentana(jug1, false);
 
 					}
-						
+					
 				
 					
 					

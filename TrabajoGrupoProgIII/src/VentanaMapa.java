@@ -479,6 +479,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
             public void mousePressed(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
+                player.setNumerodegolpes(player.getNumerodegolpes()+1);
                 if(ataquedisponible == true) {
                 	click = true;
                 	ataquedisponible = false;
@@ -499,6 +500,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 				System.out.println(enem.getX() -anchoventana/2);
                 				if (enem.distancia(player) < 100 && enem.getX() > player.getPosx() -400) {
                 					enem.setHealth(enem.getHealth()-10);
+                					player.setGoplesefectivos(player.getGoplesefectivos() + 1);
+                					player.setDanoinflingido(player.getDanoinflingido() + 10);
                 					if (enem.getHealth() <= 0) {
                 						enem.setArrayenuso(enem.muerte);
                 						enem.setVivo(false);
@@ -517,6 +520,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 			else {	
                 				if (enem.distancia(player) < 100 && enem.getX() - anchoventana/2 <= player.getPosx()) {
                 					enem.setHealth(enem.getHealth()-10);
+                					player.setGoplesefectivos(player.getGoplesefectivos() + 1);
+                					player.setDanoinflingido(player.getDanoinflingido() + 10);
                 					if (enem.getHealth() <= 0) {
                 						enem.setVivo(false);
                 						enem.setArrayenuso(enem.muerte);
@@ -775,12 +780,14 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				if(e.distancia( player) < 100 && e.getContadorsprite() == 20) {
 					if(e instanceof Puercoespin) {
 						player.setVidarestante(player.getVidarestante()- e.getDaño());
+						player.setDanorecibido(player.getDanorecibido() + e.getDaño());
 						e.setVivo(false);
 						e.setArrayenuso(e.getMuerte());
 						e.getLabel().setVisible(true);
 					}			
 					if((!(e instanceof Caparazon) || e.getHealth() < 300) && !(e instanceof Puercoespin)) {
 						player.setVidarestante(player.getVidarestante()- e.getDaño());
+						player.setDanorecibido(player.getDanorecibido() + e.getDaño());
 						e.setArrayenuso(e.getAtaquenemigo());
 					}
 				}

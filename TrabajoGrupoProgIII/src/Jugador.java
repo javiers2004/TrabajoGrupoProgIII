@@ -30,11 +30,46 @@ public class Jugador {
 	protected ArrayList<ImageIcon> ataqueespadaizq;
 	protected int nivel;
 	protected HashMap<Object, Integer> estadisticas = new HashMap<Object, Integer>();
+	protected int numerodegolpes = 0;
+	protected int distance = 0;
+	protected int goplesefectivos = 0;
+	protected int danoinflingido = 0;
+	protected int danorecibido = 0;
 	protected ArrayList<ImageIcon> arrayenuso;
 	protected int contadorsprites = 0;
 	
 	
 	
+	protected int getDanorecibido() {
+		return danorecibido;
+	}
+	protected void setDanorecibido(int danorecibido) {
+		this.danorecibido = danorecibido;
+	}
+	protected int getDanoinflingido() {
+		return danoinflingido;
+	}
+	protected void setDanoinflingido(int danoinflingido) {
+		this.danoinflingido = danoinflingido;
+	}
+	protected int getGoplesefectivos() {
+		return goplesefectivos;
+	}
+	protected void setGoplesefectivos(int goplesefectivos) {
+		this.goplesefectivos = goplesefectivos;
+	}
+	protected int getNumerodegolpes() {
+		return numerodegolpes;
+	}
+	protected void setNumerodegolpes(int numerodegolpes) {
+		this.numerodegolpes = numerodegolpes;
+	}
+	protected int getDistance() {
+		return distance;
+	}
+	protected void setDistance(int distance) {
+		this.distance = distance;
+	}
 	protected int getContadorsprites() {
 		return contadorsprites;
 	}
