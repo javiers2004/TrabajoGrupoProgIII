@@ -92,7 +92,7 @@ public class Enemigos {
 					x++;
 				}
 			}
-	        if (this.y < player.getPosy() + altoventana/2) {
+			if (this.y < player.getPosy() + altoventana/2) {
 				Color color = new Color(mapacolisiones.getRGB(this.getX()/3  , this.getY()/3 + 1));
 				int red = color.getRed();
 				int green = color.getGreen();
@@ -101,7 +101,7 @@ public class Enemigos {
 					y++;
 				}
 	        }
-	        if (this.x > player.getPosx() + anchoventana/2 + 50) {
+			if (this.x > player.getPosx() + anchoventana/2 + 50) {
 				Color color = new Color(mapacolisiones.getRGB(this.getX()/3 -1 , this.getY()/3  ));
 	        	int red = color.getRed();
 				int green = color.getGreen();
@@ -113,7 +113,7 @@ public class Enemigos {
 					x--;
 				}
 	        }
-	        if (this.y > player.getPosy() + altoventana/2) {
+			if (this.y > player.getPosy() + altoventana/2) {
 	        	Color color = new Color(mapacolisiones.getRGB(this.getX()/3   , this.getY()/3 ));
 	        	int red = color.getRed();
 				int green = color.getGreen();

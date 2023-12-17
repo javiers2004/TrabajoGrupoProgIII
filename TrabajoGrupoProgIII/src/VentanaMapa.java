@@ -1,19 +1,13 @@
-	import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.HeadlessException;
 import java.awt.Image;
-import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -25,8 +19,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
@@ -34,19 +26,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
-
 import javax.imageio.ImageIO;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.Timer;
+
 
 import Imagenes.Dialogo;
 
@@ -90,14 +78,9 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected ImageIcon imagenfinal;
 	protected static float fps;
 	protected Enemigos e;
-	//GETTERS Y SETTERS
-	
-	
-	
 	protected int aumentoprogresivoexp= 0;
-	
-	
-	 
+	//GETTERS Y SETTERS
+
 	protected float getFps() {
 		return fps;
 	}
@@ -312,9 +295,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
   
 	//CONSTRUCTOR
 	public VentanaMapa(Jugador player  ){
-	    this.player = player;
-
-	    
+	    this.player = player;  
 		ImageIcon icono5 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPABLANCO4.png");
 		Image image = icono5.getImage();
 		BufferedImage mapacolisiones = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
@@ -437,8 +418,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
         pnlprincipal.add(panelfondo);
         this.add(pnlprincipal);
         pnlprincipal.setVisible(true);
-        panelfondo.setVisible(true);
-        
+        panelfondo.setVisible(true);       
         //PERSONALIZAR EL FONDO
         ImageIcon iconofondo = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/OIP.jpg");
 		ImageIcon imagenfondo = new ImageIcon(iconofondo.getImage().getScaledInstance(screenSize.width,screenSize.height, Image.SCALE_SMOOTH));
@@ -447,7 +427,6 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		fondo.setBounds(0, 0, screenSize.width , screenSize.height);
 		panelfondo.add(fondo, JLayeredPane.PALETTE_LAYER);
 		panelfondo.setComponentZOrder(fondo, 0);
-	
 		//AÑADIR EL MAPA PRINCIPAL
 		ImageIcon icon = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPADEFINITIVO.png");
 		ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(12288,12288,Image.SCALE_SMOOTH));
@@ -457,9 +436,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		g2d.drawImage(i2, 0, 0, null);
 		g2d.dispose();
 		imagenfinal = new ImageIcon(imagenparadibujar);
-		map = new JLabel(imagenfinal);
-		
-		
+		map = new JLabel(imagenfinal);		
+		//MAPA DE CUEVAS Y TRONCOS
 		ImageIcon iconcueva = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPACONCUEVAS2.png");
 		ImageIcon imagencueva = new ImageIcon(iconcueva.getImage().getScaledInstance(12288,12288,Image.SCALE_SMOOTH));
 		Image i2cueva = imagencueva.getImage();
@@ -468,12 +446,9 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		g2dcueva.drawImage(i2cueva, 0, 0, null);
 		g2dcueva.dispose();
 		imagenfinalcueva = new ImageIcon(imagenparadibujarcueva);
-		
-		
 		panelfondo.add(map, JLayeredPane.DEFAULT_LAYER);
 		map.setBounds(-player.getPosx(), -player.getPosy(), 12288, 12288);
-		map.setVisible(true);
-		
+		map.setVisible(true);		
 		//AÑADIR LABEL DEL PLAYER, DEL ATRAVESAR, Y LA VENTANA DE INFORMACIÓN
 		int x1 = (screenSize.width)/20;
 		int y1 = (screenSize.height)/12;
@@ -493,14 +468,14 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		veninfo.setLocation(0,0);
 		panelfondo.add(veninfo);
 		panelfondo.setComponentZOrder(veninfo, 0);
-		
+		//AÑADIR MINIMAPA
 		PanelMinimapa minimapa = new PanelMinimapa(imagenfinal);
 		minimapa.setLocation(1225,525);
 		minimapa.setVisible(true);
 		panelfondo.add(minimapa);
 		panelfondo.setComponentZOrder(minimapa, 0);
 		this.minimapa = minimapa;
-		
+		//LABEL DEL CIRCULO AL ATRAVESAR ZONAS
 		labelatravesar = new JLabel();
 		ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/imagenatravesar.png");
 		ImageIcon imagen3 = new ImageIcon(icono3.getImage().getScaledInstance(screenSize.width,screenSize.height, Image.SCALE_SMOOTH));
@@ -509,6 +484,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		labelatravesar.setVisible(false);
 		panelfondo.add(labelatravesar, JLayeredPane.PALETTE_LAYER);
 		panelfondo.setComponentZOrder(labelatravesar, 1);
+		//LABEL DE AUMENTO DE NIVEL
 		ImageIcon icono4 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/levelup.png");
 		ImageIcon imagen4 = new ImageIcon(icono4.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
 		levelup = new JLabel();
@@ -517,33 +493,12 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		panelfondo.add(levelup, JLayeredPane.PALETTE_LAYER);
 		panelfondo.setComponentZOrder(levelup, 1);
 		levelup.setVisible(false);
-		lblplayer.setIcon(this.getArraymovimiento().get(1));
-		
-		
+		lblplayer.setIcon(this.getArraymovimiento().get(1));	
 		//ENEMIGOS Y SPRITES
 		enemigos = new ArrayList<>();
 		generarEnemigos2.start();
 		
-//		new Timer(500, new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent ae) {
-//				actualizarEnemigos();
-//			}
-//		}).start();
-		
-		
-		
-		
-		/*JLabel test = new JLabel();
-		test.setBounds(100,100, 57,431);
-		test.setOpaque(true);
-		test.setBackground(Color.red);
-		panelfondo.add(test);
-		panelfondo.setComponentZOrder(test, 1);*/
-		
-		
-		//GENERAR CARTELES
-		
+		//GENERAR CARTELES	
 		lblcartel = new JLabel("enemigo", SwingConstants.CENTER);
 		lblcartel.setOpaque(true);
 		lblcartel.setBackground(new Color(0,0,0,128));
@@ -569,8 +524,6 @@ public class VentanaMapa extends JFrame implements KeyListener{
 //		    }
 //		}).start();
 
-	
-;
 		//PERSONALIZAR CURSOR
 		BufferedImage cursorImage;
 		try {
@@ -584,7 +537,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+		//PARA EL ATAQUE DE LA ESPADA
 		this.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -604,58 +557,48 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 	Hiloataque hiloat2 = new Hiloataque(lblplayer, VentanaMapa.this, x,1);
                 	hiloat2.start();
                 	for(Enemigos enem: enemigos) {
-                	if(enem.isVivo()) {
-                		
-                		
-                		if(x > anchoventana/2 - anchoventana/10) {	
-                			if (enem.distancia(player) < 100 && enem.getX() > player.getPosx()) {
-                				enem.setHealth(enem.getHealth()-10);
-                				if (enem.getHealth() <= 0) {
-                					//enemigos.remove(enem);
-                					enem.setArrayenuso(enem.muerte);
-                					enem.setVivo(false);
-                					player.setExperiencia(player.getExperiencia() + enem.getExperiencia());
-                					if(player.getEstadisticas().containsKey(enem.getClass())) {
-                						player.getEstadisticas().put(enem.getClass(), player.getEstadisticas().get(enem.getClass()) + 1);
+                		if(enem.isVivo()) {    	
+                			//ATAQUE A LA DERECHA
+                			if(x > anchoventana/2 - anchoventana/10) {	
+                				if (enem.distancia(player) < 100 && enem.getX() > player.getPosx()) {
+                					enem.setHealth(enem.getHealth()-10);
+                					if (enem.getHealth() <= 0) {
+                						enem.setArrayenuso(enem.muerte);
+                						enem.setVivo(false);
+                						player.setExperiencia(player.getExperiencia() + enem.getExperiencia());
+                						if(player.getEstadisticas().containsKey(enem.getClass())) {
+                							player.getEstadisticas().put(enem.getClass(), player.getEstadisticas().get(enem.getClass()) + 1);
+                						}
+                						else {
+                							player.getEstadisticas().put(enem.getClass(), 1);
+                						}
+                						System.out.println(player.getEstadisticas());
                 					}
-                					else {
-                						player.getEstadisticas().put(enem.getClass(), 1);
-
-                					}
-                					System.out.println(player.getEstadisticas());
                 				}
-                				//System.out.print(enem.getHealth());
-                			}
-                		}
-                		
-                		else {	
-                			if (enem.distancia(player) < 100 && enem.getX() <= player.getPosx()) {
-                				enem.setHealth(enem.getHealth()-10);
-                				if (enem.getHealth() <= 0) {
-                					//enemigos.remove(enem);
-                					enem.setVivo(false);
-                					enem.setArrayenuso(enem.muerte);
-                					player.setExperiencia(player.getExperiencia() + enem.getExperiencia());
-                					if(player.getEstadisticas().containsKey(enem.getClass())) {
-                						player.getEstadisticas().put(enem.getClass(), player.getEstadisticas().get(enem.getClass()) + 1);
+                			}    
+                			//ATAQUE A LA IZQUIERDA
+                			else {	
+                				if (enem.distancia(player) < 100 && enem.getX() <= player.getPosx()) {
+                					enem.setHealth(enem.getHealth()-10);
+                					if (enem.getHealth() <= 0) {
+                						enem.setVivo(false);
+                						enem.setArrayenuso(enem.muerte);
+                						player.setExperiencia(player.getExperiencia() + enem.getExperiencia());
+                						if(player.getEstadisticas().containsKey(enem.getClass())) {
+                							player.getEstadisticas().put(enem.getClass(), player.getEstadisticas().get(enem.getClass()) + 1);
+                						}
+                						else {
+                							player.getEstadisticas().put(enem.getClass(), 1);
+                						}
+                						System.out.println(player.getEstadisticas());
                 					}
-                					else {
-                						player.getEstadisticas().put(enem.getClass(), 1);
-
-                					}
-                					System.out.println(player.getEstadisticas());
                 				}
-                				//System.out.print(enem.getHealth());
                 			}
-                		}
-                		
-                	}	
-                		
+                		}	          		
                 	}
                 }
             }
-        });
-		
+        });		
 	}
 	
 	
@@ -723,101 +666,6 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		return colorp.getRed() > 240 && colorp.getGreen() > 240 && colorp.getBlue() >240;
 	}
 
-//	private void generarEnemigos() {
-//		
-//		Random r = new Random();
-//		for(int i = 0; i<10; i++) {
-//			int rx, ry;	
-//				 rx = r.nextInt(4096) ; 
-//				 ry = r.nextInt(4096) ;
-//			while(!areapermitida(rx, ry)) {
-//				rx = r.nextInt(4096) ; 
-//				ry = r.nextInt(4096) ;
-//			}
-//			Slime e = new Slime();
-//			e.setX(3*rx );
-//			e.setY(3*ry );
-//			enemigos.add(e);
-//			this.panelfondo.add(e.getLabel());
-//			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
-//		}	
-//		for(int i = 0; i<20; i++) {
-//			int rx, ry;	
-//				 rx = r.nextInt(4096) ; 
-//				 ry = r.nextInt(4096) ;
-//			while(!areapermitida(rx, ry)) {
-//				rx = r.nextInt(4096) ; 
-//				ry = r.nextInt(4096) ;
-//			}
-//			Bat e = new Bat();
-//			e.setX(3*rx );
-//			e.setY(3*ry );
-//			enemigos.add(e);
-//			this.panelfondo.add(e.getLabel());
-//			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
-//		}	
-//		for(int i = 0; i<20; i++) {
-//			int rx, ry;	
-//				 rx = r.nextInt(4096) ; 
-//				 ry = r.nextInt(4096) ;
-//			while(!areapermitida(rx, ry)) {
-//				rx = r.nextInt(4096) ; 
-//				ry = r.nextInt(4096) ;
-//			}
-//			Goblin e = new Goblin();
-//			e.setX(3*rx );
-//			e.setY(3*ry );
-//			enemigos.add(e);
-//			this.panelfondo.add(e.getLabel());
-//			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
-//		}
-//		for(int i = 0; i<20; i++) {
-//			int rx, ry;	
-//				 rx = r.nextInt(4096) ; 
-//				 ry = r.nextInt(4096) ;
-//			while(!areapermitida(rx, ry)) {
-//				rx = r.nextInt(4096) ; 
-//				ry = r.nextInt(4096) ;
-//			}
-//			Caparazon e = new Caparazon();
-//			e.setX(3*rx );
-//			e.setY(3*ry );
-//			enemigos.add(e);
-//			this.panelfondo.add(e.getLabel());
-//			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
-//		}	
-//		for(int i = 0; i<20; i++) {
-//			int rx, ry;	
-//				 rx = r.nextInt(4096) ; 
-//				 ry = r.nextInt(4096) ;
-//			while(!areapermitida(rx, ry)) {
-//				rx = r.nextInt(4096) ; 
-//				ry = r.nextInt(4096) ;
-//			}
-//			Puercoespin e = new Puercoespin();
-//			e.setX(3*rx );
-//			e.setY(3*ry );
-//			enemigos.add(e);
-//			this.panelfondo.add(e.getLabel());
-//			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
-//		}	
-//		for(int i = 0; i<20; i++) {
-//			int rx, ry;	
-//				 rx = r.nextInt(4096) ; 
-//				 ry = r.nextInt(4096) ;
-//			while(!areapermitida(rx, ry)) {
-//				rx = r.nextInt(4096) ; 
-//				ry = r.nextInt(4096) ;
-//			}
-//			Pajaro e = new Pajaro();
-//			e.setX(3*rx );
-//			e.setY(3*ry );
-//			enemigos.add(e);
-//			this.panelfondo.add(e.getLabel());
-//			this.panelfondo.setComponentZOrder(e.getLabel(),1);	
-//		}	
-//	}
-	
 	Thread generarEnemigos2 = new Thread() {
 		public void run() {
 		while(true) {
@@ -828,55 +676,63 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				}
 			}
 			if(contadorvivos < 200) {
-			Random r = new Random();
-			int n = (int)(Math.random()*6);
-			int rx, ry;	
-			 rx = r.nextInt(4096) ; 
-			 ry = r.nextInt(4096) ;
-		while(!areapermitida(rx, ry)) {
-			rx = r.nextInt(4096) ; 
-			ry = r.nextInt(4096) ;
-		}
-		if(n == 0) {
-			Slime e = new Slime();
-			VentanaMapa.this.e = e;
-		}
-		else if(n == 1) {
-			Bat e = new Bat();
-			VentanaMapa.this.e = e;
-		}
-		else if(n == 2) {
-			Goblin e = new Goblin();
-			VentanaMapa.this.e = e;
-		}
-		else if(n == 3) {
-			Caparazon e = new Caparazon();
-			VentanaMapa.this.e = e;
-		}
-		else if(n == 4) {
-			Puercoespin e = new Puercoespin();
-			VentanaMapa.this.e = e;
-		}
-		else {
-			Pajaro e = new Pajaro();
-			VentanaMapa.this.e = e;
-		}
-		VentanaMapa.this.e.setX(3*rx );
-		VentanaMapa.this.e.setY(3*ry );
-		enemigos.add(VentanaMapa.this.e);
-		VentanaMapa.this.panelfondo.add(VentanaMapa.this.e.getLabel());
-		VentanaMapa.this.panelfondo.setComponentZOrder(VentanaMapa.this.e.getLabel(),1);	
-		
-		
+				Random r = new Random();
+				int n = (int)(Math.random()*6);
+				int rx, ry;	
+				rx = r.nextInt(4096) ; 
+				ry = r.nextInt(4096) ;
+				Enemigos e2 = new Enemigos();
+				e2.setX(rx);
+				e2.setY(ry);
+				while(!areapermitida(rx, ry)) {
+					rx = r.nextInt(4096) ; 
+					ry = r.nextInt(4096) ;
+					e2.setX(rx);
+					e2.setY(ry);
+				}
+				if(n == 0) {
+					Slime e = new Slime();
+					VentanaMapa.this.e = e;
+				}
+				else if(n == 1) {
+					Bat e = new Bat();
+					VentanaMapa.this.e = e;
+				}
+				else if(n == 2) {
+					Goblin e = new Goblin();
+					VentanaMapa.this.e = e;
+				}
+				else if(n == 3) {
+					Caparazon e = new Caparazon();
+					VentanaMapa.this.e = e;
+				}
+				else if(n == 4) {
+					Puercoespin e = new Puercoespin();
+					VentanaMapa.this.e = e;
+				}
+				else {
+					Pajaro e = new Pajaro();
+					VentanaMapa.this.e = e;
+				}
+				VentanaMapa.this.e.setX(3*rx );
+				VentanaMapa.this.e.setY(3*ry );
+				enemigos.add(VentanaMapa.this.e);
+				VentanaMapa.this.panelfondo.add(VentanaMapa.this.e.getLabel());
+				VentanaMapa.this.panelfondo.setComponentZOrder(VentanaMapa.this.e.getLabel(),1);	
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				}
 			}
-		}
-		
 		}
 	};
 	private void actualizarEnemigos() {
+		try {
 		for(Enemigos e: enemigos) {		
 			if(e.distancia(player) < 1000 ) {
-				//System.out.println(e.getDerecha());
 				if(e instanceof Slime && e.isVivo() == false) {
 					if (e.getContadorsprite() + 1> e.getArrayenuso().size()*40) {
 						e.setContadorsprite(0);
@@ -886,11 +742,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 						e.getLabel().setVisible(true);
 					}
 					e.setContadorsprite(e.getContadorsprite()+1);
-				
 				}
-				
-				
-				
 				else if(!(e instanceof Caparazon) || e.getHealth() < 300) {
 					if (e.getContadorsprite() + 1> e.getArrayenuso().size()*20) {
 						e.setContadorsprite(0);
@@ -902,10 +754,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					e.setContadorsprite(e.getContadorsprite()+1);
 //					System.out.println("Posicion   " + e.getX() + "  "+ e.getY());
 //					System.out.println("Distancia   " + e.distancia(player));
-//					System.out.println("Jugador" + player.getPosx() + "   " + player.getPosy());
-			
+//					System.out.println("Jugador" + player.getPosx() + "   " + player.getPosy());	
 				}
-			
 				else {
 					Caparazon c = (Caparazon) e;
 					e.setArrayenuso(c.escondido);
@@ -917,15 +767,15 @@ public class VentanaMapa extends JFrame implements KeyListener{
 						if(e.getContadorsprite() > e.getMuerte().size()) {
 							e.setContadorsprite(0);
 						}
-					
+					}
 				}
 			}
-			}
+		}
+		}catch(ConcurrentModificationException e) {
+			System.out.println("salta");
 		}
 	}
-	
-	
-	
+
 	//PARA PONER BOOLEANOS A TRUE AL PRESIONAR TECLAS
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -933,42 +783,19 @@ public class VentanaMapa extends JFrame implements KeyListener{
         // Verificar qué tecla se presionó y establecer la correspondiente variable booleana
         	if (keyChar == 'W') {
         		teclaw = true;
-        		this.arraymovimiento = this.arraymovimientoanterior;
         	} else if (keyChar == 'A') {
         		teclaa = true;
-        		if (this.getArraymovimiento() != this.getPlayer().getIzquierda()) {
-        			//lblplayer.setLocation(lblplayer.getLocation().x - 40, lblplayer.getLocation().y);
-    				//player.setPosx(player.getPosx() - 0);
-    				//this.actualizarVentana(player);
-        		}
         		this.setArraymovimiento(this.getPlayer().getIzquierda());
-        		this.arraymovimientoanterior = this.getPlayer().getIzquierda();
-        		
-        		
         	} else if (keyChar == 'S') {
         		teclas = true;
-        		this.arraymovimiento = this.arraymovimientoanterior;
-
         	} else if (keyChar == 'D') {
         		teclad = true;
-        		if (this.getArraymovimiento() != this.getPlayer().getDerecha()) {
-        			//lblplayer.setLocation(lblplayer.getLocation().x + 40, lblplayer.getLocation().y);
-            		//player.setPosx(player.getPosx() + 15);
-    				//this.actualizarVentana(player);
-        		}
-        		this.setArraymovimiento(this.getPlayer().getDerecha());
-        		this.arraymovimientoanterior = this.getPlayer().getDerecha();
-
-        		
+        		this.setArraymovimiento(this.getPlayer().getDerecha());	
         	}
-    		if(this.getArraymovimiento() != this.getPlayer().getDerecha() || this.getArraymovimiento() != this.getPlayer().getIzquierda()) {
-    			this.setArraymovimiento(arraymovimientoanterior);
-    		}
         	if(e.isShiftDown()) {
         		teclashift = true;
         	}
 	}
-
 	//PARA PONER BOOLEANOS A FALSE AL PRESIONAR TECLAS
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -987,10 +814,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	        if (!e.isShiftDown()) {
 	        	teclashift = false;
 	        }
-	}
-	
-	
-     
+	} 
 	//PARA ACTUALIZAR LA VENTANA CUANDO SE LLAMA DESDE EL MAIN
 	public void actualizarVentana(Jugador player, boolean atravesando) {
 		map.setLocation(-player.getPosx(), -player.getPosy());
@@ -1017,9 +841,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 						e.setVivo(false);
 						e.setArrayenuso(e.getMuerte());
 						e.getLabel().setVisible(true);
-					}
-					
-					
+					}			
 					if((!(e instanceof Caparazon) || e.getHealth() < 300) && !(e instanceof Puercoespin)) {
 						player.setVidarestante(player.getVidarestante()- e.getDaño());
 						e.setArrayenuso(e.getAtaquenemigo());
@@ -1033,8 +855,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					Caparazon c = (Caparazon) e;
 					c.getLabel().setIcon(c.escondido.get(0));
 					c.setArrayenuso(c.escondido);
-					c.setContadorsprite(0);				}
-				
+					c.setContadorsprite(0);				}		
 			}
 			else {
 				JLabel lblenemigo = e.getLabel();
@@ -1043,19 +864,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				lblenemigo.setLocation(nPx, nPy);
 				if (e.distancia(player) > 1000) {
 					e.getLabel().setVisible(false);
-				}
-				else {
-					//e.getLabel().setVisible(false);
-				}
-				
-			}
-			
+				}	
+			}	
 		}
 		mostrarCartel(player, emascercano);
-
-
-		if(teclaw == true || teclaa == true || teclas == true || teclad == true) {
-			
+		if(teclaw == true || teclaa == true || teclas == true || teclad == true) {	
 			if(this.getArraymovimiento() == null) {
 				return;
 			}
@@ -1066,22 +879,18 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				lblplayer.setIcon(this.getArraymovimiento().get(contadorsprites/10));
 			}
 			contadorsprites ++;
-			
-			
 			if (atravesando == true) {
 				labelatravesar.setVisible(true);
 				lblplayer.setVisible(false);
 				map.setIcon(imagenfinalcueva);
 				map.setVisible(true);
 			}
-			//System.out.print(player.getStaminarestante() + "/" + player.getStaminatotal());
 			else {
 				labelatravesar.setVisible(false);
 				lblplayer.setVisible(true);
 				map.setIcon(imagenfinal);
 				map.setVisible(true);
 			}
-		
 			if(this.getAumentoprogresivoexp() % 100 == 0) {
 				player.setExperiencia(player.getExperiencia()+1);			
 			}
@@ -1094,6 +903,16 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				HiloSubidaNivel hilosubidanivel = new HiloSubidaNivel(veninfo, this, player);
 				hilosubidanivel.start();	
 				levelup.setVisible(false);
+			}
+			if(player.getVidarestante() <= 0) {
+				this.setContinuar(false);
+				PanelMuerte panm = new PanelMuerte(this,(VentanaInicio) veninicio);
+				this.add(panm);
+				panm.setVisible(true);
+				this.setVisible(true);
+				this.panelfondo.setVisible(false);
+				this.pnlprincipal.setVisible(false);
+				this.getLblplayer().setVisible(false); 
 			}
 		}
 		this.minimapa.actualizarPunto(player);
