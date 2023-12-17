@@ -29,10 +29,10 @@ public class Main {
 	public static void main(String[] args) {
 		
 		Jugador jug1 = new Jugador();
-
+		//jug1.actualizarDesdeArchivo("partida.txt", jug1);
 		
         VentanaMapa ven1 = new VentanaMapa(jug1);
-        
+
 //        inventario = new Inventario();
 //        productos = new Productos();
         

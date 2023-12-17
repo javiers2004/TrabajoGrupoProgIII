@@ -19,8 +19,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -28,7 +30,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 
@@ -318,9 +322,12 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		this.mapacolisiones = mapacolisiones;
 		this.addWindowListener(new WindowAdapter() {
 		    public void windowClosing(WindowEvent e) {
+
 		        guardarDatosPartida(player.getNombre());
 		        getVeninicio().setVisible(true);  
 		        VentanaMapa.this.setContinuar(false);
+		      //  actualizarJugadorDesdeArchivo("partida.txt");
+
 		    }
 
 		    private void guardarDatosPartida(String nombreUsuario) {
@@ -332,20 +339,72 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		        int posY = player.getPosy();
 
 		        String nombreArchivo = "partida.txt";
+		        File archivo = new File(nombreArchivo);
+		        Map<String, String> datosPartidas = new LinkedHashMap<>();
+		        boolean jugadorEncontrado = false;
 
-		        try {
-		            FileWriter fileWriter = new FileWriter(nombreArchivo, true); // Cambiado a 'true' para añadir al final del archivo
-		            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+		        // Leer el archivo existente y almacenar los datos
+		        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+		            String linea;
+		            while ((linea = br.readLine()) != null) {
+		                String[] datos = linea.split(";");
+		                if (datos[0].equals(nombreUsuario)) {
+		                    datosPartidas.put(nombreUsuario, nombre + ";" + nivel + ";" + experiencia + ";" + vidaRestante + ";" + posX + ";" + posY);
+		                    jugadorEncontrado = true;
+		                } else {
+		                    datosPartidas.put(datos[0], linea);
+		                }
+		            }
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        }
 
-		            // Escribe en el archivo en el formato deseado
-		            String datosPartida = nombre + ";" + nivel + ";" + experiencia + ";" + vidaRestante + ";" + posX + ";" + posY + "\n";
-		            bufferedWriter.write(datosPartida);
+		        // Si el jugador no está en el archivo, añadirlo
+		        if (!jugadorEncontrado) {
+		            datosPartidas.put(nombreUsuario, nombre + ";" + nivel + ";" + experiencia + ";" + vidaRestante + ";" + posX + ";" + posY);
+		        }
 
-		            bufferedWriter.close();
+		        // Reescribir el archivo con los datos actualizados
+		        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo, false))) {
+		            for (String datos : datosPartidas.values()) {
+		                bw.write(datos);
+		                bw.newLine();
+		            }
 		        } catch (IOException e) {
 		            e.printStackTrace();
 		        }
 		    }
+		    
+		    public void actualizarJugadorDesdeArchivo(String rutaArchivo) {
+		        File archivo = new File(rutaArchivo);
+
+		        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+		            String linea;
+		            while ((linea = br.readLine()) != null) {
+		            	System.out.println("Nombre del jugador a buscar: " + player.getNombre());
+
+		                String[] datos = linea.split(";");
+		                System.out.println("Leyendo línea: " + linea);
+		                System.out.println("Encontrado jugador: " + datos[0]);
+		                System.out.println("Encontrado jugador: " + player.getNombre());
+		                if (datos[0].equals(player.getNombre())) {
+		                    System.out.println("Encontrado jugador: " + player.getNombre());
+
+		                    // Actualizar los datos del jugador
+		                    // Actualizar los datos del jugador usando métodos set
+		                    player.setNivel(Integer.parseInt(datos[1]));
+		                    player.setExperiencia(Integer.parseInt(datos[2]));
+		                    player.setVidarestante(Integer.parseInt(datos[3]));
+		                    player.setPosx(Integer.parseInt(datos[4]));
+		                    player.setPosy(Integer.parseInt(datos[5]));
+		                    break;
+		                }
+		            }
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        }
+		    }
+		    
 		});
 
 		
