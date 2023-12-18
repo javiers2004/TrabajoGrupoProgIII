@@ -74,8 +74,16 @@ public class Main {
 				mapacolisiones.createGraphics().drawImage(image, 0, 0, null);
 				//entidades
 				long startTime = System.currentTimeMillis();
+				
 				while(true) {
-					System.out.println(ven1.isContinuar());
+					try {
+						Thread.sleep(1);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+//					System.out.println(ven1.isContinuar());
+					System.out.println(jug1.danoinflingido +"  " + jug1.danorecibido + "   " + jug1.distance + "   " + jug1.goplesefectivos + "   " + jug1.numerodegolpes);
 					if(ven1.isContinuar() == true) {
 //					for (Enemigos e1 : entities) {
 //						e1.moveToPlayer(jug1.getPosx(), jug1.getPosy());
@@ -225,13 +233,13 @@ public class Main {
 					long elapsedTime = System.currentTimeMillis() - startTime;
 
 				    // Ajusta la velocidad según sea necesario
-				    if (elapsedTime < 10) {
-				        try {
-				            Thread.sleep(10 - elapsedTime);
-				        } catch (InterruptedException e) {
-				            e.printStackTrace();
-				        }
-				    }
+//				    if (elapsedTime < 20) {
+//				        try {
+//				            Thread.sleep(20 - elapsedTime);
+//				        } catch (InterruptedException e) {
+//				            e.printStackTrace();
+//				        }
+//				    }
 
 				    startTime = System.currentTimeMillis();
 				}					

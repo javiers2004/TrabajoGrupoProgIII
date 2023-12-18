@@ -498,7 +498,6 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 		if(enem.isVivo()) {    	
                 			//ATAQUE A LA DERECHA
                 			if(x > anchoventana/2) {	
-                				System.out.println(enem.getX() -anchoventana/2);
                 				//&& enem.getX() > player.getPosx() -400
                 				if (enem.distancia(player) < 100 ) {
                 					enem.setHealth(enem.getHealth()-10);
@@ -918,8 +917,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                preparedStatement.setInt(10, player.getGoplesefectivos());
 	                preparedStatement.setInt(11, player.getDanoinflingido());
 	                preparedStatement.setInt(12, player.getDanorecibido());
-
-	                 preparedStatement.executeUpdate();
+	                preparedStatement.executeUpdate();
 	            }
 	        } else {
 	            // Si el nombre ya existe, realizar una actualización
