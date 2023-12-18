@@ -15,7 +15,7 @@ public static void main(String[] args) {
 			Connection connection = DriverManager.getConnection("jdbc:sqlite:basededatosdelaspartidas.db");			//ESTA URL PUEDE SER TANTO LOCVAL COMO REMOTA
 			java.sql.Statement statement = connection.createStatement();
 			statement.executeUpdate("DROP TABLE IF EXISTS PARTIDAS");
-			statement.executeUpdate("CREATE TABLE PARTIDAS(NOMBRE VARCHAR, NIVEL INT, EXPERIENCIA INT,VIDA INT, POSX INT, POSY INT, VIDATOTAL INT, PRIMARY KEY(NOMBRE))");
+			statement.executeUpdate("CREATE TABLE PARTIDAS(NOMBRE VARCHAR, NIVEL INT, EXPERIENCIA INT,VIDA INT, POSX INT, POSY INT, VIDATOTAL INT,NUMERODEGOLPES INT, DISTANCE INT, GOPLESEFECTIVOS INT, DANOINFLINGIDO INT, DANORECIBIDO INT,  PRIMARY KEY(NOMBRE))");
 			statement.executeUpdate("DROP TABLE IF EXISTS OBJETOS");
 			//statement.executeUpdate("CREATE TABLE OBJETOS(CODIGO INT, NOMBRE VARCHAR, PRIMARY KEY (CODIGO)");
 		}catch (SQLException e) {

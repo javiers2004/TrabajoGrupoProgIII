@@ -896,7 +896,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 
 	        if (!estaba) {
 	            // Si el nombre no existe, realizar una inserción
-	            String insertQuery = "INSERT INTO PARTIDAS VALUES (?, ?, ?, ?, ?, ?, ?)";
+	            String insertQuery = "INSERT INTO PARTIDAS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	            try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 	                preparedStatement.setString(1, nombrePlayer);
@@ -906,12 +906,17 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                preparedStatement.setInt(5, player.getPosx());
 	                preparedStatement.setInt(6, player.getPosy());
 	                preparedStatement.setInt(7, player.getVidatotal());
+	                preparedStatement.setInt(8, player.getNumerodegolpes());
+	                preparedStatement.setInt(9, player.getDistance());
+	                preparedStatement.setInt(10, player.getGoplesefectivos());
+	                preparedStatement.setInt(11, player.getDanoinflingido());
+	                preparedStatement.setInt(12, player.getDanorecibido());
 
 	                preparedStatement.executeUpdate();
 	            }
 	        } else {
 	            // Si el nombre ya existe, realizar una actualización
-	            String updateQuery = "UPDATE PARTIDAS SET NIVEL=?, EXPERIENCIA=?, VIDA=?, POSX=?, POSY=?, VIDATOTAL=? WHERE NOMBRE=?";
+	            String updateQuery = "UPDATE PARTIDAS SET NIVEL=?, EXPERIENCIA=?, VIDA=?, POSX=?, POSY=?, VIDATOTAL=?, NUMERODEGOLPES=?, DISTANCE=?, GOPLESEFECTIVOS=?, DANOINFLINGIDO=?, DANORECIBIDO=?,WHERE NOMBRE=?";
 	            try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
 	                preparedStatement.setInt(1, player.getNivel());
 	                preparedStatement.setInt(2, player.getExperiencia());
@@ -919,7 +924,12 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                preparedStatement.setInt(4, player.getPosx());
 	                preparedStatement.setInt(5, player.getPosy());
 	                preparedStatement.setInt(6, player.getVidatotal());
-
+	                preparedStatement.setInt(7, player.getNumerodegolpes());
+	                preparedStatement.setInt(8, player.getDistance());
+	                preparedStatement.setInt(9, player.getGoplesefectivos());
+	                preparedStatement.setInt(10, player.getDanoinflingido());
+	                preparedStatement.setInt(11, player.getDanorecibido());
+	                
 	                preparedStatement.setString(7, nombrePlayer);
 
 	                preparedStatement.executeUpdate();
@@ -963,6 +973,13 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                player.setPosx(resultSet2.getInt("POSX"));
 	                player.setPosy(resultSet2.getInt("POSY"));
 	                player.setVidatotal(resultSet2.getInt("VIDATOTAL"));
+	                player.setNumerodegolpes(resultSet2.getInt("NUMERODEGOLPES"));
+	                player.setDistance(resultSet2.getInt("DISTANCE"));
+	                player.setGoplesefectivos(resultSet2.getInt("GOPLESEFECTIVOS"));
+	                player.setDanoinflingido(resultSet2.getInt("DANOINFLINGIDO"));
+	                player.setDanorecibido(resultSet2.getInt("DANORECIBIDO"));
+
+
 	            }
 			}
 			connection.close();
