@@ -147,18 +147,11 @@ public class VentanaInicio extends JFrame implements ActionListener {
         botonNombre.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Verificar si el nombre ya se ha configurado
-                if (nombreUsuario == null) {
-                    // Si el nombre no se ha configurado, solicitarlo al usuario
-                    nombreUsuario = JOptionPane.showInputDialog("Introduce tu nombre:");
+                    nombreUsuario = JOptionPane.showInputDialog("Introduce tu nombreee:");
                     if (nombreUsuario != null) {
                         JOptionPane.showMessageDialog(null, "Hola, " + nombreUsuario + "!");
-                        botonNombre.setEnabled(false); // Deshabilitar el botón después de ingresar el nombre
                         nombres.add(nombreUsuario); // Agregar el nombre a la lista
                        // guardarArbolNombre();
-
-
-                    }
                 }
             }
         });
@@ -168,17 +161,11 @@ public class VentanaInicio extends JFrame implements ActionListener {
         botonEstads.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Verificar si el nombre ya se ha configurado
-                if (nombreUsuario == null) {
-                    // Si el nombre no se ha configurado, solicitarlo al usuario
-                    nombreUsuario = JOptionPane.showInputDialog("Introduce tu nombre:");
-                    if (nombreUsuario != null) {
-                        JOptionPane.showMessageDialog(null, "Hola, " + nombreUsuario + "!");
-                        nombres.add(nombreUsuario); // Agregar el nombre a la lista
-                    }
-                }
-
-                // Crear el nodo raíz y el nodo "Nombres"
+            	if(nombreUsuario == null) {
+            		//NO SE HA INTRODUCIDO NOMBRE DE USUARIO
+            		JOptionPane.showMessageDialog(null, "Introduce antes tu nombre de usuario", "Información", JOptionPane.INFORMATION_MESSAGE);
+            	}
+            	else {
                 DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("Root");
                 DefaultMutableTreeNode nombresNode = new DefaultMutableTreeNode("Nombres");
                 rootNode.add(nombresNode);
@@ -217,6 +204,7 @@ public class VentanaInicio extends JFrame implements ActionListener {
 
                 // Guardar el árbol con el nombre en el archivo
                 guardarArbolNombre();
+            	}
             }
         });
 

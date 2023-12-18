@@ -12,7 +12,7 @@ public class PanelMuerte extends JPanel{
 	 public PanelMuerte(VentanaMapa ven1, VentanaInicio ven2) {
 	        setLayout(new BorderLayout());
 
-	        JLabel etiquetaMuerte = new JLabel("Has muerto");
+	        JLabel etiquetaMuerte = new JLabel("Has muerto @" + ven1.getVeninicio().nombreUsuario);
 	        etiquetaMuerte.setFont(new Font("Arial", Font.BOLD, 50));
 	        etiquetaMuerte.setForeground(Color.RED);
 	        etiquetaMuerte.setHorizontalAlignment(JLabel.CENTER);
