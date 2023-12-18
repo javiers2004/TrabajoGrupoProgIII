@@ -61,7 +61,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public JLabel mapcueva;
 	private Color backgroundColor = Color.GREEN;
 	protected JLabel lblplayer;
-	protected JFrame veninicio;
+	protected VentanaInicio veninicio;
 	protected ArrayList<ImageIcon> arraymovimiento;
 	protected ArrayList<ImageIcon> arraymovimientoanterior;
 	protected Jugador player;
@@ -258,10 +258,10 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected void setLblplayer(JLabel lblplayer) {
 		this.lblplayer = lblplayer;
 	}
-	protected JFrame getVeninicio() {
+	protected VentanaInicio getVeninicio() {
 		return veninicio;
 	}
-	protected void setVeninicio(JFrame veninicio) {
+	protected void setVeninicio(VentanaInicio veninicio) {
 		this.veninicio = veninicio;
 	}
 	protected void setTeclaw(boolean teclaw) {
@@ -317,6 +317,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		    public void windowClosing(WindowEvent e) {
 		        guardarDatosPartida();
 		        getVeninicio().setVisible(true);  
+				VentanaInicio.nombreUsuario = null;
 		        VentanaMapa.this.setContinuar(false);
 		    }
 
@@ -498,7 +499,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 			//ATAQUE A LA DERECHA
                 			if(x > anchoventana/2) {	
                 				System.out.println(enem.getX() -anchoventana/2);
-                				if (enem.distancia(player) < 100 && enem.getX() > player.getPosx() -400) {
+                				//&& enem.getX() > player.getPosx() -400
+                				if (enem.distancia(player) < 100 ) {
                 					enem.setHealth(enem.getHealth()-10);
                 					player.setGoplesefectivos(player.getGoplesefectivos() + 1);
                 					player.setDanoinflingido(player.getDanoinflingido() + 10);
@@ -518,7 +520,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 			}    
                 			//ATAQUE A LA IZQUIERDA
                 			else {	
-                				if (enem.distancia(player) < 100 && enem.getX() - anchoventana/2 <= player.getPosx()) {
+                				//&& enem.getX() - anchoventana/2 <= player.getPosx()
+                				if (enem.distancia(player) < 100 ) {
                 					enem.setHealth(enem.getHealth()-10);
                 					player.setGoplesefectivos(player.getGoplesefectivos() + 1);
                 					player.setDanoinflingido(player.getDanoinflingido() + 10);
@@ -594,7 +597,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			//System.out.println(e.distancia(player));
 			if(enem.isVivo() == true) {
 					//System.out.println("mostrando informacion");
-					lblcartel.setText("\u2665 " + enem.getHealth());
+					lblcartel.setText("<html><font color='red'>&#x2665;</font> " + enem.getHealth() +"</html>");
 					lblcartel.setLocation(enem.getLabel().getX(), enem.getLabel().getY() -50);
 					lblcartel.setVisible(true);
 					return;		
@@ -660,7 +663,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				VentanaMapa.this.e.setY(3*ry );
 				enemigos.add(VentanaMapa.this.e);
 				VentanaMapa.this.panelfondo.add(VentanaMapa.this.e.getLabel());
-				VentanaMapa.this.panelfondo.setComponentZOrder(VentanaMapa.this.e.getLabel(),1);	
+				VentanaMapa.this.panelfondo.setComponentZOrder(VentanaMapa.this.e.getLabel(),3);	
 				try {
 					Thread.sleep(500);
 				} catch (InterruptedException e1) {
