@@ -873,6 +873,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		// TODO Auto-generated method stub	
 	}
 	private void guardarDatosPartida() {
+	    System.out.println("Iniciando método guardarDatosPartida");
 	    try {
 	        Class.forName("org.sqlite.JDBC");
 	    } catch (ClassNotFoundException e) {
@@ -884,19 +885,26 @@ public class VentanaMapa extends JFrame implements KeyListener{
 
 	    // Utilizar try-with-resources para garantizar el cierre de recursos
 	    try (Connection connection = DriverManager.getConnection("jdbc:sqlite:basededatosdelaspartidas.db")) {
+	        System.out.println("Conexión establecida con la base de datos");
+
 	        // Verificar si el nombre ya existe en la base de datos
 	        String nombrePlayer = this.getNombreplayer();
+	        System.out.println("Nombre del jugador: " + nombrePlayer);
 	        boolean estaba = false;
 
 	        try (java.sql.Statement verificarStatement = connection.createStatement();
 	             ResultSet verificarResultSet = verificarStatement.executeQuery("SELECT NOMBRE FROM PARTIDAS WHERE NOMBRE = '" + nombrePlayer + "'")) {
 
 	            estaba = verificarResultSet.next();
+	            System.out.println("¿El jugador ya estaba en la base de datos? " + estaba);
+
 	        }
 
 	        if (!estaba) {
 	            // Si el nombre no existe, realizar una inserción
 	            String insertQuery = "INSERT INTO PARTIDAS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	            System.out.println("Preparando inserción: " + insertQuery);
+
 
 	            try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 	                preparedStatement.setString(1, nombrePlayer);
@@ -912,11 +920,14 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                preparedStatement.setInt(11, player.getDanoinflingido());
 	                preparedStatement.setInt(12, player.getDanorecibido());
 
-	                preparedStatement.executeUpdate();
+	                int filasInsertadas = preparedStatement.executeUpdate();
+	                System.out.println("Número de filas insertadas: " + filasInsertadas);
 	            }
 	        } else {
 	            // Si el nombre ya existe, realizar una actualización
-	            String updateQuery = "UPDATE PARTIDAS SET NIVEL=?, EXPERIENCIA=?, VIDA=?, POSX=?, POSY=?, VIDATOTAL=?, NUMERODEGOLPES=?, DISTANCE=?, GOPLESEFECTIVOS=?, DANOINFLINGIDO=?, DANORECIBIDO=?,WHERE NOMBRE=?";
+	            String updateQuery = "UPDATE PARTIDAS SET NIVEL=?, EXPERIENCIA=?, VIDA=?, POSX=?, POSY=?, VIDATOTAL=?, NUMERODEGOLPES=?, DISTANCE=?, GOPLESEFECTIVOS=?, DANOINFLINGIDO=?, DANORECIBIDO=? WHERE NOMBRE=?";
+	            System.out.println("Preparando actualización: " + updateQuery);
+
 	            try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
 	                preparedStatement.setInt(1, player.getNivel());
 	                preparedStatement.setInt(2, player.getExperiencia());
@@ -930,9 +941,10 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                preparedStatement.setInt(10, player.getDanoinflingido());
 	                preparedStatement.setInt(11, player.getDanorecibido());
 	                
-	                preparedStatement.setString(7, nombrePlayer);
+	                preparedStatement.setString(12, nombrePlayer);
 
-	                preparedStatement.executeUpdate();
+	                int filasActualizadas = preparedStatement.executeUpdate();
+	                System.out.println("Número de filas actualizadas: " + filasActualizadas);
 	            }
 	        }
 
