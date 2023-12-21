@@ -10,12 +10,11 @@ import javax.swing.table.DefaultTableModel;
 
 public class ModeloTablaPersonas extends DefaultTableModel {
     private List<Jugador>listaJugadores;
-	private final List<String> titulos = Arrays.asList("NOMBRE","NIVEL","EXPERIENCIA","VIDARESTANTE","POSX","POSY","VIDATOTAL",
+	public final List<String> titulos = Arrays.asList("NOMBRE","NIVEL","EXPERIENCIA","VIDARESTANTE","POSX","POSY","VIDATOTAL",
 			"NUMERO DE GOLPES","DISTANCE","GOLPES EFECTIVOS","DAÑO INFLINGIDO","DAÑO RECIBIDO");
 
 	
-	public ModeloTablaPersonas(List<Jugador>jugadores) {
-        listaJugadores = jugadores; 
+	public ModeloTablaPersonas() {
     }
 	
 	@Override
@@ -65,6 +64,8 @@ public class ModeloTablaPersonas extends DefaultTableModel {
 			default: return null;
 		}
 	}
+	
+	
 }
 	
 

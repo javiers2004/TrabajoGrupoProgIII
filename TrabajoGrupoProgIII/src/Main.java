@@ -82,8 +82,9 @@ public class Main {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-//					System.out.println(ven1.isContinuar());
-					System.out.println(jug1.danoinflingido +"  " + jug1.danorecibido + "   " + jug1.distance + "   " + jug1.goplesefectivos + "   " + jug1.numerodegolpes);
+
+					//					System.out.println(ven1.isContinuar());
+//					System.out.println(jug1.danoinflingido +                                                             "  " + jug1.danorecibido + "   " + jug1.distance + "   " + jug1.goplesefectivos + "   " + jug1.numerodegolpes);
 					if(ven1.isContinuar() == true) {
 //					for (Enemigos e1 : entities) {
 //						e1.moveToPlayer(jug1.getPosx(), jug1.getPosy());
@@ -99,7 +100,7 @@ public class Main {
 							jug1.setStaminarestante(0);
 						}
 					}
-					boolean mov = false;
+					boolean mov = true;
 					if (ven1.isTeclaw() == true) {	
 						Color color = new Color(mapacolisiones.getRGB(jug1.getPosx()/3 + screenWidth/6  , jug1.getPosy()/3 +  - 30/3 - velocidadextra + screenHeight/6));
 						int red = color.getRed();

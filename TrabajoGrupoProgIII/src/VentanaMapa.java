@@ -658,11 +658,13 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					Pajaro e = new Pajaro();
 					VentanaMapa.this.e = e;
 				}
+				e.getLabel().setVisible(false);
 				VentanaMapa.this.e.setX(3*rx );
 				VentanaMapa.this.e.setY(3*ry );
 				enemigos.add(VentanaMapa.this.e);
 				VentanaMapa.this.panelfondo.add(VentanaMapa.this.e.getLabel());
-				VentanaMapa.this.panelfondo.setComponentZOrder(VentanaMapa.this.e.getLabel(),3);	
+				VentanaMapa.this.panelfondo.setComponentZOrder(VentanaMapa.this.e.getLabel(),3);
+				e.getLabel().setVisible(true);
 				try {
 					Thread.sleep(500);
 				} catch (InterruptedException e1) {
@@ -898,12 +900,9 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	            estaba = verificarResultSet.next();
 
 	        }
-
 	        if (!estaba) {
 	            // Si el nombre no existe, realizar una inserción
 	            String insertQuery = "INSERT INTO PARTIDAS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-
 	            try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 	                preparedStatement.setString(1, nombrePlayer);
 	                preparedStatement.setInt(2, player.getNivel());
@@ -947,9 +946,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	        e.printStackTrace();
 	        System.out.println("Error en la gestión de la base de datos: " + e.getMessage());
 	    }
-	}
-
-    
+	}  
     public void actualizarJugadorDesdeArchivo() {
     	try {
 			Connection connection = DriverManager.getConnection("jdbc:sqlite:basededatosdelaspartidas.db");			//ESTA URL PUEDE SER TANTO LOCVAL COMO REMOTA
@@ -984,8 +981,6 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                player.setGoplesefectivos(resultSet2.getInt("GOPLESEFECTIVOS"));
 	                player.setDanoinflingido(resultSet2.getInt("DANOINFLINGIDO"));
 	                player.setDanorecibido(resultSet2.getInt("DANORECIBIDO"));
-
-
 	            }
 			}
 			connection.close();
@@ -996,8 +991,5 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			System.out.println("ERROR EN LA GESTIÓN DE LA BASE DE DATOS");
 
 		}
-        System.out.println(player.getNivel());
-
     }
-
 }
