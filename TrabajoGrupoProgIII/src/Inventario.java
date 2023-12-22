@@ -55,8 +55,7 @@ public class Inventario {
     public static ArrayList<Item> cargarDesdeCSV(String pathArchivo) {
         File archivo = new File(pathArchivo);
         if (!archivo.exists()) {
-        	inventario = new Inventario();
-            return inventario.inventario; // Cargar desde otra fuente si el archivo no existe
+            return inventario // Cargar desde otra fuente si el archivo no existe
         }
 
         ArrayList<Item> items = new ArrayList<>();
@@ -69,7 +68,7 @@ public class Inventario {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            return new ArrayList<>(); // Cargar desde otra fuente en caso de error de lectura
+            return inventario; // Cargar desde otra fuente en caso de error de lectura
         }
         return items;
     }

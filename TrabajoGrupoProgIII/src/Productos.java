@@ -75,7 +75,7 @@ public class Productos {
     public static ArrayList<Item> cargarDesdeCSV(String pathArchivo) {
         File archivo = new File(pathArchivo);
         if (!archivo.exists()) {
-            return getProductos(); // Cargar desde otra fuente si el archivo no existe
+            return productos; // Cargar desde otra fuente si el archivo no existe
         }
 
         ArrayList<Item> items = new ArrayList<>();
@@ -88,7 +88,7 @@ public class Productos {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            return getProductos(); // Cargar desde otra fuente en caso de error de lectura
+            return productos; // Cargar desde otra fuente en caso de error de lectura
         }
         return items;
     }
