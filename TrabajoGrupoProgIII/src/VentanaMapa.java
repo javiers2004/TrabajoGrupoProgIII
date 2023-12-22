@@ -858,6 +858,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				}	
 			}	
 		}
+		
+		joana.actualizarInter(player);
+		if(joana.isEsInteractivo()) {
+			joana.getDialogo();
+		}
 		npc1.actualizarInter(player);
 		if(npc1.isEsInteractivo()) {
 			//npc1.interactuar();
