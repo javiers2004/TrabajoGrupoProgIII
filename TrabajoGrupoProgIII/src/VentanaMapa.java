@@ -42,10 +42,12 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 
 
-import Imagenes.Dialogo;
+
 
 public class VentanaMapa extends JFrame implements KeyListener{
 	//ATRIBUTOS
+	private npc npc1;
+	
 	protected JLabel lblcartel;
 	private static final int distdetect = 900;
 	private static final int ddistdetect = 900;
@@ -452,7 +454,9 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		Dialogo d1= new Dialogo("Te has encontrado con un viejo sabio. ¿Qué quieres preguntarle?", Arrays.asList("Sobre la vida", "Sobre la aventura", "Salir"));
 		Dialogo d2 = new Dialogo("Encuentras un cofre misterioso. ¿Deseas abrirlo?", Arrays.asList("Abrir", "Ignorar"));
 		
-		
+		Dialogo dialogonpc1 = new Dialogo("Hola aventurero, ¿qué necesitas?", Arrays.asList("Opción 1", "Opción 2", "Salir"));
+		npc1 = new npc(1122,10122,dialogonpc1);
+		panelfondo.add(npc1.getLabel());
 //		new Timer(10, new ActionListener() { // Este temporizador se ejecutará cada 100 milisegundos.
 //		    @Override
 //		    public void actionPerformed(ActionEvent ae) {
@@ -843,6 +847,10 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					e.getLabel().setVisible(false);
 				}	
 			}	
+		}
+		npc1.actualizarInter(player);
+		if(npc1.isEsInteractivo()) {
+			//npc1.interactuar();
 		}
 		mostrarCartel(player, emascercano);
 		if(teclaw == true || teclaa == true || teclas == true || teclad == true) {	
