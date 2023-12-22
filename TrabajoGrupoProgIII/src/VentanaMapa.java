@@ -47,7 +47,7 @@ import javax.swing.SwingConstants;
 public class VentanaMapa extends JFrame implements KeyListener{
 	//ATRIBUTOS
 	private npc npc1;
-	
+	private Joana joana;
 	protected JLabel lblcartel;
 	private static final int distdetect = 900;
 	private static final int ddistdetect = 900;
@@ -469,7 +469,13 @@ public class VentanaMapa extends JFrame implements KeyListener{
 //		        actualizarEnemigos(); // Sigue actualizando la posición de los enemigos.
 //		    }
 //		}).start();
+		joana = new Joana(player.getPosx()+100, player.getPosy());
+		joana.getLabel().setLocation(3* joana.getX() - player.getPosx(),3 * joana.getY() - player.getPosy());
+		joana.getLabel().setVisible(true);
+        this.panelfondo.add(joana.getLabel());
+        this.panelfondo.setComponentZOrder(joana.getLabel(), 3);
 
+		
 		//PERSONALIZAR CURSOR
 		BufferedImage cursorImage;
 		try {
