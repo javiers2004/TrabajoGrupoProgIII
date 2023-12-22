@@ -629,7 +629,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				Enemigos e2 = new Enemigos();
 				e2.setX(rx);
 				e2.setY(ry);
-				while(!areapermitida(rx, ry) && e2.distancia(player) < 1000) {
+				//&& e2.distancia(player) < 1000
+				while(!areapermitida(rx, ry) ) {
 					rx = r.nextInt(4096) ; 
 					ry = r.nextInt(4096) ;
 					e2.setX(rx);
