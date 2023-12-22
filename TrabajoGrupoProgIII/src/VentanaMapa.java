@@ -969,7 +969,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	            }
 	        } else {
 	            // Si el nombre ya existe, realizar una actualización
-	            String updateQuery = "UPDATE PARTIDAS SET NIVEL=?, EXPERIENCIA=?, VIDA=?, POSX=?, POSY=?, VIDATOTAL=?, NUMERODEGOLPES=?, DISTANCE=?, GOPLESEFECTIVOS=?, DANOINFLINGIDO=?, DANORECIBIDO=?, STAMINATOTAL=? WHERE NOMBRE=?";
+	            String updateQuery = "UPDATE PARTIDAS SET NIVEL=?, EXPERIENCIA=?, VIDA=?, POSX=?, POSY=?, VIDATOTAL=?, NUMERODEGOLPES=?, DISTANCE=?, GOLPESEFECTIVOS=?, DANOINFLINGIDO=?, DANORECIBIDO=?, STAMINATOTAL=? WHERE NOMBRE=?";
 
 	            try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
 	                preparedStatement.setInt(1, player.getNivel());

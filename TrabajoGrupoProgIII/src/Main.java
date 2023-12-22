@@ -106,13 +106,11 @@ public class Main {
 						int blue = color.getBlue();
 						if (red > 200 && green > 200 && blue > 200 ) {
 							jug1.setPosy(jug1.getPosy() - 3 - velocidadextra);
-							ven1.actualizarVentana(jug1, false);
 							mov =true;
 							jug1.setDistance(jug1.getDistance() + 3 + velocidadextra);
 						}	
 						else if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosy(jug1.getPosy() - 3 - velocidadextra);
-							ven1.actualizarVentana(jug1, true);
 							mov =false;
 							jug1.setDistance(jug1.getDistance() + 3 + velocidadextra);
 						}	
@@ -127,13 +125,11 @@ public class Main {
 						int blue = color.getBlue();
 						if (red > 200 && green > 200 && blue > 200 ) {
 							jug1.setPosx(jug1.getPosx() - 3 - velocidadextra);
-							ven1.actualizarVentana(jug1, false);
 							mov =true;
 							jug1.setDistance(jug1.getDistance() + 3 + velocidadextra);
 						}
 						else if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosx(jug1.getPosx() - 3 - velocidadextra);
-							ven1.actualizarVentana(jug1, true);
 							mov =false;
 							jug1.setDistance(jug1.getDistance() + 3 + velocidadextra);
 						}
@@ -149,13 +145,11 @@ public class Main {
 						int blue = color.getBlue();
 						if (red > 200 && green > 200 && blue > 200 ) {
 							jug1.setPosy(jug1.getPosy() + 3 + velocidadextra);
-							ven1.actualizarVentana(jug1, false);
 							mov =true;
 							jug1.setDistance(jug1.getDistance() + 3 + velocidadextra);
 						}
 						else if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosy(jug1.getPosy() + 3 + velocidadextra);
-							ven1.actualizarVentana(jug1, true);
 							mov =false;
 							jug1.setDistance(jug1.getDistance() + 3 + velocidadextra);
 						}
@@ -170,13 +164,11 @@ public class Main {
 						int blue = color.getBlue();
 						if (red > 200 && green > 200 && blue > 200 ) {
 							jug1.setPosx(jug1.getPosx() + 3 + velocidadextra);
-							ven1.actualizarVentana(jug1, false);
 							mov =true;
 							jug1.setDistance(jug1.getDistance() + 3 + velocidadextra);
 						}
 						else if (red == 255 && green == 0 && blue == 0) {
 							jug1.setPosx(jug1.getPosx() + 3 + velocidadextra);
-							ven1.actualizarVentana(jug1, true);
 							mov =false;
 							jug1.setDistance(jug1.getDistance() + 3 + velocidadextra);
 						}
@@ -229,18 +221,7 @@ public class Main {
 						}
 						
 					}
-					long elapsedTime = System.currentTimeMillis() - startTime;
-
-				    // Ajusta la velocidad según sea necesario
-//				    if (elapsedTime < 20) {
-//				        try {
-//				            Thread.sleep(20 - elapsedTime);
-//				        } catch (InterruptedException e) {
-//				            e.printStackTrace();
-//				        }
-//				    }
-
-				    startTime = System.currentTimeMillis();
+					
 				}					
 				}
 			}	
