@@ -812,19 +812,20 @@ public class VentanaMapa extends JFrame implements KeyListener{
 						for(Enemigos e2: enemigos) {
 							if(e2.distancia(player) < 150) {
 								e2.setHealth(e2.getHealth()-100);
+								if (e2.getHealth() <= 0) {
+	        						e2.setArrayenuso(e2.muerte);
+	        						e2.setVivo(false);
+	        						player.setExperiencia(player.getExperiencia() + e2.getExperiencia());
+	        						if(player.getEstadisticas().containsKey(e2.getClass())) {
+	        							player.getEstadisticas().put(e2.getClass(), player.getEstadisticas().get(e2.getClass()) + 1);
+	        						}
+	        						else {
+	        							player.getEstadisticas().put(e2.getClass(), 1);
+	        						}
+	        						System.out.println(player.getEstadisticas());
+	        					}
 							}
-							if (e2.getHealth() <= 0) {
-        						e2.setArrayenuso(e2.muerte);
-        						e2.setVivo(false);
-        						player.setExperiencia(player.getExperiencia() + e2.getExperiencia());
-        						if(player.getEstadisticas().containsKey(e2.getClass())) {
-        							player.getEstadisticas().put(e2.getClass(), player.getEstadisticas().get(e2.getClass()) + 1);
-        						}
-        						else {
-        							player.getEstadisticas().put(e2.getClass(), 1);
-        						}
-        						System.out.println(player.getEstadisticas());
-        					}
+							
 						}
 						player.setVidarestante(player.getVidarestante()- e.getDaño());
 						player.setDanorecibido(player.getDanorecibido() + e.getDaño());
