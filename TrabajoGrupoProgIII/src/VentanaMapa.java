@@ -456,7 +456,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		
 		Dialogo dialogonpc1 = new Dialogo("Hola aventurero, ¿qué necesitas?", Arrays.asList("Opción 1", "Opción 2", "Salir"));
 		npc1 = new npc(1122,10122,dialogonpc1);
-		panelfondo.add(npc1.getLabel());
+		//panelfondo.add(npc1.getLabel());
+		npc1.getLabel().setLocation(3* npc1.getX()- player.getPosx(), 3*npc1.getY() - player.getPosy() );
+		npc1.getLabel().setVisible(true);
+		this.panelfondo.add(npc1.getLabel());
+		this.panelfondo.setComponentZOrder(npc1.getLabel(), 3);
 //		new Timer(10, new ActionListener() { // Este temporizador se ejecutará cada 100 milisegundos.
 //		    @Override
 //		    public void actionPerformed(ActionEvent ae) {

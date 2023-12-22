@@ -94,7 +94,7 @@ public class npc {
         //animacionIzquierda = new ArrayList<>();
         
             for (int i = 1; i <= 4; i++) {
-            animacionDerecha.add(new ImageIcon("idle" + i + ".png"));
+            animacionDerecha.add(new ImageIcon("Idle" + i + ".png"));
             //animacionIzquierda.add(new ImageIcon("idle" + i + ".png"));
         }
 
