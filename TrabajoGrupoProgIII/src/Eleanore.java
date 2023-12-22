@@ -10,7 +10,7 @@ public class Eleanore extends npc {
 	private Dialogo dialogoFinal;
 	 private Dialogo dialogoMisionAdicional;
 	 private Dialogo dialogoReaccionPostRescate;
-	 private Dialogo dialogoFinJuego;
+	 //private Dialogo dialogoFinJuego;
 
 	 public Eleanore(int x, int y) {
 	        super(x, y, null);
