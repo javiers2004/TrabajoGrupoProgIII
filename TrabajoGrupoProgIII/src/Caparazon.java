@@ -35,12 +35,12 @@ public class Caparazon extends Enemigos{
 		derecha.add(imagen2);
 		this.derecha = derecha;
 		ArrayList<ImageIcon> izquierda = new ArrayList<ImageIcon>();
-		ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/caparazon/walk1.png");
-		ImageIcon imagen3 = new ImageIcon(icono3.getImage().getScaledInstance(30,46, Image.SCALE_SMOOTH));
-		ImageIcon icono4 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/caparazon/walk2.png");
-		ImageIcon imagen4 = new ImageIcon(icono4.getImage().getScaledInstance(30,46, Image.SCALE_SMOOTH));
-		ImageIcon icono6 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/caparazon/walk3.png");
-		ImageIcon imagen6 = new ImageIcon(icono6.getImage().getScaledInstance(30,46, Image.SCALE_SMOOTH));
+		ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/caparazon/leftwalk1.png");
+		ImageIcon imagen3 = new ImageIcon(icono3.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
+		ImageIcon icono4 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/caparazon/leftwalk2.png");
+		ImageIcon imagen4 = new ImageIcon(icono4.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
+		ImageIcon icono6 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/caparazon/leftwalk3.png");
+		ImageIcon imagen6 = new ImageIcon(icono6.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
 		izquierda.add(imagen3);
 		izquierda.add(imagen4);
 		izquierda.add(imagen6);
@@ -107,7 +107,7 @@ public class Caparazon extends Enemigos{
 				int blue = color.getBlue();
 				if (red > 220 && green > 220 && blue > 220 ) {
 	        	if(this.distancia(player) > 100) {
-					arrayenuso = derecha;
+					arrayenuso = izquierda;
 				}
 					x--;
 				}

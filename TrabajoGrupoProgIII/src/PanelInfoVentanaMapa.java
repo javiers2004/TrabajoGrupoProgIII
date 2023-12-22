@@ -56,7 +56,6 @@ public class PanelInfoVentanaMapa extends JPanel{
 	}
 	
 	public void actualizarPanelInfo(Jugador player) {
-
 		barravida.setValue(player.getVidarestante());
 		barrastamina.setValue((int)player.getStaminarestante());
 		barraexperiencia.setValue(player.getExperiencia());

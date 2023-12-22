@@ -24,52 +24,13 @@ public class VentanaEstadisticas extends JFrame {
         setSize(ancho, alto);
         setLocation(xPos, yPos);
 
-        ModeloTablaPersonas mod = new ModeloTablaPersonas();
+        ModeloTablaPersonas mod = new ModeloTablaPersonas(nombreusuario);
         JTable table = new JTable(mod);
         JScrollPane scrollPane = new JScrollPane(table);
         getContentPane().add(scrollPane, BorderLayout.CENTER);
+       
 
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:basededatosdelaspartidas.db");
-             PreparedStatement psNombres = connection.prepareStatement("SELECT NOMBRE FROM PARTIDAS");
-             ResultSet resultSetNombres = psNombres.executeQuery()) {
-
-            boolean estaba = false;
-            while (resultSetNombres.next()) {
-                String nombre = resultSetNombres.getString("NOMBRE");
-                if (nombre != null && nombre.equals(nombreusuario)) {
-                    estaba = true;
-                    break;
-                }
-            }
-
-            if (estaba) {
-            	try {
-                    ResultSet resultSetEstadisticas =  psNombres.executeQuery("SELECT * FROM PARTIDAS WHERE NOMBRE LIKE '" + nombreusuario+ "'");
-
-                        Vector<Object> v = new Vector<>();
-                        v.add(resultSetEstadisticas.getInt("NOMBRE"));
-                        v.add(resultSetEstadisticas.getInt("EXPERIENCIA"));
-                        v.add(resultSetEstadisticas.getInt("VIDA"));
-                        v.add(resultSetEstadisticas.getInt("POSX"));
-                        v.add(resultSetEstadisticas.getInt("POSY"));
-                        v.add(resultSetEstadisticas.getInt("VIDATOTAL"));
-                        v.add(resultSetEstadisticas.getInt("NUMERODEGOLPES"));
-                        v.add(resultSetEstadisticas.getInt("DISTANCE"));
-                        v.add(resultSetEstadisticas.getInt("GOPLESEFECTIVOS"));
-                        v.add(resultSetEstadisticas.getInt("DANOINFLINGIDO"));
-                        v.add(resultSetEstadisticas.getInt("DANORECIBIDO"));
-                        ((DefaultTableModel) table.getModel()).addRow(v);
-                    
-                
-            
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("ERROR EN LA GESTIÓN DE LA BASE DE DATOS: " + e.getMessage());
-        }
-         }
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-        }
+        
+         
     }
 }

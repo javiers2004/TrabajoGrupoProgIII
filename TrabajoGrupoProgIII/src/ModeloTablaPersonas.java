@@ -1,6 +1,12 @@
 import java.awt.BorderLayout;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -14,7 +20,48 @@ public class ModeloTablaPersonas extends DefaultTableModel {
 			"NUMERO DE GOLPES","DISTANCE","GOLPES EFECTIVOS","DAÑO INFLINGIDO","DAÑO RECIBIDO");
 
 	
-	public ModeloTablaPersonas() {
+	public ModeloTablaPersonas(String nombreusuario) throws SQLException {
+		 try (Connection connection = DriverManager.getConnection("jdbc:sqlite:basededatosdelaspartidas.db");
+	                PreparedStatement psNombres = connection.prepareStatement("SELECT NOMBRE FROM PARTIDAS");
+	                ResultSet resultSetNombres = psNombres.executeQuery()) {
+
+	            boolean estaba = false;
+	            while (resultSetNombres.next()) {
+	                String nombre = resultSetNombres.getString("NOMBRE");
+	                if (nombre != null && nombre.equals(nombreusuario)) {
+	                    estaba = true;
+	                    break;
+	                }
+	            }
+
+	            if (estaba) {
+	                try (PreparedStatement psEstadisticas = connection.prepareStatement("SELECT * FROM PARTIDAS WHERE NOMBRE LIKE ?")) {
+	                    psEstadisticas.setString(1, nombreusuario);
+	                    ResultSet resultSetEstadisticas = psEstadisticas.executeQuery();                   
+	                        Vector<Object> v = new Vector<>();
+	                        v.add(resultSetEstadisticas.getString("NOMBRE"));
+	                        v.add(resultSetEstadisticas.getInt("NIVEL"));
+	                        v.add(resultSetEstadisticas.getInt("EXPERIENCIA"));
+	                        v.add(resultSetEstadisticas.getInt("VIDA"));
+	                        v.add(resultSetEstadisticas.getInt("POSX"));
+	                        v.add(resultSetEstadisticas.getInt("POSY"));
+	                        v.add(resultSetEstadisticas.getInt("VIDATOTAL"));
+	                        v.add(resultSetEstadisticas.getInt("NUMERODEGOLPES"));
+	                        v.add(resultSetEstadisticas.getInt("DISTANCE"));
+	                        v.add(resultSetEstadisticas.getInt("GOPLESEFECTIVOS"));
+	                        v.add(resultSetEstadisticas.getInt("DANOINFLINGIDO"));
+	                        v.add(resultSetEstadisticas.getInt("DANORECIBIDO"));
+	                        System.out.println(v);
+	                        this.addRow(v);
+//	                        this.setValueAt("A", 0, 0);
+	                        
+//	                        this.addRow(new Object[] {resultSetEstadisticas.getString("NOMBRE"), resultSetEstadisticas.getInt("NIVEL"), resultSetEstadisticas.getInt("EXPERIENCIA"), resultSetEstadisticas.getInt("VIDA"), resultSetEstadisticas.getInt("POSX"), resultSetEstadisticas.getInt("POSY"), resultSetEstadisticas.getInt("VIDATOTAL"), resultSetEstadisticas.getInt("NUMERODEGOLPES"), resultSetEstadisticas.getInt("DISTANCIA"), resultSetEstadisticas.getInt("GOLPES EFECTIVOS"), resultSetEstadisticas.getInt("DANOINFLINGIDO"), resultSetEstadisticas.getInt("DANORECIBIDO") });
+	                } catch (SQLException e) {
+	                    e.printStackTrace();
+	                    System.out.println("ERROR EN LA GESTIÓN DE LA BASE DE DATOS: " + e.getMessage());
+	                }
+	            }
+	        }
     }
 	
 	@Override

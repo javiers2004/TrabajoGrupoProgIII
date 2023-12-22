@@ -169,6 +169,7 @@ public class VentanaInicio extends JFrame implements ActionListener {
             	else {
             		try {
 						VentanaEstadisticas venest = new VentanaEstadisticas(nombreUsuario);
+						venest.setVisible(true);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
