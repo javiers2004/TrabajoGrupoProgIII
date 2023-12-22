@@ -47,7 +47,7 @@ import javax.swing.SwingConstants;
 public class VentanaMapa extends JFrame implements KeyListener{
 	//ATRIBUTOS
 	private npc npc1;
-	
+	private Joana joana;
 	protected JLabel lblcartel;
 	private static final int distdetect = 900;
 	private static final int ddistdetect = 900;
@@ -456,7 +456,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		
 		Dialogo dialogonpc1 = new Dialogo("Hola aventurero, ¿qué necesitas?", Arrays.asList("Opción 1", "Opción 2", "Salir"));
 		npc1 = new npc(1122,10122,dialogonpc1);
-		panelfondo.add(npc1.getLabel());
+		//panelfondo.add(npc1.getLabel());
+		npc1.getLabel().setLocation(3* npc1.getX()- player.getPosx(), 3*npc1.getY() - player.getPosy() );
+		npc1.getLabel().setVisible(true);
+		this.panelfondo.add(npc1.getLabel());
+		this.panelfondo.setComponentZOrder(npc1.getLabel(), 3);
 //		new Timer(10, new ActionListener() { // Este temporizador se ejecutará cada 100 milisegundos.
 //		    @Override
 //		    public void actionPerformed(ActionEvent ae) {
@@ -465,7 +469,13 @@ public class VentanaMapa extends JFrame implements KeyListener{
 //		        actualizarEnemigos(); // Sigue actualizando la posición de los enemigos.
 //		    }
 //		}).start();
+		joana = new Joana(player.getPosx()+100, player.getPosy());
+		joana.getLabel().setLocation(3* joana.getX() - player.getPosx(),3 * joana.getY() - player.getPosy());
+		joana.getLabel().setVisible(true);
+        this.panelfondo.add(joana.getLabel());
+        this.panelfondo.setComponentZOrder(joana.getLabel(), 3);
 
+		
 		//PERSONALIZAR CURSOR
 		BufferedImage cursorImage;
 		try {
@@ -847,6 +857,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					e.getLabel().setVisible(false);
 				}	
 			}	
+		}
+		
+		joana.actualizarInter(player);
+		if(joana.isEsInteractivo()) {
+			joana.getDialogo();
 		}
 		npc1.actualizarInter(player);
 		if(npc1.isEsInteractivo()) {
