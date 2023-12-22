@@ -7,6 +7,8 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,13 +23,24 @@ public class VentanaTienda extends JFrame {
     public int itembuffer;
     private static final int ICON_WIDTH = 32; // Ancho deseado para el ícono
     private static final int ICON_HEIGHT = 32; // Altura deseada para el ícono
+    private String rutaArchivoInv = "Inventario.txt"; // Ruta del archivo para guardar y cargar el inventario
+    private String rutaArchivoProd = "Productos.txt"; // Ruta del archivo para guardar y cargar los productos
 
     public VentanaTienda() {
         setTitle("Tienda");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+        ArrayList<Item> inventario = Inventario.cargarDesdeCSV(rutaArchivoInv);
+        ArrayList<Item> productos = Inventario.cargarDesdeCSV(rutaArchivoProd);
         
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+            	Inventario.guardarEnCSV(inventario, rutaArchivoInv); 
+            	Productos.guardarEnCSV(productos, rutaArchivoProd); 
+            }
+        });
 
         // Crear el modelo de la tabla
         DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Ícono", "Nombre", "Precio", "Daño", "Cooldown","Curacion"}, 0) {
@@ -41,8 +54,8 @@ public class VentanaTienda extends JFrame {
                 return column == 0 ? ImageIcon.class : Object.class;
             }
         };
-        for (Item item : producto.producto) {
-            modelo.addRow(new Object[]{createImageIcon(item.getIcono()), item.getNombre(), item.getCoste(), item.getNombre()});
+        for (Item item : productos) {
+            modelo.addRow(new Object[]{createImageIcon(item.getIcono()), item.getNombre(), item.getNombre(), item.getNombre()});
         }
         JTable tabla = new JTable(modelo);
         tabla.setRowHeight(50); // Ajustar la altura de las filas para los íconos
@@ -55,7 +68,7 @@ public class VentanaTienda extends JFrame {
                 if (!e.getValueIsAdjusting()) {
                     int selectedRow = tabla.getSelectedRow();
                     if (selectedRow != -1) {
-                    	Item selectedItem = productos.productos.get(selectedRow);
+                    	Item selectedItem = productos.get(selectedRow);
                     	itembuffer = selectedRow;
                     	System.out.println(itembuffer);
                     	try {
@@ -100,19 +113,19 @@ public class VentanaTienda extends JFrame {
         botonComprar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	if (productos.productos.isEmpty()){
+            	if (productos.isEmpty()){
             		System.out.println("sin productos en la tienda");
             	}else {
-            		System.out.println(inventario.inventario);
-                	System.out.println(productos.productos);
-                	inventario.inventario.add(productos.productos.get(itembuffer));
-                	productos.productos.remove(itembuffer);
-                	System.out.println(inventario.inventario);
-                	System.out.println(productos.productos);
+            		System.out.println(inventario);
+                	System.out.println(productos);
+                	inventario.add(productos.get(itembuffer));
+                	productos.remove(itembuffer);
+                	System.out.println(inventario);
+                	System.out.println(productos);
                 	DefaultTableModel model = (DefaultTableModel) tabla.getModel();
                 	model.setRowCount(0);
-                	for (Item item : productos.productos) {
-                        modelo.addRow(new Object[]{createImageIcon(item.getIcono()), item.getDaño(), item.getDaño(), item.getNombre()});
+                	for (Item item : productos) {
+                        modelo.addRow(new Object[]{createImageIcon(item.getIcono()), item.getNombre(), item.getNombre(), item.getNombre()});
                     }
             	}
 

@@ -32,9 +32,7 @@ public class Main {
 		//jug1.actualizarDesdeArchivo("partida.txt", jug1);
 		
         VentanaMapa ven1 = new VentanaMapa(jug1);
-//        inventario = new Inventario();
-//        productos = new Productos();
-        
+
         
         // Crear una instancia de VentanaAudio
         VentanaAudio audioPlayer = null;
