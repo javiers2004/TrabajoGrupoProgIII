@@ -66,7 +66,7 @@ public class Main {
 				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 				int screenWidth = screenSize.width;
 				int screenHeight = screenSize.height;
-				ImageIcon icono2 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPABLANCO4.png");
+				ImageIcon icono2 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/Mapas/MAPABLANCO4.png");
 				Image image = icono2.getImage();
 				BufferedImage mapacolisiones = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 				mapacolisiones.createGraphics().drawImage(image, 0, 0, null);
@@ -201,8 +201,8 @@ public class Main {
 					
 					if (ven1.isTeclashift() == false && jug1.getStaminarestante()<jug1.getStaminatotal()) {
 						jug1.setStaminarestante(jug1.getStaminarestante() + 0.25);
-						if(jug1.getStaminarestante() > 100) {
-							jug1.setStaminarestante(100);
+						if(jug1.getStaminarestante() > jug1.getStaminatotal()) {
+							jug1.setStaminarestante(jug1.getStaminatotal());
 						}
 					}
 					

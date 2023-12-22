@@ -87,7 +87,7 @@ public class VentanaInicio extends JFrame implements ActionListener {
 		pNorte.add(lblTitulo);
 		
         /*CREACIÓN BOTONES*/
-		ImageIcon user1 = new ImageIcon("img/botonUser.png");
+		ImageIcon user1 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/BotonesInicio/botonUser.png");
 		Image u1 = user1.getImage().getScaledInstance(400, 450, Image.SCALE_SMOOTH);
 		ImageIcon imagenUser = new ImageIcon(u1);
         botonNombre = new JButton();
@@ -98,7 +98,7 @@ public class VentanaInicio extends JFrame implements ActionListener {
         pCentro.add(botonNombre, BorderLayout.CENTER);
         
         
-        ImageIcon play1 = new ImageIcon("img/botonPlay.png");
+        ImageIcon play1 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/BotonesInicio/botonPlay.png");
         Image p1 = play1.getImage().getScaledInstance(400, 450, Image.SCALE_SMOOTH);
         ImageIcon imagenPlay = new ImageIcon(p1);
         botonPlay = new JButton();
@@ -108,7 +108,7 @@ public class VentanaInicio extends JFrame implements ActionListener {
         botonPlay.setBorderPainted(false); // quitar borde
         pCentro.add(botonPlay, BorderLayout.WEST);
         
-        ImageIcon estads1 = new ImageIcon("img/botonEstads.png");
+        ImageIcon estads1 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/BotonesInicio/botonEstads.png");
         Image e1 = estads1.getImage().getScaledInstance(400, 450, Image.SCALE_SMOOTH);
         ImageIcon imagenEstads = new ImageIcon(e1);
         botonEstads = new JButton();
@@ -118,7 +118,7 @@ public class VentanaInicio extends JFrame implements ActionListener {
         botonEstads.setBorderPainted(false); // quitar borde
         pCentro.add(botonEstads, BorderLayout.EAST);
         
-        ImageIcon set1 = new ImageIcon("img/botonAjustes.png");
+        ImageIcon set1 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/BotonesInicio/botonAjustes.png");
         Image s1 = set1.getImage().getScaledInstance(400, 450, Image.SCALE_SMOOTH);
         ImageIcon imagenS = new ImageIcon(s1);
         boton4 = new JButton();
@@ -169,6 +169,7 @@ public class VentanaInicio extends JFrame implements ActionListener {
             	else {
             		try {
 						VentanaEstadisticas venest = new VentanaEstadisticas(nombreUsuario);
+						venest.setVisible(true);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

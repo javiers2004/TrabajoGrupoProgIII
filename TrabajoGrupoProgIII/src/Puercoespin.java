@@ -33,15 +33,18 @@ public class Puercoespin extends Enemigos{
 		derecha.add(imagen20);
 		this.derecha = derecha;
 		ArrayList<ImageIcon> izquierda = new ArrayList<ImageIcon>();
-		ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/left0.png");
-		ImageIcon imagen3 = new ImageIcon(icono3.getImage().getScaledInstance(30,46, Image.SCALE_SMOOTH));
-		ImageIcon icono4 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/left1.png");
-		ImageIcon imagen4 = new ImageIcon(icono4.getImage().getScaledInstance(30,46, Image.SCALE_SMOOTH));
-		ImageIcon icono6 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/left2.png");
-		ImageIcon imagen6 = new ImageIcon(icono6.getImage().getScaledInstance(30,46, Image.SCALE_SMOOTH));
+		ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/puercoespin/walkleft1.png");
+		ImageIcon imagen3 = new ImageIcon(icono3.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
+		ImageIcon icono4 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/puercoespin/walkleft2.png");
+		ImageIcon imagen4 = new ImageIcon(icono4.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
+		ImageIcon icono6 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/puercoespin/walkleft3.png");
+		ImageIcon imagen6 = new ImageIcon(icono6.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
+		ImageIcon icono12 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/puercoespin/walkleft4.png");
+		ImageIcon imagen12 = new ImageIcon(icono12.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
 		izquierda.add(imagen3);
 		izquierda.add(imagen4);
 		izquierda.add(imagen6);
+		izquierda.add(imagen12);
 		this.izquierda = izquierda;	
 		ImageIcon icono7 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/puercoespin/ataque1.png");
 		ImageIcon imagen7 = new ImageIcon(icono7.getImage().getScaledInstance(80,60, Image.SCALE_SMOOTH));
@@ -104,13 +107,13 @@ public class Puercoespin extends Enemigos{
 			int blue = color.getBlue();
 			if (red > 220 && green > 220 && blue > 220 ) {
         	if(this.distancia(player) > 100) {
-				arrayenuso = derecha;
+				arrayenuso = izquierda;
 			}
 				x--;
 			}
         }
         if (this.y > player.getPosy() + altoventana/2) {
-        	Color color = new Color(mapacolisiones.getRGB(this.getX()/3   , this.getY()/3 ));
+        	Color color = new Color(mapacolisiones.getRGB(this.getX()/3   , this.getY()/3 -1));
         	int red = color.getRed();
 			int green = color.getGreen();
 			int blue = color.getBlue();

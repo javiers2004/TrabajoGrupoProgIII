@@ -87,7 +87,7 @@ public class Enemigos {
 				int blue = color.getBlue();
 				if (red > 220 && green > 220 && blue > 220 ) {
 					if(this.distancia(player) > 100) {
-						arrayenuso = derecha;
+						arrayenuso = izquierda;
 					}
 					x++;
 				}

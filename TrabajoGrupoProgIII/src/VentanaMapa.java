@@ -38,13 +38,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 
 
-import Imagenes.Dialogo;
+
 
 public class VentanaMapa extends JFrame implements KeyListener{
 	//ATRIBUTOS
+	private npc npc1;
+	
 	protected JLabel lblcartel;
 	private static final int distdetect = 900;
 	private static final int ddistdetect = 900;
@@ -308,7 +311,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	//CONSTRUCTOR
 	public VentanaMapa(Jugador player  ){
 	    this.player = player;  
-		ImageIcon icono5 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPABLANCO4.png");
+		ImageIcon icono5 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/Mapas/MAPABLANCO4.png");
 		Image image = icono5.getImage();
 		BufferedImage mapacolisiones = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 		mapacolisiones.createGraphics().drawImage(image, 0, 0, null);
@@ -357,7 +360,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
         pnlprincipal.setVisible(true);
         panelfondo.setVisible(true);       
         //PERSONALIZAR EL FONDO
-        ImageIcon iconofondo = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/OIP.jpg");
+        ImageIcon iconofondo = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/Mapas/OIP.jpg");
 		ImageIcon imagenfondo = new ImageIcon(iconofondo.getImage().getScaledInstance(screenSize.width,screenSize.height, Image.SCALE_SMOOTH));
 		fondo = new JLabel();
 		fondo.setIcon(imagenfondo);
@@ -365,7 +368,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		panelfondo.add(fondo, JLayeredPane.PALETTE_LAYER);
 		panelfondo.setComponentZOrder(fondo, 0);
 		//AÑADIR EL MAPA PRINCIPAL
-		ImageIcon icon = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPADEFINITIVO.png");
+		ImageIcon icon = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/Mapas/MAPADEFINITIVO.png");
 		ImageIcon imagen = new ImageIcon(icon.getImage().getScaledInstance(12288,12288,Image.SCALE_SMOOTH));
 		Image i2 = imagen.getImage();
 		BufferedImage imagenparadibujar = new BufferedImage(i2.getHeight(null), i2.getWidth(null), BufferedImage.TYPE_INT_ARGB);
@@ -375,7 +378,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		imagenfinal = new ImageIcon(imagenparadibujar);
 		map = new JLabel(imagenfinal);		
 		//MAPA DE CUEVAS Y TRONCOS
-		ImageIcon iconcueva = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/MAPACONCUEVAS2.png");
+		ImageIcon iconcueva = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/Mapas/MAPACONCUEVAS2.png");
 		ImageIcon imagencueva = new ImageIcon(iconcueva.getImage().getScaledInstance(12288,12288,Image.SCALE_SMOOTH));
 		Image i2cueva = imagencueva.getImage();
 		BufferedImage imagenparadibujarcueva = new BufferedImage(i2cueva.getHeight(null), i2cueva.getWidth(null), BufferedImage.TYPE_INT_ARGB);
@@ -414,7 +417,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		this.minimapa = minimapa;
 		//LABEL DEL CIRCULO AL ATRAVESAR ZONAS
 		labelatravesar = new JLabel();
-		ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/imagenatravesar.png");
+		ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/Mapas/imagenatravesar.png");
 		ImageIcon imagen3 = new ImageIcon(icono3.getImage().getScaledInstance(screenSize.width,screenSize.height, Image.SCALE_SMOOTH));
 		labelatravesar.setIcon(imagen3);
 		labelatravesar.setBounds(0, 0, screenSize.width , screenSize.height);
@@ -451,7 +454,9 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		Dialogo d1= new Dialogo("Te has encontrado con un viejo sabio. ¿Qué quieres preguntarle?", Arrays.asList("Sobre la vida", "Sobre la aventura", "Salir"));
 		Dialogo d2 = new Dialogo("Encuentras un cofre misterioso. ¿Deseas abrirlo?", Arrays.asList("Abrir", "Ignorar"));
 		
-		
+		Dialogo dialogonpc1 = new Dialogo("Hola aventurero, ¿qué necesitas?", Arrays.asList("Opción 1", "Opción 2", "Salir"));
+		npc1 = new npc(1122,10122,dialogonpc1);
+		panelfondo.add(npc1.getLabel());
 //		new Timer(10, new ActionListener() { // Este temporizador se ejecutará cada 100 milisegundos.
 //		    @Override
 //		    public void actionPerformed(ActionEvent ae) {
@@ -628,7 +633,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				Enemigos e2 = new Enemigos();
 				e2.setX(rx);
 				e2.setY(ry);
-				while(!areapermitida(rx, ry)) {
+				//&& e2.distancia(player) < 1000
+				while(!areapermitida(rx, ry) ) {
 					rx = r.nextInt(4096) ; 
 					ry = r.nextInt(4096) ;
 					e2.setX(rx);
@@ -767,6 +773,16 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		map.setVisible(true);
 		Enemigos emascercano = enemigos.get(0);
 		actualizarEnemigos();
+		if(player.getVidarestante() <= 0) {
+			this.setContinuar(false);
+			PanelMuerte panm = new PanelMuerte(this,(VentanaInicio) veninicio);
+			this.add(panm);
+			panm.setVisible(true);
+			this.setVisible(true);
+			this.panelfondo.setVisible(false);
+			this.pnlprincipal.setVisible(false);
+			this.getLblplayer().setVisible(false); 
+		}
 		try {
 		for(Enemigos e: enemigos) {
 			if(e.isVivo() == true) {
@@ -783,6 +799,23 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				}
 				if(e.distancia( player) < 100 && e.getContadorsprite() == 20) {
 					if(e instanceof Puercoespin) {
+						for(Enemigos e2: enemigos) {
+							if(e2.distancia(player) < 150) {
+								e2.setHealth(e2.getHealth()-100);
+							}
+							if (e2.getHealth() <= 0) {
+        						e2.setArrayenuso(e2.muerte);
+        						e2.setVivo(false);
+        						player.setExperiencia(player.getExperiencia() + e2.getExperiencia());
+        						if(player.getEstadisticas().containsKey(e2.getClass())) {
+        							player.getEstadisticas().put(e2.getClass(), player.getEstadisticas().get(e2.getClass()) + 1);
+        						}
+        						else {
+        							player.getEstadisticas().put(e2.getClass(), 1);
+        						}
+        						System.out.println(player.getEstadisticas());
+        					}
+						}
 						player.setVidarestante(player.getVidarestante()- e.getDaño());
 						player.setDanorecibido(player.getDanorecibido() + e.getDaño());
 						e.setVivo(false);
@@ -815,6 +848,10 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				}	
 			}	
 		}
+		npc1.actualizarInter(player);
+		if(npc1.isEsInteractivo()) {
+			//npc1.interactuar();
+		}
 		mostrarCartel(player, emascercano);
 		if(teclaw == true || teclaa == true || teclas == true || teclad == true) {	
 			if(this.getArraymovimiento() == null) {
@@ -845,22 +882,17 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			this.setAumentoprogresivoexp(this.getAumentoprogresivoexp() + 1);
 			this.player = player;
 			if (player.getExperiencia() > 200) {
+				veninfo.barravida.setMaximum(player.getVidatotal());
+				veninfo.barrastamina.setMaximum((int)player.getStaminatotal());
+				veninfo.barravida.setVisible(true);
+				veninfo.barrastamina.setVisible(true);
 				player.setNivel(player.getNivel() + 1);
-				player.setExperiencia(0);
+				player.setExperiencia(player.getExperiencia()-200);
 				levelup.setVisible(true);
 				HiloSubidaNivel hilosubidanivel = new HiloSubidaNivel(veninfo, this, player);
 				hilosubidanivel.start();	
 				levelup.setVisible(false);
-			}
-			if(player.getVidarestante() <= 0) {
-				this.setContinuar(false);
-				PanelMuerte panm = new PanelMuerte(this,(VentanaInicio) veninicio);
-				this.add(panm);
-				panm.setVisible(true);
-				this.setVisible(true);
-				this.panelfondo.setVisible(false);
-				this.pnlprincipal.setVisible(false);
-				this.getLblplayer().setVisible(false); 
+				
 			}
 		}
 		this.minimapa.actualizarPunto(player);
@@ -902,7 +934,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	        }
 	        if (!estaba) {
 	            // Si el nombre no existe, realizar una inserción
-	            String insertQuery = "INSERT INTO PARTIDAS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	            String insertQuery = "INSERT INTO PARTIDAS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	            try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 	                preparedStatement.setString(1, nombrePlayer);
 	                preparedStatement.setInt(2, player.getNivel());
@@ -916,11 +948,12 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                preparedStatement.setInt(10, player.getGoplesefectivos());
 	                preparedStatement.setInt(11, player.getDanoinflingido());
 	                preparedStatement.setInt(12, player.getDanorecibido());
+	                preparedStatement.setInt(13,(int) player.getStaminatotal());
 	                preparedStatement.executeUpdate();
 	            }
 	        } else {
 	            // Si el nombre ya existe, realizar una actualización
-	            String updateQuery = "UPDATE PARTIDAS SET NIVEL=?, EXPERIENCIA=?, VIDA=?, POSX=?, POSY=?, VIDATOTAL=?, NUMERODEGOLPES=?, DISTANCE=?, GOPLESEFECTIVOS=?, DANOINFLINGIDO=?, DANORECIBIDO=? WHERE NOMBRE=?";
+	            String updateQuery = "UPDATE PARTIDAS SET NIVEL=?, EXPERIENCIA=?, VIDA=?, POSX=?, POSY=?, VIDATOTAL=?, NUMERODEGOLPES=?, DISTANCE=?, GOPLESEFECTIVOS=?, DANOINFLINGIDO=?, DANORECIBIDO=?, STAMINATOTAL=? WHERE NOMBRE=?";
 
 	            try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
 	                preparedStatement.setInt(1, player.getNivel());
@@ -934,8 +967,9 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                preparedStatement.setInt(9, player.getGoplesefectivos());
 	                preparedStatement.setInt(10, player.getDanoinflingido());
 	                preparedStatement.setInt(11, player.getDanorecibido());
-	                
-	                preparedStatement.setString(12, nombrePlayer);
+	                preparedStatement.setInt(12, player.getDanorecibido());
+
+	                preparedStatement.setString(13, nombrePlayer);
 
 	                preparedStatement.executeUpdate();
 	            }
@@ -981,6 +1015,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                player.setGoplesefectivos(resultSet2.getInt("GOPLESEFECTIVOS"));
 	                player.setDanoinflingido(resultSet2.getInt("DANOINFLINGIDO"));
 	                player.setDanorecibido(resultSet2.getInt("DANORECIBIDO"));
+	                player.setStaminatotal(resultSet2.getInt("STAMINATOTAL"));
 	            }
 			}
 			connection.close();

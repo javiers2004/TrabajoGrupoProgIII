@@ -33,15 +33,18 @@ public class Pajaro extends Enemigos{
 		derecha.add(imagen9);
 		this.derecha = derecha;
 		ArrayList<ImageIcon> izquierda = new ArrayList<ImageIcon>();
-		ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/left0.png");
-		ImageIcon imagen3 = new ImageIcon(icono3.getImage().getScaledInstance(30,46, Image.SCALE_SMOOTH));
-		ImageIcon icono4 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/left1.png");
-		ImageIcon imagen4 = new ImageIcon(icono4.getImage().getScaledInstance(30,46, Image.SCALE_SMOOTH));
-		ImageIcon icono6 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/left2.png");
-		ImageIcon imagen6 = new ImageIcon(icono6.getImage().getScaledInstance(30,46, Image.SCALE_SMOOTH));
+		ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/pajaro/leftwalk0.png");
+		ImageIcon imagen3 = new ImageIcon(icono3.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
+		ImageIcon icono4 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/pajaro/leftwalk1.png");
+		ImageIcon imagen4 = new ImageIcon(icono4.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
+		ImageIcon icono6 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/pajaro/leftwalk2.png");
+		ImageIcon imagen6 = new ImageIcon(icono6.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
+		ImageIcon icono14 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/pajaro/leftwalk3.png");
+		ImageIcon imagen14 = new ImageIcon(icono14.getImage().getScaledInstance(64,50, Image.SCALE_SMOOTH));
 		izquierda.add(imagen3);
 		izquierda.add(imagen4);
 		izquierda.add(imagen6);
+		izquierda.add(imagen14);
 		this.izquierda = izquierda;	
 		ImageIcon icono7 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/pajaro/pajaroatack0.png");
 		ImageIcon imagen7 = new ImageIcon(icono7.getImage().getScaledInstance(60,45, Image.SCALE_SMOOTH));
@@ -68,46 +71,46 @@ public class Pajaro extends Enemigos{
 	public void moveToPlayer(Jugador player, BufferedImage mapacolisiones) {
 		//mover hacia el jugador cuando entra en x rango
 		if (this.x < player.getPosx()+ anchoventana/2 + 50) {
-//			Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3 - 12/3  , player.getPosy()/3 ));
-//			int red = color.getRed();
-//			int green = color.getGreen();
-//			int blue = color.getBlue();
-//			if (red > 200 && green > 200 && blue > 200 ) {
+			Color color = new Color(mapacolisiones.getRGB(this.getX()/3  +1, this.getY()/3 ));
+			int red = color.getRed();
+			int green = color.getGreen();
+			int blue = color.getBlue();
+			if (red != 255 || green != 0 || blue != 0) {
 				if(this.distancia(player) > 100) {
-					arrayenuso = derecha;
+					arrayenuso = izquierda;
 				}
 				x = x+1;
-//			}
+			}
 		}
         if (this.y < player.getPosy() + altoventana/2) {
-//			Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3  -10, player.getPosy()/3+ 3/3 ));
-//			int red = color.getRed();
-//			int green = color.getGreen();
-//			int blue = color.getBlue();
-//			if (red > 200 && green > 200 && blue > 200 ) {
+			Color color = new Color(mapacolisiones.getRGB(this.getX()/3  , this.getY()/3 + 1));
+			int red = color.getRed();
+			int green = color.getGreen();
+			int blue = color.getBlue();
+			if (red != 255 || green != 0 || blue != 0) {
 				y = y+1;
-//			}
+			}
         }
         if (this.x > player.getPosx() + anchoventana/2 + 50) {
-//			Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3 - 42/3 , player.getPosy()/3 ));
-//        	int red = color.getRed();
-//			int green = color.getGreen();
-//			int blue = color.getBlue();
-//			if (red > 200 && green > 200 && blue > 200 ) {
+			Color color = new Color(mapacolisiones.getRGB(this.getX()/3 -1 , this.getY()/3  ));
+        	int red = color.getRed();
+			int green = color.getGreen();
+			int blue = color.getBlue();
+			if (red != 255 || green != 0 || blue != 0) {
         	if(this.distancia(player) > 100) {
 				arrayenuso = derecha;
 			}
-				x = x -1;
-//			}
+				x= x-1;
+			}
         }
         if (this.y > player.getPosy() + altoventana/2) {
-//        	Color color = new Color(mapacolisiones.getRGB(player.getPosx()/3  , player.getPosy()/3 +  - 30/3));
-//        	int red = color.getRed();
-//			int green = color.getGreen();
-//			int blue = color.getBlue();
-//			if (red > 200 && green > 200 && blue > 200 ) {
-				y = y-1;
-//			}
+        	Color color = new Color(mapacolisiones.getRGB(this.getX()/3   , this.getY()/3 -1));
+        	int red = color.getRed();
+			int green = color.getGreen();
+			int blue = color.getBlue();
+			if (red != 255 || green != 0 || blue != 0) {
+				y= y-1;
+			}
         }
 	}
 }
