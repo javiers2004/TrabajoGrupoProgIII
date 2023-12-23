@@ -991,7 +991,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                preparedStatement.setInt(9, player.getGoplesefectivos());
 	                preparedStatement.setInt(10, player.getDanoinflingido());
 	                preparedStatement.setInt(11, player.getDanorecibido());
-	                preparedStatement.setInt(12,(int) player.getStaminatotal()));
+	                preparedStatement.setInt(12,(int) player.getStaminatotal());
 	                preparedStatement.setString(19, nombrePlayer);
 	                preparedStatement.setInt(13, player.getEstadisticas().get(Slime.class));
 	                preparedStatement.setInt(14, player.getEstadisticas().get(Pajaro.class));
