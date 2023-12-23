@@ -223,6 +223,13 @@ public class Jugador {
 		ataqueespadaizq.add(imagen10);
 		this.ataqueespadaizq = ataqueespadaizq;
 		this.nivel = 1;
+		estadisticas.put(Slime.class, 0);
+		estadisticas.put(Pajaro.class, 0);
+		estadisticas.put(Bat.class, 0);
+		estadisticas.put(Caparazon.class, 0);
+		estadisticas.put(Puercoespin.class, 0);
+		estadisticas.put(Goblin.class, 0);
+
 	}
 	public Jugador(String nombre, String nivel) {
 		super();

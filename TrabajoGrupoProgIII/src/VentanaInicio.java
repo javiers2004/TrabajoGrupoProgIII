@@ -148,7 +148,7 @@ public class VentanaInicio extends JFrame implements ActionListener {
         botonNombre.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    nombreUsuario = JOptionPane.showInputDialog("Introduce tu nombreee:");
+                    nombreUsuario = JOptionPane.showInputDialog("Introduce tu nombre:");
                     if (nombreUsuario != null) {
                         JOptionPane.showMessageDialog(null, "Hola, " + nombreUsuario + "!");
                         nombres.add(nombreUsuario); // Agregar el nombre a la lista

@@ -522,12 +522,10 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 						enem.setArrayenuso(enem.muerte);
                 						enem.setVivo(false);
                 						player.setExperiencia(player.getExperiencia() + enem.getExperiencia());
-                						if(player.getEstadisticas().containsKey(enem.getClass())) {
-                							player.getEstadisticas().put(enem.getClass(), player.getEstadisticas().get(enem.getClass()) + 1);
-                						}
-                						else {
-                							player.getEstadisticas().put(enem.getClass(), 1);
-                						}
+                						
+                						player.getEstadisticas().put(enem.getClass(), player.getEstadisticas().get(enem.getClass()) + 1);
+                						
+                						
                 						System.out.println(player.getEstadisticas());
                 					}
                 				}
@@ -950,7 +948,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	        }
 	        if (!estaba) {
 	            // Si el nombre no existe, realizar una inserción
-	            String insertQuery = "INSERT INTO PARTIDAS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	            String insertQuery = "INSERT INTO PARTIDAS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	            try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 	                preparedStatement.setString(1, nombrePlayer);
 	                preparedStatement.setInt(2, player.getNivel());
@@ -965,11 +963,21 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                preparedStatement.setInt(11, player.getDanoinflingido());
 	                preparedStatement.setInt(12, player.getDanorecibido());
 	                preparedStatement.setInt(13,(int) player.getStaminatotal());
+	                preparedStatement.setInt(14, player.getEstadisticas().get(Slime.class));
+	                preparedStatement.setInt(15, player.getEstadisticas().get(Pajaro.class));
+	                preparedStatement.setInt(16, player.getEstadisticas().get(Bat.class));
+	                preparedStatement.setInt(17, player.getEstadisticas().get(Caparazon.class));
+	                preparedStatement.setInt(18, player.getEstadisticas().get(Puercoespin.class));
+	                preparedStatement.setInt(19, player.getEstadisticas().get(Goblin.class));
+	                
+	                
+	                
+	                
 	                preparedStatement.executeUpdate();
 	            }
 	        } else {
 	            // Si el nombre ya existe, realizar una actualización
-	            String updateQuery = "UPDATE PARTIDAS SET NIVEL=?, EXPERIENCIA=?, VIDA=?, POSX=?, POSY=?, VIDATOTAL=?, NUMERODEGOLPES=?, DISTANCE=?, GOLPESEFECTIVOS=?, DANOINFLINGIDO=?, DANORECIBIDO=?, STAMINATOTAL=? WHERE NOMBRE=?";
+	            String updateQuery = "UPDATE PARTIDAS SET NIVEL=?, EXPERIENCIA=?, VIDA=?, POSX=?, POSY=?, VIDATOTAL=?, NUMERODEGOLPES=?, DISTANCE=?, GOLPESEFECTIVOS=?, DANOINFLINGIDO=?, DANORECIBIDO=?, STAMINATOTAL=?, SLIMES=?, PAJAROS=?, MURCIELAGOS=?,CAPARAZONES=?, PUERCOESPINES=?, GOBLINS=? WHERE NOMBRE=?";
 
 	            try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
 	                preparedStatement.setInt(1, player.getNivel());
@@ -984,12 +992,18 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                preparedStatement.setInt(10, player.getDanoinflingido());
 	                preparedStatement.setInt(11, player.getDanorecibido());
 	                preparedStatement.setInt(12, player.getDanorecibido());
-
-	                preparedStatement.setString(13, nombrePlayer);
-
+	                preparedStatement.setString(19, nombrePlayer);
+	                preparedStatement.setInt(13, player.getEstadisticas().get(Slime.class));
+	                preparedStatement.setInt(14, player.getEstadisticas().get(Pajaro.class));
+	                preparedStatement.setInt(15, player.getEstadisticas().get(Bat.class));
+	                preparedStatement.setInt(16, player.getEstadisticas().get(Caparazon.class));
+	                preparedStatement.setInt(17, player.getEstadisticas().get(Puercoespin.class));
+	                preparedStatement.setInt(18, player.getEstadisticas().get(Goblin.class));
+	                
 	                preparedStatement.executeUpdate();
 	            }
 	        }
+	        connection.close();
 
 	    } catch (SQLException e) {
 	        // Manejar la excepción de una manera más específica o utilizar un sistema de registro adecuado
@@ -1028,10 +1042,17 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                player.setVidatotal(resultSet2.getInt("VIDATOTAL"));
 	                player.setNumerodegolpes(resultSet2.getInt("NUMERODEGOLPES"));
 	                player.setDistance(resultSet2.getInt("DISTANCE"));
-	                player.setGoplesefectivos(resultSet2.getInt("GOPLESEFECTIVOS"));
+	                player.setGoplesefectivos(resultSet2.getInt("GOLPESEFECTIVOS"));
 	                player.setDanoinflingido(resultSet2.getInt("DANOINFLINGIDO"));
 	                player.setDanorecibido(resultSet2.getInt("DANORECIBIDO"));
 	                player.setStaminatotal(resultSet2.getInt("STAMINATOTAL"));
+	                player.getEstadisticas().put(Slime.class, resultSet2.getInt("SLIMES"));
+	                player.getEstadisticas().put(Pajaro.class, resultSet2.getInt("PAJAROS"));
+	                player.getEstadisticas().put(Bat.class, resultSet2.getInt("MURCIELAGOS"));
+	                player.getEstadisticas().put(Caparazon.class, resultSet2.getInt("CAPARAZONES"));
+	                player.getEstadisticas().put(Puercoespin.class, resultSet2.getInt("PUERCOESPINES"));
+	                player.getEstadisticas().put(Goblin.class, resultSet2.getInt("GOBLINS"));
+
 	            }
 			}
 			connection.close();
