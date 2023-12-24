@@ -20,7 +20,8 @@ public class PanelMuerte extends JPanel{
 	        etiquetaMuerte.setBounds(ALLBITS, ABORT, WIDTH, HEIGHT);
 	        add(etiquetaMuerte);
 	        JPanel panelcentral = new JPanel();
-	        panelcentral.add(etiquetaMuerte);
+	        panelcentral.setLayout(new BorderLayout());
+	        panelcentral.add(etiquetaMuerte, BorderLayout.CENTER);
 	        add(panelcentral, BorderLayout.CENTER);
 	        JButton boton = new JButton("MENÚ INICIO");
 	        boton.addActionListener(new ActionListener() {
