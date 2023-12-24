@@ -782,8 +782,9 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		Enemigos emascercano = enemigos.get(0);
 		actualizarEnemigos();
 		if(player.getVidarestante() <= 0) {
+			guardarDatosPartida();
 			this.setContinuar(false);
-			PanelMuerte panm = new PanelMuerte(this,(VentanaInicio) veninicio);
+			PanelMuerte panm = new PanelMuerte(this,(VentanaInicio) veninicio, veninicio.nombreUsuario);
 			this.add(panm);
 			panm.setVisible(true);
 			this.setVisible(true);
