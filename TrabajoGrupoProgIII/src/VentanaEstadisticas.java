@@ -33,7 +33,14 @@ public class VentanaEstadisticas extends JFrame {
         setLocation(xPos, yPos);
         
 		DefaultTableModel modelo = new DefaultTableModel(new Object[] {"NOMBRE","NIVEL","EXPERIENCIA","VIDARESTANTE","POSX","POSY","VIDATOTAL",
-				"NUMERO GOLPES","DISTANCE","GOLPES EFECTIVOS","DAÑO INFLINGIDO","DAÑO RECIBIDO", "ESTAMINA", "ENEMIGOS", "SLIMES","PAJAROS", "MURCIELAGOS", "CAPARAZONES", "PUERCOESPINES", "GOBLINS"},0);
+				"NUMERO GOLPES","DISTANCE","GOLPES EFECTIVOS","DAÑO INFLINGIDO","DAÑO RECIBIDO", "ESTAMINA", "ENEMIGOS", "SLIMES","PAJAROS", "MURCIELAGOS", "CAPARAZONES", "PUERCOESPINES", "GOBLINS"},0) {
+		
+		    @Override
+		    public boolean isCellEditable(int row, int column) {
+		        return false; // Con esto, ninguna celda será editable.
+		    }
+		};
+		
 		modelo.addRow(new Object[] {"","","","","                 X","                 Y","","","","","","", "","","","","","",""});
 
 		
