@@ -28,7 +28,8 @@ public class Joana extends npc {
        animacionDerecha.add(im4);
        this.animacionDerecha = animacionDerecha;
        
-
+       this.getLabel().setIcon(this.getAnimacionDerecha().get(0));
+       this.getLabel().setOpaque(false);
 
        
         inicializarDialogos();
