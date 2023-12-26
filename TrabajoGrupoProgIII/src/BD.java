@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class BD {
 	/**
@@ -76,6 +77,23 @@ public class BD {
 	    }
 	}
 	
+	public static void crearTablaObjetos(Connection con) {
+	    String sql = "CREATE TABLE IF NOT EXISTS Objetos (" +
+	        "Id INTEGER, " +
+	        "Buy INTEGER, " +
+	        "NombreJugador TEXT, " +
+	        ");";
+
+	    try {
+	        Statement st = con.createStatement();
+	        st.executeUpdate(sql);
+	        st.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	
 	public static Jugador buscarJugador(Connection con, String nombre) {
 		
 		String sql = String.format("SELECT * FROM Jugador WHERE nom='%s'", nombre);
@@ -95,8 +113,13 @@ public class BD {
 		}
 		return j;
 	}
+	public static ArrayList<> buscarObjetos(Connection con, String nombre) {
+		return null;
+	}
 	
-	
+	public static void insertarObjetos(Connection con, Jugador j) {
+		
+	}
 	
 	public static void insertarJugador(Connection con, Jugador j) {
 		if(buscarJugador(con, j.getNombre())==null) {

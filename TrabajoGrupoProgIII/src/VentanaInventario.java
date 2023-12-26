@@ -17,7 +17,7 @@ public class VentanaInventario extends JFrame {
     private static final int ICON_WIDTH = 32; // Ancho deseado para el ícono
     private static final int ICON_HEIGHT = 32; // Altura deseada para el ícono
     private int consumibles = 10;
-    private String rutaArchivo = "Inventario.txt"; // Ruta del archivo para guardar y cargar el inventario
+    private Objetos inventario;
 
     // Constructor de la ventana
     public VentanaInventario() {
@@ -27,13 +27,12 @@ public class VentanaInventario extends JFrame {
         setLayout(new BorderLayout());
         setResizable(false);
         
-        
-        ArrayList<Item> inventario = Inventario.cargarDesdeCSV(rutaArchivo);
+        Objetos inventario = new Objetos();
         
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-            	Inventario.guardarEnCSV(inventario, rutaArchivo); // Guardar inventario al cerrar
+            	inventario.guardarObjetosBD();
             }
         });
 
@@ -145,7 +144,7 @@ public class VentanaInventario extends JFrame {
         panelDerecho.add(panelConsumibles);
 
         // Modelo de la tabla personalizado para manejar íconos
-        DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Ícono", "Nombre", "Daño", "Cooldown"}, 0) {
+        DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Ícono", "Nombre", "Daño", "Cura", "Coste", "Descripción", "Cooldown"},0) {
             @Override
             public boolean isCellEditable(int row, int column) {
             	// TODO Auto-generated method stub
@@ -159,9 +158,35 @@ public class VentanaInventario extends JFrame {
 
         // Crear y agregar los ítems al modelo de la tabla
         
-        for (Item item : inventario) {
-            modelo.addRow(new Object[]{createImageIcon(item.getIcono()), item.getIcono(), item.getNombre(), item.getNombre()});
+        for (Item item : inventario.objetos) {
+        	if (item.isComprado()){
+        		if (item instanceof ItemAtaqueCorto) {
+        	        ItemAtaqueCorto ataqueCorto = (ItemAtaqueCorto) item;
+        	        modelo.addRow(new Object[]{
+        	            createImageIcon(ataqueCorto.getIcono()), 
+        	            ataqueCorto.getNombre(), 
+        	            ataqueCorto.getDaño(), 
+        	            "", // cura bacio
+        	            ataqueCorto.getCoste(),
+        	            ataqueCorto.getDescripcion(),
+        	            ataqueCorto.getCooldown()
+        	        });
+        	    } else if (item instanceof ItemCura) {
+        	        ItemCura cura = (ItemCura) item;
+        	        modelo.addRow(new Object[]{
+        	            createImageIcon(cura.getIcono()), 
+        	            cura.getNombre(), 
+        	            "", // daño bacio
+        	            cura.getCuracion(), 
+        	            cura.getCoste(),
+        	            cura.getDescripcion(),
+        	            cura.getCooldown()
+        	        });
+        	    }
+        	}
+            
         }
+
         JTable tabla = new JTable(modelo);
         tabla.setRowHeight(50); // Ajustar la altura de las filas para los íconos
         tabla.setSelectionBackground(Color.WHITE);
