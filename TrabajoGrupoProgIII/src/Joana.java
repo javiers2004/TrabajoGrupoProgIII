@@ -1,5 +1,7 @@
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,12 +14,15 @@ public class Joana extends npc {
 
     public Joana(int x, int y) {
         super(x, y, null); 
-        
+        this.label = new JLabel();
+        this.label.setBounds(x, y, 74, 54);
+        this.label.setBackground(Color.red);
+        this.label.setOpaque(true);
        ArrayList<ImageIcon> animacionDerecha = new ArrayList<ImageIcon>();
        ImageIcon i1 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/jIdle1.png");
-       ImageIcon im1 = new ImageIcon(i1.getImage().getScaledInstance(70, 54, Image.SCALE_SMOOTH));
+       ImageIcon im1 = new ImageIcon(i1.getImage().getScaledInstance(74, 54, Image.SCALE_SMOOTH));
        ImageIcon i2 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/jIdle2.png");
-       ImageIcon im2 = new ImageIcon(i2.getImage().getScaledInstance(70, 54, Image.SCALE_SMOOTH));
+       ImageIcon im2 = new ImageIcon(i2.getImage().getScaledInstance(74, 54, Image.SCALE_SMOOTH));
        ImageIcon i3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/jIdle3.png");
        ImageIcon im3 = new ImageIcon(i3.getImage().getScaledInstance(70, 54, Image.SCALE_SMOOTH));
        ImageIcon i4 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/jIdle4.png");

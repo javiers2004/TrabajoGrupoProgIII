@@ -626,10 +626,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		public void run() {
 		while(true) {
 			
-			int posJ = 500;
-			int posYj = 500;
+			int posJ = 900;
+			int posYj = 10000;
 			Joana j = new Joana(posJ, posYj);
-			j.getLabel().setLocation(3* posJ - player.getPosx(), 3* posYj - player.getPosy());
+			//j.getLabel().setLocation(3* posJ - player.getPosx(), 3* posYj - player.getPosy());
+			j.getLabel().setLocation(posJ, posYj);
 			j.getLabel().setVisible(true);
 			VentanaMapa.this.panelfondo.add(j.getLabel());
 			VentanaMapa.this.panelfondo.setComponentZOrder(j.getLabel(), 3);
@@ -641,6 +642,10 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			int posyE = 800;
 			Eleanore ele = new Eleanore(posE, posyE);
 			ele.getLabel().setLocation(posE, posyE);
+			ele.getLabel().setVisible(true);
+			VentanaMapa.this.panelfondo.add(ele.getLabel());
+			VentanaMapa.this.panelfondo.setComponentZOrder(ele.getLabel(), 3);
+			
 			
 			int contadorvivos = 0;
 			for(Enemigos e : VentanaMapa.this.enemigos) {

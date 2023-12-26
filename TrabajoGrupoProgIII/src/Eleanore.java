@@ -1,8 +1,10 @@
+import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class Eleanore extends npc {
 	
@@ -15,6 +17,10 @@ public class Eleanore extends npc {
 
 	 public Eleanore(int x, int y) {
 	        super(x, y, null);
+	        this.label = new JLabel();
+	        this.label.setBounds(x, y, 74, 54);
+	        this.label.setBackground(Color.red);
+	        this.label.setOpaque(true);
 	        ArrayList<ImageIcon> animacionDerecha = new ArrayList<ImageIcon>();
 	        ImageIcon i1 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/eIdle1.png");
 	        ImageIcon im1 = new ImageIcon(i1.getImage().getScaledInstance(70, 54, Image.SCALE_SMOOTH));
@@ -29,6 +35,10 @@ public class Eleanore extends npc {
 	        animacionDerecha.add(im3);
 	        animacionDerecha.add(im4);
 	        this.animacionDerecha = animacionDerecha;
+	        
+	        this.getLabel().setIcon(this.getAnimacionDerecha().get(0));
+	        this.getLabel().setOpaque(false);
+
 	        inicializarDialogos();
 }
 	 private void inicializarDialogos() {
