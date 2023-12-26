@@ -93,13 +93,13 @@ public class npc {
         animacionDerecha = new ArrayList<>();
         //animacionIzquierda = new ArrayList<>();
         
-            for (int i = 1; i <= 4; i++) {
+            /*for (int i = 1; i <= 4; i++) {
             animacionDerecha.add(new ImageIcon("Idle" + i + ".png"));
             //animacionIzquierda.add(new ImageIcon("idle" + i + ".png"));
         }
 
         // Inicializar el JLabel con la primera imagen de una de las animaciones
-        label.setIcon(animacionDerecha.get(0));
+        label.setIcon(animacionDerecha.get(0));*/
     }
 
     public void actualizarInter(Jugador player) {
