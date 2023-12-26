@@ -17,7 +17,7 @@ public class VentanaInventario extends JFrame {
     private static final int ICON_WIDTH = 32; // Ancho deseado para el ícono
     private static final int ICON_HEIGHT = 32; // Altura deseada para el ícono
     private int consumibles = 10;
-    private Objetos inventario;
+
 
     // Constructor de la ventana
     public VentanaInventario() {
@@ -28,6 +28,7 @@ public class VentanaInventario extends JFrame {
         setResizable(false);
         
         Objetos inventario = new Objetos();
+        inventario.cargarObjetosBD();
         
         addWindowListener(new WindowAdapter() {
             @Override
