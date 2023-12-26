@@ -525,7 +525,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 						player.getEstadisticas().put(enem.getClass(), player.getEstadisticas().get(enem.getClass()) + 1);
                 						
                 						
-                						System.out.println(player.getEstadisticas());
+                						//System.out.println(player.getEstadisticas());
                 					}
                 				}
                 			}    
@@ -739,7 +739,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			}
 		}
 		}catch(ConcurrentModificationException e) {
-			System.out.println("salta");
+			//System.out.println("salta");
 		}
 	}
 
@@ -828,7 +828,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	        						else {
 	        							player.getEstadisticas().put(e2.getClass(), 1);
 	        						}
-	        						System.out.println(player.getEstadisticas());
+	        						//System.out.println(player.getEstadisticas());
 	        					}
 							}
 							
@@ -920,7 +920,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		this.minimapa.actualizarPunto(player);
 	}
 	catch(ConcurrentModificationException e) {
-		System.out.println("salta");
+		//System.out.println("salta");
 	}
 	}
 	public void actualizarComponentes(Jugador player) {

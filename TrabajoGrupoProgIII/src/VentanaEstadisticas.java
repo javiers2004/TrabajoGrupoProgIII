@@ -11,11 +11,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -33,7 +38,18 @@ public class VentanaEstadisticas extends JFrame {
         setLocation(xPos, yPos);
         
 		DefaultTableModel modelo = new DefaultTableModel(new Object[] {"NOMBRE","NIVEL","EXPERIENCIA","VIDARESTANTE","POSX","POSY","VIDATOTAL",
-				"NUMERO GOLPES","DISTANCE","GOLPES EFECTIVOS","DAÑO INFLINGIDO","DAÑO RECIBIDO", "ESTAMINA", "ENEMIGOS", "SLIMES","PAJAROS", "MURCIELAGOS", "CAPARAZONES", "PUERCOESPINES", "GOBLINS"},0);
+				"NUMERO GOLPES","DISTANCE","GOLPES EFECTIVOS","DAÑO INFLINGIDO","DAÑO RECIBIDO", "ESTAMINA", "ENEMIGOS", "SLIMES","PAJAROS", "MURCIELAGOS", "CAPARAZONES", "PUERCOESPINES", "GOBLINS"},0) {
+		
+		    @Override
+		    public boolean isCellEditable(int row, int column) {
+		        return false; // Con esto, ninguna celda será editable.
+		    }
+		    
+		    
+		};
+		
+		
+		
 		modelo.addRow(new Object[] {"","","","","                 X","                 Y","","","","","","", "","","","","","",""});
 
 		
@@ -230,13 +246,27 @@ public class VentanaEstadisticas extends JFrame {
     				else {
     					comp.setIcon(null);
     				}
+    				if(isSelected) {
+    					comp.setBackground(null);
+    				}
     				return comp;
     			}	
     		};
 
+    		
+    		
+    		
+    		
+    		
+    		
 //        ModeloTablaPersonas mod = new ModeloTablaPersonas(nombreusuario);
         JTable table = new JTable(modelo);
+        
+        
+        
+        
         table.setDefaultRenderer(Object.class, renderer);
+		table.getTableHeader().setReorderingAllowed(false);
         for (int i = 0; i < table.getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setPreferredWidth(150); // Set your preferred width
             table.getColumnModel().getColumn(i).setMinWidth(100); // Set the minimum width
@@ -260,4 +290,5 @@ public class VentanaEstadisticas extends JFrame {
         
          
     }
+    
 }
