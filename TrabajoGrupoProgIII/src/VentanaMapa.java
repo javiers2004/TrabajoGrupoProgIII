@@ -625,6 +625,14 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	Thread generarEnemigos2 = new Thread() {
 		public void run() {
 		while(true) {
+			int posJ = 500;
+			int posYj = 500;
+			Joana j = new Joana(posJ, posYj);
+			j.getLabel().setLocation(3* posJ - player.getPosx(), 3* posYj - player.getPosy());
+			j.getLabel().setVisible(true);
+			VentanaMapa.this.panelfondo.add(j.getLabel());
+			VentanaMapa.this.panelfondo.setComponentZOrder(j.getLabel(), 3);
+			
 			int contadorvivos = 0;
 			for(Enemigos e : VentanaMapa.this.enemigos) {
 				if(e.isVivo()) {
