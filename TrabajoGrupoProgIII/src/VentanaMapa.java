@@ -632,7 +632,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			j.getLabel().setVisible(true);
 			VentanaMapa.this.panelfondo.add(j.getLabel());
 			VentanaMapa.this.panelfondo.setComponentZOrder(j.getLabel(), 3);
-			
+			j.getLabel().setVisible(true);
 			int contadorvivos = 0;
 			for(Enemigos e : VentanaMapa.this.enemigos) {
 				if(e.isVivo()) {

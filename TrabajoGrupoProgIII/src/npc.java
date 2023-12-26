@@ -3,14 +3,14 @@ import javax.swing.JLabel;
 import java.util.ArrayList;
 
 public class npc {
-    private int x, y;
-    private boolean esInteractivo;
-    private Dialogo dialogo;
-    private JLabel label;
-    private ArrayList<ImageIcon> animacionDerecha;
-    private ArrayList<ImageIcon> animacionIzquierda;
-    private static final int DISTANCIA_INTERACTUAR = 100;
-    private int contadorAnimacion = 0;
+    protected int x, y;
+    protected boolean esInteractivo;
+    protected Dialogo dialogo;
+    protected JLabel label;
+    protected ArrayList<ImageIcon> animacionDerecha;
+    protected ArrayList<ImageIcon> animacionIzquierda;
+    protected static final int DISTANCIA_INTERACTUAR = 100;
+    protected int contadorAnimacion = 0;
 
     
     
@@ -111,7 +111,7 @@ public class npc {
         label.setLocation(x, y);
     }
 
-   private void actualizarAnimacion(Jugador player) {
+   protected void actualizarAnimacion(Jugador player) {
         // Cambiar la imagen del JLabel según la dirección del movimiento
         if (player.getPosx() > x) {
             label.setIcon(animacionDerecha.get(contadorAnimacion % animacionDerecha.size()));
@@ -120,6 +120,9 @@ public class npc {
         }
         contadorAnimacion++;
     }
+   public int distancua(Jugador player) {
+	   return (int) Math.sqrt(Math.pow(player.getPosx()- (this.getX()-789), 2) + Math.pow(player.getPosy() - (this.getY()-417), 2));
+   }
 
    
 }

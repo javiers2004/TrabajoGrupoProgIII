@@ -1,3 +1,4 @@
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -14,11 +15,20 @@ public class Eleanore extends npc {
 
 	 public Eleanore(int x, int y) {
 	        super(x, y, null);
-	        setAnimacionDerecha(new ArrayList<>());
-	        for(int i = 1 ; i<= 4; i++) {
-	        	getAnimacionDerecha().add(new ImageIcon("eIdle" + i + ".png"));
-	        }
-	        getLabel().setIcon(getAnimacionDerecha().get(0));
+	        ArrayList<ImageIcon> animacionDerecha = new ArrayList<ImageIcon>();
+	        ImageIcon i1 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/eIdle1.png");
+	        ImageIcon im1 = new ImageIcon(i1.getImage().getScaledInstance(70, 54, Image.SCALE_SMOOTH));
+	        ImageIcon i2 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/eIdle1.png");
+	        ImageIcon im2 = new ImageIcon(i2.getImage().getScaledInstance(70, 54, Image.SCALE_SMOOTH));
+	        ImageIcon i3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/eIdle1.png");
+	        ImageIcon im3 = new ImageIcon(i3.getImage().getScaledInstance(70, 54, Image.SCALE_SMOOTH));
+	        ImageIcon i4 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/eIdle1.png");
+	        ImageIcon im4 = new ImageIcon(i4.getImage().getScaledInstance(70, 54, Image.SCALE_SMOOTH));
+	        animacionDerecha.add(im1);
+	        animacionDerecha.add(im2);
+	        animacionDerecha.add(im3);
+	        animacionDerecha.add(im4);
+	        this.animacionDerecha = animacionDerecha;
 	        inicializarDialogos();
 }
 	 private void inicializarDialogos() {

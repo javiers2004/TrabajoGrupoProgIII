@@ -1,32 +1,40 @@
 import javax.swing.ImageIcon;
+
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Joana extends npc {
     
-    // Diálogos específicos para Joana
-    private Dialogo dialogoInicial;
-    private Dialogo dialogoMisiones;
-    private Dialogo dialogoConsejos;
+    protected Dialogo dialogoInicial;
+    protected Dialogo dialogoMisiones;
+    protected Dialogo dialogoConsejos;
 
     public Joana(int x, int y) {
         super(x, y, null); 
         
-        setAnimacionDerecha(new ArrayList<>());
-        setAnimacionIzquierda(new ArrayList<>());
+       ArrayList<ImageIcon> animacionDerecha = new ArrayList<ImageIcon>();
+       ImageIcon i1 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/jIdle1.png");
+       ImageIcon im1 = new ImageIcon(i1.getImage().getScaledInstance(70, 54, Image.SCALE_SMOOTH));
+       ImageIcon i2 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/jIdle1.png");
+       ImageIcon im2 = new ImageIcon(i2.getImage().getScaledInstance(70, 54, Image.SCALE_SMOOTH));
+       ImageIcon i3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/jIdle1.png");
+       ImageIcon im3 = new ImageIcon(i3.getImage().getScaledInstance(70, 54, Image.SCALE_SMOOTH));
+       ImageIcon i4 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/jIdle1.png");
+       ImageIcon im4 = new ImageIcon(i4.getImage().getScaledInstance(70, 54, Image.SCALE_SMOOTH));
+       animacionDerecha.add(im1);
+       animacionDerecha.add(im2);
+       animacionDerecha.add(im3);
+       animacionDerecha.add(im4);
+       this.animacionDerecha = animacionDerecha;
+       
 
-        for (int i = 1; i <= 4; i++) {
-            getAnimacionDerecha().add(new ImageIcon("jIdle" + i + ".png"));
-           // getAnimacionIzquierda().add(new ImageIcon("jIdle" + i + ".png"));
-        }
-
-        getLabel().setIcon(getAnimacionDerecha().get(0));
 
        
         inicializarDialogos();
     }
 
-    private void inicializarDialogos() {
+    protected void inicializarDialogos() {
         
         dialogoInicial = new Dialogo("¡Hola, aventurero! Nuestra princesa Eleonore ha sido capturada por criaturas malvadas. ¿Puedes ayudarnos a rescatarla?",
                                      Arrays.asList("Claro, ¿qué necesito hacer?", "Lo siento, estoy ocupado ahora mismo."));
