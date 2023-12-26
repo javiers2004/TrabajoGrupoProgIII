@@ -28,7 +28,7 @@ public class ItemAtaqueCorto extends Item implements Serializable {
     }
     
 
-    public String getdescripcion() {
+    public String getDescripcion() {
         return descripcion;
     }
 

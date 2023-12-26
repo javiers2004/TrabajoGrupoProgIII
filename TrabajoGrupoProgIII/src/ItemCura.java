@@ -1,16 +1,20 @@
 import java.io.Serializable;
 
-public class ItemCura extends Item implements Serializable{
+public class ItemCura extends Item implements Serializable {
     private double curacion;
     private double cooldown;
+    private int coste; // Coste añadido
+    private String descripcion; // Descripción añadida
 
-    public ItemCura(String nombre, String icono, double curacion, double cooldown) {
+    public ItemCura(String nombre, String icono, double curacion, double cooldown, int coste, String descripcion) {
         super(nombre, icono);
         this.curacion = curacion;
         this.cooldown = cooldown;
+        this.coste = coste; // Asignando el valor de coste
+        this.descripcion = descripcion; // Asignando el valor de descripción
     }
 
-    // Getters
+    // Getters y Setters para curacion y cooldown
     public double getCuracion() {
         return curacion;
     }
@@ -19,13 +23,29 @@ public class ItemCura extends Item implements Serializable{
         return cooldown;
     }
 
-    // Setters
     public void setCuracion(double curacion) {
         this.curacion = curacion;
     }
 
     public void setCooldown(double cooldown) {
         this.cooldown = cooldown;
+    }
+
+    // Getters y Setters para coste y descripcion
+    public int getCoste() {
+        return coste;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setCoste(int coste) {
+        this.coste = coste;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     // toString
@@ -35,6 +55,9 @@ public class ItemCura extends Item implements Serializable{
                "nombre='" + getNombre() + '\'' +
                ", icono='" + getIcono() + '\'' +
                ", curacion=" + curacion +
-               ", cooldown=" + cooldown + '}';
+               ", cooldown=" + cooldown +
+               ", coste=" + coste +
+               ", descripcion='" + descripcion + '\'' +
+               '}';
     }
 }
