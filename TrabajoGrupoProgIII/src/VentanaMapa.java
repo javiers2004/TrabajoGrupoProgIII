@@ -459,6 +459,16 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			VentanaMapa.this.panelfondo.setComponentZOrder(VentanaMapa.this.jo.getLabel(), 3);
 			((Enemigos) jo).getLabel().setVisible(true);
 		
+			
+			
+			
+		jo.getLabel().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				mostrarDialogo(jo.getDialogoInicial());
+			}
+		});
+		
 		//generar dialogom -- LISTADOS TODOS LOS DIALOGOS PARA LA HISTORIA
 		
 		Dialogo d1= new Dialogo("Te has encontrado con un viejo sabio. ¿Qué quieres preguntarle?", Arrays.asList("Sobre la vida", "Sobre la aventura", "Salir"));
@@ -580,15 +590,19 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	
 	public void mostrarDialogo(Dialogo dialogo) {
 		JLabel lbltxt = new JLabel("<html" + dialogo.getTxt() + "</html");
-		lbltxt.setBounds(100, altoventana-100, anchoventana-200, 50);
+		int alturaDialogo = 50; 
+	    int alturaOpcion = 30;
+		int posy = altoventana-(dialogo.getOpc().size() * (alturaOpcion +5)) - alturaDialogo -100;
+		lbltxt.setBounds(100, posy, anchoventana-200, 50);
 		lbltxt.setBackground(Color.white);
 		lbltxt.setOpaque(true);
 		panelfondo.add(lbltxt);
+		panelfondo.setComponentZOrder(lbltxt, 3);
 		
-		int posy = altoventana-50;
+		posy +=50 +5;
 		for(int i = 0; i <dialogo.getOpc().size(); i++) {
 			JLabel lblop = new JLabel(dialogo.getOpc().get(i));
-			lblop.setBounds(100, posy, anchoventana-200, 30);
+			lblop.setBounds(100, posy, anchoventana-200, 50);
 			lblop.setBackground(Color.LIGHT_GRAY);
 			lblop.setOpaque(true);
 			final int a = i;
@@ -603,7 +617,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				}
 			});
 			panelfondo.add(lblop);
-			posy +=35;
+			panelfondo.setComponentZOrder(lblop, 3);
+			posy +=alturaOpcion + 5;
 			}
 		panelfondo.repaint();
 	}
