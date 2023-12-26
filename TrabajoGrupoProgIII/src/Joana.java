@@ -20,7 +20,7 @@ public class Joana extends npc {
         this.label.setOpaque(true);
        ArrayList<ImageIcon> animacionDerecha = new ArrayList<ImageIcon>();
        ImageIcon i1 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/jIdle1.png");
-       ImageIcon im1 = new ImageIcon(i1.getImage().getScaledInstance(74, 54, Image.SCALE_SMOOTH));
+       ImageIcon im1 = new ImageIcon(i1.getImage().getScaledInstance(100, 54, Image.SCALE_SMOOTH));
        ImageIcon i2 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/jIdle2.png");
        ImageIcon im2 = new ImageIcon(i2.getImage().getScaledInstance(74, 54, Image.SCALE_SMOOTH));
        ImageIcon i3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/jIdle3.png");

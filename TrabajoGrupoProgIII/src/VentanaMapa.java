@@ -40,6 +40,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 
 
@@ -47,7 +48,7 @@ import javax.swing.SwingConstants;
 public class VentanaMapa extends JFrame implements KeyListener{
 	//ATRIBUTOS
 	private npc npc1;
-	private Joana joana;
+	public J2 jo;
 	protected JLabel lblcartel;
 	private static final int distdetect = 900;
 	private static final int ddistdetect = 900;
@@ -436,7 +437,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		//ENEMIGOS Y SPRITES
 		enemigos = new ArrayList<>();
 		generarEnemigos2.start();
-		
+		generarNpc.start();
 		//GENERAR CARTELES	
 		lblcartel = new JLabel("enemigo", SwingConstants.CENTER);
 		lblcartel.setOpaque(true);
@@ -448,13 +449,23 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		panelfondo.add(lblcartel);
 		panelfondo.setComponentZOrder(lblcartel, 1);
 		
+		
+		jo = new J2();
+		 System.out.println("si");
+			((Enemigos) jo).getLabel().setVisible(false);
+			((Enemigos) VentanaMapa.this.jo).setX(865);
+			((Enemigos) VentanaMapa.this.jo).setY(9900);
+			VentanaMapa.this.panelfondo.add(((Enemigos) VentanaMapa.this.jo).getLabel());
+			VentanaMapa.this.panelfondo.setComponentZOrder(VentanaMapa.this.jo.getLabel(), 3);
+			((Enemigos) jo).getLabel().setVisible(true);
+		
 		//generar dialogom -- LISTADOS TODOS LOS DIALOGOS PARA LA HISTORIA
 		
 		Dialogo d1= new Dialogo("Te has encontrado con un viejo sabio. ¿Qué quieres preguntarle?", Arrays.asList("Sobre la vida", "Sobre la aventura", "Salir"));
 		Dialogo d2 = new Dialogo("Encuentras un cofre misterioso. ¿Deseas abrirlo?", Arrays.asList("Abrir", "Ignorar"));
 		
 		Dialogo dialogonpc1 = new Dialogo("Hola aventurero, ¿qué necesitas?", Arrays.asList("Opción 1", "Opción 2", "Salir"));
-		npc1 = new npc(1122,10122,dialogonpc1);
+		/*npc1 = new npc(1122,10122,dialogonpc1);
 		//panelfondo.add(npc1.getLabel());
 		npc1.getLabel().setLocation(3* npc1.getX()- player.getPosx(), 3*npc1.getY() - player.getPosy() );
 		npc1.getLabel().setVisible(true);
@@ -472,8 +483,15 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		joana.getLabel().setLocation(3* joana.getX() - player.getPosx(),3 * joana.getY() - player.getPosy());
 		joana.getLabel().setVisible(true);
         this.panelfondo.add(joana.getLabel());
-        this.panelfondo.setComponentZOrder(joana.getLabel(), 3);
+        this.panelfondo.setComponentZOrder(joana.getLabel(), 3);*/
 
+		
+		/*J2 j = new J2();
+		enemigos.add(j);
+		panelfondo.add(j.getLabel());
+		panelfondo.setComponentZOrder(j.getLabel(), 1);
+		j.getLabel().setLocation(900, 10000);
+		j.getLabel().setVisible(true);*/
 		
 		//PERSONALIZAR CURSOR
 		BufferedImage cursorImage;
@@ -621,30 +639,50 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		Color colorp = new Color(color);
 		return colorp.getRed() > 240 && colorp.getGreen() > 240 && colorp.getBlue() >240;
 	}
+	Thread generarNpc = new Thread() {
+		public void run() {
+			while(true) {
+				Joana j = new Joana(900,10000);
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						System.out.println("funciona");
+						panelfondo.add(j.getLabel());
+						panelfondo.setComponentZOrder(j.getLabel(), 1);
+						j.getLabel().setVisible(true);
+					}
+				});
+				return;
+			}
+		}
+	};
+	
 
 	Thread generarEnemigos2 = new Thread() {
 		public void run() {
 		while(true) {
 			
-			int posJ = 900;
+			/*int posJ = 900;
 			int posYj = 10000;
 			Joana j = new Joana(posJ, posYj);
 			//j.getLabel().setLocation(3* posJ - player.getPosx(), 3* posYj - player.getPosy());
 			j.getLabel().setLocation(posJ, posYj);
 			j.getLabel().setVisible(true);
 			VentanaMapa.this.panelfondo.add(j.getLabel());
-			VentanaMapa.this.panelfondo.setComponentZOrder(j.getLabel(), 3);
-			j.getLabel().setVisible(true);
+			VentanaMapa.this.panelfondo.setComponentZOrder(j.getLabel(), 1);
+			j.getLabel().setVisible(true);*/
 			
 			
 			
-			int posE = 800;
+		/*	int posE = 800;
 			int posyE = 800;
 			Eleanore ele = new Eleanore(posE, posyE);
 			ele.getLabel().setLocation(posE, posyE);
 			ele.getLabel().setVisible(true);
 			VentanaMapa.this.panelfondo.add(ele.getLabel());
 			VentanaMapa.this.panelfondo.setComponentZOrder(ele.getLabel(), 3);
+			*/
+			
+			
 			
 			
 			int contadorvivos = 0;
@@ -655,7 +693,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			}
 			if(contadorvivos < 200) {
 				Random r = new Random();
-				int n = (int)(Math.random()*6);
+				int n = (int)(Math.random()*7);
 				int rx, ry;	
 				rx = r.nextInt(4096) ; 
 				ry = r.nextInt(4096) ;
@@ -689,6 +727,10 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					Puercoespin e = new Puercoespin();
 					VentanaMapa.this.e = e;
 				}
+				else if(n == 10) {
+					J2 e = new J2();
+					VentanaMapa.this.e = e;
+				}
 				else {
 					Pajaro e = new Pajaro();
 					VentanaMapa.this.e = e;
@@ -700,6 +742,9 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				VentanaMapa.this.panelfondo.add(VentanaMapa.this.e.getLabel());
 				VentanaMapa.this.panelfondo.setComponentZOrder(VentanaMapa.this.e.getLabel(),3);
 				e.getLabel().setVisible(true);
+				
+				
+				
 				try {
 					Thread.sleep(500);
 				} catch (InterruptedException e1) {
@@ -707,6 +752,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					e1.printStackTrace();
 				}
 				}
+			 
 			}
 		}
 	};
@@ -736,6 +782,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 //					System.out.println("Posicion   " + e.getX() + "  "+ e.getY());
 //					System.out.println("Distancia   " + e.distancia(player));
 //					System.out.println("Jugador" + player.getPosx() + "   " + player.getPosy());	
+				}
+				else if(jo !=null && jo instanceof J2) {
+					jo.incrementar();
+					ImageIcon act = jo.getActual();
+					jo.getLabel().setIcon(act);
 				}
 				else {
 					Caparazon c = (Caparazon) e;
@@ -802,6 +853,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		map.setVisible(true);
 		Enemigos emascercano = enemigos.get(0);
 		actualizarEnemigos();
+		JLabel joana = jo.getLabel();
+		int npx = jo.getX() -player.getPosx();
+		int npy = jo.getY() - player.getPosy();
+		joana.setLocation(npx, npy);
+		
 		if(player.getVidarestante() <= 0) {
 			guardarDatosPartida();
 			this.setContinuar(false);
@@ -880,14 +936,14 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			}	
 		}
 		
-		joana.actualizarInter(player);
+		/*joana.actualizarInter(player);
 		if(joana.isEsInteractivo()) {
 			joana.getDialogo();
 		}
 		npc1.actualizarInter(player);
 		if(npc1.isEsInteractivo()) {
 			//npc1.interactuar();
-		}
+		}*/
 		mostrarCartel(player, emascercano);
 		if(teclaw == true || teclaa == true || teclas == true || teclad == true) {	
 			if(this.getArraymovimiento() == null) {
