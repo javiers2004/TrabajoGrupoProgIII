@@ -209,44 +209,6 @@ public class VentanaInicio extends JFrame implements ActionListener {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-//                DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("Root");
-//                DefaultMutableTreeNode nombresNode = new DefaultMutableTreeNode("Nombres");
-//                rootNode.add(nombresNode);
-//
-//                // Cargar nombres al árbol. Suponemos que este método ya maneja el nodo raíz
-//                cargarArbolNombre();
-//
-//                // Añadir el nodo "Estadísticas" si se ha pulsado el botón "Play"
-//                if (botonPlayPresionado && nombreUsuario != null && !nombreUsuario.isEmpty()) {
-//                    DefaultMutableTreeNode estadisticasNode = new DefaultMutableTreeNode("Estadísticas");
-//                    estadisticasNode.add(new DefaultMutableTreeNode(nombreUsuario));
-//                    rootNode.add(estadisticasNode); // Añadir "Estadísticas" al nodo raíz
-//                }
-//
-//                // Crear el JTree y configurar el MouseListener
-//                JTree tree = new JTree(rootNode);
-//                tree.addMouseListener(new MouseAdapter() {
-//                    @Override
-//                    public void mouseClicked(MouseEvent me) {
-//                        if (me.getClickCount() == 2) {
-//                            TreePath tp = tree.getPathForLocation(me.getX(), me.getY());
-//                            if (tp != null) {
-//                                System.out.println("Nodo doble clickeado: " + tp.getLastPathComponent());
-//                                // Aquí puedes añadir acciones adicionales al hacer doble clic en un nodo
-//                            }
-//                        }
-//                    }
-//                });
-//
-//                // Crear y configurar un JDialog para mostrar el JTree
-//                JDialog dialog = new JDialog(VentanaInicio.this, "Nombres y Estadísticas", false); // Diálogo no modal
-//                dialog.add(new JScrollPane(tree));
-//                dialog.setSize(300, 400);
-//                dialog.setLocationRelativeTo(VentanaInicio.this);
-//                dialog.setVisible(true);
-//
-//                // Guardar el árbol con el nombre en el archivo
-//                guardarArbolNombre();
             	}
             }
         });

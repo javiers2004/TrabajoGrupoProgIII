@@ -329,8 +329,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	}
 	
 	
-   // private VentanaInicio ventanaInicio;
-
+   
   
 	//CONSTRUCTOR
 	public VentanaMapa(Jugador player  ){
@@ -347,9 +346,6 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		        VentanaMapa.this.setContinuar(false);
 		    }
 
-		    
-		    //ole
-		    
 		    
 		});
 
@@ -460,7 +456,6 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		//ENEMIGOS Y SPRITES
 		enemigos = new ArrayList<>();
 		generarEnemigos2.start();
-		generarNpc.start();
 		//GENERAR CARTELES	
 		lblcartel = new JLabel("enemigo", SwingConstants.CENTER);
 		lblcartel.setOpaque(true);
@@ -532,33 +527,6 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		Dialogo d2 = new Dialogo("Encuentras un cofre misterioso. ¿Deseas abrirlo?", Arrays.asList("Abrir", "Ignorar"));
 		
 		Dialogo dialogonpc1 = new Dialogo("Hola aventurero, ¿qué necesitas?", Arrays.asList("Opción 1", "Opción 2", "Salir"));
-		/*npc1 = new npc(1122,10122,dialogonpc1);
-		//panelfondo.add(npc1.getLabel());
-		npc1.getLabel().setLocation(3* npc1.getX()- player.getPosx(), 3*npc1.getY() - player.getPosy() );
-		npc1.getLabel().setVisible(true);
-		this.panelfondo.add(npc1.getLabel());
-		this.panelfondo.setComponentZOrder(npc1.getLabel(), 3);
-//		new Timer(10, new ActionListener() { // Este temporizador se ejecutará cada 100 milisegundos.
-//		    @Override
-//		    public void actionPerformed(ActionEvent ae) {
-//		        verificarDialogo(243, 440, d1);
-//		       // System.out.println("entra");// Verifica si el jugador está cerca de (243,440) y muestra el diálogo d1.
-//		        actualizarEnemigos(); // Sigue actualizando la posición de los enemigos.
-//		    }
-//		}).start();
-		joana = new Joana(player.getPosx()+100, player.getPosy());
-		joana.getLabel().setLocation(3* joana.getX() - player.getPosx(),3 * joana.getY() - player.getPosy());
-		joana.getLabel().setVisible(true);
-        this.panelfondo.add(joana.getLabel());
-        this.panelfondo.setComponentZOrder(joana.getLabel(), 3);*/
-
-		
-		/*J2 j = new J2();
-		enemigos.add(j);
-		panelfondo.add(j.getLabel());
-		panelfondo.setComponentZOrder(j.getLabel(), 1);
-		j.getLabel().setLocation(900, 10000);
-		j.getLabel().setVisible(true);*/
 		
 		//PERSONALIZAR CURSOR
 		try {
@@ -856,49 +824,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		return colorp.getRed() > 240 && colorp.getGreen() > 240 && colorp.getBlue() >240;
 		
 	}
-	Thread generarNpc = new Thread() {
-		public void run() {
-			while(true) {
-				Joana j = new Joana(900,10000);
-				SwingUtilities.invokeLater(new Runnable() {
-					public void run() {
-						System.out.println("funciona");
-						panelfondo.add(j.getLabel());
-						panelfondo.setComponentZOrder(j.getLabel(), 1);
-						j.getLabel().setVisible(true);
-					}
-				});
-				return;
-			}
-		}
-	};
 	
 
 	Thread generarEnemigos2 = new Thread() {
 		public void run() {
 		while(true) {
-			
-			/*int posJ = 900;
-			int posYj = 10000;
-			Joana j = new Joana(posJ, posYj);
-			//j.getLabel().setLocation(3* posJ - player.getPosx(), 3* posYj - player.getPosy());
-			j.getLabel().setLocation(posJ, posYj);
-			j.getLabel().setVisible(true);
-			VentanaMapa.this.panelfondo.add(j.getLabel());
-			VentanaMapa.this.panelfondo.setComponentZOrder(j.getLabel(), 1);
-			j.getLabel().setVisible(true);*/
-			
-			
-			
-		/*	int posE = 800;
-			int posyE = 800;
-			Eleanore ele = new Eleanore(posE, posyE);
-			ele.getLabel().setLocation(posE, posyE);
-			ele.getLabel().setVisible(true);
-			VentanaMapa.this.panelfondo.add(ele.getLabel());
-			VentanaMapa.this.panelfondo.setComponentZOrder(ele.getLabel(), 3);
-			*/
-			
 			
 			
 			
@@ -996,9 +926,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 						e.getLabel().setVisible(true);
 					}
 					e.setContadorsprite(e.getContadorsprite()+1);
-//					System.out.println("Posicion   " + e.getX() + "  "+ e.getY());
-//					System.out.println("Distancia   " + e.distancia(player));
-//					System.out.println("Jugador" + player.getPosx() + "   " + player.getPosy());	
+	
 				}
 				else if(b != null && b.isVivo()) {
 					
@@ -1192,15 +1120,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				}	
 			}	
 		}
-		
-		/*joana.actualizarInter(player);
-		if(joana.isEsInteractivo()) {
-			joana.getDialogo();
-		}
-		npc1.actualizarInter(player);
-		if(npc1.isEsInteractivo()) {
-			//npc1.interactuar();
-		}*/
+
 		mostrarCartel(player, emascercano);
 		if(teclaw == true || teclaa == true || teclas == true || teclad == true) {	
 			if(this.getArraymovimiento() == null) {
