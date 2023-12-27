@@ -102,7 +102,7 @@ public class VentanaTienda extends JFrame {
                     	Item selectedItem = objetosNoComprados.get(selectedRow);
                     	itembuffer = selectedRow;
                     	System.out.println(itembuffer);
-                    	try {
+                    	try { 
                             Image img = ImageIO.read(new File(selectedItem.getIcono()));
                             Image resizedImage = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
                             iconoProducto.setIcon(new ImageIcon(resizedImage));

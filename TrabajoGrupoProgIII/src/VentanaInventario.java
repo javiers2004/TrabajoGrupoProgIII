@@ -206,7 +206,7 @@ public class VentanaInventario extends JFrame {
                 return new JLabel();
             }
         });
-
+ 
         JScrollPane scrollPane = new JScrollPane(tabla);
         panelDerecho.add(scrollPane);
 

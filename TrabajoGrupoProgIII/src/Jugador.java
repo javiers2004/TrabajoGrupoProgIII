@@ -162,7 +162,7 @@ public class Jugador {
 	}
 	protected void setVidarestante(int vidarestante) {
 		this.vidarestante = vidarestante;
-	}
+	} 
 	
 	protected int getExperiencia() {
 		return experiencia;
