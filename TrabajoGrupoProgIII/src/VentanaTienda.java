@@ -237,11 +237,6 @@ public class VentanaTienda extends JFrame {
             return null;
         }
     }
-    
-
-    // Método principal para ejecutar la aplicación
- //   public static void main(String[] args) {
-  //      SwingUtilities.invokeLater(() -> new VentanaTienda());
- //   }
+   
 
 }

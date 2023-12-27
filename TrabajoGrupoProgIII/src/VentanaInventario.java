@@ -258,9 +258,4 @@ public class VentanaInventario extends JFrame {
     	Item itemSeleccionado = objetosComprados.get(itembuffer);
     	return (int) ((ItemAtaqueCorto) itemSeleccionado).getDaño();
     }
-
-    // Método principal para ejecutar la aplicación
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new VentanaInventario());
-    }
 }

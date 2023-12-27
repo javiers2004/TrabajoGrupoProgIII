@@ -213,6 +213,4 @@ public class Objetos {
             System.out.println("-----------------------------------");
         }
     }
-
-  
 }
