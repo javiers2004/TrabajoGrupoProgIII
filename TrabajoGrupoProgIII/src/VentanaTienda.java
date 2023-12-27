@@ -32,6 +32,14 @@ public class VentanaTienda extends JFrame {
         
         Objetos inventario = new Objetos();
         inventario.cargarObjetosBD();
+
+        ArrayList<Item> objetosNoComprados = new ArrayList<>();
+
+        for (Item item : inventario.getInventario()) {
+            if (item.isComprado()==false) {
+                objetosNoComprados.add(item);
+            }
+        }
         
         addWindowListener(new WindowAdapter() {
             @Override
@@ -91,7 +99,7 @@ public class VentanaTienda extends JFrame {
                 if (!e.getValueIsAdjusting()) {
                     int selectedRow = tabla.getSelectedRow();
                     if (selectedRow != -1) {
-                    	Item selectedItem = inventario.objetos.get(selectedRow);
+                    	Item selectedItem = objetosNoComprados.get(selectedRow);
                     	itembuffer = selectedRow;
                     	System.out.println(itembuffer);
                     	try {
@@ -156,11 +164,11 @@ public class VentanaTienda extends JFrame {
                 if (inventario.objetos.isEmpty()) {
                     System.out.println("Sin productos en la tienda");
                 } else {
-                    if (itembuffer >= 0 && itembuffer < inventario.objetos.size()) {
-                        Item itemSeleccionado = inventario.objetos.get(itembuffer);
-                        itemSeleccionado.setComprado(true);
-                        inventario.objetos.remove(itembuffer); // Eliminar el ítem seleccionado
-                        System.out.println("Ítem comprado y eliminado: " + itemSeleccionado);
+                    if (itembuffer >= 0 && itembuffer < objetosNoComprados.size()) {
+                        Item itemSeleccionado = objetosNoComprados.get(itembuffer);
+                        inventario.objetos.get(itembuffer).setComprado(true);
+                        objetosNoComprados.remove(itembuffer); // Eliminar el ítem seleccionado
+                        System.out.println("Ítem comprado y eliminado: " + inventario.objetos.get(itembuffer));
                         
                         // Actualiza tu interfaz de usuario aquí (por ejemplo, actualizar una tabla)
                         modelo.removeRow(itembuffer); // Suponiendo que 'modelo' es tu modelo de tabla
