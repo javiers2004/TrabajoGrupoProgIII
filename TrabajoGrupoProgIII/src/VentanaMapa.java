@@ -56,7 +56,7 @@ import javax.swing.Timer;
 
 public class VentanaMapa extends JFrame implements KeyListener{
 	//ATRIBUTOS
-	private npc npc1;
+	private Boss b;
 	public JLabel redWall;
 	private List<Component> cdialogo = new ArrayList<>();
 	public E2 ele;
@@ -481,6 +481,15 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		VentanaMapa.this.panelfondo.setComponentZOrder(VentanaMapa.this.ele.getLabel(), 3);
 		((Enemigos) ele).getLabel().setVisible(true);
 		
+		b = new Boss();
+		b.getLabel().setVisible(false);
+		VentanaMapa.this.b.setX(3385);
+		VentanaMapa.this.b.setY(10200);
+		VentanaMapa.this.panelfondo.add(this.b.getLabel());
+		VentanaMapa.this.panelfondo.setComponentZOrder(VentanaMapa.this.b.getLabel(), 3);
+		((Enemigos) b).getLabel().setVisible(true);
+		enemigos.add(b);
+		
 		
 		redWall = new JLabel();
 			redWall.setOpaque(true);
@@ -488,7 +497,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			this.redWall.setBounds(0, 0, 100, 100);
 			this.panelfondo.add(this.redWall);
 			this.panelfondo.setComponentZOrder(this.redWall, 3);
-			this.redWall.setVisible(true);
+			this.redWall.setVisible(false);
 			
 			
 		jo.getLabel().addMouseListener(new MouseAdapter() {
@@ -920,6 +929,9 @@ public class VentanaMapa extends JFrame implements KeyListener{
 //					System.out.println("Posicion   " + e.getX() + "  "+ e.getY());
 //					System.out.println("Distancia   " + e.distancia(player));
 //					System.out.println("Jugador" + player.getPosx() + "   " + player.getPosy());	
+				}
+				else if(b != null && b.isVivo()) {
+					
 				}
 				else if(jo !=null && jo instanceof J2) {
 					jo.incrementar();
