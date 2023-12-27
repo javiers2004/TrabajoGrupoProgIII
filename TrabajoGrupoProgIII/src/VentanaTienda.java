@@ -148,16 +148,20 @@ public class VentanaTienda extends JFrame {
         
         
 
-        // Crear la tabla
-        
-
-        // Configurar la parte derecha para mostrar detalles del producto
         JPanel panelDerecho = new JPanel();
         panelDerecho.setLayout(new BoxLayout(panelDerecho, BoxLayout.Y_AXIS));
+        
+        
+        
         iconoProducto = new JLabel(); // Aquí irá el icono del producto
         detallesProducto = new JTextArea(10, 30);
         detallesProducto.setEditable(false);
         botonComprar = new JButton("Comprar");
+        panelDerecho.add(iconoProducto);
+        panelDerecho.add(new JScrollPane(detallesProducto));
+        
+        JLabel etiquetaDinero = new JLabel("Dinero: " + Jugador.getDinero());
+        panelDerecho.add(etiquetaDinero);
         botonComprar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -166,18 +170,33 @@ public class VentanaTienda extends JFrame {
                 } else {
                     if (itembuffer >= 0 && itembuffer < objetosNoComprados.size()) {
                         Item itemSeleccionado = objetosNoComprados.get(itembuffer);
-                        inventario.objetos.get(itembuffer).setComprado(true);
-                        objetosNoComprados.remove(itembuffer); // Eliminar el ítem seleccionado
-                        System.out.println("Ítem comprado y eliminado: " + inventario.objetos.get(itembuffer));
-                        
-                        // Actualiza tu interfaz de usuario aquí (por ejemplo, actualizar una tabla)
-                        modelo.removeRow(itembuffer); // Suponiendo que 'modelo' es tu modelo de tabla
-                        
-                     // Limpiar los detalles y el ícono del producto
-                        detallesProducto.setText("");
-                        iconoProducto.setIcon(null);
+                        int costeItem = 0;
 
-                        itembuffer = -1; // Resetear itembuffer
+                        // Determinar el coste del objeto seleccionado
+                        if (itemSeleccionado instanceof ItemAtaqueCorto) {
+                            costeItem = (int) ((ItemAtaqueCorto) itemSeleccionado).getCoste();
+                        } else if (itemSeleccionado instanceof ItemCura) {
+                            costeItem = ((ItemCura) itemSeleccionado).getCoste();
+                        }
+
+                        // Verificar si hay fondos suficientes para comprar
+                        if (Jugador.getDinero() >= costeItem) {
+                            Jugador.setDinero(Jugador.getDinero()-costeItem); // Restar el coste del objeto de los fondos disponibles
+                            etiquetaDinero.setText("Dinero: " + Jugador.getDinero());
+                            System.out.println(Jugador.getDinero());
+                            itemSeleccionado.setComprado(true);
+                            objetosNoComprados.remove(itembuffer);
+
+                            System.out.println("Ítem comprado: " + itemSeleccionado.getNombre());
+                            modelo.removeRow(itembuffer);
+
+                            // Actualizar la interfaz de usuario
+                            detallesProducto.setText("");
+                            iconoProducto.setIcon(null);
+                            itembuffer = -1;
+                        } else {
+                            System.out.println("Fondos insuficientes para comprar este ítem.");
+                        }
                     } else {
                         System.out.println("Índice de ítem inválido.");
                     }
@@ -185,10 +204,9 @@ public class VentanaTienda extends JFrame {
             }
         });
 
-        panelDerecho.add(iconoProducto);
-        panelDerecho.add(new JScrollPane(detallesProducto));
-        panelDerecho.add(botonComprar);
 
+        
+        panelDerecho.add(botonComprar);
         // Crear un JSplitPane para dividir la tabla y los detalles del producto
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, new JScrollPane(tabla), panelDerecho);
         splitPane.setDividerLocation(400); // Ajustar según sea necesario

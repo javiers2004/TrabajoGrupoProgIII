@@ -41,8 +41,15 @@ public class Jugador {
 	protected static int mejoraataque = 0;
 	protected static int mejoravelocidad = 0;
 	protected static int consumibles = 10;
+	protected static int dinero = 1000;
 	
 	
+	protected static int getDinero() {
+		return dinero;
+	}
+	protected static void setDinero(int dinero) {
+		Jugador.dinero = dinero;
+	}
 	
 	protected static int getConsumibles() {
 		return consumibles;
