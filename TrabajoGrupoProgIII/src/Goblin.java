@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 public class Goblin extends Enemigos{
 	public Goblin() {
 		super();
-		this.health = 50;
+		this.health = 150;
 		this.label = new JLabel();
 		this.label.setBounds(x,y,64,50);
 		this.label.setBackground(Color.red);

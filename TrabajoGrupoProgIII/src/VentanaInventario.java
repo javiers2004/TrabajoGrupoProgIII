@@ -35,6 +35,17 @@ public class VentanaInventario extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
             	Jugador.setInventario(inventario);
+            	try {
+        			VentanaMapa.cursorImage = ImageIO.read(new File(VentanaInventario.getObjetoselecticono()));
+        	        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        	        Cursor customCursor = toolkit.createCustomCursor(VentanaMapa.cursorImage, new Point(0, 0), "CustomCursor");
+        			VentanaMapa.map.setCursor(customCursor);
+        			VentanaMapa.lblplayer.setCursor(customCursor);
+        			VentanaMapa.labelatravesar.setCursor(customCursor);
+        		} catch (IOException e1) {
+        			// TODO Auto-generated catch block
+        			e1.printStackTrace();
+        		}
             }
         });
 
@@ -257,4 +268,24 @@ public class VentanaInventario extends JFrame {
     	Item itemSeleccionado = objetosComprados.get(itembuffer);
     	return (int) ((ItemAtaqueCorto) itemSeleccionado).getDaño();
     }
+    public static int getObjetoselectcura() {
+        Objetos inventario = Jugador.getInventario();
+        ArrayList<Item> objetosComprados = inventario.getInventarioComprados(); 
+        Item itemSeleccionado = objetosComprados.get(itembuffer);
+        return (int) ((ItemCura) itemSeleccionado).getCuracion();
+    }
+
+    public static String getObjetoselecticono() {
+        Objetos inventario = Jugador.getInventario();
+        ArrayList<Item> objetosComprados = inventario.getInventarioComprados(); 
+        Item itemSeleccionado = objetosComprados.get(itembuffer);
+        return itemSeleccionado.getIcono(); 
+    }
+    public static Item getObjetoSelect() {
+    	Objetos inventario = Jugador.getInventario();
+        ArrayList<Item> objetosComprados = inventario.getInventarioComprados(); 
+        Item itemSeleccionado = objetosComprados.get(itembuffer);
+        return itemSeleccionado;
+    }
+    
 }

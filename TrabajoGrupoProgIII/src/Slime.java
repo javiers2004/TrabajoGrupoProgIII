@@ -11,7 +11,7 @@ public class Slime extends Enemigos{
 
 	public Slime() {
 		super();
-		this.health = 100;
+		this.health = 400;
 		this.label = new JLabel();
 		this.label.setBounds(x,y,64,50);
 		this.label.setBackground(Color.red);

@@ -16,7 +16,7 @@ public class Caparazon extends Enemigos{
 	
 	public Caparazon() {
 		super();
-		this.health = 300;
+		this.health = 1000;
 		this.label = new JLabel();
 		this.label.setBounds(x,y,64,50);
 		this.label.setBackground(Color.red);
@@ -76,7 +76,7 @@ public class Caparazon extends Enemigos{
 	}
 	public void moveToPlayer(Jugador player, BufferedImage mapacolisiones) {
 		//mover hacia el jugador cuando entra en x rango
-		if(this.getHealth() < 300) {
+		if(this.getHealth() < 1000) {
 		int value =(int)(Math.random()*3);
 		if(value == 1) {
 			if (this.x < player.getPosx()+ anchoventana/2 + 50) {

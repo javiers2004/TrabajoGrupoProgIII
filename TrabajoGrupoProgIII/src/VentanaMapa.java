@@ -73,15 +73,15 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected int contadorspritesenemigos = 0;
 	protected PanelInfoVentanaMapa veninfo;
 	public JLabel fondo;
-	public JLabel map;
+	public static JLabel map;
 	public JLabel mapcueva;
 	private Color backgroundColor = Color.GREEN;
-	protected JLabel lblplayer;
+	protected static JLabel lblplayer;
 	protected VentanaInicio veninicio;
 	protected ArrayList<ImageIcon> arraymovimiento;
 	protected ArrayList<ImageIcon> arraymovimientoanterior;
 	protected Jugador player;
-	protected JLabel labelatravesar;
+	protected static JLabel labelatravesar;
 	protected JLabel levelup;
 	protected int anchoventana;
 	protected int altoventana;
@@ -101,6 +101,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected Enemigos e;
 	protected int aumentoprogresivoexp= 0;
 	protected String nombreplayer;
+	static BufferedImage cursorImage;
+
 	//GETTERS Y SETTERS
 	
 	protected float getFps() {
@@ -557,7 +559,6 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		j.getLabel().setVisible(true);*/
 		
 		//PERSONALIZAR CURSOR
-		BufferedImage cursorImage;
 		try {
 			cursorImage = ImageIO.read(new File("TrabajoGrupoProgIII/src/Imagenes/sword.png"));
 	        Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -571,8 +572,10 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		}
 		//PARA EL ATAQUE DE LA ESPADA
 		this.addMouseListener(new MouseAdapter() {
+			
             @Override
             public void mousePressed(MouseEvent e) {
+            	if(VentanaInventario.getObjetoSelect() instanceof ItemAtaqueCorto) {
                 int x = e.getX();
                 int y = e.getY();
                 player.setNumerodegolpes(player.getNumerodegolpes()+1);
@@ -636,7 +639,20 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 	}
                 }
             }
-        });		
+            	else {
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            	}
+		}
+		
+        });			
 	}
 	
 	public void drawWall(){
@@ -957,7 +973,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					}
 					e.setContadorsprite(e.getContadorsprite()+1);
 				}
-				else if(!(e instanceof Caparazon) || e.getHealth() < 300) {
+				else if(!(e instanceof Caparazon) || e.getHealth() < 1000) {
 					if (e.getContadorsprite() + 1> e.getArrayenuso().size()*20) {
 						e.setContadorsprite(0);
 					}
@@ -1046,6 +1062,12 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	//PARA ACTUALIZAR LA VENTANA CUANDO SE LLAMA DESDE EL MAIN
 	public void actualizarVentana(Jugador player, boolean atravesando) {
 		//System.out.println(player.getMejoraataque() + "   " + Jugador.getMejoravelocidad() + "   "+ player.getMejoravida());
+		
+		
+		
+		
+		
+		
 		map.setLocation(-player.getPosx(), -player.getPosy());
 		map.setVisible(true);
 		Enemigos emascercano = enemigos.get(0);
@@ -1124,7 +1146,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 						e.setArrayenuso(e.getMuerte());
 						e.getLabel().setVisible(true);
 					}			
-					if((!(e instanceof Caparazon) || e.getHealth() < 300) && !(e instanceof Puercoespin)) {
+					if((!(e instanceof Caparazon) || e.getHealth() < 1000) && !(e instanceof Puercoespin)) {
 						if((int)(Math.random()*(15-Jugador.getMejoravida())) != 0){
 							player.setVidarestante(player.getVidarestante()- e.getDaño());
 							player.setDanorecibido(player.getDanorecibido() + e.getDaño());
@@ -1139,7 +1161,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					emascercano = e;
 				}
 				if(e instanceof Caparazon && e.distancia(player) > 1000) {
-					e.setHealth(300);
+					e.setHealth(1000);
 					Caparazon c = (Caparazon) e;
 					c.getLabel().setIcon(c.escondido.get(0));
 					c.setArrayenuso(c.escondido);
