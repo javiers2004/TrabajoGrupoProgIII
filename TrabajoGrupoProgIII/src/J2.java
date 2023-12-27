@@ -1,4 +1,5 @@
 import java.awt.Image;
+
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,8 +11,10 @@ public class J2 extends Enemigos{
 	protected Dialogo dialogoInicial;
     protected Dialogo dialogoMisiones;
     protected Dialogo dialogoConsejos;
+    protected Dialogo dialogoReaccion;
     protected int mostrado = 0;
     protected Dialogo actual;
+    private VentanaMapa v;
     
     protected int cont = 0;
     public J2() {
@@ -53,8 +56,8 @@ public class J2 extends Enemigos{
 	   }else if(mostrado ==2) {
 		   actual = this.dialogoConsejos;
 		   mostrado++;
-	   }else {
-		   actual = new Dialogo("Sigue buscando!", null);
+	   }else if(mostrado == 3&& !v.getB().isVivo()){
+		   actual = this.getDialogoReaccion();
 	   }
 	   
    }
@@ -69,7 +72,10 @@ protected void inicializarDialogos() {
         
         dialogoConsejos = new Dialogo("Recuerda, en tu viaje encontrarás objetos que pueden ser útiles. No subestimes su poder.",
                                       Arrays.asList("¿Puedes darme algún ejemplo?", "Lo tendré en mente, gracias."));
-    }
+        dialogoReaccion = new Dialogo("¡Lo lograste! La aldea estará eternamente agradecida. ¿Cómo te sientes después de tal hazaña?",
+                Arrays.asList("Fue una batalla difícil, pero valió la pena.", "Solo hice lo que tenía que hacer."));
+   
+}
 
     
     public Dialogo getDialogoInicial() {
@@ -83,8 +89,15 @@ protected void inicializarDialogos() {
     public Dialogo getDialogoConsejos() {
         return dialogoConsejos;
     }
+    
 
-    public void incrementar() {
+    public Dialogo getDialogoReaccion() {
+		return dialogoReaccion;
+	}
+	public void setDialogoReaccion(Dialogo dialogoReaccion) {
+		this.dialogoReaccion = dialogoReaccion;
+	}
+	public void incrementar() {
     	cont = (cont +1)% derecha.size()
 ;    }
 

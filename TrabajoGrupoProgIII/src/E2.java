@@ -14,8 +14,10 @@ public class E2 extends Enemigos{
 	 protected int mostrado = 0;
 	 protected Dialogo actual;
 	 int cont=0;
+	 private VentanaMapa v;
 	 public E2() {
 		 this.health = 800000000;
+		 this.v = v;
 	    	this.daño=0;
 	    	this.experiencia=0;
 	    	this.vivo= true;
@@ -94,7 +96,7 @@ public class E2 extends Enemigos{
 		 }else if(mostrado ==2) {
 			 actual = this.dialogoFinal;
 			 mostrado++;
-		 }else if(mostrado ==3) {
+		 }else if(mostrado ==3 && !v.getB().isVivo() ) {
 			 actual = this.dialogoReaccionPostRescate;
 			 
 		 }

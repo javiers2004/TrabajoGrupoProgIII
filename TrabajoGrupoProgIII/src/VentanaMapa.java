@@ -121,6 +121,13 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public void setLblcartel(JLabel lblcartel) {
 		this.lblcartel = lblcartel;
 	}
+	
+	public Boss getB() {
+		return b;
+	}
+	public void setB(Boss b) {
+		this.b = b;
+	}
 	public int getContadorspritesenemigos() {
 		return contadorspritesenemigos;
 	}
@@ -730,25 +737,57 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	}
 	
 	public void manageRespuesta(Dialogo d, int s) {
-		Dialogo d1 = new Dialogo("¡Gracias! Por favor, ve al bosque oscuro y encuentra la cueva secreta.", Arrays.asList("Salir"));
-		if(d.getTxt().equals("¡Hola, aventurero! Nuestra princesa Eleonore ha sido capturada por criaturas malvadas. ¿Puedes ayudarnos a rescatarla?")) {
-			if(s == 0) {
-				mostrarDialogo(new Dialogo("¡Gracias! Por favor, ve al bosque oscuro y encuentra la cueva secreta.", Arrays.asList("Entendido", "¿Alguna pista de dónde puedo empezar?")));
-				
-			}else if( s == 1) {
-				mostrarDialogo(new Dialogo("Entiendo, quizás otro valiente aventurero pueda ayudarnos.", Arrays.asList("Quizás más tarde", "Buena suerte")));
+		if(d.getTxt().equals(jo.getDialogoInicial().getTxt())) {
+			switch(s) {
+			case 0:
+				mostrarDialogo(new Dialogo("Debes fortalecerte y mejorar tu equipamiento. Enfrentarás a un poderoso minotauro que custodia a Eleonore.", 
+                        Arrays.asList("Entendido, me prepararé")));
+				break;
+			case 1:
+				mostrarDialogo(new Dialogo("Entiendo, es una tarea peligrosa. Si cambias de opinión, la aldea y yo te estaremos esperando.",
+                        Arrays.asList("Lo pensaré")));
+				break;
+			}
+			}else if(d.getTxt().equals(jo.dialogoMisiones.getTxt())) {
+		        switch(s) {
+	            case 0:
+	                mostrarDialogo(new Dialogo("Los entrenamientos de combate y estrategia son esenciales. También podrías explorar las mazmorras cercanas para ganar experiencia.",
+	                                           Arrays.asList("Buscaré mazmorras", "Me enfocaré en el entrenamiento")));
+	                break;
+	            case 1:
+	                mostrarDialogo(new Dialogo("Un buen equipo puede marcar la diferencia. Visita al herrero del pueblo y echa un vistazo a sus mercancías.",
+	                                           Arrays.asList("Iré al herrero", "Gracias por el consejo")));
+	                break;
+	        }
+	    }
+	    // Respuestas para el dialogoConsejos
+	    else if(d.getTxt().equals(jo.dialogoConsejos.getTxt())) {
+	        switch(s) {
+	            case 0:
+	                mostrarDialogo(new Dialogo("Por ejemplo, las pociones de salud y maná pueden salvarte en momentos críticos. También hay artefactos mágicos esparcidos por el mundo.",
+	                                           Arrays.asList("Buscaré esos artefactos", "Agradecido por la información")));
+	                break;
+	            case 1:
+	                mostrarDialogo(new Dialogo("Esa es la actitud correcta. No hay nada como estar bien preparado para cualquier eventualidad.",
+	                                           Arrays.asList("Continuaré mi aventura")));
+	                break;
 	        }
 			
-		}else if(d.getTxt().equals("¡Gracias! Por favor, ve al bosque oscuro y encuentra la cueva secreta.")) {
-			manageRespuesta(d1, 1);
-			if(s == 1) {
-				new Dialogo("Creo que puede que la tengan oculta en alguna de las numerosas cavermas repartidas por estos parajes...", null);
-				
-			}
+	
+		}else if( d.getTxt().equals(jo.dialogoReaccion.getTxt())){
 			
-		}else if(!d.getOpc().get(s).equals("Salir")) {
-			
-		}else {
+			switch(s) {
+            case 0: // "Fue una batalla difícil, pero valió la pena."
+                mostrarDialogo(new Dialogo("Tu valentía y determinación son ejemplares. La aldea siempre recordará tu coraje en estos tiempos difíciles.", Arrays.asList("Gracias, fue un honor ayudar.", "Estoy listo para la próxima aventura.")));
+                cerrar();
+                break;
+            case 1: // "Solo hice lo que tenía que hacer."
+                mostrarDialogo(new Dialogo("Tu humildad es tan notable como tu valentía. Gracias por todo lo que has hecho.", Arrays.asList("Fue un deber, no hay de qué.", "Espero que la aldea pueda vivir en paz ahora.")));
+                cerrar();
+                break;
+        }
+    }
+	    else {
 			cerrar();
 		}
 	}
