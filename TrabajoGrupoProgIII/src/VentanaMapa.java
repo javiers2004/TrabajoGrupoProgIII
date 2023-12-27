@@ -625,7 +625,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 					player.setGoplesefectivos(player.getGoplesefectivos() + 1);
                 					player.setDanoinflingido(player.getDanoinflingido() + VentanaInventario.getObjetoselectdaño() + Jugador.getMejoraataque());
                 					if (enem.getHealth() <= 0) {
-                						Jugador.setDinero(Jugador.getDinero() +5);
+                						Jugador.setDinero(Jugador.getDinero() +1000);
                 						enem.setVivo(false);
                 						enem.setArrayenuso(enem.muerte);
                 						player.setExperiencia(player.getExperiencia() + enem.getExperiencia());
@@ -644,12 +644,27 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 }
             }
             	else {
-            		Hilopociones h = new Hilopociones(VentanaInventario.getObjetoselectcura(), player);
-            		h.start();
             		
+//            		System.out.println(Jugador.getInventario().getInventarioNoComprados());   
+            		Hilopociones h = new Hilopociones(VentanaInventario.getObjetoselectcura(), player);
+            		h.start();   
+            		try {
+            			cursorImage = ImageIO.read(new File("TrabajoGrupoProgIII/src/Imagenes/sword.png"));
+            	        Toolkit toolkit = Toolkit.getDefaultToolkit();
+            	        Cursor customCursor = toolkit.createCustomCursor(cursorImage, new Point(0, 0), "CustomCursor");
+            			map.setCursor(customCursor);
+            			lblplayer.setCursor(customCursor);
+            			labelatravesar.setCursor(customCursor);
+            		} catch (IOException e1) {
+            			// TODO Auto-generated catch block
+            			e1.printStackTrace();
+            		}
+            		VentanaInventario.getObjetoSelect().setComprado(false);
+            		Jugador.setInventario(VentanaInventario.inventario);
+            		VentanaInventario.itembuffer = 0;
+            		System.out.println(VentanaInventario.itembuffer);
             	}
-		}
-		
+		}	
         });			
 	}
 	
