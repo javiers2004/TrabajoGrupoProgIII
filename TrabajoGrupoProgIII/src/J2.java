@@ -22,7 +22,7 @@ public class J2 extends Enemigos{
     	this.daño=0;
     	this.experiencia=0;
     	this.vivo= true;
-
+this.v = v;
     	ArrayList<ImageIcon> animacionDerecha = new ArrayList<ImageIcon>();
         ImageIcon i1 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/jIdle1.png");
         ImageIcon im1 = new ImageIcon(i1.getImage().getScaledInstance(102, 126, Image.SCALE_SMOOTH));

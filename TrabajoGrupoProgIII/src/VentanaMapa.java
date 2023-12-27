@@ -996,6 +996,16 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					}
 				}
 			}
+			if(ele != null && ele instanceof E2) {
+					ele.incrementar();
+					ImageIcon act = ele.getActual();
+					ele.getLabel().setIcon(act);
+			}else if(jo !=null && jo instanceof J2) {
+					jo.incrementar();
+					ImageIcon act = jo.getActual();
+					jo.getLabel().setIcon(act);
+				}
+			
 		}
 		}catch(ConcurrentModificationException e) {
 			//System.out.println("salta");
