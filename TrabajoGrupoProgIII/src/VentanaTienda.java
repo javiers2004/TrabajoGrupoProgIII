@@ -53,7 +53,7 @@ public class VentanaTienda extends JFrame {
                 return column == 0 ? ImageIcon.class : Object.class;
             }
         };
-        for (Item item : inventario.objetos) {
+        for (Item item : objetosNoComprados) {
         	if (item.isComprado() == false){
         		if (item instanceof ItemAtaqueCorto) {
         	        ItemAtaqueCorto ataqueCorto = (ItemAtaqueCorto) item;
