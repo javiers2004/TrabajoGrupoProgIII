@@ -595,8 +595,9 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 			if(x > anchoventana/2) {	
                 				//&& enem.getX() > player.getPosx() -400
                 				if (enem.distancia(player) < 100 ) {
-                					enem.setHealth(enem.getHealth()-10 - Jugador.getMejoraataque());
+                					enem.setHealth(enem.getHealth()- Jugador.getMejoraataque() - VentanaInventario.getObjetoselectdaño());
                 					player.setGoplesefectivos(player.getGoplesefectivos() + 1);
+//                					System.out.println(VentanaInventario.getObjetoselectdaño() +10);
                 					player.setDanoinflingido(player.getDanoinflingido() + VentanaInventario.getObjetoselectdaño() + Jugador.getMejoraataque());
                 					if (enem.getHealth() <= 0) {
                 						enem.setArrayenuso(enem.muerte);
@@ -614,7 +615,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 			else {	
                 				//&& enem.getX() - anchoventana/2 <= player.getPosx()
                 				if (enem.distancia(player) < 100 ) {
-                					enem.setHealth(enem.getHealth()-10 - Jugador.getMejoraataque());
+                					enem.setHealth(enem.getHealth() - Jugador.getMejoraataque() - VentanaInventario.getObjetoselectdaño());
                 					player.setGoplesefectivos(player.getGoplesefectivos() + 1);
                 					player.setDanoinflingido(player.getDanoinflingido() + VentanaInventario.getObjetoselectdaño() + Jugador.getMejoraataque());
                 					if (enem.getHealth() <= 0) {
@@ -1388,7 +1389,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					}
 				}		 
 			}
-			statement.executeUpdate("DELETE FROM OBJETOS WHERE NOMBRE LIKE'"+ nombreplayer +"'");
+			statement.executeUpdate("DELETE FROM OBJETOS WHERE NOMBRE LIKE '"+ nombreplayer +"'");
 			connection.close();
 			//s
 		}catch (SQLException e) {

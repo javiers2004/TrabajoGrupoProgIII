@@ -42,7 +42,7 @@ public class Jugador {
 	protected static int mejoravelocidad = 0;
 	protected static int consumibles = 10;
 	protected static int dinero = 1000;
-	protected static Objetos inventario;
+	protected static Objetos inventario = new Objetos();
 	
 	protected static Objetos getInventario() {
 		return inventario;
@@ -219,8 +219,8 @@ public class Jugador {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.posx = (int)(57);
 		this.posy = (int)(431);		
-		/*this.posx = (int)(1000);
-		this.posy = (int)(10000);*/
+		this.posx = (int)(1000);
+		this.posy = (int)(10000);
 
 this.posx = (int)(1000);
 		this.posy = (int)(10000);
