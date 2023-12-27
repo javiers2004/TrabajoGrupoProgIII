@@ -29,7 +29,7 @@ public class BD {
 		
 		return con;
 	}
-	
+
 	public static void closeBD(Connection con) {
 		if(con!=null) {
 			try {

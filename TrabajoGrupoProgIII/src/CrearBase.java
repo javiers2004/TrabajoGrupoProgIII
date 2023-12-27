@@ -37,10 +37,10 @@ public static void main(String[] args) {
 					+ "MVIDA INT, "
 					+ "MVELOCIDAD INT, "
 					+ "MATAQUE INT, "
-					+ "CONSUMIBLES INT, "
+					+ "CONSUMIBLES INT, DINERO INT,"
 					+ "PRIMARY KEY(NOMBRE))");
 			statement.executeUpdate("DROP TABLE IF EXISTS OBJETOS");
-			//statement.executeUpdate("CREATE TABLE OBJETOS(CODIGO INT, NOMBRE VARCHAR, PRIMARY KEY (CODIGO)");
+			statement.executeUpdate("CREATE TABLE OBJETOS(OBJ VARCHAR, NOMBRE VARCHAR, PRIMARY KEY (OBJ, NOMBRE))");
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
