@@ -102,7 +102,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	protected int aumentoprogresivoexp= 0;
 	protected String nombreplayer;
 	//GETTERS Y SETTERS
-
+	
 	protected float getFps() {
 		return fps;
 	}
@@ -1005,7 +1005,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	
 	//PARA ACTUALIZAR LA VENTANA CUANDO SE LLAMA DESDE EL MAIN
 	public void actualizarVentana(Jugador player, boolean atravesando) {
-		System.out.println(player.getMejoraataque() + "   " + Jugador.getMejoravelocidad() + "   "+ player.getMejoravida());
+		//System.out.println(player.getMejoraataque() + "   " + Jugador.getMejoravelocidad() + "   "+ player.getMejoravida());
 		map.setLocation(-player.getPosx(), -player.getPosy());
 		map.setVisible(true);
 		Enemigos emascercano = enemigos.get(0);
@@ -1206,7 +1206,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	        }
 	        if (!estaba) {
 	            // Si el nombre no existe, realizar una inserción
-	            String insertQuery = "INSERT INTO PARTIDAS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	            String insertQuery = "INSERT INTO PARTIDAS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	            try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 	                preparedStatement.setString(1, nombrePlayer);
 	                preparedStatement.setInt(2, player.getNivel());
@@ -1231,6 +1231,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                preparedStatement.setInt(21, Jugador.getMejoravelocidad());
 	                preparedStatement.setInt(22, Jugador.getMejoraataque());
 	                preparedStatement.setInt(23, Jugador.getConsumibles());
+	                preparedStatement.setInt(24, Jugador.getDinero());
 	                
 	                
 	                
@@ -1238,7 +1239,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	            }
 	        } else {
 	            // Si el nombre ya existe, realizar una actualización
-	            String updateQuery = "UPDATE PARTIDAS SET NIVEL=?, EXPERIENCIA=?, VIDA=?, POSX=?, POSY=?, VIDATOTAL=?, NUMERODEGOLPES=?, DISTANCE=?, GOLPESEFECTIVOS=?, DANOINFLINGIDO=?, DANORECIBIDO=?, STAMINATOTAL=?, SLIMES=?, PAJAROS=?, MURCIELAGOS=?,CAPARAZONES=?, PUERCOESPINES=?, GOBLINS=?, MVIDA=?, MVELOCIDAD=?, MATAQUE=?, CONSUMIBLES=? WHERE NOMBRE=?";
+	            String updateQuery = "UPDATE PARTIDAS SET NIVEL=?, EXPERIENCIA=?, VIDA=?, POSX=?, POSY=?, VIDATOTAL=?, NUMERODEGOLPES=?, DISTANCE=?, GOLPESEFECTIVOS=?, DANOINFLINGIDO=?, DANORECIBIDO=?, STAMINATOTAL=?, SLIMES=?, PAJAROS=?, MURCIELAGOS=?,CAPARAZONES=?, PUERCOESPINES=?, GOBLINS=?, MVIDA=?, MVELOCIDAD=?, MATAQUE=?, CONSUMIBLES=?, DINERO=? WHERE NOMBRE=?";
 
 	            try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
 	                preparedStatement.setInt(1, player.getNivel());
@@ -1253,7 +1254,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                preparedStatement.setInt(10, player.getDanoinflingido());
 	                preparedStatement.setInt(11, player.getDanorecibido());
 	                preparedStatement.setInt(12,(int) player.getStaminatotal());
-	                preparedStatement.setString(23, nombrePlayer);
+	                preparedStatement.setString(24, nombrePlayer);
 	                preparedStatement.setInt(13, player.getEstadisticas().get(Slime.class));
 	                preparedStatement.setInt(14, player.getEstadisticas().get(Pajaro.class));
 	                preparedStatement.setInt(15, player.getEstadisticas().get(Bat.class));
@@ -1264,6 +1265,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                preparedStatement.setInt(20, Jugador.getMejoravelocidad());
 	                preparedStatement.setInt(21, Jugador.getMejoraataque());
 	                preparedStatement.setInt(22, Jugador.getConsumibles());
+	                preparedStatement.setInt(23, Jugador.getDinero());
 
 	                
 	                
@@ -1273,11 +1275,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	            }
 				java.sql.Statement statement = connection.createStatement();
 				if(Objetos.objetos != null) {
-	            for(Item item: Objetos.objetos) {
-	            	if(item.isComprado() == true) {
-	            		statement.executeUpdate("INSERT INTO OBJETOS VALUES '" + item.getNombre().toString() + "','" + nombreplayer +"'");
-	            	}
-	            }
+					for(Item item: Objetos.objetos) {
+						if(item.isComprado() == true) {
+							statement.executeUpdate("INSERT INTO OBJETOS VALUES ('" + item.getNombre().toString() + "','" + nombreplayer +"')");
+						}
+					}
 				}
 	        }
 	        connection.close();
@@ -1331,18 +1333,21 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                player.getEstadisticas().put(Goblin.class, resultSet2.getInt("GOBLINS"));
 	                Jugador.setMejoravida(resultSet2.getInt("MVIDA"));
 	                Jugador.setMejoravelocidad(resultSet2.getInt("MVELOCIDAD"));
-	                Jugador.setMejoraataque(resultSet2.getInt("MATAQUE"));
+	                Jugador.setMejoraataque(resultSet2.getInt("MATAQUE"));	                
 	                Jugador.setConsumibles(resultSet2.getInt("CONSUMIBLES"));
+	                Jugador.setDinero(resultSet2.getInt("DINERO"));
 
 	            }
 			}
 			ResultSet resultSet3 = statement.executeQuery("SELECT OBJ FROM OBJETOS WHERE NOMBRE LIKE '" + nombreplayer +"'");
 			while (resultSet3.next()) {	
-				 for(Item item: Objetos.objetos) {
-					 if(item.getNombre().equals(resultSet3.getString("OBJ"))) {
+				if(Objetos.objetos != null) {
+					for(Item item: Objetos.objetos) {
+						if(item.getNombre().equals(resultSet3.getString("OBJ"))) {
 						 item.setComprado(true);
-					 }
-				 }
+						}
+					}
+				}		 
 			}
 			statement.executeUpdate("DELETE FROM OBJETOS WHERE NOMBRE LIKE'"+ nombreplayer +"'");
 			connection.close();
