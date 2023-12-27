@@ -143,12 +143,13 @@ public class VentanaInicio extends JFrame implements ActionListener {
 		/*CREACIÓN DE COMPONENTES*/	
 			
 		pNorte.setLayout(null);
-		lblTitulo = new JLabel("乇NΙGMΔ");
+		//lblTitulo = new JLabel("乇NΙGMΔ");
+		lblTitulo = new JLabel("𝕮𝖆𝖓𝖙𝖆𝖗𝖊𝖘 𝖉𝖊 𝕴𝖇𝖊𝖗𝖎𝖆");
 		lblTitulo.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 100));
 		lblTitulo.setForeground(Color.LIGHT_GRAY);
 
 		// Ajustar el tamaño del label al tamaño preferido basado en el contenido
-		lblTitulo.setSize(500,100);
+		lblTitulo.setSize(1000,100);
 		// Establecer la posición inicial del label en el centro horizontal del pNorte
 		lblTitulo.setLocation(0, pNorte.getHeight() / 2 - lblTitulo.getHeight() / 2);
 		pNorte.add(lblTitulo);

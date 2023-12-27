@@ -51,6 +51,8 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
+import org.sqlite.SQLiteException;
+
 
 
 
@@ -603,6 +605,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 //                					System.out.println(VentanaInventario.getObjetoselectdaño() +10);
                 					player.setDanoinflingido(player.getDanoinflingido() + VentanaInventario.getObjetoselectdaño() + Jugador.getMejoraataque());
                 					if (enem.getHealth() <= 0) {
+                						Jugador.setDinero(Jugador.getDinero() +5);
                 						enem.setArrayenuso(enem.muerte);
                 						enem.setVivo(false);
                 						player.setExperiencia(player.getExperiencia() + enem.getExperiencia());
@@ -622,6 +625,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 					player.setGoplesefectivos(player.getGoplesefectivos() + 1);
                 					player.setDanoinflingido(player.getDanoinflingido() + VentanaInventario.getObjetoselectdaño() + Jugador.getMejoraataque());
                 					if (enem.getHealth() <= 0) {
+                						Jugador.setDinero(Jugador.getDinero() +5);
                 						enem.setVivo(false);
                 						enem.setArrayenuso(enem.muerte);
                 						player.setExperiencia(player.getExperiencia() + enem.getExperiencia());
@@ -640,14 +644,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 }
             }
             	else {
-            		
-            		
-            		
-            		
-            		
-            		
-            		
-            		
+            		Hilopociones h = new Hilopociones(VentanaInventario.getObjetoselectcura(), player);
+            		h.start();
             		
             	}
 		}
@@ -1125,6 +1123,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 								e2.setHealth(e2.getHealth()-100);
 								if (e2.getHealth() <= 0) {
 	        						e2.setArrayenuso(e2.muerte);
+            						Jugador.setDinero(Jugador.getDinero() +5);
 	        						e2.setVivo(false);
 	        						player.setExperiencia(player.getExperiencia() + e2.getExperiencia());
 	        						if(player.getEstadisticas().containsKey(e2.getClass())) {
@@ -1340,7 +1339,12 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				if(Objetos.objetos != null) {
 					for(Item item: Objetos.objetos) {
 						if(item.isComprado() == true) {
-							statement.executeUpdate("INSERT INTO OBJETOS VALUES ('" + item.getNombre().toString() + "','" + nombreplayer +"')");
+							try {
+								statement.executeUpdate("INSERT INTO OBJETOS VALUES ('" + item.getNombre().toString() + "','" + nombreplayer +"')");
+							}
+							catch(SQLiteException e) {
+								
+							}
 						}
 					}
 				}
