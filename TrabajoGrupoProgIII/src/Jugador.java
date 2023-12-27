@@ -211,13 +211,12 @@ public class Jugador {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.posx = (int)(57);
 		this.posy = (int)(431);		
-<<<<<<< HEAD
 		/*this.posx = (int)(1000);
 		this.posy = (int)(10000);*/
-=======
-//		this.posx = (int)(1000);
-//		this.posy = (int)(10000);
->>>>>>> refs/remotes/origin/master
+
+this.posx = (int)(1000);
+		this.posy = (int)(10000);
+
 		
 		this.vidatotal = 100;
 		this.vidarestante = 100;
