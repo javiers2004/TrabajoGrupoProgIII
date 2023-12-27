@@ -153,46 +153,27 @@ public class VentanaTienda extends JFrame {
         botonComprar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	if (inventario.objetos.isEmpty()){
-            		System.out.println("sin productos en la tienda");
-            	}else {
-            		if (itembuffer >= 0 && itembuffer < inventario.objetos.size()) {
-            		    Item itemSeleccionado = inventario.objetos.get(itembuffer);
-            		    itemSeleccionado.setComprado(true);
-            		    System.out.println("Ítem actualizado: " + itemSeleccionado);
-            		} else {
-            		    System.out.println("Índice de ítem inválido.");
-            		}
+                if (inventario.objetos.isEmpty()) {
+                    System.out.println("Sin productos en la tienda");
+                } else {
+                    if (itembuffer >= 0 && itembuffer < inventario.objetos.size()) {
+                        Item itemSeleccionado = inventario.objetos.get(itembuffer);
+                        itemSeleccionado.setComprado(true);
+                        inventario.objetos.remove(itembuffer); // Eliminar el ítem seleccionado
+                        System.out.println("Ítem comprado y eliminado: " + itemSeleccionado);
+                        
+                        // Actualiza tu interfaz de usuario aquí (por ejemplo, actualizar una tabla)
+                        modelo.removeRow(itembuffer); // Suponiendo que 'modelo' es tu modelo de tabla
+                        
+                     // Limpiar los detalles y el ícono del producto
+                        detallesProducto.setText("");
+                        iconoProducto.setIcon(null);
 
-                	for (Item item : inventario.objetos) {
-                    	if (item.isComprado() == false){
-                    		if (item instanceof ItemAtaqueCorto) {
-                    	        ItemAtaqueCorto ataqueCorto = (ItemAtaqueCorto) item;
-                    	        modelo.addRow(new Object[]{
-                    	            createImageIcon(ataqueCorto.getIcono()), 
-                    	            ataqueCorto.getNombre(), 
-                    	            ataqueCorto.getDaño(), 
-                    	            "", // cura bacio
-                    	            ataqueCorto.getCoste(),
-                    	            ataqueCorto.getDescripcion(),
-                    	            ataqueCorto.getCooldown()
-                    	        });
-                    	    } else if (item instanceof ItemCura) {
-                    	        ItemCura cura = (ItemCura) item;
-                    	        modelo.addRow(new Object[]{
-                    	            createImageIcon(cura.getIcono()), 
-                    	            cura.getNombre(), 
-                    	            "", // daño bacio
-                    	            cura.getCuracion(), 
-                    	            cura.getCoste(),
-                    	            cura.getDescripcion(),
-                    	            cura.getCooldown()
-                    	        });
-                    	    }
-                    	}
-                	}
-            	}
-            	
+                        itembuffer = -1; // Resetear itembuffer
+                    } else {
+                        System.out.println("Índice de ítem inválido.");
+                    }
+                }
             }
         });
 

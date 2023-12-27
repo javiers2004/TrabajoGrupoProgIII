@@ -50,7 +50,7 @@ public class Objetos {
                 ,false,""));
         objetos.add(new ItemCura(
                 "Elixir de Sanación Avanzada", 
-                "img/elixir.png", 
+                "img/potion.png", 
                 150, 
                 60, 
                 500, 
@@ -58,7 +58,7 @@ public class Objetos {
                 ,false,""));
         objetos.add(new ItemCura(
                 "Poción de Regeneración", 
-                "img/regen_potion.png", 
+                "img/potion.png", 
                 100, 
                 45, 
                 350, 
