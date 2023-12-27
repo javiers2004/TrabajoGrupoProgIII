@@ -625,7 +625,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 					player.setGoplesefectivos(player.getGoplesefectivos() + 1);
                 					player.setDanoinflingido(player.getDanoinflingido() + VentanaInventario.getObjetoselectdaño() + Jugador.getMejoraataque());
                 					if (enem.getHealth() <= 0) {
-                						Jugador.setDinero(Jugador.getDinero() +1000);
+                						Jugador.setDinero(Jugador.getDinero() +5);
                 						enem.setVivo(false);
                 						enem.setArrayenuso(enem.muerte);
                 						player.setExperiencia(player.getExperiencia() + enem.getExperiencia());
