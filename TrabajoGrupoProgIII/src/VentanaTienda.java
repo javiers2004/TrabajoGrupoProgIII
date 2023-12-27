@@ -98,7 +98,24 @@ public class VentanaTienda extends JFrame {
                             Image img = ImageIO.read(new File(selectedItem.getIcono()));
                             Image resizedImage = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
                             iconoProducto.setIcon(new ImageIcon(resizedImage));
-                            detallesProducto.setText("Nombre: " + selectedItem.getNombre() + "\nDaño: ");
+                            StringBuilder detalles = new StringBuilder();
+                            detalles.append("Nombre: ").append(selectedItem.getNombre());
+
+                            if (selectedItem instanceof ItemAtaqueCorto) {
+                                ItemAtaqueCorto ataqueCorto = (ItemAtaqueCorto) selectedItem;
+                                detalles.append("\nDaño: ").append(ataqueCorto.getDaño());
+                                detalles.append("\nCoste: ").append(ataqueCorto.getCoste());
+                                detalles.append("\nCooldown: ").append(ataqueCorto.getCooldown());
+                                detalles.append("\nDescripción:\n").append(agregarSaltosLineaDescripcion(ataqueCorto.getDescripcion(), 8)); // Por ejemplo, cada 10 palabras
+                            } else if (selectedItem instanceof ItemCura) {
+                                ItemCura cura = (ItemCura) selectedItem;
+                                detalles.append("\nCuración: ").append(cura.getCuracion());
+                                detalles.append("\nCoste: ").append(cura.getCoste());
+                                detalles.append("\nCooldown: ").append(cura.getCooldown());
+                                detalles.append("\nDescripción:\n").append(agregarSaltosLineaDescripcion(cura.getDescripcion(), 8)); // Por ejemplo, cada 10 palabras
+                            }
+
+                            detallesProducto.setText(detalles.toString());
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         }
@@ -192,6 +209,20 @@ public class VentanaTienda extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+    
+    private String agregarSaltosLineaDescripcion(String descripcion, int palabrasPorLinea) {
+        String[] palabras = descripcion.split(" ");
+        StringBuilder descripcionConSaltos = new StringBuilder();
+        
+        for (int i = 0; i < palabras.length; i++) {
+            descripcionConSaltos.append(palabras[i]).append(" ");
+            if ((i + 1) % palabrasPorLinea == 0) {
+                descripcionConSaltos.append("\n");
+            }
+        }
+
+        return descripcionConSaltos.toString().trim();
     }
     
  // Método para crear un ImageIcon a partir de una ruta de archivo y redimensionarlo
