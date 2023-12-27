@@ -54,6 +54,7 @@ public class J2 extends Enemigos{
 		   actual = this.dialogoConsejos;
 		   mostrado++;
 	   }
+	   
    }
 
 protected void inicializarDialogos() {
