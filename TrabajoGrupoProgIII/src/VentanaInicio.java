@@ -148,7 +148,7 @@ public class VentanaInicio extends JFrame implements ActionListener {
 		lblTitulo.setForeground(Color.LIGHT_GRAY);
 
 		// Ajustar el tamaño del label al tamaño preferido basado en el contenido
-		lblTitulo.setSize(lblTitulo.getPreferredSize());
+		lblTitulo.setSize(500,100);
 		// Establecer la posición inicial del label en el centro horizontal del pNorte
 		lblTitulo.setLocation(0, pNorte.getHeight() / 2 - lblTitulo.getHeight() / 2);
 		pNorte.add(lblTitulo);

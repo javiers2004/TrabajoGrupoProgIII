@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 public class Objetos {
-	protected ArrayList<Item> objetos; // ArrayList público de items
+	protected static ArrayList<Item> objetos; // ArrayList público de items
 	private static final int ICON_WIDTH = 32; // Ancho deseado para el ícono
     private static final int ICON_HEIGHT = 32; // Altura deseada para el ícono
    

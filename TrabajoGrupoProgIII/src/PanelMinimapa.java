@@ -35,6 +35,17 @@ public class PanelMinimapa extends JPanel {
         punto.setOpaque(false);  // Hacer el fondo transparente
         map.setOpaque(false);
     
+        
+        ImageIcon im2 =new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/Mapas/iconojoana.png");
+        Image imagenEscalada3 = im2.getImage().getScaledInstance(30,40, Image.SCALE_SMOOTH);
+        JLabel iconoj = new JLabel();
+        iconoj.setIcon(new ImageIcon(imagenEscalada3));
+        iconoj.setVisible(true);
+        iconoj.setOpaque(false);
+        this.add(iconoj, BorderLayout.CENTER);
+        iconoj.setLocation(50,50);
+        
+        
         this.add(punto, BorderLayout.CENTER);  // Agregar el punto sobre el mapa
         this.add(map, BorderLayout.CENTER);
         coords = new JLabel();
@@ -51,7 +62,8 @@ public class PanelMinimapa extends JPanel {
 
     public void actualizarPunto(Jugador player) {
     	punto.setLocation((int)(player.getPosx()/(39)+4) , (int)(player.getPosy()/(39))-32 );
-        //System.out.println("Jugador   " + player.getPosx() + "   " + player.getPosy());
+    	
+    	//System.out.println("Jugador   " + player.getPosx() + "   " + player.getPosy());
         //System.out.println("Punto   " + punto.getLocation());
     	coords.setText("                                                                      " + player.posx + ", " + player.getPosy());
     	//System.out.println(player.getPosx() + "   "+ player.getPosy());
