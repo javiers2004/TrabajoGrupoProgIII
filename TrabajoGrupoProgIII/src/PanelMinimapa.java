@@ -22,7 +22,8 @@ public class PanelMinimapa extends JPanel {
         this.setSize(300, 300);
 
         ImageIcon icon = imagefinal;
-        Image imagenEscalada = icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon ic = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/Mapas/MAPADEFINITIVO2.png");
+        Image imagenEscalada = ic.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
 
         JLabel map = new JLabel(new ImageIcon(imagenEscalada));
         map.setSize(getWidth(), getHeight());
