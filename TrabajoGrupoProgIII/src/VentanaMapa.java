@@ -6,7 +6,11 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -32,16 +36,20 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 
 
 
@@ -49,6 +57,7 @@ import javax.swing.SwingUtilities;
 public class VentanaMapa extends JFrame implements KeyListener{
 	//ATRIBUTOS
 	private npc npc1;
+	public JLabel redWall;
 	private List<Component> cdialogo = new ArrayList<>();
 	public E2 ele;
 	public J2 jo;
@@ -451,7 +460,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		lblcartel.setVisible(false);
 		panelfondo.add(lblcartel);
 		panelfondo.setComponentZOrder(lblcartel, 1);
-		
+		drawWall();
 		
 		jo = new J2();
 		 System.out.println("si");
@@ -466,17 +475,27 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		ele = new E2();
 		System.out.println("sisi");
 		ele.getLabel().setVisible(false);
-		VentanaMapa.this.ele.setX(965);
-		VentanaMapa.this.ele.setY(9800);
+		VentanaMapa.this.ele.setX(3380);
+		VentanaMapa.this.ele.setY(10200);
 		VentanaMapa.this.panelfondo.add(this.ele.getLabel());
 		VentanaMapa.this.panelfondo.setComponentZOrder(VentanaMapa.this.ele.getLabel(), 3);
 		((Enemigos) ele).getLabel().setVisible(true);
 		
+		
+		redWall = new JLabel();
+			redWall.setOpaque(true);
+			this.redWall.setBackground(Color.red);
+			this.redWall.setBounds(0, 0, 100, 100);
+			this.panelfondo.add(this.redWall);
+			this.panelfondo.setComponentZOrder(this.redWall, 3);
+			this.redWall.setVisible(true);
+			
 			
 		jo.getLabel().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				jo.siguiente();
+				mostrarDialogo(jo.actual);
 			}
 		});
 		
@@ -597,6 +616,12 @@ public class VentanaMapa extends JFrame implements KeyListener{
         });		
 	}
 	
+	public void drawWall(){
+		Graphics2D g2d = mapacolisiones.createGraphics();
+		g2d.setColor(Color.red);
+		g2d.fillRect(3380, 10200, 100, 100);
+		g2d.dispose();
+	}
 	
 	//generar DIALOGO
 	public void keyPressed1(KeyEvent e1) {
@@ -604,7 +629,33 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			cerrar();
 		}
 	}
-	
+	public void movimientoSprite() {
+		
+		Timer timer = new Timer(100, (ActionListener) new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ele.incrementar();
+				ele.getLabel().setIcon(ele.getActual());
+				jo.incrementar();
+				jo.getLabel().setIcon(jo.getActual());
+			}
+		});
+		timer.start();
+	}
+	public void checkplayer(Jugador player) {
+		if(player.getNivel() <7) {
+			Rectangle playerb = lblplayer.getBounds();
+			Rectangle wallb = redWall.getBounds();
+			
+			if(playerb.intersects(wallb)) {
+				player.setPosx(wallb.x - playerb.width);
+				JOptionPane.showMessageDialog(this, "necesitas ser nivel 7");
+			}
+			else {
+			this.redWall.setVisible(false);
+			}
+		}
+	}
 	public void mostrarDialogo(Dialogo dialogo) {
 		JLabel lbltxt = new JLabel( dialogo.getTxt());
 		int alturaDialogo = 70; 
@@ -644,6 +695,14 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			posy +=alturaOpcion + 5;
 			}
 		panelfondo.repaint();
+		this.addKeyListener((KeyListener) new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+					cerrar();
+				}
+			}
+		});
 		
 	}
 	public void cerrar() {
@@ -651,10 +710,12 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			panelfondo.remove(c);
 		}
 		this.cdialogo.clear();
+		//	this.removeKeyListener(this);
 		panelfondo.repaint();
 	}
 	
 	public void manageRespuesta(Dialogo d, int s) {
+		Dialogo d1 = new Dialogo("¡Gracias! Por favor, ve al bosque oscuro y encuentra la cueva secreta.", Arrays.asList("Salir"));
 		if(d.getTxt().equals("¡Hola, aventurero! Nuestra princesa Eleonore ha sido capturada por criaturas malvadas. ¿Puedes ayudarnos a rescatarla?")) {
 			if(s == 0) {
 				mostrarDialogo(new Dialogo("¡Gracias! Por favor, ve al bosque oscuro y encuentra la cueva secreta.", Arrays.asList("Entendido", "¿Alguna pista de dónde puedo empezar?")));
@@ -664,10 +725,16 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	        }
 			
 		}else if(d.getTxt().equals("¡Gracias! Por favor, ve al bosque oscuro y encuentra la cueva secreta.")) {
+			manageRespuesta(d1, 1);
 			if(s == 1) {
-				Dialogo d1= new Dialogo("Creo que puede que la tengan oculta en alguna de las numerosas cavermas repartidas por estos parajes...", null);
-				mostrarDialogo(d1);
+				new Dialogo("Creo que puede que la tengan oculta en alguna de las numerosas cavermas repartidas por estos parajes...", null);
+				
 			}
+			
+		}else if(!d.getOpc().get(s).equals("Salir")) {
+			
+		}else {
+			cerrar();
 		}
 	}
 	
@@ -700,7 +767,9 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	private boolean areapermitida(int x, int y) {
 		int color = this.mapacolisiones.getRGB(x, y);
 		Color colorp = new Color(color);
+		
 		return colorp.getRed() > 240 && colorp.getGreen() > 240 && colorp.getBlue() >240;
+		
 	}
 	Thread generarNpc = new Thread() {
 		public void run() {
@@ -852,8 +921,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					jo.getLabel().setIcon(act);
 				}
 				else if(ele != null && ele instanceof E2) {
-					ele.incrementar()
-;
+					ele.incrementar();
 					ImageIcon act = ele.getActual();
 					ele.getLabel().setIcon(act);
 					}
@@ -916,6 +984,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	        	teclashift = false;
 	        }
 	} 
+	
 	//PARA ACTUALIZAR LA VENTANA CUANDO SE LLAMA DESDE EL MAIN
 	public void actualizarVentana(Jugador player, boolean atravesando) {
 		map.setLocation(-player.getPosx(), -player.getPosy());
@@ -930,7 +999,15 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		int npxx = ele.getX() -player.getPosx();
 		int npyy = ele.getY() - player.getPosy();
 		JLabel eleonore = ele.getLabel();
-		eleonore.setLocation(npxx, npyy);		
+		eleonore.setLocation(npxx, npyy);
+		
+		int npxxx = 3235 -player.getPosx();
+		int npyyy = 10100 -player.getPosy();
+		JLabel w = this.redWall ;
+		w.setLocation(npxxx, npyyy);
+		
+		
+		
 		if(player.getVidarestante() <= 0) {
 			guardarDatosPartida();
 			this.setContinuar(false);
