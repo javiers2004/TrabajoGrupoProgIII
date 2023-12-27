@@ -79,7 +79,7 @@ public class BD {
 	
 	public static void crearTablaObjetos(Connection con) {
 	    String sql = "CREATE TABLE IF NOT EXISTS Objetos (" +
-	        "Id INTEGER, " +
+	        "NombreItem TEXT, " +
 	        "Buy INTEGER, " +
 	        "NombreJugador TEXT, " +
 	        ");";
@@ -113,13 +113,7 @@ public class BD {
 		}
 		return j;
 	}
-	public static boolean buscarObjeto(Connection con, String nombre) {
-		return false;
-	}
 	
-	public static void insertarObjetos(Connection con, Jugador j, String Objetonombre) {
-		
-	}
 	
 	public static void insertarJugador(Connection con, Jugador j) {
 		if(buscarJugador(con, j.getNombre())==null) {
@@ -134,6 +128,65 @@ public class BD {
 			}
 		}
 	}
+	
+	public static boolean buscarObjeto(Connection con, Jugador j, Item item) {
+		String sql = String.format("SELECT Buy FROM Objetos Where NombreItem='%s' AND NombreJugador='%s'", item.getNombre(),j.getNombre());
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			if(rs.next()) { //Comprobamos si rs está apuntando a una tupla de la tabla
+				String buy = rs.getString("Buy");
+				if(buy == "1") {
+					return true;
+				}else if(buy == "0") {
+					return false;
+				}
+			}
+			rs.close();
+			st.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	public static void insertarObjeto(Connection con, Jugador j, Item item) {
+		String sql = "INSERT INTO Objetos (NombreItem, Buy, NombreJugador) VALUES (?, ?, ?)";
+		try (PreparedStatement pst = con.prepareStatement(sql)) {
+			pst.setString(1, item.getNombre());
+	        pst.setString(3, j.getNombre());
+	        if(item.isComprado()) {
+	        	pst.setInt(2, 1);
+	        }else {pst.setInt(2, 1);}
+
+	        pst.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	public static void actualizarObjeto(Connection con, Jugador j, Item item) {
+	    String sql = "UPDATE Objetos SET Buy = ? WHERE NombreItem = ? AND NombreJugador = ?";
+	    try (PreparedStatement pst = con.prepareStatement(sql)) {
+	        // Establecer si el ítem ha sido comprado o no
+	        if(item.isComprado()) {
+	            pst.setInt(1, 1);
+	        } else {
+	            pst.setInt(1, 0);
+	        }
+	        
+	        // Establecer el nombre del ítem y del jugador
+	        pst.setString(2, item.getNombre());
+	        pst.setString(3, j.getNombre());
+
+	        // Ejecutar la actualización
+	        pst.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+
 	
 	public static void guardarPartida(Connection con, Jugador jugador) {
 	    String sql = "INSERT INTO Partida (nombre, nivel) VALUES (?, ?)";
