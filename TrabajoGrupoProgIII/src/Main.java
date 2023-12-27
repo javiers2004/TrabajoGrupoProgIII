@@ -90,9 +90,9 @@ public class Main {
 						//System.out.println(jug1.getVidarestante());
 					if(ven1.click == false) {
 					
-					int velocidadextra = 0;
+					int velocidadextra = (int)Jugador.getMejoravelocidad()/4;
 					if(jug1.getStaminarestante() > 0 && ven1.isTeclashift() == true) {
-						velocidadextra = 4;
+						velocidadextra = velocidadextra +3;;
 						jug1.setStaminarestante(jug1.getStaminarestante() - 0.4);
 						if(jug1.getStaminarestante() < 0) {
 							jug1.setStaminarestante(0);

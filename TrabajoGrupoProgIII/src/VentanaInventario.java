@@ -16,7 +16,6 @@ public class VentanaInventario extends JFrame {
 
     private static final int ICON_WIDTH = 32; // Ancho deseado para el ícono
     private static final int ICON_HEIGHT = 32; // Altura deseada para el ícono
-    private int consumibles = 10;
 
 
     // Constructor de la ventana
@@ -51,7 +50,7 @@ public class VentanaInventario extends JFrame {
         // Panel superior para consumibles y subpaneles de progreso
         JPanel panelConsumibles = new JPanel();
         panelConsumibles.setLayout(new GridLayout(4, 1)); // 4 filas para el título y cada subpanel
-        JLabel etiquetaConsumibles = new JLabel("Consumibles: " + consumibles);
+        JLabel etiquetaConsumibles = new JLabel("Consumibles: " + Jugador.getConsumibles());
         panelConsumibles.add(etiquetaConsumibles);
 
 	    // Consumible 1
@@ -62,17 +61,18 @@ public class VentanaInventario extends JFrame {
         JLabel titulo1 = new JLabel(iconoConsumible1);
 
         JProgressBar progressBar1 = new JProgressBar(0, 100);
-        progressBar1.setValue(0); // Valor inicial
+        progressBar1.setValue(Jugador.getMejoraataque()*10); // Valor inicial
         JButton boton1 = new JButton("+");
         boton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Aumentar el valor de la barra de progreso
-            	if (consumibles > 0) {
+            	if (Jugador.getConsumibles() > 0) {
 	                if (progressBar1.getValue() < 100) {
 	                    progressBar1.setValue(progressBar1.getValue() + 10);
-	                    consumibles--;
-	                    etiquetaConsumibles.setText("Consumibles: " + consumibles);
+	                    Jugador.setConsumibles(Jugador.getConsumibles() - 1);;
+	                    Jugador.setMejoraataque(Jugador.getMejoraataque() + 1);
+	                    etiquetaConsumibles.setText("Consumibles: " + Jugador.getConsumibles());
 	                }
             	}
             }
@@ -91,17 +91,18 @@ public class VentanaInventario extends JFrame {
         JLabel titulo2 = new JLabel(iconoConsumible2);
 
         JProgressBar progressBar2 = new JProgressBar(0, 100);
-        progressBar2.setValue(0); // Valor inicial
+        progressBar2.setValue(Jugador.getMejoravelocidad()*10); // Valor inicial
         JButton boton2 = new JButton("+");
         boton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Aumentar el valor de la barra de progreso
-            	if (consumibles > 0) {
+            	if (Jugador.getConsumibles() > 0) {
 	                if (progressBar2.getValue() < 100) {
 	                    progressBar2.setValue(progressBar2.getValue() + 10);
-	                    consumibles--;
-	                    etiquetaConsumibles.setText("Consumibles: " + consumibles);
+	                    Jugador.setConsumibles(Jugador.getConsumibles() - 1);;
+	                    Jugador.setMejoravelocidad(Jugador.getMejoravelocidad() + 1);
+	                    etiquetaConsumibles.setText("Consumibles: " + Jugador.getConsumibles());
 	                }
             	}
             }
@@ -120,17 +121,18 @@ public class VentanaInventario extends JFrame {
         JLabel titulo3 = new JLabel(iconoConsumible3);
 
         JProgressBar progressBar3 = new JProgressBar(0, 100);
-        progressBar3.setValue(0); // Valor inicial
+        progressBar3.setValue(Jugador.getMejoravida()*10); // Valor inicial
         JButton boton3 = new JButton("+");
         boton3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Aumentar el valor de la barra de progreso
-            	if (consumibles > 0) {
+            	if (Jugador.getConsumibles() > 0) {
 	                if (progressBar3.getValue() < 100) {
 	                    progressBar3.setValue(progressBar3.getValue() + 10);
-	                    consumibles--;
-	                    etiquetaConsumibles.setText("Consumibles: " + consumibles);
+	                    Jugador.setConsumibles(Jugador.getConsumibles() - 1);;
+	                    Jugador.setMejoravida(Jugador.getMejoravida() + 1);
+	                    etiquetaConsumibles.setText("Consumibles: " + Jugador.getConsumibles());
 	                }
             	}
             }
@@ -205,7 +207,7 @@ public class VentanaInventario extends JFrame {
     }
 
     // Método principal para ejecutar la aplicación
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new VentanaInventario());
-    }
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> new VentanaInventario());
+//    }
 }

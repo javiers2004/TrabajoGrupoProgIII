@@ -37,9 +37,37 @@ public class Jugador {
 	protected int danorecibido = 0;
 	protected ArrayList<ImageIcon> arrayenuso;
 	protected int contadorsprites = 0;
+	protected static int mejoravida = 0;
+	protected static int mejoraataque = 0;
+	protected static int mejoravelocidad = 0;
+	protected static int consumibles = 10;
 	
 	
 	
+	protected static int getConsumibles() {
+		return consumibles;
+	}
+	protected static void setConsumibles(int consumibles) {
+		Jugador.consumibles = consumibles;
+	}
+	protected static int getMejoravida() {
+		return mejoravida;
+	}
+	protected static void setMejoravida(int mejoravida) {
+		Jugador.mejoravida = mejoravida;
+	}
+	protected static int getMejoraataque() {
+		return mejoraataque;
+	}
+	protected static void setMejoraataque(int mejoraataque) {
+		Jugador.mejoraataque = mejoraataque;
+	}
+	protected static int getMejoravelocidad() {
+		return mejoravelocidad;
+	}
+	protected static void setMejoravelocidad(int mejoravelocidad) {
+		Jugador.mejoravelocidad = mejoravelocidad;
+	}
 	protected int getDanorecibido() {
 		return danorecibido;
 	}
