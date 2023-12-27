@@ -159,7 +159,34 @@ public class VentanaInventario extends JFrame {
 
         // Crear y agregar los ítems al modelo de la tabla
         
-        modelo = inventario.modelfil(modelo,true);
+        for (Item item : inventario.getInventario()) {
+        	if (item.isComprado() == true){
+        		if (item instanceof ItemAtaqueCorto) {
+        	        ItemAtaqueCorto ataqueCorto = (ItemAtaqueCorto) item;
+        	        modelo.addRow(new Object[]{
+        	            createImageIcon(ataqueCorto.getIcono()), 
+        	            ataqueCorto.getNombre(), 
+        	            ataqueCorto.getDaño(), 
+        	            "", // cura bacio
+        	            ataqueCorto.getCoste(),
+        	            ataqueCorto.getDescripcion(),
+        	            ataqueCorto.getCooldown()
+        	        });
+        	    } else if (item instanceof ItemCura) {
+        	        ItemCura cura = (ItemCura) item;
+        	        modelo.addRow(new Object[]{
+        	            createImageIcon(cura.getIcono()), 
+        	            cura.getNombre(), 
+        	            "", // daño bacio
+        	            cura.getCuracion(), 
+        	            cura.getCoste(),
+        	            cura.getDescripcion(),
+        	            cura.getCooldown()
+        	        });
+        	    }
+        	}
+            
+        }
 
         JTable tabla = new JTable(modelo);
         tabla.setRowHeight(50); // Ajustar la altura de las filas para los íconos
