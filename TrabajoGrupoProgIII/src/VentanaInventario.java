@@ -159,8 +159,8 @@ public class VentanaInventario extends JFrame {
 
         // Crear y agregar los ítems al modelo de la tabla
         
-        for (Item item : inventario.objetos) {
-        	if (item.isComprado()){
+        for (Item item : inventario.getInventario()) {
+        	if (item.isComprado() == true){
         		if (item instanceof ItemAtaqueCorto) {
         	        ItemAtaqueCorto ataqueCorto = (ItemAtaqueCorto) item;
         	        modelo.addRow(new Object[]{

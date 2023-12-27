@@ -28,7 +28,7 @@ public class PanelMinimapa extends JPanel {
         map.setSize(getWidth(), getHeight());
 
         punto.setSize(30, 40);
-        ImageIcon im =new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/flecha.png");
+        ImageIcon im =new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/Mapas/flecha.png");
         Image imagenEscalada2 = im.getImage().getScaledInstance(30,40, Image.SCALE_SMOOTH);
         punto.setIcon(new ImageIcon(imagenEscalada2));
         punto.setVisible(true);
