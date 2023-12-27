@@ -53,6 +53,8 @@ public class J2 extends Enemigos{
 	   }else if(mostrado ==2) {
 		   actual = this.dialogoConsejos;
 		   mostrado++;
+	   }else {
+		   actual = new Dialogo("Sigue buscando!", null);
 	   }
 	   
    }

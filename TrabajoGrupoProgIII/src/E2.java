@@ -9,10 +9,11 @@ public class E2 extends Enemigos{
 	protected Dialogo dialogoInicial;
 	protected Dialogo dialogoRescate;
 	protected Dialogo dialogoFinal;
-	 protected Dialogo dialogoMisionAdicional;
-	 protected Dialogo dialogoReaccionPostRescate;
-	 
-	 protected int cont=0;
+	protected Dialogo dialogoMisionAdicional;
+	protected Dialogo dialogoReaccionPostRescate;
+	 protected int mostrado = 0;
+	 protected Dialogo actual;
+	 int cont=0;
 	 public E2() {
 		 this.health = 800000000;
 	    	this.daño=0;
@@ -55,6 +56,21 @@ public class E2 extends Enemigos{
                      Arrays.asList("Fue una batalla difícil, pero valió la pena.", "Solo hice lo que tenía que hacer."));
 
 	 }
+	 public void siguiente() {
+		 if(mostrado == 0) {
+			 actual = this.dialogoInicial;
+			 mostrado++;
+		 }else if(mostrado ==1) {
+			 actual = this.dialogoRescate;
+			 mostrado++;
+		 }else if(mostrado ==2) {
+			 actual = this.dialogoFinal;
+			 mostrado++;
+		 }else if(mostrado ==3) {
+			 actual = this.dialogoReaccionPostRescate;
+			 
+		 }
+	 }
 	 public Dialogo getDialogoInicial() {
 	        return dialogoInicial;
 	    }
@@ -80,4 +96,5 @@ public class E2 extends Enemigos{
 	    public ImageIcon getActual() {
 	    	return derecha.get(cont);
 	    }
+	    
 }

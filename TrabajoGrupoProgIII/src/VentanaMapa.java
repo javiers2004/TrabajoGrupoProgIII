@@ -498,7 +498,13 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				mostrarDialogo(jo.actual);
 			}
 		});
-		
+		ele.getLabel().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ele.siguiente();
+				mostrarDialogo(ele.actual);
+			}
+		});
 		
 		//generar dialogom -- LISTADOS TODOS LOS DIALOGOS PARA LA HISTORIA
 		
