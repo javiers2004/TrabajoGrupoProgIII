@@ -32,8 +32,35 @@ public class E2 extends Enemigos{
 	        animacionDerecha.add(im1);
 	        animacionDerecha.add(im2);
 	        animacionDerecha.add(im3);
-	        animacionDerecha.add(im4);
+	        //animacionDerecha.add(im4);
 	        this.derecha = animacionDerecha;
+	        this.derecha = derecha;
+	    	ArrayList<ImageIcon> izquierda = new ArrayList<ImageIcon>();
+	    	ImageIcon icono3 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/eIdle1.png");
+	    	ImageIcon imagen3 = new ImageIcon(icono3.getImage().getScaledInstance(102,80, Image.SCALE_SMOOTH));
+	    	ImageIcon icono4 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/boss//eIdle2.png");
+	    	ImageIcon imagen4 = new ImageIcon(icono4.getImage().getScaledInstance(102,80, Image.SCALE_SMOOTH));
+	    	ImageIcon icono6 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/boss/eIdle3.png");
+	    	ImageIcon imagen6 = new ImageIcon(icono6.getImage().getScaledInstance(102,80, Image.SCALE_SMOOTH));
+	    	izquierda.add(imagen3);
+	    	izquierda.add(imagen4);
+	    	izquierda.add(imagen6);
+	    	this.izquierda = izquierda;	
+	    	ImageIcon icono7 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/boss/105.png");
+	    	ImageIcon imagen7 = new ImageIcon(icono7.getImage().getScaledInstance(110,92, Image.SCALE_SMOOTH));
+	    	ImageIcon icono8 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/boss/106.png");
+	    	ImageIcon imagen8 = new ImageIcon(icono8.getImage().getScaledInstance(110,92, Image.SCALE_SMOOTH));
+	    	ImageIcon icono9 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/boss/107.png");
+	    	ImageIcon imagen9 = new ImageIcon(icono9.getImage().getScaledInstance(110,92, Image.SCALE_SMOOTH));
+	    	ataquenemigo.add(imagen7);
+	    	ataquenemigo.add(imagen8);
+	    	ataquenemigo.add(imagen9);
+	    	ImageIcon icono11 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/boss/144.png");
+	    	ImageIcon image11 = new ImageIcon(icono11.getImage().getScaledInstance(64,164, Image.SCALE_SMOOTH));
+	    	muerte.add(image11);
+	        
+	        
+	        
 	        this.label = new JLabel();
 	        this.getLabel().setSize(136, 168);
 	        this.label.setIcon(this.getDerecha().get(0));
