@@ -1066,7 +1066,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				HiloSubidaNivel hilosubidanivel = new HiloSubidaNivel(veninfo, this, player);
 				hilosubidanivel.start();	
 				levelup.setVisible(false);
-				
+				Jugador.setConsumibles(Jugador.getConsumibles()+2);				
 			}
 		}
 		this.minimapa.actualizarPunto(player);
