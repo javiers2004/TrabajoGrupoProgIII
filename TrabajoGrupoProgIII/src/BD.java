@@ -113,11 +113,11 @@ public class BD {
 		}
 		return j;
 	}
-	public static ArrayList<> buscarObjetos(Connection con, String nombre) {
-		return null;
+	public static boolean buscarObjeto(Connection con, String nombre) {
+		return false;
 	}
 	
-	public static void insertarObjetos(Connection con, Jugador j) {
+	public static void insertarObjetos(Connection con, Jugador j, String Objetonombre) {
 		
 	}
 	
