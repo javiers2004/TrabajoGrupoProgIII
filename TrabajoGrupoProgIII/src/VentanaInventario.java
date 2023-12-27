@@ -18,7 +18,7 @@ public class VentanaInventario extends JFrame {
 
     private static final int ICON_WIDTH = 32; // Ancho deseado para el ícono
     private static final int ICON_HEIGHT = 32; // Altura deseada para el ícono
-    public int itembuffer;
+    public static int itembuffer;
 
 
     // Constructor de la ventana
@@ -251,9 +251,16 @@ public class VentanaInventario extends JFrame {
             return null;
         }
     }
+    
+    public static int getObjetoselectdaño() {
+    	Objetos inventario = new Objetos();
+    	ArrayList<Item> objetosComprados = inventario.getInventarioComprados(); 
+    	Item itemSeleccionado = objetosComprados.get(itembuffer);
+    	return (int) ((ItemAtaqueCorto) itemSeleccionado).getDaño();
+    }
 
     // Método principal para ejecutar la aplicación
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> new VentanaInventario());
-//    }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new VentanaInventario());
+    }
 }

@@ -590,7 +590,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 				if (enem.distancia(player) < 100 ) {
                 					enem.setHealth(enem.getHealth()-10 - Jugador.getMejoraataque());
                 					player.setGoplesefectivos(player.getGoplesefectivos() + 1);
-                					player.setDanoinflingido(player.getDanoinflingido() + 10 + Jugador.getMejoraataque());
+                					player.setDanoinflingido(player.getDanoinflingido() + VentanaInventario.getObjetoselectdaño() + Jugador.getMejoraataque());
                 					if (enem.getHealth() <= 0) {
                 						enem.setArrayenuso(enem.muerte);
                 						enem.setVivo(false);
