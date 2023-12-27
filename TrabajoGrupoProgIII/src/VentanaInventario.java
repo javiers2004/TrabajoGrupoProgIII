@@ -212,13 +212,15 @@ public class VentanaInventario extends JFrame {
             }
         });
         
+        ArrayList<Item> objetosComprados = inventario.getInventarioComprados();
+        
         tabla.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
                     int selectedRow = tabla.getSelectedRow();
                     if (selectedRow != -1) {
-                    	Item selectedItem = objetosNoComprados.get(selectedRow);
+                    	Item selectedItem = objetosComprados.get(selectedRow);
                     	itembuffer = selectedRow;
                     	System.out.println(itembuffer);
                     }
