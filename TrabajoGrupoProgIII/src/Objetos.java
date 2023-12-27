@@ -179,13 +179,6 @@ public class Objetos {
     	this.objetos = inventario;
     }
     
-    public void cargarObjetosBD() {
-    	
-    }
-    public void guardarObjetosBD() {
-    	 
-    }
-    
     public static void main(String[] args) {
         Objetos objetos = new Objetos();
         ArrayList<Item> inventario = objetos.getInventario();

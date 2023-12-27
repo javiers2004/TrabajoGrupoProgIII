@@ -51,7 +51,6 @@ public class Jugador {
 		Jugador.inventario = inventario;
 	}
 	
-	
 	protected static int getDinero() {
 		return dinero;
 	}

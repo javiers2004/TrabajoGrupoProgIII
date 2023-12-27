@@ -252,9 +252,25 @@ public class VentanaInventario extends JFrame {
     }
     
     public static int getObjetoselectdaño() {
-    	Objetos inventario = new Objetos();
+    	Objetos inventario = Jugador.getInventario();
     	ArrayList<Item> objetosComprados = inventario.getInventarioComprados(); 
     	Item itemSeleccionado = objetosComprados.get(itembuffer);
     	return (int) ((ItemAtaqueCorto) itemSeleccionado).getDaño();
     }
+    
+    public static int getObjetoselectcura() {
+    	Objetos inventario = Jugador.getInventario();
+    	ArrayList<Item> objetosComprados = inventario.getInventarioComprados(); 
+    	Item itemSeleccionado = objetosComprados.get(itembuffer);
+    	return (int) ((ItemCura) itemSeleccionado).getCuracion();
+    }
+    
+    public static String getObjetoselecticono() {
+    	Objetos inventario = Jugador.getInventario();
+    	ArrayList<Item> objetosComprados = inventario.getInventarioComprados(); 
+    	Item itemSeleccionado = objetosComprados.get(itembuffer);
+    	return itemSeleccionado.getIcono(); 
+    }
+    
+    
 }
