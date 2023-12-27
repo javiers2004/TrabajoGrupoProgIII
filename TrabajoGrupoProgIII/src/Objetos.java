@@ -1,8 +1,15 @@
+import java.awt.Image;
 import java.io.*;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+
 public class Objetos {
 	protected ArrayList<Item> objetos; // ArrayList público de items
+	private static final int ICON_WIDTH = 32; // Ancho deseado para el ícono
+    private static final int ICON_HEIGHT = 32; // Altura deseada para el ícono
    
     
 
@@ -155,6 +162,49 @@ public class Objetos {
     }
     public void guardarObjetosBD() {
     	 
+    }
+    
+    public DefaultTableModel modelfil(DefaultTableModel modelo,boolean comprado) {
+    	for (Item item : objetos) {
+        	if (item.isComprado() == comprado){
+        		if (item instanceof ItemAtaqueCorto) {
+        	        ItemAtaqueCorto ataqueCorto = (ItemAtaqueCorto) item;
+        	        modelo.addRow(new Object[]{
+        	            createImageIcon(ataqueCorto.getIcono()), 
+        	            ataqueCorto.getNombre(), 
+        	            ataqueCorto.getDaño(), 
+        	            "", // cura bacio
+        	            ataqueCorto.getCoste(),
+        	            ataqueCorto.getDescripcion(),
+        	            ataqueCorto.getCooldown()
+        	        });
+        	    } else if (item instanceof ItemCura) {
+        	        ItemCura cura = (ItemCura) item;
+        	        modelo.addRow(new Object[]{
+        	            createImageIcon(cura.getIcono()), 
+        	            cura.getNombre(), 
+        	            "", // daño bacio
+        	            cura.getCuracion(), 
+        	            cura.getCoste(),
+        	            cura.getDescripcion(),
+        	            cura.getCooldown()
+        	        });
+        	    }
+        	}
+            
+        }
+    	return modelo;
+    }
+    
+    private ImageIcon createImageIcon(String path) {
+        try {
+            Image img = ImageIO.read(new File(path));
+            Image resizedImage = img.getScaledInstance(ICON_WIDTH, ICON_HEIGHT, Image.SCALE_SMOOTH);
+            return new ImageIcon(resizedImage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
     
     public static void main(String[] args) {
