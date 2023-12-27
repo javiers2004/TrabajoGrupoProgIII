@@ -621,6 +621,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			posy +=alturaOpcion + 5;
 			}
 		panelfondo.repaint();
+		a;
 	}
 	
 	public void verificarDialogo(int x, int y, Dialogo d) {
