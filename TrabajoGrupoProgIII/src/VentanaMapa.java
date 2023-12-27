@@ -1022,7 +1022,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		//enemigos.add(ele);
 		//enemigos.add(jo);
 		
-		
+		/**/
 		int npxxx = 3235 -player.getPosx();
 		int npyyy = 10100 -player.getPosy();
 		JLabel w = this.redWall ;
