@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -48,6 +49,8 @@ import javax.swing.SwingUtilities;
 public class VentanaMapa extends JFrame implements KeyListener{
 	//ATRIBUTOS
 	private npc npc1;
+	private List<Component> cdialogo = new ArrayList<>();
+	public E2 ele;
 	public J2 jo;
 	protected JLabel lblcartel;
 	private static final int distdetect = 900;
@@ -454,20 +457,29 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		 System.out.println("si");
 			((Enemigos) jo).getLabel().setVisible(false);
 			((Enemigos) VentanaMapa.this.jo).setX(865);
-			((Enemigos) VentanaMapa.this.jo).setY(9900);
+			((Enemigos) VentanaMapa.this.jo).setY(10000);
 			VentanaMapa.this.panelfondo.add(((Enemigos) VentanaMapa.this.jo).getLabel());
 			VentanaMapa.this.panelfondo.setComponentZOrder(VentanaMapa.this.jo.getLabel(), 3);
 			((Enemigos) jo).getLabel().setVisible(true);
 		
 			
-			
+		ele = new E2();
+		System.out.println("sisi");
+		ele.getLabel().setVisible(false);
+		VentanaMapa.this.ele.setX(965);
+		VentanaMapa.this.ele.setY(9800);
+		VentanaMapa.this.panelfondo.add(this.ele.getLabel());
+		VentanaMapa.this.panelfondo.setComponentZOrder(VentanaMapa.this.ele.getLabel(), 3);
+		((Enemigos) ele).getLabel().setVisible(true);
+		
 			
 		jo.getLabel().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				mostrarDialogo(jo.getDialogoInicial());
+				jo.siguiente();
 			}
 		});
+		
 		
 		//generar dialogom -- LISTADOS TODOS LOS DIALOGOS PARA LA HISTORIA
 		
@@ -587,29 +599,40 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	
 	
 	//generar DIALOGO
+	public void keyPressed1(KeyEvent e1) {
+		if(e1.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			cerrar();
+		}
+	}
 	
 	public void mostrarDialogo(Dialogo dialogo) {
-		JLabel lbltxt = new JLabel("<html" + dialogo.getTxt() + "</html");
-		int alturaDialogo = 50; 
-	    int alturaOpcion = 30;
+		JLabel lbltxt = new JLabel( dialogo.getTxt());
+		int alturaDialogo = 70; 
+	    int alturaOpcion = 50;
+	    Font fd = new Font("Arial", Font.BOLD,18);
+	    
 		int posy = altoventana-(dialogo.getOpc().size() * (alturaOpcion +5)) - alturaDialogo -100;
+		lbltxt.setFont(fd);
 		lbltxt.setBounds(100, posy, anchoventana-200, 50);
 		lbltxt.setBackground(Color.white);
 		lbltxt.setOpaque(true);
 		panelfondo.add(lbltxt);
 		panelfondo.setComponentZOrder(lbltxt, 3);
-		
-		posy +=50 +5;
+		cdialogo.add(lbltxt);
+		posy +=70 +10;
 		for(int i = 0; i <dialogo.getOpc().size(); i++) {
 			JLabel lblop = new JLabel(dialogo.getOpc().get(i));
+			lblop.setFont(fd);
 			lblop.setBounds(100, posy, anchoventana-200, 50);
 			lblop.setBackground(Color.LIGHT_GRAY);
 			lblop.setOpaque(true);
+			cdialogo.add(lblop);
 			final int a = i;
 			lblop.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					dialogo.setSelec(a);
+					manageRespuesta(dialogo, a);
 					//System.out.println("opcion" + dialogo.getOpc().get(a));
 					panelfondo.remove(lbltxt);
 					panelfondo.remove(lblop);
@@ -622,6 +645,30 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			}
 		panelfondo.repaint();
 		
+	}
+	public void cerrar() {
+		for(Component c : cdialogo) {
+			panelfondo.remove(c);
+		}
+		this.cdialogo.clear();
+		panelfondo.repaint();
+	}
+	
+	public void manageRespuesta(Dialogo d, int s) {
+		if(d.getTxt().equals("¡Hola, aventurero! Nuestra princesa Eleonore ha sido capturada por criaturas malvadas. ¿Puedes ayudarnos a rescatarla?")) {
+			if(s == 0) {
+				mostrarDialogo(new Dialogo("¡Gracias! Por favor, ve al bosque oscuro y encuentra la cueva secreta.", Arrays.asList("Entendido", "¿Alguna pista de dónde puedo empezar?")));
+				
+			}else if( s == 1) {
+				mostrarDialogo(new Dialogo("Entiendo, quizás otro valiente aventurero pueda ayudarnos.", Arrays.asList("Quizás más tarde", "Buena suerte")));
+	        }
+			
+		}else if(d.getTxt().equals("¡Gracias! Por favor, ve al bosque oscuro y encuentra la cueva secreta.")) {
+			if(s == 1) {
+				Dialogo d1= new Dialogo("Creo que puede que la tengan oculta en alguna de las numerosas cavermas repartidas por estos parajes...", null);
+				mostrarDialogo(d1);
+			}
+		}
 	}
 	
 	public void verificarDialogo(int x, int y, Dialogo d) {
@@ -804,6 +851,12 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					ImageIcon act = jo.getActual();
 					jo.getLabel().setIcon(act);
 				}
+				else if(ele != null && ele instanceof E2) {
+					ele.incrementar()
+;
+					ImageIcon act = ele.getActual();
+					ele.getLabel().setIcon(act);
+					}
 				else {
 					Caparazon c = (Caparazon) e;
 					e.setArrayenuso(c.escondido);
@@ -874,6 +927,10 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		int npy = jo.getY() - player.getPosy();
 		joana.setLocation(npx, npy);
 		
+		int npxx = ele.getX() -player.getPosx();
+		int npyy = ele.getY() - player.getPosy();
+		JLabel eleonore = ele.getLabel();
+		eleonore.setLocation(npxx, npyy);		
 		if(player.getVidarestante() <= 0) {
 			guardarDatosPartida();
 			this.setContinuar(false);

@@ -10,6 +10,9 @@ public class J2 extends Enemigos{
 	protected Dialogo dialogoInicial;
     protected Dialogo dialogoMisiones;
     protected Dialogo dialogoConsejos;
+    protected int mostrado = 0;
+    protected Dialogo actual;
+    
     protected int cont = 0;
     public J2() {
     	this.health = 800000000;
@@ -40,7 +43,18 @@ public class J2 extends Enemigos{
         inicializarDialogos();
     	
     }
-   
+   public void siguiente() {
+	   if(mostrado == 0) {
+		   actual = this.dialogoInicial;
+		   mostrado++;
+	   }else if(mostrado == 1){
+		   actual = this.dialogoMisiones;
+		   mostrado++;
+	   }else if(mostrado ==2) {
+		   actual = this.dialogoConsejos;
+		   mostrado++;
+	   }
+   }
 
 protected void inicializarDialogos() {
         

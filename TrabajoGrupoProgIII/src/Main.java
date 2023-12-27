@@ -22,8 +22,8 @@ import javax.swing.SwingUtilities;
 
 public class Main {
 	
-	public static Inventario inventario;
-	public static Productos productos;
+	/*public static Inventario inventario;
+	public static Productos productos;*/
 
 
 	public static void main(String[] args) {
