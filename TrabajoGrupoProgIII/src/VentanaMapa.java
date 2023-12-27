@@ -695,6 +695,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 			}
 		}
 	}
+	//aa
 	public void mostrarDialogo(Dialogo dialogo) {
 		JLabel lbltxt = new JLabel( dialogo.getTxt());
 		int alturaDialogo = 70; 
