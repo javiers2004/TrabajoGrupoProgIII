@@ -579,9 +579,9 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 			if(x > anchoventana/2) {	
                 				//&& enem.getX() > player.getPosx() -400
                 				if (enem.distancia(player) < 100 ) {
-                					enem.setHealth(enem.getHealth()-10);
+                					enem.setHealth(enem.getHealth()-10 - Jugador.getMejoraataque());
                 					player.setGoplesefectivos(player.getGoplesefectivos() + 1);
-                					player.setDanoinflingido(player.getDanoinflingido() + 10);
+                					player.setDanoinflingido(player.getDanoinflingido() + 10 + Jugador.getMejoraataque());
                 					if (enem.getHealth() <= 0) {
                 						enem.setArrayenuso(enem.muerte);
                 						enem.setVivo(false);
@@ -598,9 +598,9 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 			else {	
                 				//&& enem.getX() - anchoventana/2 <= player.getPosx()
                 				if (enem.distancia(player) < 100 ) {
-                					enem.setHealth(enem.getHealth()-10);
+                					enem.setHealth(enem.getHealth()-10 - Jugador.getMejoraataque());
                 					player.setGoplesefectivos(player.getGoplesefectivos() + 1);
-                					player.setDanoinflingido(player.getDanoinflingido() + 10);
+                					player.setDanoinflingido(player.getDanoinflingido() + 10 + Jugador.getMejoraataque());
                 					if (enem.getHealth() <= 0) {
                 						enem.setVivo(false);
                 						enem.setArrayenuso(enem.muerte);
@@ -993,6 +993,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	
 	//PARA ACTUALIZAR LA VENTANA CUANDO SE LLAMA DESDE EL MAIN
 	public void actualizarVentana(Jugador player, boolean atravesando) {
+		System.out.println(player.getMejoraataque() + "   " + Jugador.getMejoravelocidad() + "   "+ player.getMejoravida());
 		map.setLocation(-player.getPosx(), -player.getPosy());
 		map.setVisible(true);
 		Enemigos emascercano = enemigos.get(0);
@@ -1058,17 +1059,25 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	        					}
 							}
 							
+						}	
+						if((int)(Math.random()*(15-Jugador.getMejoravida())) != 0){
+							player.setVidarestante(player.getVidarestante()- e.getDaño());
+							player.setDanorecibido(player.getDanorecibido() + e.getDaño());
+							
 						}
-						player.setVidarestante(player.getVidarestante()- e.getDaño());
-						player.setDanorecibido(player.getDanorecibido() + e.getDaño());
 						e.setVivo(false);
 						e.setArrayenuso(e.getMuerte());
 						e.getLabel().setVisible(true);
 					}			
 					if((!(e instanceof Caparazon) || e.getHealth() < 300) && !(e instanceof Puercoespin)) {
-						player.setVidarestante(player.getVidarestante()- e.getDaño());
-						player.setDanorecibido(player.getDanorecibido() + e.getDaño());
-						e.setArrayenuso(e.getAtaquenemigo());
+						if((int)(Math.random()*(15-Jugador.getMejoravida())) != 0){
+							player.setVidarestante(player.getVidarestante()- e.getDaño());
+							player.setDanorecibido(player.getDanorecibido() + e.getDaño());
+							e.setArrayenuso(e.getAtaquenemigo());
+						}
+						else {
+							e.setArrayenuso(e.getAtaquenemigo());
+						}
 					}
 				}
 				if(e.distancia(player) < emascercano.distancia(player)) {
@@ -1140,7 +1149,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				HiloSubidaNivel hilosubidanivel = new HiloSubidaNivel(veninfo, this, player);
 				hilosubidanivel.start();	
 				levelup.setVisible(false);
-				
+				Jugador.setConsumibles(Jugador.getConsumibles()+2);				
 			}
 		}
 		this.minimapa.actualizarPunto(player);
@@ -1182,7 +1191,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	        }
 	        if (!estaba) {
 	            // Si el nombre no existe, realizar una inserción
-	            String insertQuery = "INSERT INTO PARTIDAS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	            String insertQuery = "INSERT INTO PARTIDAS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	            try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 	                preparedStatement.setString(1, nombrePlayer);
 	                preparedStatement.setInt(2, player.getNivel());
@@ -1203,7 +1212,10 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                preparedStatement.setInt(17, player.getEstadisticas().get(Caparazon.class));
 	                preparedStatement.setInt(18, player.getEstadisticas().get(Puercoespin.class));
 	                preparedStatement.setInt(19, player.getEstadisticas().get(Goblin.class));
-	                
+	                preparedStatement.setInt(20, Jugador.getMejoravida());
+	                preparedStatement.setInt(21, Jugador.getMejoravelocidad());
+	                preparedStatement.setInt(22, Jugador.getMejoraataque());
+	                preparedStatement.setInt(23, Jugador.getConsumibles());
 	                
 	                
 	                
@@ -1211,7 +1223,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	            }
 	        } else {
 	            // Si el nombre ya existe, realizar una actualización
-	            String updateQuery = "UPDATE PARTIDAS SET NIVEL=?, EXPERIENCIA=?, VIDA=?, POSX=?, POSY=?, VIDATOTAL=?, NUMERODEGOLPES=?, DISTANCE=?, GOLPESEFECTIVOS=?, DANOINFLINGIDO=?, DANORECIBIDO=?, STAMINATOTAL=?, SLIMES=?, PAJAROS=?, MURCIELAGOS=?,CAPARAZONES=?, PUERCOESPINES=?, GOBLINS=? WHERE NOMBRE=?";
+	            String updateQuery = "UPDATE PARTIDAS SET NIVEL=?, EXPERIENCIA=?, VIDA=?, POSX=?, POSY=?, VIDATOTAL=?, NUMERODEGOLPES=?, DISTANCE=?, GOLPESEFECTIVOS=?, DANOINFLINGIDO=?, DANORECIBIDO=?, STAMINATOTAL=?, SLIMES=?, PAJAROS=?, MURCIELAGOS=?,CAPARAZONES=?, PUERCOESPINES=?, GOBLINS=?, MVIDA=?, MVELOCIDAD=?, MATAQUE=?, CONSUMIBLES=? WHERE NOMBRE=?";
 
 	            try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
 	                preparedStatement.setInt(1, player.getNivel());
@@ -1226,13 +1238,21 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                preparedStatement.setInt(10, player.getDanoinflingido());
 	                preparedStatement.setInt(11, player.getDanorecibido());
 	                preparedStatement.setInt(12,(int) player.getStaminatotal());
-	                preparedStatement.setString(19, nombrePlayer);
+	                preparedStatement.setString(23, nombrePlayer);
 	                preparedStatement.setInt(13, player.getEstadisticas().get(Slime.class));
 	                preparedStatement.setInt(14, player.getEstadisticas().get(Pajaro.class));
 	                preparedStatement.setInt(15, player.getEstadisticas().get(Bat.class));
 	                preparedStatement.setInt(16, player.getEstadisticas().get(Caparazon.class));
 	                preparedStatement.setInt(17, player.getEstadisticas().get(Puercoespin.class));
 	                preparedStatement.setInt(18, player.getEstadisticas().get(Goblin.class));
+	                preparedStatement.setInt(19, Jugador.getMejoravida());
+	                preparedStatement.setInt(20, Jugador.getMejoravelocidad());
+	                preparedStatement.setInt(21, Jugador.getMejoraataque());
+	                preparedStatement.setInt(22, Jugador.getConsumibles());
+
+	                
+	                
+	                
 	                
 	                preparedStatement.executeUpdate();
 	            }
@@ -1286,11 +1306,15 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                player.getEstadisticas().put(Caparazon.class, resultSet2.getInt("CAPARAZONES"));
 	                player.getEstadisticas().put(Puercoespin.class, resultSet2.getInt("PUERCOESPINES"));
 	                player.getEstadisticas().put(Goblin.class, resultSet2.getInt("GOBLINS"));
+	                Jugador.setMejoravida(resultSet2.getInt("MVIDA"));
+	                Jugador.setMejoravelocidad(resultSet2.getInt("MVELOCIDAD"));
+	                Jugador.setMejoraataque(resultSet2.getInt("MATAQUE"));
+	                Jugador.setConsumibles(resultSet2.getInt("CONSUMIBLES"));
 
 	            }
 			}
 			connection.close();
-			
+			//s
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
