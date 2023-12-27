@@ -71,6 +71,8 @@ public class VentanaInicio extends JFrame implements ActionListener {
 		
 		
 		/*AÑADIR LOS PANELES AL PANEL PRINCIPAL DE LA VENTANA*/
+		pNorte.setPreferredSize(new Dimension(this.getWidth(), 100)); // Establece aquí la altura que prefieras
+
 		getContentPane().add(pNorte, BorderLayout.NORTH);
 		getContentPane().add(pCentro, BorderLayout.CENTER);
 		getContentPane().add(pEste, BorderLayout.EAST);
@@ -79,12 +81,6 @@ public class VentanaInicio extends JFrame implements ActionListener {
 			
 		
 		
-		
-		/*CREACIÓN DE COMPONENTES*/	
-		lblTitulo = new JLabel("BIENVENIDO A +EL JUEGO+ ");
-		lblTitulo.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
-		lblTitulo.setForeground(Color.LIGHT_GRAY);
-		pNorte.add(lblTitulo);
 		
         /*CREACIÓN BOTONES*/
 		ImageIcon user1 = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/BotonesInicio/botonUser.png");
@@ -143,6 +139,44 @@ public class VentanaInicio extends JFrame implements ActionListener {
         rootNode = new DefaultMutableTreeNode("Estadísticas"); // Inicializar rootNode
         nombres = new ArrayList<>();
         cargarArbolNombre();
+		
+		/*CREACIÓN DE COMPONENTES*/	
+			
+		pNorte.setLayout(null);
+		lblTitulo = new JLabel("乇NΙGMΔ");
+		lblTitulo.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 100));
+		lblTitulo.setForeground(Color.LIGHT_GRAY);
+
+		// Ajustar el tamaño del label al tamaño preferido basado en el contenido
+		lblTitulo.setSize(lblTitulo.getPreferredSize());
+		// Establecer la posición inicial del label en el centro horizontal del pNorte
+		lblTitulo.setLocation(0, pNorte.getHeight() / 2 - lblTitulo.getHeight() / 2);
+		pNorte.add(lblTitulo);
+
+		// Timer para mover el label de izquierda a derecha
+		Timer timer = new Timer(10, new ActionListener() {
+		    int deltaX = 1; // Velocidad de desplazamiento del label
+
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        // Calcula la nueva posición x del label
+		        int newX = lblTitulo.getLocation().x + deltaX;
+
+		        // Revisa si el label ha alcanzado los bordes del panel pNorte y cambia la dirección si es necesario
+		        if (newX < 0 || newX + lblTitulo.getWidth() > pNorte.getWidth()) {
+		            deltaX *= -1;
+		        }
+
+		        // Actualiza la posición x del label
+		        lblTitulo.setLocation(newX, lblTitulo.getLocation().y);
+		    }
+		});
+
+		// Iniciar el Timer
+		timer.start();
+					
+	
+
 
     /*EVENTOS*/
         botonNombre.addActionListener(new ActionListener() {
