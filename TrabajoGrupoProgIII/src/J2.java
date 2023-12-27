@@ -64,9 +64,8 @@ protected void inicializarDialogos() {
         dialogoInicial = new Dialogo("¡Hola, aventurero! Nuestra princesa Eleonore ha sido capturada por criaturas malvadas. ¿Puedes ayudarnos a rescatarla?",
                                      Arrays.asList("Claro, ¿qué necesito hacer?", "Lo siento, estoy ocupado ahora mismo."));
 
-        dialogoMisiones = new Dialogo("Necesitarás subir de nivel para enfrentarte a las criaturas. Completa estas misiones para ganar experiencia.",
-                                      Arrays.asList("Recoger hierbas medicinales en el bosque", "Derrotar a los slimes que amenazan la aldea", "Encontrar un artefacto antiguo en la cueva misteriosa"));
-
+        dialogoMisiones = new Dialogo("La clave para rescatar a Eleonore es estar bien preparado. Asegúrate de entrenar y mejorar tu equipo constantemente.",
+                Arrays.asList("Preguntar sobre entrenamientos específicos", "Preguntar sobre la calidad del equipo"));
         
         dialogoConsejos = new Dialogo("Recuerda, en tu viaje encontrarás objetos que pueden ser útiles. No subestimes su poder.",
                                       Arrays.asList("¿Puedes darme algún ejemplo?", "Lo tendré en mente, gracias."));
