@@ -1308,7 +1308,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	            }
 			}
 			connection.close();
-			
+			//s
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
