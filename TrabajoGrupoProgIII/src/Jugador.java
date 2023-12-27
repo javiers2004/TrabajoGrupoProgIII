@@ -42,6 +42,14 @@ public class Jugador {
 	protected static int mejoravelocidad = 0;
 	protected static int consumibles = 10;
 	protected static int dinero = 1000;
+	protected static Objetos inventario;
+	
+	protected static Objetos getInventario() {
+		return inventario;
+	}
+	protected static void setInventario(Objetos inventario) {
+		Jugador.inventario = inventario;
+	}
 	
 	
 	protected static int getDinero() {

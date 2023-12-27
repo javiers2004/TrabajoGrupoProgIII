@@ -29,13 +29,12 @@ public class VentanaInventario extends JFrame {
         setLayout(new BorderLayout());
         setResizable(false);
         
-        Objetos inventario = new Objetos();
-        inventario.cargarObjetosBD();
+        Objetos inventario = Jugador.getInventario();
         
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-            	inventario.guardarObjetosBD();
+            	Jugador.setInventario(inventario);
             }
         });
 

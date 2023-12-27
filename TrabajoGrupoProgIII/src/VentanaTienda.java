@@ -30,15 +30,14 @@ public class VentanaTienda extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         
-        Objetos inventario = new Objetos();
-        inventario.cargarObjetosBD();
+        Objetos inventario = Jugador.getInventario();
 
         ArrayList<Item> objetosNoComprados = inventario.getInventarioNoComprados();
 
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-            	inventario.guardarObjetosBD();
+            	 Jugador.setInventario(inventario);
             }
         });
 
