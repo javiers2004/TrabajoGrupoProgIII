@@ -19,7 +19,7 @@ public class VentanaInventario extends JFrame {
     private static final int ICON_WIDTH = 32; // Ancho deseado para el ícono
     private static final int ICON_HEIGHT = 32; // Altura deseada para el ícono
     public static int itembuffer;
-
+    public static Objetos inventario;
 
     // Constructor de la ventana
     public VentanaInventario() {
@@ -29,7 +29,7 @@ public class VentanaInventario extends JFrame {
         setLayout(new BorderLayout());
         setResizable(false);
         
-        Objetos inventario = Jugador.getInventario();
+        inventario = Jugador.getInventario();
         
         addWindowListener(new WindowAdapter() {
             @Override
@@ -287,5 +287,7 @@ public class VentanaInventario extends JFrame {
         Item itemSeleccionado = objetosComprados.get(itembuffer);
         return itemSeleccionado;
     }
-    
+    public static int recivirItembuffer() {
+    	return itembuffer;
+    }
 }
