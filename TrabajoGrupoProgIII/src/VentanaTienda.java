@@ -33,14 +33,8 @@ public class VentanaTienda extends JFrame {
         Objetos inventario = new Objetos();
         inventario.cargarObjetosBD();
 
-        ArrayList<Item> objetosNoComprados = new ArrayList<>();
+        ArrayList<Item> objetosNoComprados = inventario.getInventarioNoComprados();
 
-        for (Item item : inventario.getInventario()) {
-            if (item.isComprado()==false) {
-                objetosNoComprados.add(item);
-            }
-        }
-        
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

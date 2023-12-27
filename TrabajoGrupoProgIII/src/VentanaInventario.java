@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
@@ -16,6 +18,7 @@ public class VentanaInventario extends JFrame {
 
     private static final int ICON_WIDTH = 32; // Ancho deseado para el ícono
     private static final int ICON_HEIGHT = 32; // Altura deseada para el ícono
+    public int itembuffer;
 
 
     // Constructor de la ventana
@@ -206,6 +209,20 @@ public class VentanaInventario extends JFrame {
                     return label;
                 }
                 return new JLabel();
+            }
+        });
+        
+        tabla.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int selectedRow = tabla.getSelectedRow();
+                    if (selectedRow != -1) {
+                    	Item selectedItem = objetosNoComprados.get(selectedRow);
+                    	itembuffer = selectedRow;
+                    	System.out.println(itembuffer);
+                    }
+                }
             }
         });
  

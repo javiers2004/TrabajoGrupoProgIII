@@ -153,6 +153,28 @@ public class Objetos {
     	return objetos;
     }
     
+    public ArrayList<Item> getInventarioNoComprados() {
+    	ArrayList<Item> objetosNoComprados = new ArrayList<>();
+
+        for (Item item : this.getInventario()) {
+            if (item.isComprado()==false) {
+                objetosNoComprados.add(item);
+            }
+        }
+        return objetosNoComprados;
+    }
+    
+    public ArrayList<Item> getInventarioComprados() {
+    	ArrayList<Item> objetosComprados = new ArrayList<>();
+
+        for (Item item : this.getInventario()) {
+            if (item.isComprado()==true) {
+                objetosComprados.add(item);
+            }
+        }
+        return objetosComprados;
+    }
+    
     public void setInventario(ArrayList<Item> inventario) {
     	this.objetos = inventario;
     }
