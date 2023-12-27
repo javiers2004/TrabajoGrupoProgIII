@@ -590,7 +590,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 				if (enem.distancia(player) < 100 ) {
                 					enem.setHealth(enem.getHealth()-10 - Jugador.getMejoraataque());
                 					player.setGoplesefectivos(player.getGoplesefectivos() + 1);
-                					player.setDanoinflingido(player.getDanoinflingido() + 10 + Jugador.getMejoraataque());
+                					player.setDanoinflingido(player.getDanoinflingido() + VentanaInventario.getObjetoselectdaño() + Jugador.getMejoraataque());
                 					if (enem.getHealth() <= 0) {
                 						enem.setArrayenuso(enem.muerte);
                 						enem.setVivo(false);
@@ -1227,6 +1227,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                preparedStatement.setInt(17, player.getEstadisticas().get(Caparazon.class));
 	                preparedStatement.setInt(18, player.getEstadisticas().get(Puercoespin.class));
 	                preparedStatement.setInt(19, player.getEstadisticas().get(Goblin.class));
+	                preparedStatement.setInt(24, player.getEstadisticas().get(Boss.class));
 	                preparedStatement.setInt(20, Jugador.getMejoravida());
 	                preparedStatement.setInt(21, Jugador.getMejoravelocidad());
 	                preparedStatement.setInt(22, Jugador.getMejoraataque());
@@ -1321,6 +1322,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                player.getEstadisticas().put(Caparazon.class, resultSet2.getInt("CAPARAZONES"));
 	                player.getEstadisticas().put(Puercoespin.class, resultSet2.getInt("PUERCOESPINES"));
 	                player.getEstadisticas().put(Goblin.class, resultSet2.getInt("GOBLINS"));
+	                player.getEstadisticas().put(Boss.class, resultSet2.getInt("BOSS_HEALTH"));
 	                Jugador.setMejoravida(resultSet2.getInt("MVIDA"));
 	                Jugador.setMejoravelocidad(resultSet2.getInt("MVELOCIDAD"));
 	                Jugador.setMejoraataque(resultSet2.getInt("MATAQUE"));

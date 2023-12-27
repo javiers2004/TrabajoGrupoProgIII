@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
@@ -16,6 +18,7 @@ public class VentanaInventario extends JFrame {
 
     private static final int ICON_WIDTH = 32; // Ancho deseado para el ícono
     private static final int ICON_HEIGHT = 32; // Altura deseada para el ícono
+    public static int itembuffer;
 
 
     // Constructor de la ventana
@@ -208,6 +211,22 @@ public class VentanaInventario extends JFrame {
                 return new JLabel();
             }
         });
+        
+        ArrayList<Item> objetosComprados = inventario.getInventarioComprados();
+        
+        tabla.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int selectedRow = tabla.getSelectedRow();
+                    if (selectedRow != -1) {
+                    	Item selectedItem = objetosComprados.get(selectedRow);
+                    	itembuffer = selectedRow;
+                    	System.out.println(itembuffer);
+                    }
+                }
+            }
+        });
  
         JScrollPane scrollPane = new JScrollPane(tabla);
         panelDerecho.add(scrollPane);
@@ -232,9 +251,16 @@ public class VentanaInventario extends JFrame {
             return null;
         }
     }
+    
+    public static int getObjetoselectdaño() {
+    	Objetos inventario = new Objetos();
+    	ArrayList<Item> objetosComprados = inventario.getInventarioComprados(); 
+    	Item itemSeleccionado = objetosComprados.get(itembuffer);
+    	return (int) ((ItemAtaqueCorto) itemSeleccionado).getDaño();
+    }
 
     // Método principal para ejecutar la aplicación
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> new VentanaInventario());
-//    }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new VentanaInventario());
+    }
 }
