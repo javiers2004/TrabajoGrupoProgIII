@@ -233,8 +233,9 @@ public class Main {
 		    public void keyPressed(KeyEvent e) {
 		        if ((e.getKeyCode() == KeyEvent.VK_T) && ((e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0)) {
 		            if(jug1.getPosx() > 582 && jug1.getPosx()< 1038 && jug1.getPosy() > 5228 && jug1.getPosy() < 5736) {
-		            	VentanaTienda ventanaTienda = new VentanaTienda();
+		            	VentanaTienda ventanaTienda = new VentanaTienda(ven1);
 		            	ventanaTienda.setVisible(true);
+		            	ven1.setContinuar(false);
 		            }	
 		        }
 		    }
