@@ -1201,6 +1201,20 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	            estaba = verificarResultSet.next();
 
 	        }
+	        java.sql.Statement statement = connection.createStatement();
+			if(Objetos.objetos != null) {
+				for(Item item: Objetos.objetos) {
+					if(item.isComprado() == true) {
+			            System.out.println(item.getNombre().toString());
+						try {
+							statement.executeUpdate("INSERT INTO OBJETOS VALUES ('" + item.getNombre().toString() + "','" + VentanaInicio.nombreUsuario +"')");
+						}
+						catch(SQLiteException e) {
+							
+						}
+					}
+				}
+			}   
 	        if (!estaba) {
 	            // Si el nombre no existe, realizar una inserción
 	            String insertQuery = "INSERT INTO PARTIDAS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -1269,24 +1283,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                
 	                
 	                preparedStatement.executeUpdate();
-	            }
-				java.sql.Statement statement = connection.createStatement();
-				if(Objetos.objetos != null) {
-					for(Item item: Objetos.objetos) {
-						if(item.isComprado() == true) {
-							try {
-								statement.executeUpdate("INSERT INTO OBJETOS VALUES ('" + item.getNombre().toString() + "','" + nombreplayer +"')");
-							}
-							catch(SQLiteException e) {
-								
-							}
-						}
-					}
-				}
 	        }
 	        connection.close();
 
-	    } catch (SQLException e) {
+	        } 
+	        }catch (SQLException e) {
 	        // Manejar la excepción de una manera más específica o utilizar un sistema de registro adecuado
 	        e.printStackTrace();
 	        System.out.println("Error en la gestión de la base de datos: " + e.getMessage());
@@ -1338,6 +1339,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                Jugador.setMejoraataque(resultSet2.getInt("MATAQUE"));	                
 	                Jugador.setConsumibles(resultSet2.getInt("CONSUMIBLES"));
 	                Jugador.setDinero(resultSet2.getInt("DINERO"));
+	                Jugador.setDinero(9999);
+
 
 	            }
 			}
@@ -1346,6 +1349,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				if(Objetos.objetos != null) {
 					for(Item item: Objetos.objetos) {
 						if(item.getNombre().equals(resultSet3.getString("OBJ"))) {
+						 System.out.println("cargando  " + item.getNombre());
 						 item.setComprado(true);
 						}
 					}
