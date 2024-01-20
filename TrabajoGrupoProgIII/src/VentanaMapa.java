@@ -342,7 +342,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		this.addWindowListener(new WindowAdapter() {
 		    public void windowClosing(WindowEvent e) {
 		        guardarDatosPartida();
-		        getVeninicio().setVisible(true);  
+		        //getVeninicio().setVisible(true);  
 		        VentanaMapa.this.setContinuar(false);
 		    }
 

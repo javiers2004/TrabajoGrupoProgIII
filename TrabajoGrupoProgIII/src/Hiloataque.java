@@ -25,19 +25,21 @@ public class Hiloataque extends Thread {
                 }
                 lblplayer.setVisible(true);
                 ven.setVisible(true);
+                try {
+                    Thread.sleep(20);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();  // Consider a better error handling approach
+                }
+
+                if (n == 1) {
+                    ven.click = false;
+                    ven.setAtaquedisponible(true);
+                    // ven.setContinuar(true);
+                }
             }
         });
 
-        try {
-            Thread.sleep(20);
-        } catch (InterruptedException e) {
-            e.printStackTrace();  // Consider a better error handling approach
-        }
-
-        if (n == 1) {
-            ven.click = false;
-            ven.setAtaquedisponible(true);
-            // ven.setContinuar(true);
-        }
+        
+        
     }
 }
