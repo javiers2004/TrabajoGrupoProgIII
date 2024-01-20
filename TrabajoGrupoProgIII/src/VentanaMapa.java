@@ -1337,9 +1337,6 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                Jugador.setMejoraataque(resultSet2.getInt("MATAQUE"));	                
 	                Jugador.setConsumibles(resultSet2.getInt("CONSUMIBLES"));
 	                Jugador.setDinero(resultSet2.getInt("DINERO"));
-	                Jugador.setDinero(9999);
-
-
 	            }
 			}
 			ResultSet resultSet3 = statement.executeQuery("SELECT OBJ FROM OBJETOS WHERE NOMBRE LIKE '" + nombreplayer +"'");
