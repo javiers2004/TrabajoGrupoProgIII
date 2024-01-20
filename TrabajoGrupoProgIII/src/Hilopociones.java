@@ -10,19 +10,19 @@ public class Hilopociones extends Thread {
 
     @Override
     public void run() {
-        while (vida > 0) {
-            synchronized (player) {
-                player.setVidarestante(player.getVidarestante() + 10);
-                if (player.getVidarestante() > player.getVidatotal()) {
-                    player.setVidarestante(player.getVidatotal());
-                }
+    	if(vida > 0) {
+            player.setVidarestante(player.getVidarestante() + 10);
+            if(player.getVidarestante() > player.getVidatotal()) {
+                player.setVidarestante(player.getVidatotal());
             }
-            vida -= 10;
             try {
-                Thread.sleep(1000); // Consider using a more meaningful sleep duration
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+            Hilopociones h = new Hilopociones(vida-10, player);
+            h.start();
         }
     }
 }

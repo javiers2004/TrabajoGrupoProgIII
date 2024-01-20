@@ -210,7 +210,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	public void setPnlprincipal(JPanel pnlprincipal) {
 		this.pnlprincipal = pnlprincipal;
 	}
-	protected boolean isContinuar() {
+	public boolean isContinuar() {
 		return continuar;
 	}
 	public void setContinuar(boolean continuar) {
@@ -469,7 +469,6 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		drawWall();
 		
 		jo = new J2();
-		 System.out.println("si");
 			((Enemigos) jo).getLabel().setVisible(false);
 			((Enemigos) VentanaMapa.this.jo).setX(865);
 			((Enemigos) VentanaMapa.this.jo).setY(10000);
@@ -479,7 +478,6 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		
 			
 		ele = new E2();
-		System.out.println("sisi");
 		ele.getLabel().setVisible(false);
 		VentanaMapa.this.ele.setX(3380);
 		VentanaMapa.this.ele.setY(10200);
@@ -603,7 +601,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
                 						else {
                 							player.getEstadisticas().put(enem.getClass(), 1);
                 						}
-                						System.out.println(player.getEstadisticas());
+                						//System.out.println(player.getEstadisticas());
                 					}
                 				}
                 			}
@@ -630,7 +628,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
             		VentanaInventario.getObjetoSelect().setComprado(false);
             		Jugador.setInventario(VentanaInventario.inventario);
             		VentanaInventario.itembuffer = 0;
-            		System.out.println(VentanaInventario.itembuffer);
+            		//System.out.println(VentanaInventario.itembuffer);
             	}
 		}	
         });			
@@ -1063,7 +1061,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					if(e instanceof Puercoespin) {
 						for(Enemigos e2: enemigos) {
 							if(e2.distancia(player) < 150) {
-								e2.setHealth(e2.getHealth()-100);
+								e2.setHealth(e2.getHealth()-300);
 								if (e2.getHealth() <= 0) {
 	        						e2.setArrayenuso(e2.muerte);
             						Jugador.setDinero(Jugador.getDinero() +5);
@@ -1201,6 +1199,20 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	            estaba = verificarResultSet.next();
 
 	        }
+	        java.sql.Statement statement = connection.createStatement();
+			if(Objetos.objetos != null) {
+				for(Item item: Objetos.objetos) {
+					if(item.isComprado() == true) {
+			            //System.out.println(item.getNombre().toString());
+						try {
+							statement.executeUpdate("INSERT INTO OBJETOS VALUES ('" + item.getNombre().toString() + "','" + VentanaInicio.nombreUsuario +"')");
+						}
+						catch(SQLiteException e) {
+							
+						}
+					}
+				}
+			}   
 	        if (!estaba) {
 	            // Si el nombre no existe, realizar una inserción
 	            String insertQuery = "INSERT INTO PARTIDAS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -1269,24 +1281,11 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                
 	                
 	                preparedStatement.executeUpdate();
-	            }
-				java.sql.Statement statement = connection.createStatement();
-				if(Objetos.objetos != null) {
-					for(Item item: Objetos.objetos) {
-						if(item.isComprado() == true) {
-							try {
-								statement.executeUpdate("INSERT INTO OBJETOS VALUES ('" + item.getNombre().toString() + "','" + nombreplayer +"')");
-							}
-							catch(SQLiteException e) {
-								
-							}
-						}
-					}
-				}
 	        }
 	        connection.close();
 
-	    } catch (SQLException e) {
+	        } 
+	        }catch (SQLException e) {
 	        // Manejar la excepción de una manera más específica o utilizar un sistema de registro adecuado
 	        e.printStackTrace();
 	        System.out.println("Error en la gestión de la base de datos: " + e.getMessage());
@@ -1338,7 +1337,6 @@ public class VentanaMapa extends JFrame implements KeyListener{
 	                Jugador.setMejoraataque(resultSet2.getInt("MATAQUE"));	                
 	                Jugador.setConsumibles(resultSet2.getInt("CONSUMIBLES"));
 	                Jugador.setDinero(resultSet2.getInt("DINERO"));
-
 	            }
 			}
 			ResultSet resultSet3 = statement.executeQuery("SELECT OBJ FROM OBJETOS WHERE NOMBRE LIKE '" + nombreplayer +"'");
@@ -1346,6 +1344,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 				if(Objetos.objetos != null) {
 					for(Item item: Objetos.objetos) {
 						if(item.getNombre().equals(resultSet3.getString("OBJ"))) {
+						 //System.out.println("cargando  " + item.getNombre());
 						 item.setComprado(true);
 						}
 					}

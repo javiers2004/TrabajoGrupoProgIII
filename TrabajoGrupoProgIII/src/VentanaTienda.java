@@ -24,7 +24,7 @@ public class VentanaTienda extends JFrame {
     private static final int ICON_WIDTH = 32; // Ancho deseado para el ícono
     private static final int ICON_HEIGHT = 32; // Altura deseada para el ícono
 
-    public VentanaTienda() {
+    public VentanaTienda(VentanaMapa ven1) {
         setTitle("Tienda");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,6 +38,7 @@ public class VentanaTienda extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
             	 Jugador.setInventario(inventario);
+            	 ven1.setContinuar(true);
             }
         });
 

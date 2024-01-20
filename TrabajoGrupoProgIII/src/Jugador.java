@@ -283,39 +283,6 @@ this.posx = (int)(1000);
 		this.nombre = nombre;
 		this.nivel = Integer.parseInt(nivel);
 	}
-	
-	/*public static void actualizarDesdeArchivo(String rutaArchivo, Jugador jugador) {
-        File archivo = new File(rutaArchivo);
-
-        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-            	System.out.println("Nombre del jugador a buscar: " + jugador.getNombre());
-
-                String[] datos = linea.split(";");
-                System.out.println("Leyendo línea: " + linea);
-                System.out.println("Encontrado jugador: " + datos[0]);
-                System.out.println("Encontrado jugador: " + jugador.getNombre());
-
-                if (datos[0].equals(jugador.getNombre())) {
-                    System.out.println("Encontrado jugador: " + jugador.getNombre());
-
-                    // Actualizar los datos del jugador usando métodos set
-                    jugador.setNivel(Integer.parseInt(datos[1]));
-                    jugador.setExperiencia(Integer.parseInt(datos[2]));
-                    jugador.setVidarestante(Integer.parseInt(datos[3]));
-                    jugador.setPosx(Integer.parseInt(datos[4]));
-                    jugador.setPosy(Integer.parseInt(datos[5]));
-
-
-                    break;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
-
 }
 	
 

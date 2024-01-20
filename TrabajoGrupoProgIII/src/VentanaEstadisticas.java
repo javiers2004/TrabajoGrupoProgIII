@@ -50,7 +50,7 @@ public class VentanaEstadisticas extends JFrame {
 		
 		
 		
-		modelo.addRow(new Object[] {"","","","","                 X","                 Y","","","","","","", "","","","","","",""});
+		modelo.addRow(new Object[] {"","","","","X","Y","","","","","","", "","","","","","",""});
 
 		
 				Connection connection = DriverManager.getConnection("jdbc:sqlite:basededatosdelaspartidas.db");
@@ -111,6 +111,10 @@ public class VentanaEstadisticas extends JFrame {
     					boolean hasFocus, int row, int column) {
     				JLabel comp = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
     				comp.setSize(100,100);
+    				
+    					comp.setHorizontalAlignment(JLabel.CENTER);
+    				
+    							  				
     				if (column == 0 && row == 0) {
     					ImageIcon icon = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/IconosEstadisticas/NOMBRE.png");
     					Image imagen = icon.getImage();
