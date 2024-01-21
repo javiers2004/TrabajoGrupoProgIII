@@ -23,15 +23,15 @@ public class PanelMuerte extends JPanel{
 	        panelcentral.setLayout(new BorderLayout());
 	        panelcentral.add(etiquetaMuerte, BorderLayout.CENTER);
 	        add(panelcentral, BorderLayout.CENTER);
-	        JButton boton = new JButton("MENÚ INICIO");
-	        boton.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(ActionEvent e) {
-	                ven1.setVisible(false);
-	                ven2.setVisible(true);
-
-	            }
-	        });
+//	        JButton boton = new JButton("MENÚ INICIO");
+//	        boton.addActionListener(new ActionListener() {
+//	            @Override
+//	            public void actionPerformed(ActionEvent e) {
+//	                ven1.setVisible(false);
+//	                ven2.setVisible(true);
+//
+//	            }
+//	        });
 	        JButton botonest = new JButton("ESTADÍSTICAS DE LA PARTIDA");
 	        botonest.addActionListener(new ActionListener() {
 	            @Override
@@ -49,7 +49,7 @@ public class PanelMuerte extends JPanel{
 	        });
 	        JPanel panelbotones = new JPanel();
 	        panelbotones.setLayout(new FlowLayout());
-	        panelbotones.add(boton);
+//	        panelbotones.add(boton);
 	        panelbotones.add(botonest);
 	        add(panelbotones, BorderLayout.SOUTH);
 	        botonest.setVisible(true);
