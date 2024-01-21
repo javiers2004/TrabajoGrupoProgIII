@@ -50,7 +50,7 @@ public class VentanaInventario extends JFrame {
         });
 
         // Cargar y ajustar el tamaño de la imagen para el lado izquierdo
-        ImageIcon iconoOriginal = new ImageIcon("img/descarga.png"); // Asegúrate de que la ruta relativa sea correcta.
+        ImageIcon iconoOriginal = new ImageIcon("TrabajoGrupoProgIII/src/Imagenes/Jugador/aright2.png"); // Asegúrate de que la ruta relativa sea correcta.
         Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(400, 450, Image.SCALE_SMOOTH);
         ImageIcon imagenAjustada = new ImageIcon(imagenEscalada);
         JLabel etiquetaImagen = new JLabel(imagenAjustada);
