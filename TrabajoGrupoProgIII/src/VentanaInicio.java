@@ -184,12 +184,21 @@ public class VentanaInicio extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                     nombreUsuario = JOptionPane.showInputDialog("Introduce tu nombre:");
-                    if (nombreUsuario != null) {
-                        JOptionPane.showMessageDialog(null, "Hola, " + nombreUsuario + "!");
-                        nombres.add(nombreUsuario); // Agregar el nombre a la lista
-                       // guardarArbolNombre();
-                }
-            }
+                    if (nombreUsuario != null && nombreUsuario.length()> 0) {
+                    	if(nombreUsuario.length() < 15) {
+                    		JOptionPane.showMessageDialog(null, "Hola, " + nombreUsuario + "!");
+                            nombres.add(nombreUsuario); // Agregar el nombre a la lista
+                    	}
+                    	else {
+                    		JOptionPane.showMessageDialog(null, "Introduce un nombre más corto", "Información", JOptionPane.INFORMATION_MESSAGE);
+                    		nombreUsuario = null;
+                    	}
+                    }
+                    else {
+                		JOptionPane.showMessageDialog(null, "Introduce un nombre válido", "Información", JOptionPane.INFORMATION_MESSAGE);
+                		nombreUsuario = null;
+                    }
+            	}
         });
     
     
