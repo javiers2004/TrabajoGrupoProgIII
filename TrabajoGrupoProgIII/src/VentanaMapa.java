@@ -1062,7 +1062,7 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					if(e instanceof Puercoespin) {
 						for(Enemigos e2: enemigos) {
 							if(e2.distancia(player) < 150) {
-								e2.setHealth(e2.getHealth()-300);
+								e2.setHealth(e2.getHealth()-10000);
 								if (e2.getHealth() <= 0) {
 	        						e2.setArrayenuso(e2.muerte);
             						Jugador.setDinero(Jugador.getDinero() +5);
