@@ -342,7 +342,8 @@ public class VentanaMapa extends JFrame implements KeyListener{
 		this.addWindowListener(new WindowAdapter() {
 		    public void windowClosing(WindowEvent e) {
 		        guardarDatosPartida();
-		        //getVeninicio().setVisible(true);  
+		        //getVeninicio().setVisible(true); 
+		        System.exit(0);
 		        VentanaMapa.this.setContinuar(false);
 		    }
 
@@ -1089,9 +1090,15 @@ public class VentanaMapa extends JFrame implements KeyListener{
 					}			
 					if((!(e instanceof Caparazon) || e.getHealth() < 1000) && !(e instanceof Puercoespin)) {
 						if((int)(Math.random()*(15-Jugador.getMejoravida())) != 0){
-							player.setVidarestante(player.getVidarestante()- e.getDaño());
-							player.setDanorecibido(player.getDanorecibido() + e.getDaño());
-							e.setArrayenuso(e.getAtaquenemigo());
+							if(e instanceof Slime) {
+								Hiloveneno h = new Hiloveneno(5, player);
+								h.start();
+							}
+							else {
+								player.setVidarestante(player.getVidarestante()- e.getDaño());
+								player.setDanorecibido(player.getDanorecibido() + e.getDaño());
+								e.setArrayenuso(e.getAtaquenemigo());
+							}
 						}
 						else {
 							e.setArrayenuso(e.getAtaquenemigo());
