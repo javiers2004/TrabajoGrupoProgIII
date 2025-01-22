@@ -34,16 +34,11 @@
 - **Memoria RAM**: 2GB o superior.
 - **Espacio en Disco**: 200MB para archivos del juego.
 
-## 📂 Estructura del Proyecto
-
-├── src │ ├── Main.java # Archivo principal que inicia el juego. │ ├── Jugador.java # Clase para gestionar las estadísticas del jugador. │ ├── VentanaMapa.java # Clase para manejar la ventana principal del juego. │ ├── VentanaAudio.java # Clase para gestionar la música de fondo. │ ├── VentanaInicio.java # Clase para el menú de inicio. │ ├── VentanaTienda.java # Clase para gestionar la tienda. │ ├── VentanaInventario.java # Clase para el inventario. │ └── BD.java # Clase para manejo de la base de datos. ├── resources │ ├── Imagenes/ # Directorio con sprites y mapas del juego. │ ├── Sonidos/ # Directorio con efectos de sonido y música. │ └── Datos/ # Archivos para guardar el progreso. └── README.md # Este archivo.
-
-
 ## ⚙️ Cómo Ejecutar el Proyecto
 
 1. **Clona el repositorio**:
    ```bash
-   git clone https://github.com/usuario/aventura-con-monstruos.git
-   cd aventura-con-monstruos
+   git clone https://github.com/javiers2004/TrabajoGrupoProgIII.git
+   cd TrabajoGrupoProgIII
 
    
